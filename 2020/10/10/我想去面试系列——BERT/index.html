@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<!-- 百度统计 -->
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?e31627579358722b9d300535c8206351";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Vodkazy">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="我想去面试系列——BERT">
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="想飞的小菜鸡">
+  <!--Type page-->
+  
+      <meta property="og:type" content="article">
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- Title -->
+  
+  <title>我想去面试系列——BERT - 想飞的小菜鸡</title>
+
+
+  <link rel="shortcut icon" href="/../images/icon.ico">
+  <!--font-awesome-->
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+
+<body>
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    
+    <div class="logo">
+      <a href="/" rel="home">
+        
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://cdn2.iconfinder.com/data/icons/weather-color-2/500/weather-01-128.png" alt="想飞的小菜鸡" height="60">
+        
+      </a>
+    </div>
+    <a class="header-name" href="/">
+            <span>想飞的小菜鸡</span>
+            的小窝
+        </a>
+    <!-- navbar -->
+    <nav class="navbar">
+      <!--  nav links -->
+      <div class="collapse">
+        <ul class="navbar-nav">
+          
+          
+            <li>
+              <a href="/.">
+                
+                  <i class="fa fa-home "></i>
+                
+                首页
+              </a>
+            </li>
+          
+            <li>
+              <a href="/archives">
+                
+                  <i class="fa fa-archive "></i>
+                
+                目录
+              </a>
+            </li>
+          
+            <li>
+              <a href="/project">
+                
+                  <i class="fa fa-folder-open "></i>
+                
+                代码库
+              </a>
+            </li>
+          
+            <li>
+              <a href="/photo">
+                
+                  <i class="fa fa-photo "></i>
+                
+                相册薄
+              </a>
+            </li>
+          
+            <li>
+              <a href="/lovetree">
+                
+                  <i class="fa fa-tree "></i>
+                
+                爱情树
+              </a>
+            </li>
+          
+            <li>
+              <a href="/guestbook">
+                
+                  <i class="fa fa-edit "></i>
+                
+                留言板
+              </a>
+            </li>
+          
+            <li>
+              <a href="/about">
+                
+                  <i class="fa fa-user "></i>
+                
+                关于我
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="button-wrap">
+      <button class="menu-toggle">Primary Menu</button>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            我想去面试系列——BERT
+            
+          </h1>
+         
+        </div>
+         <p class="a-posted-on">
+          2020-10-10
+          </p>
+        <!-- Post Main Content -->
+        <div class="entry-content">
+          <p>最近在准备一些面试的东西，正在以面试的角度去温习一些知识点，本文记录的是Bert相关的内容，主要包括基本原理、模型框架、其他变型、细节解读&amp;面试题。</p>
+<a id="more"></a>
+<!-- toc -->
+<ul>
+<li><a href="#基本原理">基本原理</a></li>
+<li><a href="#模型框架">模型框架</a></li>
+<li><a href="#实现">实现</a></li>
+<li><a href="#其他变形">其他变形</a></li>
+<li><a href="#细节-面试题搜集">细节 &amp; 面试题搜集</a></li>
+<li><a href="#参考文献">参考文献</a></li>
+</ul>
+<!-- tocstop -->
+<blockquote>
+<p>Bert的面试重点在transformer架构、multi-head attention、position embedding、<a href="https://vodkazy.cn/2020/10/14/我想去面试系列——BERT源码品读" target="_blank" rel="noopener">源码</a>。</p>
+</blockquote>
+<h2><span id="基本原理">基本原理</span></h2><p><a href="https://arxiv.org/pdf/1810.04805" target="_blank" rel="noopener">BERT：<strong>B</strong>idirectional <strong>E</strong>ncoder <strong>R</strong>epresentations from <strong>T</strong>ransformers</a>，整体是一个自编码语言模型（Autoencoder LM）。Bidirectional体现在每一个词向量的产生都同时依赖该单词左侧和右侧的语境信息。</p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="0.png" alt=""></p>
+<p>Bert设计了两个任务来联合预训练该模型，MLM+NSP，训练时候的loss是两个任务的loss sum：</p>
+<ul>
+<li><p>第一个任务是采用 MaskLM 的方式来训练语言模型，形式化为在给定单词上下文序列之后，球当前单词出现的条件概率的乘积。具体的，训练集中选择15%的mask单词，并以特殊标记<code>[MASK]</code>进行替换。为减少微调时对<code>[MASK]</code>标记的过拟合，数据生成器将不是始终用<code>[MASK]</code>替换所选单词，而是80%的时间里将单词替换成<code>[MASK]</code>，10%的时间里用随机单词替换，10%的时间保持单词不变。这样做的目的是使表示偏向实际观察到的单词。这么做的主要原因是：在后续微调任务中语句中并不会出现 [MASK] 标记，而且这么做的另一个好处是：预测一个词汇时，模型并不知道输入对应位置的词汇是否为正确的词汇（ 10% 概率），这就迫使模型更多地依赖于上下文信息去预测词汇，并且赋予了模型一定的纠错能力。上述提到了这样做的一个缺点，其实这样做还有另外一个缺点，就是每批次数据中只有 15% 的标记被预测，这意味着模型可能需要更多的预训练步骤来收敛。与去噪的自动编码器（<a href="https://www.researchgate.net/publication/221346269_Extracting_and_composing_robust_features_with_denoising_autoencoders" target="_blank" rel="noopener">Vincent et al., 2008</a>）不同的是，MLM任务只是让模型预测被遮蔽的标记，而不是要求模型重建整个输入。</p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="MLM.png" alt=""></p>
+</li>
+<li><p>第二个任务在双向语言模型的基础上额外增加了一个句子级别的连续性预测任务，即预测输入 BERT 的两段文本是否为连续的文本，引入这个任务可以更好地让模型学到连续的文本片段之间的关系。（RoBerta里说这项任务其实没啥用，起主要作用的还是MLM），这里的masking是静态生成的，每次mask的在训练之前都固定好了。具体的，当为每个预训练选择句子A和B时，50%的时间是选择紧跟着A的实际的下一个句子作为B，而另外50%的时间是随机采样语料库中其他的错误句子。最终的预训练模型在这个任务中达到了 97%-98% 的准确率。</p>
+</li>
+<li><p>对于预训练语料库，使用 BooksCorpus（800M 单词）（<a href="https://arxiv.org/abs/1506.06724v1" target="_blank" rel="noopener">Zhu et al., 2015</a>）和英语维基百科（2,500M 单词）。对于维基百科，只提取文本段落，而忽略列表、表格和标题。</p>
+<script type="math/tex; mode=display">BERT_{base}: L = 12, H = 768, A = 12, TotalParameters = 110M</script><script type="math/tex; mode=display">BERT_{large}: L = 24, H = 1024, A = 16, TotalParameters = 340M</script><p>这里$L$代表Transformer的层数，$H$代表隐藏层大小，$A$代表自注意力的头的个数。</p>
+</li>
+</ul>
+<h2><span id="模型框架">模型框架</span></h2><ul>
+<li><p>Encoder：Transformer Encoder。实际上，<strong>Transformer的Encoder（双向Transformer）就是Bert，Transformer的Decoder（单左向Transformer）稍微改了一点就是GPT。</strong>与 Transformer 本身的 Encoder 端相比，BERT 的 Transformer Encoder 端输入的向量表示多了 Segment Embeddings。</p>
+</li>
+<li><p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="3.png" alt=""></p>
+</li>
+<li><p>每一层的输入是token+seg+pos embedding，记为$e_0$，将$e_0$输入mult-head attention（注意这里的multi-head的输入是QKV，但是里面的每一个self-attention的输入是QW,KW,VW），然后将该输出与原输入<strong>残差求和ResidualConnection</strong>，<strong>层归一化LayerNormalization</strong>，得到$e_{mid}$，再将$e_{mid}$输入FFN再残差求和得到每一层最后的输出。这里残差机制的意义是可以使得模型更深，避免梯度爆炸和梯度消失的问题；所有层的FFN是参数共享的。</p>
+<script type="math/tex; mode=display">e_0 = Embedding_{token}(inputs) + Embedding_{seg}(inputs) + Embedding_{pos}(inputs)</script><script type="math/tex; mode=display">e_l = EncoderLayer(e_{l-1}, l \in [1.n])</script><p>其中 $e_i \in \mathbb{R}^{N \times d_{model}}$。EncoderLayer的架构是：</p>
+<script type="math/tex; mode=display">e_{mid} = LayerNorm(e_{in} + MultiHeadAttention(e_{in}))</script><script type="math/tex; mode=display">e_{out} = LayerNorm(e_{mid} + FFN(e_{mid}))</script></li>
+<li><p>Multi-Head-Attention：输入向量序列$e_{in} = (e_{in1},e_{in2},…,e_{inN}) \in \mathbb{R}^{N \times d_{model}}, Q = e_{in}, K = e_{in}, V = e_{in}$。</p>
+<script type="math/tex; mode=display">MultiHeadAttention(e_{in}) = MultiHead(Q, K, V) = Concat(head_1, ..., head_h)W^O</script><p>其中，多头输出$head_i = Attention(QW_i^Q, KW_i^K, VW_i^V)$，$Concat(head_1, …, head_h) \in \mathbb{R}^{N \times hd_v}$，可学习的参数矩阵$W_i^Q \in \mathbb{R}^{d_{model} \times d_k}$，$W_i^K \in \mathbb{R}^{d_{model} \times d_k}$，$W_i^V \in \mathbb{R}^{d_{model} \times d_v}$，$W_O \in \mathbb{R}^{hd_v \times d_{model}}$。</p>
+<p>使用缩放点积作为打分函数的自注意力机制：</p>
+<script type="math/tex; mode=display">Attention(QW_i^Q, KW_i^K, VW_i^K) = softmax(\frac{QW_i^Q(KW_i^K)^\top}{\sqrt{d_k}})VW_i^V</script></li>
+<li><p>前馈神经网络FFN：这里需要注意的是使用了<strong>GELU</strong>作为激活函数（这里的目的是对于学习率的 warm-up 策略，使用的激活函数不再是普通的 ReLu），这里参数矩阵$W_1 \in \mathbb{R}^{d_{model} \times d_{ff}}$，$W_2 \in \mathbb{R}^{d_{ff} \times d_{model}}$，$b_1 \in \mathbb{R}^{d_{ff}}$，$b_2 \in \mathbb{R}^{d_{model}}$。</p>
+<script type="math/tex; mode=display">FFN(e_{mid}) = GELU(e_{mid}W_1 + b_1)W_2 + b_2</script></li>
+<li><p>下游任务：句子级别：Sentence Pair Classification（取<code>[CLS]</code>后接全连接层+sigmoid）、Single Sentence Classification（取<code>[CLS]</code>后接全连接层+softmax）；单词级别：Question Answering（取特定区间的token后接其他NN）、Single Sentence Tagging（序列标注多分类，对于每一个token有几个 label 就连接到几个全连接层，再接softmax，然后遍历特定区间的所有token）。分析证实，在QA任务上，使用最高层的<strong>[CLS]</strong>效果更好；在序列标注任务上，使用<strong>Attention</strong>方法集成多层词向量效果最好；在小数据集上BiLSTM要比BERT要好。这里存在个疑问，SQuAD上预测起始/结束位置时，在具体实现的时候是两个独立的条件概率呢，还是联合概率呢？</p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="4.png" alt=""></p>
+</li>
+</ul>
+<h2><span id="实现">实现</span></h2><p>利用huggingface的transformers包。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> BertTokenizer, BertModel</span><br><span class="line"><span class="comment"># BertTokenizer: 分词工具</span></span><br><span class="line"><span class="comment"># BertModel: BERT模型</span></span><br><span class="line">tokenizer = BertTokenizer.from_pretrained(<span class="string">"bert-base-uncased"</span>)</span><br><span class="line">model = BertModel.from_pretrained(<span class="string">"bert-base-uncased"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># inputs = tokenizer("This is sentence 1.", return_tensors="pt")</span></span><br><span class="line">inputs = tokenizer(<span class="string">"This is sentence 1."</span>, <span class="string">"This is sentence 2."</span>, return_tensors=<span class="string">"pt"</span>) <span class="comment"># 返回&#123;'input_ids':tensor([[]]), 'token_type_ids':tensor([[]]), 'attention_mask':tensor([[]])&#125;</span></span><br><span class="line">tokenizer.decode(inputs[<span class="string">"input_ids"</span>].data.cpu().numpy().reshape(<span class="number">-1</span>)) <span class="comment"># 可反向还原句子（OOV单词会被替换为[UNK]）</span></span><br><span class="line">sequence_outputs, pooled_outputs = model(**inputs) <span class="comment">#前者是token embedding（1*len_token*hidden_size）,后者是segment embedding（1*len_token），对[CLS]做了池化之后的结果</span></span><br><span class="line"><span class="comment"># 视频讲师说他基本上不用pooled_outputs来当整个句子的表示，因为不怎么能吸收整个句子的语义</span></span><br><span class="line"><span class="comment"># 他提供的trick是，所有向量取平均</span></span><br><span class="line">sen_vec = sequence_outputs.mean(<span class="number">1</span>)</span><br><span class="line">cos_similarity = (sen_vec * sen_vec).sum(<span class="number">-1</span>) / torch.sqrt((sen_vec * sen_vec).sum(<span class="number">-1</span>)) <span class="comment"># cosine similarity</span></span><br></pre></td></tr></table></figure>
+<h2><span id="其他变形">其他变形</span></h2><p><strong><a href="https://arxiv.org/pdf/1906.08237.pdf" target="_blank" rel="noopener">XLNet</a></strong>，是BERT之后的一个自回归（Auto Regression，AR）语言模型。可以理解为BERT是一个自编码（Auto Encoder，AE）模型，将输入句子的某些单词 mask 掉，然后再通过 BERT 还原数据。而XLNet这类自回归语言模型则是不断地使用当前得到的信息预测下一个输出。AR 的方法可以更好地学习 token 之间的依赖关系但是它只能利用单向信息（纯前向或者纯后向），而 AE 的方法可以更好地利用深层的双向信息。因此 XLNet 希望将 AR 和 AE 两种方法的优点结合起来，XLNet 使用了 <strong>Permutation Language Model (PLM)</strong>实现这一目的。目的就是为了解决BERT的[MASK]在训练和推理中不一致的问题。</p>
+<ul>
+<li>使用排列语言模型，该模型不再对传统的AR模型的序列的值按顺序进行建模，而是最大化所有可能的序列的因式分解顺序的期望对数似然。Permutation 指排列组合的意思，XLNet 将句子中的 token 随机排列，然后采用 AR 的方式预测末尾的几个 token。这样一来，在预测 token 的时候就可以同时利用该 token 双向的信息，并且能学到 token 间的依赖。XLNet 中通过 Attention Mask 实现 PLM，而无需真正修改句子 token 的顺序。</li>
+<li>采用基于目标感知特征的双流自注意力。无论预测目标的位置在哪里，因式分解后得到的所有情况都是一样的，并且transformer的权重对于不同的情况是一样的，因此无论目标位置怎么变都能得到相同的分布结果。为了解决这个问题，论文中提出来新的分布计算方法Two-Stream Self-Attention，来实现目标位置感知。这个需要看原论文。<ul>
+<li>如果目标是预测$x_{z_t}，g_{\theta}(x_{z_{&lt;t}}，z_t)$那么只能有其位置信息$z_t$而不能包含内容信息$x_{z_t}$</li>
+<li>如果目标是预测其他tokens即$x_{z_j}， j&gt;t$，那么应该包含$x_{z_t}$的内容信息这样才有完整的上下文信息</li>
+</ul>
+</li>
+<li>作者还将transformer-xl的两个最重要的技术点应用了进来，即<strong>相对位置编码</strong>与<strong>片段循环机制</strong>。transformer-xl的提出主要是为了解决超长序列的依赖问题，对于普通的transformer由于有一个最长序列的超参数控制其长度，对于特别长的序列就会导致丢失一些信息，transformer-xl就能解决这个问题。对于超长文本，如果采用transformer-xl，首先取第一个段进行计算，然后把得到的结果的隐藏层的值进行缓存，第二个段计算的过程中，把缓存的值拼接起来再进行计算。该机制不但能保留长依赖关系还能加快训练，因为每一个前置片段都保留了下来，不需要再重新计算，在transformer-xl的论文中，经过试验其速度比transformer快了1800倍。另一方面BERT的position embedding采用的是绝对位置编码，但是绝对位置编码在transformer-xl中有一个致命的问题，因为没法区分到底是哪一个片段里的，这就导致了一些位置信息的损失，这里被替换为了transformer-xl中的相对位置编码（相对距离）。</li>
+<li>去除了NSP任务，作者发现该任务对结果的提升并没有太大的影响，主要原因是NSP其实包含了两个子任务，主题预测与关系一致性预测，但是主题预测相比于关系一致性预测简单太多了。</li>
+</ul>
+<p><strong><a href="https://arxiv.org/pdf/1905.07129.pdf" target="_blank" rel="noopener">Ernie清华</a></strong>，提出用知识图谱来增强预训练模型的能力，其实就是在与训练的时候在BERT的基础上加入一个实体对齐<strong>Entity Alignment</strong>任务。模型有两个encoder，T-encoder和K-encoder，其实这里的K-encoder只有在预训练的时候有作用，在之后的fine-tuning阶段只要使用T-encoder就可以了，所以这里的重要就是引入了实体对齐这个任务而已。本文提出了随机mask tokens-entity中的entity，然后去预测该位置对应的entity，本质上和MLM（mask language model）任务一致，都属于去噪自编码。KG的引入使得在一些和知识图谱相关的上游任务中，该模型的表现要优于BERT。</p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="ernie_thu.png" alt=""></p>
+<p><strong><a href="https://arxiv.org/pdf/1904.09223v1.pdf" target="_blank" rel="noopener">Ernie百度</a></strong>，也是引入了知识信息， 但是做法与清华的Ernie完全不一样，这里主要的改变是针对bert中的MLM任务做了一些改进。在bert中只是mask了单个token，但是在语言中，很多时候都是以短语或者实体存在的，如果不考虑短语或者实体中词之间的相关性，而将所有的词独立开来，不能很好的表达句法，语义等信息，因此本文引入了三种mask的方式，分别对token，entity，phrase进行mask。除此之外，本论文中还引入了对话语料，丰富语料的来源，并针对对话语料，给出了一个和NSP相似的任务<strong>Dialogue Language Model (DLM)</strong>。</p>
+<p><strong><a href="https://arxiv.org/pdf/1907.11692.pdf" target="_blank" rel="noopener">RoBERTa</a></strong>，改进版Bert，是目前最好用的，它在模型层面没有改变原BERT，改变的只是预训练的方法。</p>
+<ul>
+<li>更大的batch size，加大训练数据16GB-&gt;160GB，训练时间更长。原本的BERTbase 的batch size是256，训练1M个steps。RoBERTa的batch size为8k。为什么要用更大的batch size呢？（除了因为他们有钱玩得起外）作者借鉴了在机器翻译中，用更大的batch size配合更大学习率能提升模型优化速率和模型性能的现象，并且也用实验证明了确实Bert还能用更大的batch size。</li>
+<li>不需要Next Sentence Prediction Loss（同时也发现了segment embedding其实作用不大）RoBERTa去除了NSP，每次输入连续的多个句子，直到最大长度512（可以跨文章）。这种训练方式叫做（FULL - SENTENCES），而原来的Bert每次只输入两个句子。实验表明在MNLI这种推断句子关系的任务上RoBERTa也能有更好性能。</li>
+<li>使用更长的训练sequence。</li>
+<li>dynamic masking。原来的BERT采用的是<strong>static masking</strong>，也就是在dataloader创造预训练数据的时候就已经决定了要mask哪个。整个训练过程，这15%的Tokens一旦被选择就不再改变，也就是说从一开始随机选择了这15%的Tokens，之后的N个epoch里都不再改变了。而RoBERTa一开始把预训练的数据复制10份，每一份都随机选择15%的Tokens进行Masking，也就是说，同样的一句话有10种不同的mask方式。然后每份数据都训练N/10个epoch。这就相当于在这N个epoch的训练中，每个序列的被mask的tokens是会变化的。这就叫做动态Masking。</li>
+</ul>
+<p><strong><a href="https://openreview.net/pdf?id=H1eA7AEtvS" target="_blank" rel="noopener">Albert</a></strong>，新的轻量版的BERT，参数比BERT少了18倍。</p>
+<ul>
+<li>对Embedding因式分解（Factorized embedding parameterization）。ALBERT的作者注意到，对于BERT、XLNet和RoBERTa，word embedding的维度(<code>E</code>)与encoder输出的hidden embedding维度(<code>H</code>)是一样的都是768，<code>H==E</code>，这就意味着二者表达含义的是同等重要的。然而实际上word embedding是用来学习上下文独立表示的，hidden embedding是为了学习上下文依赖表示的。理论上来说hidden embedding的表述包含的信息应该更多一些，因此应该让 <code>H&gt;&gt;E</code>。在NLP任务中，通常词典都会很大，embedding matrix的大小是 <code>E×V</code>，如果和BERT一样让 <code>H==E</code>，那么embedding matrix的参数量会很大，并且反向传播的过程中，更新的内容也比较稀疏。结合上述说的两个点，ALBERT采用了一种因式分解的方法来降低参数量。首先把one-hot向量映射到一个低维度的空间，大小为<code>E</code>，然后再映射到一个高维度的空间，说白了就是先经过一个维度很低的embedding matrix，然后再经过一个高维度matrix把维度变到隐藏层的空间内，从而把参数量从<code>O(V×H)</code>降低到了<code>O(V×E+E×H)</code>，当<code>E&lt;&lt;H</code>时参数量减少的很明显。</li>
+<li>跨层的参数共享（Cross-layer parameter sharing）。Albert的核心思想是共享层与层之间的参数，全连接层与attention层都进行参数共享，也就是说共享encoder内的所有参数，每一层的hidden_size变大，所有24层的transformer的参数都用同一个。虽说看起来模型更小更深了，但是实际inference的时候还是会比bert慢的，因为虽然参数共享了，但推理的时候还是得过相同的N层。实际上是通过参数共享的方式降低了内存，预测阶段还是需要和BERT一样的时间，如果采用了xxlarge版本的ALBERT，那实际上预测速度会更慢。</li>
+<li>把NSP任务换成了sentence ordering objective。BERT的NSP任务实际上是一个二分类，训练数据的正样本是通过采样同一个文档中的两个连续的句子，而负样本是通过采用两个不同的文档的句子。该任务主要是希望能提高下游任务的效果，例如NLI自然语言推理任务。但是后续的研究发现该任务效果并不好，主要原因是因为其任务过于简单。NSP其实包含了两个子任务，主题预测与关系一致性预测，但是主题预测相比于关系一致性预测简单太多了，并且在MLM任务中其实也有类型的效果。在ALBERT中，为了只保留一致性任务去除主题识别的影响，提出了一个新的任务 <strong>sentence-order prediction（SOP）</strong>，SOP的正样本和NSP的获取方式是一样的，负样本把正样本的顺序反转即可。SOP因为实在同一个文档中选的，其只关注句子的顺序并没有主题方面的影响。并且SOP能解决NSP的任务，但是NSP并不能解决SOP的任务。</li>
+<li>ALBERT的作者还发现一个很有意思的点，ALBERT在训练了100w步之后，模型依旧没有过拟合，于是乎作者果断移除了dropout，没想到对下游任务的效果竟然有一定的提升。这也是业界第一次发现dropout对大规模的预训练模型会造成负面影响。</li>
+</ul>
+<p><strong><a href="https://openreview.net/pdf?id=r1xMH1BtvB" target="_blank" rel="noopener">Electra</a></strong>，最主要的贡献是提出了新的预训练任务和框架，把生成式的Masked language model(MLM)预训练任务改成了判别式的Replaced token detection(RTD)任务，判断当前token是否被语言模型替换过。</p>
+<ul>
+<li>提出了 <strong>Replaced Token Detection (RTD)</strong> 预训练任务，判断每个词是否是被替换过的词。</li>
+<li>ELECTRA 由两个部分组成，第一部分是生成器 (Generator)，生成器将句子中的部分单词进行替换。第二部分是判别器 (Discriminator)，判别器用于判断一个句子中每一个单词是否被替换了，训练的过程会预测所有的单词，比 BERT 更高效。</li>
+<li>使用GAN的训练思路，对于一段文本，ELECTRA 使用了 MLM 对生成器进行训练，也是随机 [mask] 部分单词，然后用Generator预测的结果替换该单词；Discriminator的任务是预测每个位置的单词是来自于原文还是来自Generator的文本。该模型的主观思想是，生成mask的时候有些位置很好学，但是有些位置的东西很难学，那么模型更有机会学到一些很难的场景，能力更强。</li>
+<li>因为由于这种对抗生成的方式不同于GAN可以梯度连续从Generator传到Discriminator，Electra的梯度不能从Generator到Discriminator，所以只能综合两者的损失值对Generator进行损失传递。ELECTRA 总体的损失函数由生成器的损失函数 LMLM 和判别器的损失函数 LDisc 组成。生成器的训练损失函数仍然是 MLM 损失函数，主要原因是生成器将单词进行替换，而单词是离散的，导致判别器到生成器的梯度中断了。具体来说是利用Generator loss对Generator进行传导，用Generator loss + Discriminator loss对Discriminator进行传导。</li>
+</ul>
+<p><strong><a href="https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf" target="_blank" rel="noopener">OpenAI-GPT</a></strong>、<strong><a href="https://arxiv.org/pdf/1802.05365.pdf" target="_blank" rel="noopener">ELMo</a></strong>的架构和Bert几乎是一样的，都是输入之后用特征提取器提取特征，然后输出。</p>
+<p>ELMo和OpenAI GPT的思想其实非常非常简单，就是用海量的无标注数据学习语言模型，在学习语言模型的过程中自然而然的就学到了上下文的语义关系。它们都是来学习一个语言模型，前者使用的是LSTM而后者使用Transformer，在进行下游任务处理的时候也有所不同，ELMo是把它当成特征。拿分类任务来说，输入一个句子，ELMo用LSTM把它扫一次，这样就可以得到每个词的表示，这个表示是考虑上下文的，因此”He deposited his money in this bank”和”His soldiers were arrayed along the river bank”中的两个bank的向量是不同的。下游任务用这些向量来做分类，它会增加一些网络层，但是ELMo语言模型的参数是固定的。而OpenAI GPT不同，它直接用特定任务来Fine-Tuning Transformer的参数。因为用特定任务的数据来调整Transformer的参数，这样它更可能学习到与这个任务特定的上下文语义关系，因此效果也更好。</p>
+<p>差别是，GPT只用了前序序列没用后续序列（Bert发现了这点于是用了MLM或者是CBOW），ELMo用的是BiLSTM（Bert采用了更强的特征提取器Transformer）。Bert相对于其之前工作word2vec、GPT、ELMo的优势在于：</p>
+<ul>
+<li>相比于<strong>word2vec</strong>包含了语境信息；</li>
+<li>相比于<strong>ELMo</strong>速度更快，并行程度更高，ELMo 使用独立训练的从左到右和从右到左的 LSTM 的连接来为下游任务生成特征；</li>
+<li>相比于<strong>GPT</strong>包含了双向的语境信息。BERT Transformer 使用的是双向的自注意力，而 GPT Transformer 使用的是受限的自注意力，每个标记只能关注其左边的语境。</li>
+<li>更多的训练语料，GPT 是在 BooksCorpus 上训练出来的然而 BERT 是在 BooksCorpus和 Wikipedia上训练出来的。GPT 仅在微调时使用<code>[SEP]</code>和<code>[CLS]</code> 而BERT 在预训练时使用 <code>[SEP]</code>， <code>[CLS]</code> 和 <code>Segment embedding</code>。</li>
+</ul>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="2.png" alt=""></p>
+<p>总体来说，基于Transformer的模型统治了NLP，主要原因有：①更大规模的预训练数据搭配更大的模型和更强大的算力②一些局部的小技巧（数据预处理、masking、训练任务等）③模型的压缩与蒸馏、加速与并行。缺点就是在少训练数据时容易过拟合。</p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="summary.png" alt=""></p>
+<h2><span id="细节-amp-面试题搜集">细节 &amp; 面试题搜集</span></h2><p>后续更新…</p>
+<h2><span id="参考文献">参考文献</span></h2><ol>
+<li>Pre-training of Deep Bidirectional Transformers for Language Understanding：<a href="https://arxiv.org/abs/1810.04805" target="_blank" rel="noopener">https://arxiv.org/abs/1810.04805</a></li>
+<li>BERT 模型详解：<a href="http://fancyerii.github.io/2019/03/09/bert-theory/" target="_blank" rel="noopener">http://fancyerii.github.io/2019/03/09/bert-theory/</a></li>
+<li>七月在线NLP褚博士：BERT模型深度修炼指南：<a href="http://www.julyedu.com/video/play/264/8448" target="_blank" rel="noopener">http://www.julyedu.com/video/play/264/8448</a></li>
+<li>NewBeeNLP关于BERT，面试官们都怎么问：<a href="http://mp.weixin.qq.com/s?__biz=MzIxMzkwNjM2NQ==&amp;mid=2247484380&amp;idx=1&amp;sn=55fccbb2565520bf747fa35359271673&amp;chksm=97aee50ea0d96c180ccf9177c653e78097ee7a9f18a3fb02811c128548cb585b427887d0dc8f&amp;mpshare=1&amp;scene=23&amp;srcid=1010Pr5bZpA0VDQksaXrjOif&amp;sharer_sharetime=1602343574372&amp;sharer_shareid=ac5afd09812a03f906a0b77a8c423be9#rd" target="_blank" rel="noopener">https://mp.weixin.qq.com</a></li>
+<li>一文读懂BERT（原理篇）：<a href="https://blog.csdn.net/jiaowoshouzi/article/details/89073944" target="_blank" rel="noopener">https://blog.csdn.net/jiaowoshouzi/article/details/89073944</a></li>
+<li>The Illustrated Transformer：<a href="http://jalammar.github.io/illustrated-transformer/" target="_blank" rel="noopener">http://jalammar.github.io/illustrated-transformer/</a></li>
+<li>A Visual Guide to Using BERT for the First Time：<a href="http://jalammar.github.io/a-visual-guide-to-using-bert-for-the-first-time/" target="_blank" rel="noopener">http://jalammar.github.io/a-visual-guide-to-using-bert-for-the-first-time/</a></li>
+<li>XLNet详解：<a href="https://zhuanlan.zhihu.com/p/110204573" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/110204573</a></li>
+<li>XLNet详解：<a href="https://www.jianshu.com/p/2b5b368cbaa0" target="_blank" rel="noopener">https://www.jianshu.com/p/2b5b368cbaa0</a></li>
+<li>超细节的BERT/Transformer知识点：<a href="https://zhuanlan.zhihu.com/p/132554155" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/132554155</a></li>
+<li>一文揭开ALBERT的神秘面纱：<a href="https://blog.csdn.net/u012526436/article/details/101924049" target="_blank" rel="noopener">https://blog.csdn.net/u012526436/article/details/101924049</a></li>
+<li>BERT知识点总结：<a href="https://blog.csdn.net/XiangJiaoJun_/article/details/107129808" target="_blank" rel="noopener">https://blog.csdn.net/XiangJiaoJun_/article/details/107129808</a></li>
+<li>后BERT时代：15个预训练模型对比分析与关键点探索：<a href="https://www.jiqizhixin.com/articles/2019-08-26-16" target="_blank" rel="noopener">https://www.jiqizhixin.com/articles/2019-08-26-16</a></li>
+<li>BERT模型详解：<a href="http://fancyerii.github.io/2019/03/09/bert-theory/" target="_blank" rel="noopener">http://fancyerii.github.io/2019/03/09/bert-theory/</a></li>
+</ol>
+<blockquote>
+<p>本文来源：「想飞的小菜鸡」的个人网站  <a href="https://vodkazy.cn" target="_blank" rel="noopener">vodkazy.cn</a></p>
+<p>版权声明：本文为「想飞的小菜鸡」的原创文章，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请附上原文出处链接及本声明。</p>
+<p>原文链接：<a href="https://vodkazy.cn/2020/10/10/我想去面试系列——BERT" target="_blank" rel="noopener">https://vodkazy.cn/2020/10/10/我想去面试系列——BERT</a></p>
+</blockquote>
+
+        </div>
+      </article>
+    </div>
+
+	<!-- 打赏 -->
+    <div class="reward">
+	<div class="reward-button">赏 <span class="reward-code">
+		<span class="alipay-code"> <img class="alipay-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/alipay.webp"><b>支付宝打赏</b> </span> 
+		<span class="wechat-code"> <img class="wechat-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/weixin.webp"><b>微信打赏</b> </span> </span>
+	</div>
+	<p class="reward-notice">如果文章对你有帮助，欢迎点击上方按钮打赏作者，更多文章请访问<a href="https://vodkazy.cn" style="color:blue">想飞的小菜鸡</a></p>
+	    <style>
+		*,*:before,*:after {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			-ms-box-sizing: border-box;
+			box-sizing: border-box
+		}
+
+		.reward {
+			padding: 5px 0
+		}
+
+		.reward .reward-notice {
+			font-size: 14px;
+			line-height: 14px;
+			margin: 15px auto;
+			text-align: center
+		}
+
+		.reward .reward-button {
+			font-size: 28px;
+			line-height: 58px;
+			position: relative;
+			display: block;
+			width: 60px;
+			height: 60px;
+			margin: 0 auto;
+			padding: 0;
+			-webkit-user-select: none;
+			text-align: center;
+			vertical-align: middle;
+			color: #fff;
+			border: 1px solid #f1b60e;
+			border-radius: 50%;
+			background: #fccd60;
+			background: -webkit-gradient(linear,left top,left bottom,color-stop(0,#fccd60),color-stop(100%,#fbae12),color-stop(100%,#2989d8),color-stop(100%,#207cca));
+			background: -webkit-linear-gradient(top,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%);
+			background: linear-gradient(to bottom,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%)
+		}
+
+		.reward .reward-code {
+			position: absolute;
+			top: -220px;
+			left: 50%;
+			display: none;
+			width: 350px;
+			height: 200px;
+			margin-left: -175px;
+			padding: 15px;
+			border: 1px solid #e6e6e6;
+			background: #fff;
+			box-shadow: 0 1px 1px 1px #efefef
+		}
+
+		.reward .reward-button:hover .reward-code {
+			display: block
+		}
+
+		.reward .reward-code span {
+			display: inline-block;
+			width: 150px;
+			height: 150px
+		}
+
+		.reward .reward-code span.alipay-code {
+			float: left
+		}
+
+		.reward .reward-code span.alipay-code a {
+			padding: 0
+		}
+
+		.reward .reward-code span.wechat-code {
+			float: right
+		}
+
+		.reward .reward-code img {
+			display: inline-block;
+			float: left;
+			width: 150px;
+			height: 150px;
+			margin: 0 auto;
+			border: 0
+		}
+
+		.reward .reward-code b {
+			font-size: 14px;
+			line-height: 26px;
+			display: block;
+			margin: 0;
+			text-align: center;
+			color: #666
+		}
+
+		.reward .reward-code b.notice {
+			line-height: 2rem;
+			margin-top: -1rem;
+			color: #999
+		}
+
+		.reward .reward-code:after,.reward .reward-code:before {
+			position: absolute;
+			content: '';
+			border: 10px solid transparent
+		}
+
+		.reward .reward-code:after {
+			bottom: -19px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #fff
+		}
+
+		.reward .reward-code:before {
+			bottom: -20px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #e6e6e6
+		}
+    </style>
+
+
+    <!-- Pre or Next -->
+    
+	<div class="container">
+           <ul class="pager">
+    	     
+      	     <li class="previous">
+              <a href="/2020/10/14/我想去面试系列——BERT源码品读/" rel="prev">上一篇</a>
+             </li>
+           
+           
+              <li class="next">
+              <a href="/2020/10/06/《百面机器学习》阅读笔记/" rel="prev">下一篇</a>
+            </li>
+           
+          </ul>
+       </div>
+   
+
+    <!-- Valine无后端评论系统 -->   
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+		    el: '#vcomments' ,
+		    appId: 'lH3VkMCd4MHaKtr2n2SRWdoi-MdYXbMMI',
+		    appKey: '5aMXSY7b4KwnzfgpzLA0hPLv',
+		    notify:true, 
+		    verify:false, 
+		    placeholder: '填写正确的邮箱和昵称才能收到我的回复哦       ٩( ^o^ )و  ' ,
+		    avatar: 'retro'
+		});
+    </script>
+    <!-- Valine无后端评论系统 -->  
+
+  </div>
+</div>
+</div>
+
+  <!-- Footer -->
+  <!-- Footer -->
+<footer class="site-info">
+  <p>
+    <span>想飞的小菜鸡 &copy; 2021</span>
+    
+      <span class="split">|</span>
+      <span>照耀的Blog</span>
+    
+  </p>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    本站访客数<span id="busuanzi_value_site_uv"></span>人次
+    本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</footer>
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+<script src="/js/app.js"></script>
+
+
+ 
+  <!-- 使用 aotuload.js 引入看板娘 -->    
+  <!-- //<script src="/js/assets/jquery.min.js?v=3.3.1"></script> -->   
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  <!-- //<script src="/js/assets/jquery-ui.min.js?v=1.12.1"></script>   --> 
+  <script src="https://cdn.jsdelivr.net/npm/jquery-ui-dist@1.12.1/jquery-ui.min.js"></script>
+  <script src="/js/assets/autoload.js?v=1.4.2"></script>
+  <!-- //<script src="https://live2d-cdn.fghrsh.net/assets/1.4.2/autoload.js></script> -->   
+   
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var i=n.imageLazyLoadSetting.isSPA,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){i&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,e,a=0;a<r.length;a++)t=r[a],e=void 0,0<=(e=t.getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},n.src=i}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+
+</html>

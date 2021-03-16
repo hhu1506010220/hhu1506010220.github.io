@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<!-- 百度统计 -->
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?e31627579358722b9d300535c8206351";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Vodkazy">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="码一波题单+HDOJ题目分类">
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="想飞的小菜鸡">
+  <!--Type page-->
+  
+      <meta property="og:type" content="article">
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- Title -->
+  
+  <title>码一波题单+HDOJ题目分类 - 想飞的小菜鸡</title>
+
+
+  <link rel="shortcut icon" href="/../images/icon.ico">
+  <!--font-awesome-->
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+
+<body>
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    
+    <div class="logo">
+      <a href="/" rel="home">
+        
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://cdn2.iconfinder.com/data/icons/weather-color-2/500/weather-01-128.png" alt="想飞的小菜鸡" height="60">
+        
+      </a>
+    </div>
+    <a class="header-name" href="/">
+            <span>想飞的小菜鸡</span>
+            的小窝
+        </a>
+    <!-- navbar -->
+    <nav class="navbar">
+      <!--  nav links -->
+      <div class="collapse">
+        <ul class="navbar-nav">
+          
+          
+            <li>
+              <a href="/.">
+                
+                  <i class="fa fa-home "></i>
+                
+                首页
+              </a>
+            </li>
+          
+            <li>
+              <a href="/archives">
+                
+                  <i class="fa fa-archive "></i>
+                
+                目录
+              </a>
+            </li>
+          
+            <li>
+              <a href="/project">
+                
+                  <i class="fa fa-folder-open "></i>
+                
+                代码库
+              </a>
+            </li>
+          
+            <li>
+              <a href="/photo">
+                
+                  <i class="fa fa-photo "></i>
+                
+                相册薄
+              </a>
+            </li>
+          
+            <li>
+              <a href="/lovetree">
+                
+                  <i class="fa fa-tree "></i>
+                
+                爱情树
+              </a>
+            </li>
+          
+            <li>
+              <a href="/guestbook">
+                
+                  <i class="fa fa-edit "></i>
+                
+                留言板
+              </a>
+            </li>
+          
+            <li>
+              <a href="/about">
+                
+                  <i class="fa fa-user "></i>
+                
+                关于我
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="button-wrap">
+      <button class="menu-toggle">Primary Menu</button>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            码一波题单+HDOJ题目分类
+            
+          </h1>
+         
+        </div>
+         <p class="a-posted-on">
+          2016-08-03
+          </p>
+        <!-- Post Main Content -->
+        <div class="entry-content">
+          <p>初期:<br>一.基本算法:<br>     (1)枚举. (poj1753,poj2965)<br>     (2)贪心(poj1328,poj2109,poj2586)<br>     (3)递归和分治法.<br>     (4)递推.<br>     (5)构造法.(poj3295)<br>     (6)模拟法.(poj1068,poj2632,poj1573,poj2993,poj2996)<br>二.图算法:<br>     (1)图的深度优先遍历和广度优先遍历.<br>     (2)最短路径算法(dijkstra,bellman-ford,floyd,heap+dijkstra)<br>        (poj1860,poj3259,poj1062,poj2253,poj1125,poj2240)<br>     (3)最小生成树算法(prim,kruskal)<br>        (poj1789,poj2485,poj1258,poj3026)<br>     (4)拓扑排序 (poj1094)<br>     (5)二分图的最大匹配 (匈牙利算法) (poj3041,poj3020)<br>     (6)最大流的增广路算法(KM算法). (poj1459,poj3436)<br>三.数据结构.<br>     (1)串 (poj1035,poj3080,poj1936)<br>     (2)排序(快排、归并排(与逆序数有关)、堆排) (poj2388,poj2299)<br>     (3)简单并查集的应用.<br>     (4)哈希表和二分查找等高效查找法(数的Hash,串的Hash)<br>        (poj3349,poj3274,POJ2151,poj1840,poj2002,poj2503)<br>     (5)哈夫曼树(poj3253)<br>     (6)堆<br>     (7)trie树(静态建树、动态建树) (poj2513)<br>四.简单搜索<br>     (1)深度优先搜索 (poj2488,poj3083,poj3009,poj1321,poj2251)<br>     (2)广度优先搜索(poj3278,poj1426,poj3126,poj3087.poj3414)<br>     (3)简单搜索技巧和剪枝(poj2531,poj1416,poj2676,1129)<br>五.动态规划<br>     (1)背包问题. (poj1837,poj1276)<br>     (2)型如下表的简单DP(可参考lrj的书 page149):<br>       1.E[j]=opt{D+w(i,j)} (poj3267,poj1836,poj1260,poj2533)<br>       2.E[i,j]=opt{D[i-1,j]+xi,D[i,j-1]+yj,D[i-1][j-1]+zij} (最长公共子序列)<br>         (poj3176,poj1080,poj1159)<br>       3.C[i,j]=w[i,j]+opt{C[i,k-1]+C[k,j]}.(最优二分检索树问题)<br>六.数学<br>     (1)组合数学:<br>        1.加法原理和乘法原理.<br>        2.排列组合.<br>        3.递推关系.<br>          (POJ3252,poj1850,poj1019,poj1942)<br>     (2)数论.<br>        1.素数与整除问题<br>        2.进制位.<br>        3.同余模运算.<br>          (poj2635, poj3292,poj1845,poj2115)<br>     (3)计算方法.<br>        1.二分法求解单调函数相关知识.(poj3273,poj3258,poj1905,poj3122)<br>七.计算几何学.<br>     (1)几何公式.<br>     (2)叉积和点积的运用(如线段相交的判定,点到线段的距离等). (poj2031,poj1039)<br>     (3)多边型的简单算法(求面积)和相关判定(点在多边型内,多边型是否相交)<br>         (poj1408,poj1584)<br>     (4)凸包. (poj2187,poj1113)<br>中级:<br>一.基本算法:<br>     (1)C++的标准模版库的应用. (poj3096,poj3007)<br>     (2)较为复杂的模拟题的训练(poj3393,poj1472,poj3371,poj1027,poj2706)<br>二.图算法:<br>     (1)差分约束系统的建立和求解. (poj1201,poj2983)<br>     (2)最小费用最大流(poj2516,poj2516,poj2195)<br>     (3)双连通分量(poj2942)<br>     (4)强连通分支及其缩点.(poj2186)<br>     (5)图的割边和割点(poj3352)<br>     (6)最小割模型、网络流规约(poj3308, )<br>三.数据结构.<br>     (1)线段树. (poj2528,poj2828,poj2777,poj2886,poj2750)<br>     (2)静态二叉检索树. (poj2482,poj2352)<br>     (3)树状树组(poj1195,poj3321)<br>     (4)RMQ. (poj3264,poj3368)<br>     (5)并查集的高级应用. (poj1703,2492)<br>     (6)KMP算法. (poj1961,poj2406)<br>四.搜索<br>     (1)最优化剪枝和可行性剪枝<br>     (2)搜索的技巧和优化 (poj3411,poj1724)<br>     (3)记忆化搜索(poj3373,poj1691)</p>
+<p>五.动态规划<br>     (1)较为复杂的动态规划(如动态规划解特别的施行商问题等)<br>         (poj1191,poj1054,poj3280,poj2029,poj2948,poj1925,poj3034)<br>     (2)记录状态的动态规划. (POJ3254,poj2411,poj1185)<br>     (3)树型动态规划(poj2057,poj1947,poj2486,poj3140)<br>六.数学<br>     (1)组合数学:<br>        1.容斥原理.<br>        2.抽屉原理.<br>        3.置换群与Polya定理(poj1286,poj2409,poj3270,poj1026).<br>        4.递推关系和母函数.</p>
+<pre><code> (2)数学.
+    1.高斯消元法(poj2947,poj1487, poj2065,poj1166,poj1222)
+    2.概率问题. (poj3071,poj3440)
+    3.GCD、扩展的欧几里德(中国剩余定理) (poj3101)
+ (3)计算方法.
+    1.0/1分数规划. (poj2976)
+    2.三分法求解单峰(单谷)的极值.
+    3.矩阵法(poj3150,poj3422,poj3070)
+    4.迭代逼近(poj3301)
+ (4)随机化算法(poj3318,poj2454)
+ (5)杂题.
+     (poj1870,poj3296,poj3286,poj1095)
+</code></pre><p>七.计算几何学.<br>        (1)坐标离散化.<br>        (2)扫描线算法(例如求矩形的面积和周长并,常和线段树或堆一起使用).<br>            (poj1765,poj1177,poj1151,poj3277,poj2280,poj3004)<br>        (3)多边形的内核(半平面交)(poj3130,poj3335)<br>        (4)几何工具的综合应用.(poj1819,poj1066,poj2043,poj3227,poj2165,poj3429)<br>高级:<br>一.基本算法要求:<br>      (1)代码快速写成,精简但不失风格<br>          (poj2525,poj1684,poj1421,poj1048,poj2050,poj3306)<br>      (2)保证正确性和高效性. poj3434<br>二.图算法:<br>      (1)度限制最小生成树和第K最短路. (poj1639)<br>      (2)最短路,最小生成树,二分图,最大流问题的相关理论(主要是模型建立和求解)<br>         (poj3155, poj2112,poj1966,poj3281,poj1087,poj2289,poj3216,poj2446<br>      (3)最优比率生成树. (poj2728)<br>      (4)最小树形图(poj3164)<br>      (5)次小生成树.<br>      (6)无向图、有向图的最小环<br>三.数据结构.<br>      (1)trie图的建立和应用. (poj2778)<br>      (2)LCA和RMQ问题(LCA(最近公共祖先问题) 有离线算法(并查集+dfs) 和 在线算法<br>          (RMQ+dfs)).(poj1330)<br>      (3)双端队列和它的应用(维护一个单调的队列,常常在动态规划中起到优化状态转移的<br>          目的). (poj2823)<br>      (4)左偏树(可合并堆).<br>      (5)后缀树(非常有用的数据结构,也是赛区考题的热点).<br>         (poj3415,poj3294)<br>四.搜索<br>      (1)较麻烦的搜索题目训练(poj1069,poj3322,poj1475,poj1924,poj2049,poj3426)<br>      (2)广搜的状态优化:利用M进制数存储状态、转化为串用hash表判重、按位压缩存储状态、双向广搜、A/<em>算法. (poj1768,poj1184,poj1872,poj1324,poj2046,poj1482)<br>      (3)深搜的优化:尽量用位运算、一定要加剪枝、函数参数尽可能少、层数不易过大、可以考虑双向搜索或者是轮换搜索、IDA/</em>算法. (poj3131,poj2870,poj2286)<br>五.动态规划<br>      (1)需要用数据结构优化的动态规划.<br>         (poj2754,poj3378,poj3017)<br>      (2)四边形不等式理论.<br>      (3)较难的状态DP(poj3133)<br>六.数学<br>      (1)组合数学.<br>        1.MoBius反演(poj2888,poj2154)<br>        2.偏序关系理论.<br>      (2)博奕论.<br>        1.极大极小过程(poj3317,poj1085)<br>        2.Nim问题.<br>七.计算几何学.<br>      (1)半平面求交(poj3384,poj2540)<br>      (2)可视图的建立(poj2966)<br>      (3)点集最小圆覆盖.<br>      (4)对踵点(poj2079)<br>      八.综合题.</p>
+<pre><code>  (poj3109,poj1478,poj1462,poj2729,poj2048,poj3336,poj3315,poj2148,poj1263)
+</code></pre><h2><span id="-">———————————————————————————————————————————————-</span></h2><p>以及补充<br>Dp状态设计与方程总结<br>1.不完全状态记录</p>
+<p><1>青蛙过河问题</1></p>
+<p><2>利用区间dp<br>2.背包类问题</2></p>
+<p><1> 0-1背包，经典问题</1></p>
+<p><2>无限背包，经典问题</2></p>
+<p><3>判定性背包问题</3></p>
+<p><4>带附属关系的背包问题</4></p>
+<p><5> + -1背包问题</5></p>
+<p><6>双背包求最优值</6></p>
+<p><7>构造三角形问题</7></p>
+<p><8>带上下界限制的背包问题(012背包)<br>3.线性的动态规划问题</8></p>
+<p><1>积木游戏问题</1></p>
+<p><2>决斗（判定性问题）</2></p>
+<p><3>圆的最大多边形问题</3></p>
+<p><4>统计单词个数问题</4></p>
+<p><5>棋盘分割</5></p>
+<p><6>日程安排问题</6></p>
+<p><7>最小逼近问题(求出两数之比最接近某数/两数之和等于某数等等)</7></p>
+<p><8>方块消除游戏(某区间可以连续消去求最大效益)</8></p>
+<p><9>资源分配问题</9></p>
+<p><10>数字三角形问题</10></p>
+<p><11>漂亮的打印</11></p>
+<p><12>邮局问题与构造答案</12></p>
+<p><13>最高积木问题</13></p>
+<p><14>两段连续和最大</14></p>
+<p><15>2次幂和问题</15></p>
+<p><16>N个数的最大M段子段和</16></p>
+<p><17>交叉最大数问题<br>4.判定性问题的dp(如判定整除、判定可达性等)   </17></p>
+<p><1>模K问题的dp</1></p>
+<p><2>特殊的模K问题，求最大(最小)模K的数</2></p>
+<p><3>变换数问题<br>5.单调性优化的动态规划</3></p>
+<p><1>1-SUM问题</1></p>
+<p><2>2-SUM问题</2></p>
+<p><3>序列划分问题(单调队列优化)<br>6.剖分问题(多边形剖分/石子合并/圆的剖分/乘积最大)</3></p>
+<p><1>凸多边形的三角剖分问题</1></p>
+<p><2>乘积最大问题</2></p>
+<p><3>多边形游戏(多边形边上是操作符,顶点有权值)</3></p>
+<p><4>石子合并(N^3/N^2/NLogN各种优化)<br>7.贪心的动态规划</4></p>
+<p><1>最优装载问题</1></p>
+<p><2>部分背包问题</2></p>
+<p><3>乘船问题</3></p>
+<p><4>贪心策略</4></p>
+<p><5>双机调度问题Johnson算法<br>8.状态dp</5></p>
+<p><1>牛仔射击问题(博弈类)</1></p>
+<p><2>哈密顿路径的状态dp</2></p>
+<p><3>两支点天平平衡问题</3></p>
+<p><4>一个有向图的最接近二部图<br>9.树型dp</4></p>
+<p><1>完美服务器问题(每个节点有3种状态)</1></p>
+<p><2>小胖守皇宫问题</2></p>
+<p><3>网络收费问题</3></p>
+<p><4>树中漫游问题</4></p>
+<p><5>树上的博弈</5></p>
+<p><6>树的最大独立集问题</6></p>
+<p><7>树的最大平衡值问题</7></p>
+<p><8>构造树的最小环</8></p>
+<p>========================================我是分割线===============================================</p>
+<p>HDOJ题目分类：<br>模拟题, 枚举<br>1002 1004 1013 1015 1017 1020 1022 1029 1031 1033 1034 1035 1036 1037 1039 1042 1047 1048 1049 1050 1057 1062 1063 1064 1070 1073 1075 1082 1083 1084 1088 1106 1107 1113 1117 1119 1128 1129 1144 1148 1157 1161 1170 1172 1177 1197 1200 1201 1202 1205 1209 1212(大数取模) 1216（链表）1218 1219 1225 1228 1229 1230 1234 1235 1236 1237 1239 1250<br>1256 1259 1262 1263 1265 1266 1276 1279 1282 1283 1287 1296 1302 1303 1304 1305 1306 1309 1311 1314<br>复杂模拟<br>搜索，递归求解<br>1010 1016 1026 1043(双广) 1044 (BFS+DFS) 1045 1067 1072 1104 1175 1180 1195 1208 1226 1238 1240 1241 1242 1258 1271 1312 1317<br>博奕<br>1079<br>动态规划<br>1003 1024 1025 1028 1051 1058 1059 1069 1074 1078 1080 1081 1085 1087 1114 1158 1159 1160 1171 1176 1181 1203 1224 1227 1231 1244 1248 1253 1254 1283 1300<br>数学，递推，规律<br>1005 1006 1012 1014 1018 1019 1021 1023 1027 1030 1032 1038 1041 1046 1059 1060 1061 1065 1066 1071(微积分) 1097 1098 1099 1100 1108 1110 1112 1124 1130 1131 1132 1134 1141 1143 1152 1155(物理题) 1163 1165 1178 1194 1196(lowbit) 1210 1214 1200 1221 1223 1249 1261 1267 1273 1290 1291 1292 1294 1297 1313 1316<br>数论<br>1164 1211 1215 1222 1286 1299<br>计算几何<br>1086 1115 1147<br>贪心<br>1009 1052 1055 1257<br>并查集<br>1198 1213 1232 1272<br>线段树,离散化<br>1199 1255<br>图论<br>最短路相关的问题 1142 1162 1217 1301<br>二分图问题 1054 1068 1150 1151 1281<br>其他<br>1053 (huffman) 1102(MST) 1116（欧拉回路） 1233(MST) 1269（强连通）<br>数据结构<br>1103（堆+模拟）1166（数状树组）1247 1251 1285（Topol） 1298<br>汉诺塔系列<br>1207<br>最近顶点对 1007<br>1500 DP<br>1501 DP<br>1502 DP or 记忆化<br>1503 DP<br>1504 模拟<br>1505 DP<br>1506 DP<br>1507 2分匹配<br>1508 记忆化容易点<br>1509 模拟<br>1510 DP<br>1511 搜索可以过<br>1512 左偏树<br>1513 DP<br>1514 DP<br>1515 DFS<br>1516 DP<br>1517 博奕<br>1518 搜索<br>1519 DP（不确定）<br>1520 树状DP<br>1521 数学题，母函数什么的。其实都可以过<br>1522 稳定婚姻<br>1523 DP<br>1524 博弈<br>1525 博弈<br>1526 Maxflow<br>1527 博弈<br>1528 2分匹配<br>1529 简单题<br>1530 最大团<br>1531 差分约束<br>1532 Maxflow 入门题<br>1533 KM Or 最小费用流<br>1534 差分约束<br>1535 差分约束<br>1536 博弈<br>1537 模拟 加置换群的理论 CODE可以短些，其实没必要。。。<br>1538 很有意思的题目。据说是Microsoft亚洲总裁面试的题目<br>1539 搜索<br>1540 线段树<br>1541 树状数组<br>1542 离散，线段树<br>1543 线段树<br>1544 简单的<br>1545 DP <a href="http://acm.hdu.edu.cn/forum/htm_data/18/0608/2050.html" target="_blank" rel="noopener">http://acm.hdu.edu.cn/forum/htm_data/18/0608/2050.html</a><br>1546 搜索<br>1547 模拟<br>1548 模拟<br>1551 2分答案<br>1553<br>1554<br>1555 简单<br>1556 技巧。数学<br>1557 搜索<br>1558 并查 + 线段判交<br>1559 DP<br>1560 减支 + 搜索<br>1561 树状DP<br>1562 暴力 between 1000 and 9999<br>1563 简单<br>1564 博弈。<br>1565 状态DP<br>1566 数学<br>1567 模拟<br>1568 大数<br>1569 最小割<br>1570 数学<br>1571 最段路<br>1572 搜索<br>1573 数学<br>1574 DP<br>1575 2分<br>1576 数论<br>1577 模拟，处理精度<br>1579 记忆化<br>1580 DP<br>1582 搜索<br>1583 模拟<br>1584 搜索<br>1585<br>1586<br>1587 简单题目<br>1591 模拟<br>1592 简单<br>1593 数学<br>1594 数学<br>1595 图论<br>1596 图论<br>1597 图论<br>1598 图论<br>1599 图论<br>基础题：1000、1001、1004、1005、1008、1012、1013、1014、1017、1019、1021、1028、1029、1032、1037、1040、1048、1056、1058、1061、1070、1076、1089、1090、1091、1092、1093、1094、1095、1096、1097、1098、1106、1108、1157、1163、1164、1170、1194、1196、1197、1201、1202、1205、1219、1234、1235、1236、1248、1266、1279、1282、1283、1302、1303、1323、1326、1330、1334、1335、1339、1390、1391、1393、1395、1397、1405、1406、1407、1408、1412、1418、1420、1465、1491、1555、1562、1563、1570、1587、1673、1678、1708、1718、1720、1785、1799、1859、1862、1877、1898、1976、1977、1985、1994、2000、2001、2002、2003、2004、2005、2006、2007、2008、2009、2010、2011、2012、2013、2014、2015、2016、2017、2018、2019、2020、2021、2022、2023、2024、2025、2026、2027、2028、2029、2030、2031、2032、2033、2034、2035、2039、2040、2042、2043、2048、2049、2051、2053、2055、2056、2057、2060、2061、2071、2073、2075、2076、2078、2081、2083、2088、2090、2092、2093、2095、2096、2097、2098、2099、2101、2103、2106、2107、2109、2113、2114、2115、2123、2131、2132、2133、2135、2136、2137、2138、2139、2143、2148、2153、2156、2161、2162、2164、2178、2186、2192、2200、2201、2212、2304、2309、2317、2401、2500、2502、2503、2504、2519、2520、2521、2523、2524、2535、2537、2539、2547、2548、2549、2550、2551、2552、2555、2560、2561、2562、2566、2567、2568、2700、2710、<br>DP：1003、1024、1029、1069、1074、1087、1114、1159、1160、1171、1176、1203、1231、1257、1260、1284、1421、1789、1978、2059、2084、2159、2191、2544、2571、2602、2709、<br>搜索：1010、1015、1016、1026、1072、1075、1175、1180、1181、1238、1239、1240、1241、1242、1253、1254、1312、1372、1548、1597、1671、1677、1728、1800、1983、2102、2141、2553、2563、2605、2612、2614、1616、2717<br>贪心：1009、1045、1049、1050、1051、1052、1257、1800、2037、2111、2124、2187、2391、2570<br>数学题：1018、1065、1071、1115、1141、1162、1212、1220、1492、1593、1701、1722、1798、1840、1999、2036、2080、2086、2089、2105、2108、2134、2303、2393、2438、2529、2547、2548、2552、2554、2601、2603、2701、<br>递推：1133、1143、1207、1249、1267、1284、1290、1297、1396、1992、1995、1996、2013、2014、2044、2045、2046、2047、2050、2064、2065、2067、2068、2070、2077、2085、2151、2154、2160、2190、2501、2512、2563、2569、2709、2716、<br>字符串：1020、1039、1043、1062、1073、1075、1088、1113、1161、1200、1251、1256、1288、1321、1328、1379、1804、1860、1982、1984、2017、2024、2025、2026、2027、2043、2052、2054、2072、2074、2087、2131、2137、2140、2163、2203、2206、2352、2500、2549、2564、2565、2567、2572、2609、2607、2707、2708、2719、2721、2723、<br>大数：1002、1042、1133、1250、1297、1715、1753、1865、2100、<br>胡搞：1022、1027、1030、1035、1128、1165、1209、1210、1215、1222、1228、1229、1230、1237、1259、1276、1286、1337、1342、1361、1370、1506、1577、1597、1702、1716、1727、1868、1870、1896、1981、1986、1987、1988、1997、1998、1999、2058、2062、2089、2090、2094、2104、2116、2117、2135、2175、2183、2184、2197、2303、2368、2370、2374、2511、2522、2527、2600、2615、2703、2711、2714、2715、2725、<br>博弈：1077、1404、1517、1524、1525、1527、1536、1564、1729、1730、1846、1847、1848、1849、1850、2147、2149、2176、2177、2188<br>母函数：1085、1171、1398、2079、2082、2110、2152、2189、2566、<br>hash：1264、1280、1425、1496、1800、2522、2600、</p>
+
+        </div>
+      </article>
+    </div>
+
+	<!-- 打赏 -->
+    <div class="reward">
+	<div class="reward-button">赏 <span class="reward-code">
+		<span class="alipay-code"> <img class="alipay-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/alipay.webp"><b>支付宝打赏</b> </span> 
+		<span class="wechat-code"> <img class="wechat-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/weixin.webp"><b>微信打赏</b> </span> </span>
+	</div>
+	<p class="reward-notice">如果文章对你有帮助，欢迎点击上方按钮打赏作者，更多文章请访问<a href="https://vodkazy.cn" style="color:blue">想飞的小菜鸡</a></p>
+	    <style>
+		*,*:before,*:after {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			-ms-box-sizing: border-box;
+			box-sizing: border-box
+		}
+
+		.reward {
+			padding: 5px 0
+		}
+
+		.reward .reward-notice {
+			font-size: 14px;
+			line-height: 14px;
+			margin: 15px auto;
+			text-align: center
+		}
+
+		.reward .reward-button {
+			font-size: 28px;
+			line-height: 58px;
+			position: relative;
+			display: block;
+			width: 60px;
+			height: 60px;
+			margin: 0 auto;
+			padding: 0;
+			-webkit-user-select: none;
+			text-align: center;
+			vertical-align: middle;
+			color: #fff;
+			border: 1px solid #f1b60e;
+			border-radius: 50%;
+			background: #fccd60;
+			background: -webkit-gradient(linear,left top,left bottom,color-stop(0,#fccd60),color-stop(100%,#fbae12),color-stop(100%,#2989d8),color-stop(100%,#207cca));
+			background: -webkit-linear-gradient(top,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%);
+			background: linear-gradient(to bottom,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%)
+		}
+
+		.reward .reward-code {
+			position: absolute;
+			top: -220px;
+			left: 50%;
+			display: none;
+			width: 350px;
+			height: 200px;
+			margin-left: -175px;
+			padding: 15px;
+			border: 1px solid #e6e6e6;
+			background: #fff;
+			box-shadow: 0 1px 1px 1px #efefef
+		}
+
+		.reward .reward-button:hover .reward-code {
+			display: block
+		}
+
+		.reward .reward-code span {
+			display: inline-block;
+			width: 150px;
+			height: 150px
+		}
+
+		.reward .reward-code span.alipay-code {
+			float: left
+		}
+
+		.reward .reward-code span.alipay-code a {
+			padding: 0
+		}
+
+		.reward .reward-code span.wechat-code {
+			float: right
+		}
+
+		.reward .reward-code img {
+			display: inline-block;
+			float: left;
+			width: 150px;
+			height: 150px;
+			margin: 0 auto;
+			border: 0
+		}
+
+		.reward .reward-code b {
+			font-size: 14px;
+			line-height: 26px;
+			display: block;
+			margin: 0;
+			text-align: center;
+			color: #666
+		}
+
+		.reward .reward-code b.notice {
+			line-height: 2rem;
+			margin-top: -1rem;
+			color: #999
+		}
+
+		.reward .reward-code:after,.reward .reward-code:before {
+			position: absolute;
+			content: '';
+			border: 10px solid transparent
+		}
+
+		.reward .reward-code:after {
+			bottom: -19px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #fff
+		}
+
+		.reward .reward-code:before {
+			bottom: -20px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #e6e6e6
+		}
+    </style>
+
+
+    <!-- Pre or Next -->
+    
+
+    <!-- Valine无后端评论系统 -->   
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+		    el: '#vcomments' ,
+		    appId: 'lH3VkMCd4MHaKtr2n2SRWdoi-MdYXbMMI',
+		    appKey: '5aMXSY7b4KwnzfgpzLA0hPLv',
+		    notify:true, 
+		    verify:false, 
+		    placeholder: '填写正确的邮箱和昵称才能收到我的回复哦       ٩( ^o^ )و  ' ,
+		    avatar: 'retro'
+		});
+    </script>
+    <!-- Valine无后端评论系统 -->  
+
+  </div>
+</div>
+</div>
+
+  <!-- Footer -->
+  <!-- Footer -->
+<footer class="site-info">
+  <p>
+    <span>想飞的小菜鸡 &copy; 2021</span>
+    
+      <span class="split">|</span>
+      <span>照耀的Blog</span>
+    
+  </p>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    本站访客数<span id="busuanzi_value_site_uv"></span>人次
+    本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</footer>
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+<script src="/js/app.js"></script>
+
+
+ 
+  <!-- 使用 aotuload.js 引入看板娘 -->    
+  <!-- //<script src="/js/assets/jquery.min.js?v=3.3.1"></script> -->   
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  <!-- //<script src="/js/assets/jquery-ui.min.js?v=1.12.1"></script>   --> 
+  <script src="https://cdn.jsdelivr.net/npm/jquery-ui-dist@1.12.1/jquery-ui.min.js"></script>
+  <script src="/js/assets/autoload.js?v=1.4.2"></script>
+  <!-- //<script src="https://live2d-cdn.fghrsh.net/assets/1.4.2/autoload.js></script> -->   
+   
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var i=n.imageLazyLoadSetting.isSPA,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){i&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,e,a=0;a<r.length;a++)t=r[a],e=void 0,0<=(e=t.getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},n.src=i}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+
+</html>

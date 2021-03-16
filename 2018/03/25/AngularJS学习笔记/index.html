@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<!-- 百度统计 -->
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?e31627579358722b9d300535c8206351";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Vodkazy">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="AngularJS学习笔记">
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="想飞的小菜鸡">
+  <!--Type page-->
+  
+      <meta property="og:type" content="article">
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- Title -->
+  
+  <title>AngularJS学习笔记 - 想飞的小菜鸡</title>
+
+
+  <link rel="shortcut icon" href="/../images/icon.ico">
+  <!--font-awesome-->
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+
+<body>
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    
+    <div class="logo">
+      <a href="/" rel="home">
+        
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://cdn2.iconfinder.com/data/icons/weather-color-2/500/weather-01-128.png" alt="想飞的小菜鸡" height="60">
+        
+      </a>
+    </div>
+    <a class="header-name" href="/">
+            <span>想飞的小菜鸡</span>
+            的小窝
+        </a>
+    <!-- navbar -->
+    <nav class="navbar">
+      <!--  nav links -->
+      <div class="collapse">
+        <ul class="navbar-nav">
+          
+          
+            <li>
+              <a href="/.">
+                
+                  <i class="fa fa-home "></i>
+                
+                首页
+              </a>
+            </li>
+          
+            <li>
+              <a href="/archives">
+                
+                  <i class="fa fa-archive "></i>
+                
+                目录
+              </a>
+            </li>
+          
+            <li>
+              <a href="/project">
+                
+                  <i class="fa fa-folder-open "></i>
+                
+                代码库
+              </a>
+            </li>
+          
+            <li>
+              <a href="/photo">
+                
+                  <i class="fa fa-photo "></i>
+                
+                相册薄
+              </a>
+            </li>
+          
+            <li>
+              <a href="/lovetree">
+                
+                  <i class="fa fa-tree "></i>
+                
+                爱情树
+              </a>
+            </li>
+          
+            <li>
+              <a href="/guestbook">
+                
+                  <i class="fa fa-edit "></i>
+                
+                留言板
+              </a>
+            </li>
+          
+            <li>
+              <a href="/about">
+                
+                  <i class="fa fa-user "></i>
+                
+                关于我
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="button-wrap">
+      <button class="menu-toggle">Primary Menu</button>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            AngularJS学习笔记
+            
+          </h1>
+         
+        </div>
+         <p class="a-posted-on">
+          2018-03-25
+          </p>
+        <!-- Post Main Content -->
+        <div class="entry-content">
+          <p>最近做项目要求前端采用Angular.js，为此学习一下，留存。<br><a id="more"></a></p>
+<ul>
+<li><p><strong>什么是Angular</strong><br>AngularJS 是一个 JavaScript 框架。它是一个以 JavaScript 编写的库。可通过 script 标签添加到网页中，使得开发现代的单一页面应用程序（SPAs：Single Page Applications）变得更加容易。</p>
+</li>
+<li><p><strong>AngularJS的用途</strong><br>AngularJS 通过 ng-directives 扩展了 HTML。<br>ng-app 指令定义一个 AngularJS 应用程序。<br>ng-model 指令把元素值（比如输入域的值）绑定到应用程序。<br>ng-bind 指令把应用程序数据绑定到 HTML 视图。</p>
+</li>
+<li><p><strong>表达式</strong><br>AngularJS 表达式写在双大括号内：。<br>AngularJS 表达式把数据绑定到 HTML，这与 ng-bind 指令有异曲同工之妙。<br>AngularJS 将在表达式书写的位置”输出”数据。<br>AngularJS 表达式 很像 JavaScript 表达式：它们可以包含文字、运算符和变量。<br>类似于 JavaScript 表达式，AngularJS 表达式可以包含字母，操作符，变量。<br>与 JavaScript 表达式不同，AngularJS 表达式可以写在 HTML 中。<br>与 JavaScript 表达式不同，AngularJS 表达式不支持条件判断，循环及异常。<br>与 JavaScript 表达式不同，AngularJS 表达式支持过滤器。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>尝试修改以下表单。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-app</span>=<span class="string">"myApp"</span> <span class="attr">ng-controller</span>=<span class="string">"myCtrl"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">名: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">ng-model</span>=<span class="string">"firstName"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">姓: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">ng-model</span>=<span class="string">"lastName"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">姓名: &#123;&#123;firstName + " " + lastName&#125;&#125;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="actionscript"><span class="keyword">var</span> app = angular.module(<span class="string">'myApp'</span>, []);</span></span><br><span class="line"><span class="actionscript">app.controller(<span class="string">'myCtrl'</span>, <span class="function"><span class="keyword">function</span><span class="params">($scope)</span> </span>&#123;</span></span><br><span class="line"><span class="actionscript">    $scope.firstName= <span class="string">"John"</span>;</span></span><br><span class="line"><span class="actionscript">    $scope.lastName= <span class="string">"Doe"</span>;</span></span><br><span class="line"><span class="undefined">&#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>一些常用指令</strong></p>
+<h4><span id="ng-app-指令">ng-app 指令</span></h4><p>ng-app 指令定义了 AngularJS 应用程序的 根元素。<br>ng-app 指令在网页加载完毕时会自动引导（自动初始化）应用程序。<br>稍后您将学习到 ng-app 如何通过一个值（比如 ng-app=”myModule”）连接到代码模块。</p>
+<h4><span id="ng-init-指令">ng-init 指令</span></h4><p>ng-init 指令为 AngularJS 应用程序定义了 初始值。<br>通常情况下，不使用 ng-init。您将使用一个控制器或模块来代替它。<br>稍后您将学习更多有关控制器和模块的知识。</p>
+<h4><span id="ng-model-指令">ng-model 指令</span></h4><p>ng-model 指令 绑定 HTML 元素 到应用程序数据。<br>ng-model 指令也可以：<br>为应用程序数据提供类型验证（number、email、required）。<br>为应用程序数据提供状态（invalid、dirty、touched、error）。<br>为 HTML 元素提供 CSS 类。<br>绑定 HTML 元素到 HTML 表单。</p>
+<h4><span id="ng-repeat-指令">ng-repeat 指令</span></h4><p>ng-repeat 指令对于集合中（数组中）的每个项会 克隆一次 HTML 元素。</p>
+</li>
+<li><p><strong>Scope</strong><br>Scope(作用域) 是应用在 HTML (视图) 和 JavaScript (控制器)之间的纽带,相当于模型层。<br>Scope 是一个对象，有可用的方法和属性。Scope 可应用在视图和控制器上。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.bootcss.com/angular.js/1.4.6/angular.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-app</span>=<span class="string">"myApp"</span> <span class="attr">ng-controller</span>=<span class="string">"myCtrl"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">input</span> <span class="attr">ng-model</span>=<span class="string">"name"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;greeting&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">button</span> <span class="attr">ng-click</span>=<span class="string">'sayHello()'</span>&gt;</span>点我<span class="tag">&lt;/<span class="name">button</span>&gt;</span>	</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="actionscript"><span class="keyword">var</span> app = angular.module(<span class="string">'myApp'</span>, []);</span></span><br><span class="line"><span class="actionscript">app.controller(<span class="string">'myCtrl'</span>, <span class="function"><span class="keyword">function</span><span class="params">($scope)</span> </span>&#123;</span></span><br><span class="line"><span class="actionscript">    $scope.name = <span class="string">"Runoob"</span>;</span></span><br><span class="line"><span class="actionscript">	$scope.sayHello = <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span></span><br><span class="line"><span class="actionscript">    	$scope.greeting = <span class="string">'Hello '</span> + $scope.name + <span class="string">'!'</span>;</span></span><br><span class="line"><span class="undefined">	&#125;;</span></span><br><span class="line"><span class="undefined">&#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>当你修改输入框中的值时，会影响到模型(model),当然也会影响到控制器对应的属性值。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>AngularJS控制器</strong><br>ng-controller=”myCtrl” 属性是一个 AngularJS 指令。用于定义一个控制器。然后在script里面用app.controller对进行对象控制。</p>
+</li>
+<li><p><strong>AngularJS过滤器</strong><br>过滤器可以通过一个管道字符（|）和一个过滤器添加到表达式中。</p>
+</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">过滤器</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">currency</td>
+<td style="text-align:center">格式化数字为货币格式。</td>
+</tr>
+<tr>
+<td style="text-align:center">filter</td>
+<td style="text-align:center">从数组项中选择一个子集。</td>
+</tr>
+<tr>
+<td style="text-align:center">lowercase</td>
+<td style="text-align:center">格式化字符串为小写。</td>
+</tr>
+<tr>
+<td style="text-align:center">orderBy</td>
+<td style="text-align:center">根据某个表达式排列数组。</td>
+</tr>
+<tr>
+<td style="text-align:center">uppercase</td>
+<td style="text-align:center">格式化字符串为大写。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><strong>AngularJS服务</strong><br>在很多服务中，比如 $location 服务，它可以使用 DOM 中存在的对象，类似 window.location 对象，但 window.location 对象在 AngularJS 应用中有一定的局限性。<br>AngularJS 会一直监控应用，处理事件变化， AngularJS 使用 $location 服务比使用 window.location 对象更好。<br>$http 是 AngularJS 应用中最常用的服务。 服务向服务器发送请求，应用响应服务器传送过来的数据。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 简单的 GET 请求，可以改为 POST</span></span><br><span class="line">$http(&#123;</span><br><span class="line">    method: <span class="string">'GET'</span>,</span><br><span class="line">    url: <span class="string">'/someUrl'</span></span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span> <span class="title">successCallback</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 请求成功执行代码</span></span><br><span class="line">    &#125;, <span class="function"><span class="keyword">function</span> <span class="title">errorCallback</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 请求失败执行代码</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>AngularJS $timeout 服务对应了 JS window.setTimeout 函数。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = angular.module(<span class="string">'myApp'</span>, []);</span><br><span class="line">app.controller(<span class="string">'myCtrl'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope, $timeout</span>) </span>&#123;</span><br><span class="line">    $scope.myHeader = <span class="string">"Hello World!"</span>;</span><br><span class="line">    $timeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        $scope.myHeader = <span class="string">"How are you today?"</span>;</span><br><span class="line">    &#125;, <span class="number">2000</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>AngularJS $interval 服务对应了 JS window.setInterval 函数。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = angular.module(<span class="string">'myApp'</span>, []);</span><br><span class="line">app.controller(<span class="string">'myCtrl'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope, $interval</span>) </span>&#123;</span><br><span class="line">    $scope.theTime = <span class="keyword">new</span> <span class="built_in">Date</span>().toLocaleTimeString();</span><br><span class="line">    $interval(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        $scope.theTime = <span class="keyword">new</span> <span class="built_in">Date</span>().toLocaleTimeString();</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>还可使用php读取SQL数据库、或为HTML DOM绑定应用数据。</p>
+<ul>
+<li><p><strong>AngularJS事件</strong><br>ng-click 指令定义了 AngularJS 点击事件。<br>ng-hide 指令用于设置应用部分是否可见。<br>ng-hide=”true” 设置 HTML 元素不可见。<br>ng-hide=”false” 设置 HTML 元素可见。<br>ng-show 指令可用于设置应用中的一部分是否可见 。<br>ng-show=”false” 可以设置 HTML 元素 不可见。<br>ng-show=”true” 可以以设置 HTML 元素可见。</p>
+</li>
+<li><p><strong>Angular表单</strong><br>可直接使用ng-model进行数据绑定。<br>此外，Angular还提供了自带的属性验证，可用来验证表单的数据填写格式是否正确，直接去对象(name)调用.xxx方法即可。</p>
+</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">属性</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$dirty</td>
+<td style="text-align:center">表单有填写记录 ｜</td>
+</tr>
+<tr>
+<td style="text-align:center">$valid</td>
+<td style="text-align:center">字段内容合法的 ｜</td>
+</tr>
+<tr>
+<td style="text-align:center">$invalid</td>
+<td style="text-align:center">字段内容是非法的 ｜</td>
+</tr>
+<tr>
+<td style="text-align:center">$pristine</td>
+<td style="text-align:center">表单没有填写记录 ｜</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>并且还提供了一些现有的API，如.lowercase()　isString() .isNumber()等等。</p>
+<ul>
+<li><p><strong>Angular Bootstrap</strong><br>AngularJS 的首选样式表是 Twitter Bootstrap， Twitter Bootstrap 是目前最受欢迎的前端框架。用来设置前端的样式。<br>具体的使用和传统的bootstrap并无二异。ng-include可以用来引用代码或者网页。</p>
+</li>
+<li><p><strong>Angular路由</strong><br>AngularJS 路由允许我们通过不同的 URL 访问不同的内容。<br>通过 AngularJS 可以实现多视图的单页Web应用（single page web application，SPA）。<br>通常我们的URL形式为 <a href="http://vodkazy.club/first/page，但在单页Web应用中" target="_blank" rel="noopener">http://vodkazy.club/first/page，但在单页Web应用中</a> AngularJS 通过 # + 标记实现。<br>路由也可以根据多个不同的模版来实现，$routeProvider.when 函数的第一个参数是 URL 或者 URL 正则规则，第二个参数为路由配置对象。<br>路由配置对象语法规则如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$routeProvider.when(url,&#123;</span><br><span class="line">    template:string, <span class="comment">//在ng-view中插入简单的html内容</span></span><br><span class="line">    templateUrl:string, <span class="comment">//在ng-view中插入html模版文件</span></span><br><span class="line">    controller:string,<span class="function"><span class="keyword">function</span> / <span class="title">array</span>, //在当前模版上执行的<span class="title">controller</span>函数</span></span><br><span class="line"><span class="function">    <span class="title">controllerAs</span>:<span class="title">string</span>, //为<span class="title">controller</span>指定别名</span></span><br><span class="line"><span class="function">    <span class="title">redirectTo</span>:<span class="title">string</span>,<span class="title">function</span>, //重定向的地址</span></span><br><span class="line"><span class="function">    <span class="title">resolve</span>:<span class="title">object</span>&lt;<span class="title">key</span>,<span class="title">function</span>&gt; //指定当前<span class="title">controller</span>所依赖的其他模块</span></span><br><span class="line"><span class="function">&#125;);</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>template:如果我们只需要在 ng-view 中插入简单的 HTML 内容，则使用该参数。注：ng-view指令的作用在于定义一个div’ ng-view&gt;&lt;/div’，该 div 内的 HTML 内容会根据路由的变化而变化。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.when(<span class="string">'/computers'</span>,&#123;<span class="attr">template</span>:<span class="string">'这是电脑分类页面'</span>&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>templateUrl:如果我们只需要在 ng-view 中插入 HTML 模板文件，则使用该参数。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$routeProvider.when(<span class="string">'/computers'</span>, &#123;</span><br><span class="line">    templateUrl: <span class="string">'views/computers.html'</span>,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>controller:function、string或数组类型，在当前模板上执行的controller函数，生成新的scope。<br>controllerAs:string类型，为controller指定别名。<br>redirectTo:重定向的地址。<br>resolve:指定当前controller所依赖的其他模块。</p>
+<blockquote>
+<p>本文来源：「想飞的小菜鸡」的个人网站  <a href="https://vodkazy.cn" target="_blank" rel="noopener">vodkazy.cn</a></p>
+<p>版权声明：本文为「想飞的小菜鸡」的原创文章，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请附上原文出处链接及本声明。</p>
+<p>原文链接：<a href="https://vodkazy.cn/2018/03/25/AngularJS学习笔记" target="_blank" rel="noopener">https://vodkazy.cn/2018/03/25/AngularJS学习笔记</a></p>
+</blockquote>
+
+        </div>
+      </article>
+    </div>
+
+	<!-- 打赏 -->
+    <div class="reward">
+	<div class="reward-button">赏 <span class="reward-code">
+		<span class="alipay-code"> <img class="alipay-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/alipay.webp"><b>支付宝打赏</b> </span> 
+		<span class="wechat-code"> <img class="wechat-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/weixin.webp"><b>微信打赏</b> </span> </span>
+	</div>
+	<p class="reward-notice">如果文章对你有帮助，欢迎点击上方按钮打赏作者，更多文章请访问<a href="https://vodkazy.cn" style="color:blue">想飞的小菜鸡</a></p>
+	    <style>
+		*,*:before,*:after {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			-ms-box-sizing: border-box;
+			box-sizing: border-box
+		}
+
+		.reward {
+			padding: 5px 0
+		}
+
+		.reward .reward-notice {
+			font-size: 14px;
+			line-height: 14px;
+			margin: 15px auto;
+			text-align: center
+		}
+
+		.reward .reward-button {
+			font-size: 28px;
+			line-height: 58px;
+			position: relative;
+			display: block;
+			width: 60px;
+			height: 60px;
+			margin: 0 auto;
+			padding: 0;
+			-webkit-user-select: none;
+			text-align: center;
+			vertical-align: middle;
+			color: #fff;
+			border: 1px solid #f1b60e;
+			border-radius: 50%;
+			background: #fccd60;
+			background: -webkit-gradient(linear,left top,left bottom,color-stop(0,#fccd60),color-stop(100%,#fbae12),color-stop(100%,#2989d8),color-stop(100%,#207cca));
+			background: -webkit-linear-gradient(top,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%);
+			background: linear-gradient(to bottom,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%)
+		}
+
+		.reward .reward-code {
+			position: absolute;
+			top: -220px;
+			left: 50%;
+			display: none;
+			width: 350px;
+			height: 200px;
+			margin-left: -175px;
+			padding: 15px;
+			border: 1px solid #e6e6e6;
+			background: #fff;
+			box-shadow: 0 1px 1px 1px #efefef
+		}
+
+		.reward .reward-button:hover .reward-code {
+			display: block
+		}
+
+		.reward .reward-code span {
+			display: inline-block;
+			width: 150px;
+			height: 150px
+		}
+
+		.reward .reward-code span.alipay-code {
+			float: left
+		}
+
+		.reward .reward-code span.alipay-code a {
+			padding: 0
+		}
+
+		.reward .reward-code span.wechat-code {
+			float: right
+		}
+
+		.reward .reward-code img {
+			display: inline-block;
+			float: left;
+			width: 150px;
+			height: 150px;
+			margin: 0 auto;
+			border: 0
+		}
+
+		.reward .reward-code b {
+			font-size: 14px;
+			line-height: 26px;
+			display: block;
+			margin: 0;
+			text-align: center;
+			color: #666
+		}
+
+		.reward .reward-code b.notice {
+			line-height: 2rem;
+			margin-top: -1rem;
+			color: #999
+		}
+
+		.reward .reward-code:after,.reward .reward-code:before {
+			position: absolute;
+			content: '';
+			border: 10px solid transparent
+		}
+
+		.reward .reward-code:after {
+			bottom: -19px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #fff
+		}
+
+		.reward .reward-code:before {
+			bottom: -20px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #e6e6e6
+		}
+    </style>
+
+
+    <!-- Pre or Next -->
+    
+	<div class="container">
+           <ul class="pager">
+    	     
+      	     <li class="previous">
+              <a href="/2018/03/26/蓝桥杯模拟赛-1/" rel="prev">上一篇</a>
+             </li>
+           
+           
+              <li class="next">
+              <a href="/2018/03/21/Matlab实现基于AHP-模糊综合评价模型/" rel="prev">下一篇</a>
+            </li>
+           
+          </ul>
+       </div>
+   
+
+    <!-- Valine无后端评论系统 -->   
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+		    el: '#vcomments' ,
+		    appId: 'lH3VkMCd4MHaKtr2n2SRWdoi-MdYXbMMI',
+		    appKey: '5aMXSY7b4KwnzfgpzLA0hPLv',
+		    notify:true, 
+		    verify:false, 
+		    placeholder: '填写正确的邮箱和昵称才能收到我的回复哦       ٩( ^o^ )و  ' ,
+		    avatar: 'retro'
+		});
+    </script>
+    <!-- Valine无后端评论系统 -->  
+
+  </div>
+</div>
+</div>
+
+  <!-- Footer -->
+  <!-- Footer -->
+<footer class="site-info">
+  <p>
+    <span>想飞的小菜鸡 &copy; 2021</span>
+    
+      <span class="split">|</span>
+      <span>照耀的Blog</span>
+    
+  </p>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    本站访客数<span id="busuanzi_value_site_uv"></span>人次
+    本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</footer>
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+<script src="/js/app.js"></script>
+
+
+ 
+  <!-- 使用 aotuload.js 引入看板娘 -->    
+  <!-- //<script src="/js/assets/jquery.min.js?v=3.3.1"></script> -->   
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  <!-- //<script src="/js/assets/jquery-ui.min.js?v=1.12.1"></script>   --> 
+  <script src="https://cdn.jsdelivr.net/npm/jquery-ui-dist@1.12.1/jquery-ui.min.js"></script>
+  <script src="/js/assets/autoload.js?v=1.4.2"></script>
+  <!-- //<script src="https://live2d-cdn.fghrsh.net/assets/1.4.2/autoload.js></script> -->   
+   
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var i=n.imageLazyLoadSetting.isSPA,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){i&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,e,a=0;a<r.length;a++)t=r[a],e=void 0,0<=(e=t.getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},n.src=i}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+
+</html>

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<!-- 百度统计 -->
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?e31627579358722b9d300535c8206351";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Vodkazy">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="我想去面试系列——Word2vec">
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="想飞的小菜鸡">
+  <!--Type page-->
+  
+      <meta property="og:type" content="article">
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- Title -->
+  
+  <title>我想去面试系列——Word2vec - 想飞的小菜鸡</title>
+
+
+  <link rel="shortcut icon" href="/../images/icon.ico">
+  <!--font-awesome-->
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+
+<body>
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    
+    <div class="logo">
+      <a href="/" rel="home">
+        
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://cdn2.iconfinder.com/data/icons/weather-color-2/500/weather-01-128.png" alt="想飞的小菜鸡" height="60">
+        
+      </a>
+    </div>
+    <a class="header-name" href="/">
+            <span>想飞的小菜鸡</span>
+            的小窝
+        </a>
+    <!-- navbar -->
+    <nav class="navbar">
+      <!--  nav links -->
+      <div class="collapse">
+        <ul class="navbar-nav">
+          
+          
+            <li>
+              <a href="/.">
+                
+                  <i class="fa fa-home "></i>
+                
+                首页
+              </a>
+            </li>
+          
+            <li>
+              <a href="/archives">
+                
+                  <i class="fa fa-archive "></i>
+                
+                目录
+              </a>
+            </li>
+          
+            <li>
+              <a href="/project">
+                
+                  <i class="fa fa-folder-open "></i>
+                
+                代码库
+              </a>
+            </li>
+          
+            <li>
+              <a href="/photo">
+                
+                  <i class="fa fa-photo "></i>
+                
+                相册薄
+              </a>
+            </li>
+          
+            <li>
+              <a href="/lovetree">
+                
+                  <i class="fa fa-tree "></i>
+                
+                爱情树
+              </a>
+            </li>
+          
+            <li>
+              <a href="/guestbook">
+                
+                  <i class="fa fa-edit "></i>
+                
+                留言板
+              </a>
+            </li>
+          
+            <li>
+              <a href="/about">
+                
+                  <i class="fa fa-user "></i>
+                
+                关于我
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="button-wrap">
+      <button class="menu-toggle">Primary Menu</button>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            我想去面试系列——Word2vec
+            
+          </h1>
+         
+        </div>
+         <p class="a-posted-on">
+          2020-10-19
+          </p>
+        <!-- Post Main Content -->
+        <div class="entry-content">
+          <p>搜罗万象，找寻word2vecv背后的奥妙…<br><a id="more"></a></p>
+<!-- toc -->
+<ul>
+<li><a href="#基本原理">基本原理</a><ul>
+<li><a href="#n-gram">N-gram</a></li>
+<li><a href="#word2vec">Word2vec</a><ul>
+<li><a href="#cbow">CBOW</a></li>
+<li><a href="#skip-gram">Skip-gram</a></li>
+<li><a href="#hierarchical-softmax">Hierarchical Softmax</a></li>
+<li><a href="#negative-sampling">Negative Sampling</a></li>
+</ul>
+</li>
+<li><a href="#glove">Glove</a></li>
+</ul>
+</li>
+<li><a href="#细节-面试题搜集">细节 &amp; 面试题搜集</a></li>
+<li><a href="#参考文献">参考文献</a></li>
+</ul>
+<!-- tocstop -->
+<h2><span id="基本原理">基本原理</span></h2><h3><span id="n-gram">N-gram</span></h3><p>在NLP领域，如何计算一段文本序列在某种语言下出现的概率？对于一段文本序列$S=w_1, w_2, … , w_T$，统计语言模型将序列的联合概率转化为一系列条件概率的乘积：</p>
+<script type="math/tex; mode=display">P(S)=P(w_1, w_2, ..., w_T)=\prod_{t=1}^Tp(w_t|w_1, w_2, ..., w_{t-1})</script><p>由于其巨大的参数空间，这样一个原始的模型在实际中并没有什么用。我们更多的是采用其简化版本 —— N-gram模型，常见的如bi-gram模型（N=2）和tri-gram模型（N=3）。事实上，由于模型复杂度和预测精度的限制，我们很少会考虑N&gt;3的模型。我们可以用最大似然法去求解N-gram模型的参数——等价于去统计每个N-gram的条件词频：</p>
+<script type="math/tex; mode=display">p(w_t|w_1, w_2, ..., w_{t-1}) \approx p(w_t|w_{t-n+1}, ..., w_{t-1})</script><p><strong>N-gram模型的缺点</strong>是，①无法处理更长的context（N＞3）②没有考虑词与词之间内在的联系性。Ngram本质上是将词当做一个个孤立的原子单元，然后形式化表达为一个个one-hot向量。显然，one-hot向量的维度等于词典的大小。这在动辄上万甚至百万词典的实际应用中，面临着巨大的维度灾难问题（The Curse of Dimensionality）。于是连续的分布式向量表示（Distributed representation）就产生了。Distributed representation可以解决One-Hot编码存在的问题，它的思路是通过训练，<strong>将原来One-Hot编码的每个词都映射到一个较短的词向量</strong>上来，而这个较短的词向量的维度可以由我们自己在训练时根据任务需要来自己指定。</p>
+<h3><span id="word2vec">Word2vec</span></h3><p>首先要说明的一点是，<a href="https://arxiv.org/pdf/1301.3781v3.pdf" target="_blank" rel="noopener">word2vec</a>并不是一个深度模型，其背后只是一个浅层神经网络，并且是一个无监督学习模型。另外需要强调的一点是，word2vec是一个计算word vector的开源工具。当我们在说word2vec算法或模型的时候，其实指的是其背后用于计算word vector的CBoW模型和Skip-gram模型。很多人以为word2vec指的是一个算法或模型，这也是一种谬误。</p>
+<p>Word2Vec 的训练模型本质上是只具有一个隐含层的神经元网络。</p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="w2c.jpg" alt=""></p>
+<p>它的输入是采用One-Hot编码的词汇表向量，它的输出也是One-Hot编码的词汇表向量。使用所有的样本，训练这个神经元网络，等到收敛之后，从输入层到隐含层的那些权重，便是每一个词的采用Distributed Representation的词向量。这样我们就把原本维数为V的词向量变成了维数为N的词向量（N远小于V），并且词向量间保留了一定的相关关系。Word2Vec其实就是指的是网络中的权重矩阵<code>W</code>，因为输入的每个onehot乘以W只会有一列起作用。</p>
+<p>Word2Vec的论文中提出了CBOW和Skip-gram两种模型，CBOW适合于数据集较小的情况，而Skip-Gram在大型语料中表现更好。下面分别进行介绍：</p>
+<h4><span id="cbow">CBOW</span></h4><p>从数学上看，CBoW（Continuous Bag-of-Words）模型等价于一个词袋模型的向量乘以一个Embedding矩阵，从而得到一个连续的embedding向量。这也是CBoW模型名称的由来。</p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="1.jpg" alt=""></p>
+<ul>
+<li>输入层：c个上下文单词向量$c_i \in R^V$，每个向量都是长度为<code>V</code>（词表大小）的one-hot向量，这里的<code>c</code>由<code>skip_window</code>参数决定，<code>c=2*skip_window</code>，即在左右两侧分别选<code>skip_window</code>个上下文单词；边界条件：当中心词位于边缘时，窗口大小减小（word2vec没有做padding处理）</li>
+<li>隐藏层：所有onehot分别乘以共享的输入权重矩阵 $W_{V \times N}$，得到维数为N的向量$w_1,w_2,…,w_c$，这里的$N$自行定义为多少。将这些向量$w_1,w_2,…,w_c$加权求平均作为隐藏层向量$h$；</li>
+<li>输出层：$h$再乘一个权重矩阵$W’_{N \times V}$，再过一个激活函数（直接对词典里的V个词计算相似度并归一化，显然是一件极其耗时的impossible mission。为此，Mikolov引入了两种优化算法：层次Softmax和负采样），得到$y \in R^V$，该向量的每一维代表了相对应的单词的概率分布。</li>
+<li>$y$中概率最大的元素所指示的单词为预测出的中间词（target word），与true label的onehot词向量做比较，误差越小越好。损失函数一般为交叉熵代价函数。训练完成后矩阵$W_{V \times N}$就是所需要的word embedding。</li>
+</ul>
+<h4><span id="skip-gram">Skip-gram</span></h4><p>Skip-gram是和CBOW反过来，从直观上理解，Skip-Gram是给定input word来预测上下文。它的做法是，将一个词所在的上下文中的词作为输出，而那个词本身作为输入，也就是说，给出一个词，希望预测可能出现的上下文的词。假如我们有一个句子“The dog barked at the mailman”。首先我们选句子中间的一个词作为我们的输入词，例如我们选取“dog”作为input word；有了input word以后，我们再定义一个叫做<code>skip_window</code>的参数，它代表着我们从当前input word的一侧（左边或右边）选取词的数量。</p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="2.jpg" alt=""></p>
+<p>如果我们设置<code>skip_window=2</code>，那么我们最终获得窗口中的词（包括input word在内）就是[‘The’, ‘dog’，’barked’, ‘at’]。<code>skip_window=2</code>代表着选取左input word左侧2个词和右侧2个词进入我们的窗口，所以整个窗口大小<code>span=2x2=4</code>。另一个参数叫<code>num_skips</code>，它代表着我们从整个窗口中选取多少个不同的词作为我们的output word，当<code>skip_window=2，num_skips=</code>2时，我们将会得到两组 (input word, output word) 形式的训练数据，即 (‘dog’, ‘barked’)，(‘dog’, ‘the’)。模型训练的时候就相当于有两个样本数据，每次前向传播softmax求的是当前窗口内的这个词和当前输入词在同一窗口的概率。模型的输出概率代表着到我们词典中每个词有多大可能性跟input word同时出现。对于上边的样例，“The dog barked at the mailman”，假设输入词是”barked”，上下文词有[the, dog, at, the]，那么barked这一个batch中就有四个训练样例，[the,barked], [dog,barked], [barked,at], [barked,the]，然后相当于一个barked要训练四次。但是在预测的时候，只会输入一个barked，然后最后对单词表softmax，得到可能作为barked上下文出现的词的概率分布，最终的topK个单词即为最后的上下文中窗口中预测出现的词。（这就出现了一个问题，比如上下文中有两个the，但是只能预测出来一个，所以这就凸显出来了词袋模型的弊端，忽略次数）</p>
+<p>需要注意一点的是，实际上skip-gram的预测部分是没人用的，也就是说word2vec它这个模型的初衷就是为了训练而生的，而不是为了下游任务而生的。所以这也验证了之前经常看过的一句话“<strong>word2vec词向量其实是模型的一个副产品而已</strong>”，所以根本就不用纠结怎么拿word2vec进行预测，只需要掌握它训练的精髓就好了。</p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="skip.jpeg" alt=""></p>
+<h4><span id="hierarchical-softmax">Hierarchical Softmax</span></h4><p>Word2vec 本质上是一个语言模型，它的输出节点数是 V 个，对应了 V 个词语，本质上是一个多分类问题，但实际当中，词语的个数非常非常多，会给计算造成很大困难，所以需要用技巧来加速训练。下边两个技巧其实并不是word2vec的精髓，只需要简单了解下即可。</p>
+<p>Hierarchical Softmax是为了降低原始模型中softmax对于大量词表计算时的计算复杂度，<strong>本质是把 N 分类问题变成 log(N)次二分类</strong>。它对原模型的改进主要有两点，第一点是从输入层到隐藏层的映射，没有采用原先的与矩阵W相乘然后相加求平均的方法，而是直接对所有输入的词向量求和。假设输入的词向量为<code>（0,1,0,0）</code>和<code>（0,0,0,1）</code>，那么隐藏层的向量为<code>（0,1,0,1）</code>。第二点改进是采用哈夫曼树（根据频率建模，出现频率高的越靠近根节点）来替换了原先的从隐藏层到输出层的矩阵<code>W&#39;</code>。哈夫曼树的叶节点个数为词汇表的单词个数<code>V</code>，一个叶节点代表一个单词，而从根节点到该叶节点的路径确定了这个单词最终输出的词向量。这棵哈夫曼树除了根结点以外的所有非叶节点中都含有一个由参数<code>θ</code>确定的<code>sigmoid</code>函数，不同节点中的<code>θ</code>不一样。训练时隐藏层的向量与这个<code>sigmoid</code>函数进行运算，根据结果进行分类，若分类为负类则沿左子树向下传递，编码为0；若分类为正类则沿右子树向下传递，编码为1。</p>
+<h4><span id="negative-sampling">Negative Sampling</span></h4><p>对于一些不常见、较生僻的词汇，哈夫曼树在计算它们的词向量时仍然需要做大量的运算。负采样是另一种用来提高Word2Vec效率的方法，它是基于这样的观察：训练一个神经网络意味着使用一个训练样本就要稍微调整一下神经网络中所有的权重，这样才能够确保预测训练样本更加精确，如果能设计一种方法每次只更新一部分权重，那么计算复杂度将大大降低。具体方法就是选取一些期望神经网络输出为0的神经元对应的单词进行训练，这样的话就可以通过较少数目的负样本来更新大部分0对应的权重。<strong>本质是预测总体类别的一个子集</strong>。</p>
+<h3><span id="glove">Glove</span></h3><p><a href="https://www.aclweb.org/anthology/D14-1162.pdf" target="_blank" rel="noopener">Glove</a>全称Global Vectors for Word Representation，是基于全局词频统计的词表征工具。他结合了LSA算法可以有效收集语料库全局统计信息的优点（但是无法捕捉上下文信息），还结合了word2vec这种滑动窗口机制的可以通过局部上下文特征表达更丰富语义的特点。它的<strong>核心思想</strong>是，对于任意的词$i$和$j$，假如有第三个词$k$，如果词$k$与$i$相比于词$k$与$j$有更深的关联，那么我们可以得到$k$在$i$的窗口词中出现的概率要大于$k$在$j$的窗口词中出现的概率，且数值较大。如果$k$和$i$与$j$的关系都不大，那么前述的概率应该是约等于的。Glove模型表示的语义词向量相似度尽可能接近在统计共现矩阵中统计相似度，并且不同共现的词有不同权值。可形式化为$F(w_i,w_j,\tilde{w}_k) = \frac{P_{ik}}{P_{jk}}$，式子左边是向量相似度函数，右边是全局的共现统计值。具体实现分为三步，可参考<a href="https://zhuanlan.zhihu.com/p/80335195" target="_blank" rel="noopener">这篇文章</a>：</p>
+<ul>
+<li><p>根据语料库（corpus）构建一个共现矩阵$X$，<strong>矩阵中的每一个元素$X_{ij}$代表单词$i$和上下文单词$j$在特定大小的上下文窗口内共同出现的次数。</strong>一般而言，这个次数的最小单位是1，但是GloVe不这么认为：它根据两个单词在上下文窗口的距离$d$，提出了一个衰减函数：$decay=1/d$用于计算权重，也就是说<strong>距离越远的两个单词所占总计数（total count）的权重越小</strong>。</p>
+</li>
+<li><p>构建词向量（Word Vector）和共现矩阵$X$之间的近似关系，损失函数描述如下：</p>
+<script type="math/tex; mode=display">J = \sum_{i,j=1}^{V} f(X_{ij})(w_{i}^{T}\tilde{w_{j}} + b_i + \tilde{b_j} – \log(X_{ij}) )^2</script><p>其中，$w_{i}^{T}$和$\tilde{w_{j}}$是我们最终要求解的词向量，$b_i$和$\tilde{b_j}$分别是两个词向量的bias term，$f(X_{ij})$的作用主要是描述相似度的程度，比如共现次数多的单词权重要大于那些共现次数少的（非递减），权重不能太过大到了一定程度就应该停止增加，没有共现过的词应该$f(0)=0$，所以采用了一个分段函数</p>
+<script type="math/tex; mode=display">f(x)=\begin{equation} \begin{cases} (x/x_{max})^{\alpha}  & \text{if} \ x < x_{max} \\ 1 & \text{otherwise} \end{cases} \end{equation}​</script></li>
+<li><p>Glove其实是有监督的，这个label就是$\log(X_{ij})$，$\log(X_{ij})$是通过共现矩阵的统计数据可以直接计算出来的。</p>
+</li>
+</ul>
+<h2><span id="细节-amp-面试题搜集">细节 &amp; 面试题搜集</span></h2><p>后续更新…</p>
+<h2><span id="参考文献">参考文献</span></h2><ol>
+<li>Word2Vec：<a href="https://zhuanlan.zhihu.com/p/140705629" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/140705629</a></li>
+<li>Word2Vec详解：<a href="https://zhuanlan.zhihu.com/p/61635013" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/61635013</a></li>
+<li>Glove详解：<a href="http://www.fanyeong.com/2018/02/19/glove-in-detail/" target="_blank" rel="noopener">http://www.fanyeong.com/2018/02/19/glove-in-detail/</a></li>
+<li>Glove模型的理解：<a href="https://zhuanlan.zhihu.com/p/80335195" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/80335195</a></li>
+<li>【深度学习】Word2Vec：<a href="https://www.hrwhisper.me/deep-learning-word2vec/" target="_blank" rel="noopener">https://www.hrwhisper.me/deep-learning-word2vec/</a></li>
+<li>Embedding之word2vec：<a href="https://zhuanlan.zhihu.com/p/59396559" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/59396559</a></li>
+<li>关于word2vec的一些相关问题整理 &amp; 思考：<a href="https://blog.csdn.net/liujian20150808/article/details/105215414" target="_blank" rel="noopener">https://blog.csdn.net/liujian20150808/article/details/105215414</a></li>
+<li>搞懂NLP中的词向量，看这一篇就足够：<a href="https://www.infoq.cn/article/PFvZxgGDm27453BbS24W" target="_blank" rel="noopener">https://www.infoq.cn/article/PFvZxgGDm27453BbS24W</a></li>
+<li>GloVe与word2vec的区别：<a href="https://zhuanlan.zhihu.com/p/31023929" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/31023929</a></li>
+<li>基于TensorFlow实现Skip-Gram模型：<a href="https://www.leiphone.com/news/201706/QprrvzsrZCl4S2lw.html" target="_blank" rel="noopener">https://www.leiphone.com/news/201706/QprrvzsrZCl4S2lw.html</a></li>
+</ol>
+<blockquote>
+<p>本文来源：「想飞的小菜鸡」的个人网站  <a href="https://vodkazy.cn" target="_blank" rel="noopener">vodkazy.cn</a></p>
+<p>版权声明：本文为「想飞的小菜鸡」的原创文章，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请附上原文出处链接及本声明。</p>
+<p>原文链接：<a href="https://vodkazy.cn/2020/10/19/我想去面试系列——Word2vec" target="_blank" rel="noopener">https://vodkazy.cn/2020/10/19/我想去面试系列——Word2vec</a></p>
+</blockquote>
+
+        </div>
+      </article>
+    </div>
+
+	<!-- 打赏 -->
+    <div class="reward">
+	<div class="reward-button">赏 <span class="reward-code">
+		<span class="alipay-code"> <img class="alipay-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/alipay.webp"><b>支付宝打赏</b> </span> 
+		<span class="wechat-code"> <img class="wechat-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/weixin.webp"><b>微信打赏</b> </span> </span>
+	</div>
+	<p class="reward-notice">如果文章对你有帮助，欢迎点击上方按钮打赏作者，更多文章请访问<a href="https://vodkazy.cn" style="color:blue">想飞的小菜鸡</a></p>
+	    <style>
+		*,*:before,*:after {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			-ms-box-sizing: border-box;
+			box-sizing: border-box
+		}
+
+		.reward {
+			padding: 5px 0
+		}
+
+		.reward .reward-notice {
+			font-size: 14px;
+			line-height: 14px;
+			margin: 15px auto;
+			text-align: center
+		}
+
+		.reward .reward-button {
+			font-size: 28px;
+			line-height: 58px;
+			position: relative;
+			display: block;
+			width: 60px;
+			height: 60px;
+			margin: 0 auto;
+			padding: 0;
+			-webkit-user-select: none;
+			text-align: center;
+			vertical-align: middle;
+			color: #fff;
+			border: 1px solid #f1b60e;
+			border-radius: 50%;
+			background: #fccd60;
+			background: -webkit-gradient(linear,left top,left bottom,color-stop(0,#fccd60),color-stop(100%,#fbae12),color-stop(100%,#2989d8),color-stop(100%,#207cca));
+			background: -webkit-linear-gradient(top,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%);
+			background: linear-gradient(to bottom,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%)
+		}
+
+		.reward .reward-code {
+			position: absolute;
+			top: -220px;
+			left: 50%;
+			display: none;
+			width: 350px;
+			height: 200px;
+			margin-left: -175px;
+			padding: 15px;
+			border: 1px solid #e6e6e6;
+			background: #fff;
+			box-shadow: 0 1px 1px 1px #efefef
+		}
+
+		.reward .reward-button:hover .reward-code {
+			display: block
+		}
+
+		.reward .reward-code span {
+			display: inline-block;
+			width: 150px;
+			height: 150px
+		}
+
+		.reward .reward-code span.alipay-code {
+			float: left
+		}
+
+		.reward .reward-code span.alipay-code a {
+			padding: 0
+		}
+
+		.reward .reward-code span.wechat-code {
+			float: right
+		}
+
+		.reward .reward-code img {
+			display: inline-block;
+			float: left;
+			width: 150px;
+			height: 150px;
+			margin: 0 auto;
+			border: 0
+		}
+
+		.reward .reward-code b {
+			font-size: 14px;
+			line-height: 26px;
+			display: block;
+			margin: 0;
+			text-align: center;
+			color: #666
+		}
+
+		.reward .reward-code b.notice {
+			line-height: 2rem;
+			margin-top: -1rem;
+			color: #999
+		}
+
+		.reward .reward-code:after,.reward .reward-code:before {
+			position: absolute;
+			content: '';
+			border: 10px solid transparent
+		}
+
+		.reward .reward-code:after {
+			bottom: -19px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #fff
+		}
+
+		.reward .reward-code:before {
+			bottom: -20px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #e6e6e6
+		}
+    </style>
+
+
+    <!-- Pre or Next -->
+    
+	<div class="container">
+           <ul class="pager">
+    	     
+      	     <li class="previous">
+              <a href="/2020/10/29/我想去面试系列——Attention与Transformer/" rel="prev">上一篇</a>
+             </li>
+           
+           
+              <li class="next">
+              <a href="/2020/10/14/我想去面试系列——BERT源码品读/" rel="prev">下一篇</a>
+            </li>
+           
+          </ul>
+       </div>
+   
+
+    <!-- Valine无后端评论系统 -->   
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+		    el: '#vcomments' ,
+		    appId: 'lH3VkMCd4MHaKtr2n2SRWdoi-MdYXbMMI',
+		    appKey: '5aMXSY7b4KwnzfgpzLA0hPLv',
+		    notify:true, 
+		    verify:false, 
+		    placeholder: '填写正确的邮箱和昵称才能收到我的回复哦       ٩( ^o^ )و  ' ,
+		    avatar: 'retro'
+		});
+    </script>
+    <!-- Valine无后端评论系统 -->  
+
+  </div>
+</div>
+</div>
+
+  <!-- Footer -->
+  <!-- Footer -->
+<footer class="site-info">
+  <p>
+    <span>想飞的小菜鸡 &copy; 2021</span>
+    
+      <span class="split">|</span>
+      <span>照耀的Blog</span>
+    
+  </p>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    本站访客数<span id="busuanzi_value_site_uv"></span>人次
+    本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</footer>
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+<script src="/js/app.js"></script>
+
+
+ 
+  <!-- 使用 aotuload.js 引入看板娘 -->    
+  <!-- //<script src="/js/assets/jquery.min.js?v=3.3.1"></script> -->   
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  <!-- //<script src="/js/assets/jquery-ui.min.js?v=1.12.1"></script>   --> 
+  <script src="https://cdn.jsdelivr.net/npm/jquery-ui-dist@1.12.1/jquery-ui.min.js"></script>
+  <script src="/js/assets/autoload.js?v=1.4.2"></script>
+  <!-- //<script src="https://live2d-cdn.fghrsh.net/assets/1.4.2/autoload.js></script> -->   
+   
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var i=n.imageLazyLoadSetting.isSPA,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){i&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,e,a=0;a<r.length;a++)t=r[a],e=void 0,0<=(e=t.getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},n.src=i}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+
+</html>

@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<!-- 百度统计 -->
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?e31627579358722b9d300535c8206351";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Vodkazy">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="想飞的小菜鸡">
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="想飞的小菜鸡">
+  <!--Type page-->
+  
+      <meta property="og:type" content="website">
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- Title -->
+  
+  <title>想飞的小菜鸡 - 默默发声，踽踽独行</title>
+
+
+  <link rel="shortcut icon" href="/../images/icon.ico">
+  <!--font-awesome-->
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+
+<body>
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    
+    <div class="logo">
+      <a href="/" rel="home">
+        
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://cdn2.iconfinder.com/data/icons/weather-color-2/500/weather-01-128.png" alt="想飞的小菜鸡" height="60">
+        
+      </a>
+    </div>
+    <a class="header-name" href="/">
+            <span>想飞的小菜鸡</span>
+            的小窝
+        </a>
+    <!-- navbar -->
+    <nav class="navbar">
+      <!--  nav links -->
+      <div class="collapse">
+        <ul class="navbar-nav">
+          
+          
+            <li>
+              <a href="/.">
+                
+                  <i class="fa fa-home "></i>
+                
+                首页
+              </a>
+            </li>
+          
+            <li>
+              <a href="/archives">
+                
+                  <i class="fa fa-archive "></i>
+                
+                目录
+              </a>
+            </li>
+          
+            <li>
+              <a href="/project">
+                
+                  <i class="fa fa-folder-open "></i>
+                
+                代码库
+              </a>
+            </li>
+          
+            <li>
+              <a href="/photo">
+                
+                  <i class="fa fa-photo "></i>
+                
+                相册薄
+              </a>
+            </li>
+          
+            <li>
+              <a href="/lovetree">
+                
+                  <i class="fa fa-tree "></i>
+                
+                爱情树
+              </a>
+            </li>
+          
+            <li>
+              <a href="/guestbook">
+                
+                  <i class="fa fa-edit "></i>
+                
+                留言板
+              </a>
+            </li>
+          
+            <li>
+              <a href="/about">
+                
+                  <i class="fa fa-user "></i>
+                
+                关于我
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="button-wrap">
+      <button class="menu-toggle">Primary Menu</button>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <div class="site-content home">
+      <div class="content-header" style="background: url(../images/bg.webp) no-repeat bottom;">
+        <div class="headline">
+            <a href="#" class="demo">
+                <div class="img" style="background-image:url(../images/touxiang.webp)"></div>
+                <div class="cover_mask">
+                    <div class="info">
+                        <span>欢迎来到我的博客<br>by:照耀</span>
+                    </div>
+                </div>
+                <div class="border"></div>
+            </a>
+            <h1 id="Hotnews"></h1>
+            <script type="application/javascript">
+               var content = "永远年轻 永远热泪盈眶";
+               var i = 0;
+               function show(){
+                   // var str  = content.substr(0,i);
+                   // Hotnews.innerHTML = str + "_";
+                   Hotnews.innerHTML = content;
+                   // i++;
+                   // if (i>content.length) i=0;
+                   setTimeout("show()",0);
+               }
+               window.onload = show();
+               </script>
+            <div class="header-link">
+              
+                
+                  <a href="https://github.com/vodkazy" class="icon-github" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
+                
+                  <a href="http://weibo.com/u/5216654718" class="icon-weibo" target="_blank"><i class="fa fa-weibo" aria-hidden="true"></i></a>
+                
+                  <a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=nefkrKirqKur3ezss-7y8A" class="icon-twitter" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                
+              
+            </div>
+        </div>
+    </div>
+  <main class="content-area">
+    
+        <div class="article">
+          <div class="container">
+  <article class="post">
+    <h1 class="entry-title">
+      <a href="/2018/11/27/SPARQL学习笔记（二）/" rel="bookmark">
+        SPARQL学习笔记（二）  
+      </a>
+    </h1>
+    
+    <div class="entry-content">
+      <p>
+        </p><p>SPARQL 1.1 Query Language 第8~14章<br></p>
+      <p></p>
+    </div>
+    <div class="post-more-link text-center">
+            <a class="btn" href="/2018/11/27/SPARQL学习笔记（二）/" rel="contents">
+              阅读全文 »
+            </a>
+    </div>
+    <p class="posted-on">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+    	2018-11-27
+    </p>
+    <div class="tags-links">
+      <i class="fa fa-tags" aria-hidden="true"></i>
+      
+      <a href="/tags/SPARQL/" rel="tag">
+        SPARQL
+      </a>
+      
+    </div>
+    
+  </article>
+</div>
+
+        </div> 
+    
+        <div class="article">
+          <div class="container">
+  <article class="post">
+    <h1 class="entry-title">
+      <a href="/2018/11/24/微信抽奖助手小程序一键抽奖/" rel="bookmark">
+        微信抽奖助手小程序一键抽奖  
+      </a>
+    </h1>
+    
+    <div class="entry-content">
+      <p>
+        </p><p>本文介绍了使用python编写脚本，代替人力在微信抽奖助手小程序中一键抽奖的方法。<br></p>
+      <p></p>
+    </div>
+    <div class="post-more-link text-center">
+            <a class="btn" href="/2018/11/24/微信抽奖助手小程序一键抽奖/" rel="contents">
+              阅读全文 »
+            </a>
+    </div>
+    <p class="posted-on">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+    	2018-11-24
+    </p>
+    <div class="tags-links">
+      <i class="fa fa-tags" aria-hidden="true"></i>
+      
+      <a href="/tags/Linux/" rel="tag">
+        Linux
+      </a>
+      
+    </div>
+    
+  </article>
+</div>
+
+        </div> 
+    
+        <div class="article">
+          <div class="container">
+  <article class="post">
+    <h1 class="entry-title">
+      <a href="/2018/11/23/SPARQL学习笔记（一）/" rel="bookmark">
+        SPARQL学习笔记（一）  
+      </a>
+    </h1>
+    
+    <div class="entry-content">
+      <p>
+        </p><p>SPARQL 1.1 Query Language 第1~7章<br></p>
+      <p></p>
+    </div>
+    <div class="post-more-link text-center">
+            <a class="btn" href="/2018/11/23/SPARQL学习笔记（一）/" rel="contents">
+              阅读全文 »
+            </a>
+    </div>
+    <p class="posted-on">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+    	2018-11-23
+    </p>
+    <div class="tags-links">
+      <i class="fa fa-tags" aria-hidden="true"></i>
+      
+      <a href="/tags/SPARQL/" rel="tag">
+        SPARQL
+      </a>
+      
+    </div>
+    
+  </article>
+</div>
+
+        </div> 
+    
+        <div class="article">
+          <div class="container">
+  <article class="post">
+    <h1 class="entry-title">
+      <a href="/2018/11/19/Linux&Win&Deepin安装virtuoso数据库/" rel="bookmark">
+        Linux & Win & Deepin 安装virtuoso数据库  
+      </a>
+    </h1>
+    
+    <div class="entry-content">
+      <p>
+        </p><p>Virtuoso数据库是一个高性能的rdf数据库,可支持百亿条三元组,支持sparql1.1语法查询。本文主要介绍了virtuoso数据库在linux和在windows下的安装方法，以及装载大文件的方法。<br></p>
+      <p></p>
+    </div>
+    <div class="post-more-link text-center">
+            <a class="btn" href="/2018/11/19/Linux&Win&Deepin安装virtuoso数据库/" rel="contents">
+              阅读全文 »
+            </a>
+    </div>
+    <p class="posted-on">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+    	2018-11-19
+    </p>
+    <div class="tags-links">
+      <i class="fa fa-tags" aria-hidden="true"></i>
+      
+      <a href="/tags/Linux/" rel="tag">
+        Linux
+      </a>
+      
+    </div>
+    
+  </article>
+</div>
+
+        </div> 
+    
+        <div class="article">
+          <div class="container">
+  <article class="post">
+    <h1 class="entry-title">
+      <a href="/2018/11/09/迁移博客至Ubuntu的一些坑/" rel="bookmark">
+        迁移博客至Ubuntu的一些坑  
+      </a>
+    </h1>
+    
+    <div class="entry-content">
+      <p>
+        </p><p>把Ubuntu装Hexo的坑几乎踩了一遍..心累（<br></p>
+      <p></p>
+    </div>
+    <div class="post-more-link text-center">
+            <a class="btn" href="/2018/11/09/迁移博客至Ubuntu的一些坑/" rel="contents">
+              阅读全文 »
+            </a>
+    </div>
+    <p class="posted-on">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+    	2018-11-09
+    </p>
+    <div class="tags-links">
+      <i class="fa fa-tags" aria-hidden="true"></i>
+      
+      <a href="/tags/Hexo/" rel="tag">
+        Hexo
+      </a>
+      
+    </div>
+    
+  </article>
+</div>
+
+        </div> 
+    
+        <div class="article">
+          <div class="container">
+  <article class="post">
+    <h1 class="entry-title">
+      <a href="/2018/10/30/Java基础学习笔记（四）/" rel="bookmark">
+        Java基础学习笔记（四）  
+      </a>
+    </h1>
+    
+    <div class="entry-content">
+      <p>
+        </p><p>涉及GUI图形用户界面、网络编程、反射机制和注解。<br></p>
+      <p></p>
+    </div>
+    <div class="post-more-link text-center">
+            <a class="btn" href="/2018/10/30/Java基础学习笔记（四）/" rel="contents">
+              阅读全文 »
+            </a>
+    </div>
+    <p class="posted-on">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+    	2018-10-30
+    </p>
+    <div class="tags-links">
+      <i class="fa fa-tags" aria-hidden="true"></i>
+      
+      <a href="/tags/Java/" rel="tag">
+        Java
+      </a>
+      
+    </div>
+    
+  </article>
+</div>
+
+        </div> 
+    
+        <div class="article">
+          <div class="container">
+  <article class="post">
+    <h1 class="entry-title">
+      <a href="/2018/10/29/Java基础学习笔记（三）/" rel="bookmark">
+        Java基础学习笔记（三）  
+      </a>
+    </h1>
+    
+    <div class="entry-content">
+      <p>
+        </p><p>涉及泛型、Lambda表达式、多线程以及JDBC。<br></p>
+      <p></p>
+    </div>
+    <div class="post-more-link text-center">
+            <a class="btn" href="/2018/10/29/Java基础学习笔记（三）/" rel="contents">
+              阅读全文 »
+            </a>
+    </div>
+    <p class="posted-on">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+    	2018-10-29
+    </p>
+    <div class="tags-links">
+      <i class="fa fa-tags" aria-hidden="true"></i>
+      
+      <a href="/tags/Java/" rel="tag">
+        Java
+      </a>
+      
+    </div>
+    
+  </article>
+</div>
+
+        </div> 
+    
+        <div class="article">
+          <div class="container">
+  <article class="post">
+    <h1 class="entry-title">
+      <a href="/2018/10/28/Java基础学习笔记（二）/" rel="bookmark">
+        Java基础学习笔记（二）  
+      </a>
+    </h1>
+    
+    <div class="entry-content">
+      <p>
+        </p><p>涉及异常处理、文件I/O以及ArrayList等集合框架。<br></p>
+      <p></p>
+    </div>
+    <div class="post-more-link text-center">
+            <a class="btn" href="/2018/10/28/Java基础学习笔记（二）/" rel="contents">
+              阅读全文 »
+            </a>
+    </div>
+    <p class="posted-on">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+    	2018-10-28
+    </p>
+    <div class="tags-links">
+      <i class="fa fa-tags" aria-hidden="true"></i>
+      
+      <a href="/tags/Java/" rel="tag">
+        Java
+      </a>
+      
+    </div>
+    
+  </article>
+</div>
+
+        </div> 
+    
+        <div class="article">
+          <div class="container">
+  <article class="post">
+    <h1 class="entry-title">
+      <a href="/2018/10/22/Java基础学习笔记（一）/" rel="bookmark">
+        Java基础学习笔记（一）  
+      </a>
+    </h1>
+    
+    <div class="entry-content">
+      <p>
+        </p><p>How2J的Java基础教程的学习笔记，涉及Java中的一些比较基础的概念。<br></p>
+      <p></p>
+    </div>
+    <div class="post-more-link text-center">
+            <a class="btn" href="/2018/10/22/Java基础学习笔记（一）/" rel="contents">
+              阅读全文 »
+            </a>
+    </div>
+    <p class="posted-on">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+    	2018-10-22
+    </p>
+    <div class="tags-links">
+      <i class="fa fa-tags" aria-hidden="true"></i>
+      
+      <a href="/tags/Java/" rel="tag">
+        Java
+      </a>
+      
+    </div>
+    
+  </article>
+</div>
+
+        </div> 
+    
+        <div class="article">
+          <div class="container">
+  <article class="post">
+    <h1 class="entry-title">
+      <a href="/2018/09/22/《围城》读后感/" rel="bookmark">
+        《围城》读后感  
+      </a>
+    </h1>
+    
+    <div class="entry-content">
+      <p>
+        </p><p>本文写于阅读钱钟书先生的《围城》之后，有感而发，仅作聊作感想之言，以此留作纪念。<br></p>
+      <p></p>
+    </div>
+    <div class="post-more-link text-center">
+            <a class="btn" href="/2018/09/22/《围城》读后感/" rel="contents">
+              阅读全文 »
+            </a>
+    </div>
+    <p class="posted-on">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+    	2018-09-22
+    </p>
+    <div class="tags-links">
+      <i class="fa fa-tags" aria-hidden="true"></i>
+      
+      <a href="/tags/日志/" rel="tag">
+        日志
+      </a>
+      
+    </div>
+    
+  </article>
+</div>
+
+        </div> 
+    
+        <div class="article">
+          <div class="container">
+  <article class="post">
+    <h1 class="entry-title">
+      <a href="/2018/08/27/MediaWiki备份及迁移部署/" rel="bookmark">
+        MediaWiki备份及迁移部署  
+      </a>
+    </h1>
+    
+    <div class="entry-content">
+      <p>
+        </p><p>经常对数据备份是非常重要的一件事情。本文主要讲述从本地Linux-&gt;本地Windows-&gt;Linux服务器进行数据迁移的过程。<br></p>
+      <p></p>
+    </div>
+    <div class="post-more-link text-center">
+            <a class="btn" href="/2018/08/27/MediaWiki备份及迁移部署/" rel="contents">
+              阅读全文 »
+            </a>
+    </div>
+    <p class="posted-on">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+    	2018-08-27
+    </p>
+    <div class="tags-links">
+      <i class="fa fa-tags" aria-hidden="true"></i>
+      
+      <a href="/tags/MediaWiki/" rel="tag">
+        MediaWiki
+      </a>
+      
+    </div>
+    
+  </article>
+</div>
+
+        </div> 
+    
+        <div class="article">
+          <div class="container">
+  <article class="post">
+    <h1 class="entry-title">
+      <a href="/2018/08/26/Ubuntu下安装MediaWiki/" rel="bookmark">
+        Ubuntu下安装MediaWiki  
+      </a>
+    </h1>
+    
+    <div class="entry-content">
+      <p>
+        </p><p>最近老板给了一个任务，让我利用wiki搭一个实验室的主页网站。先后实验了XWiki、ScrewTurnWiki、JspWiki、DokuWiki、MediaWiki,最后选择了MediaWiki。<br></p>
+      <p></p>
+    </div>
+    <div class="post-more-link text-center">
+            <a class="btn" href="/2018/08/26/Ubuntu下安装MediaWiki/" rel="contents">
+              阅读全文 »
+            </a>
+    </div>
+    <p class="posted-on">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+    	2018-08-26
+    </p>
+    <div class="tags-links">
+      <i class="fa fa-tags" aria-hidden="true"></i>
+      
+      <a href="/tags/Linux/" rel="tag">
+        Linux
+      </a>
+      
+      <a href="/tags/MediaWiki/" rel="tag">
+        MediaWiki
+      </a>
+      
+    </div>
+    
+  </article>
+</div>
+
+        </div> 
+    
+        <div class="article">
+          <div class="container">
+  <article class="post">
+    <h1 class="entry-title">
+      <a href="/2018/08/20/保研笔记/" rel="bookmark">
+        保研笔记  
+      </a>
+    </h1>
+    
+    <div class="entry-content">
+      <p>
+        </p><p>本文是作者以及作者的同学，在准备保研过程中听了一些保研课而做的笔记，保存下来，分享给有需要的学弟学妹们。<br></p>
+      <p></p>
+    </div>
+    <div class="post-more-link text-center">
+            <a class="btn" href="/2018/08/20/保研笔记/" rel="contents">
+              阅读全文 »
+            </a>
+    </div>
+    <p class="posted-on">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+    	2018-08-20
+    </p>
+    <div class="tags-links">
+      <i class="fa fa-tags" aria-hidden="true"></i>
+      
+      <a href="/tags/保研/" rel="tag">
+        保研
+      </a>
+      
+    </div>
+    
+  </article>
+</div>
+
+        </div> 
+    
+        <div class="article">
+          <div class="container">
+  <article class="post">
+    <h1 class="entry-title">
+      <a href="/2018/06/22/Matlab实现落差指数试算/" rel="bookmark">
+        Matlab实现落差指数试算  
+      </a>
+    </h1>
+    
+    <div class="entry-content">
+      <p>
+        </p><p>帮同学搞的一个水文方面的一个算法。<br></p>
+      <p></p>
+    </div>
+    <div class="post-more-link text-center">
+            <a class="btn" href="/2018/06/22/Matlab实现落差指数试算/" rel="contents">
+              阅读全文 »
+            </a>
+    </div>
+    <p class="posted-on">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+    	2018-06-22
+    </p>
+    <div class="tags-links">
+      <i class="fa fa-tags" aria-hidden="true"></i>
+      
+      <a href="/tags/Matlab/" rel="tag">
+        Matlab
+      </a>
+      
+    </div>
+    
+  </article>
+</div>
+
+        </div> 
+    
+        <div class="article">
+          <div class="container">
+  <article class="post">
+    <h1 class="entry-title">
+      <a href="/2018/05/21/codeforces-Edu-44题解/" rel="bookmark">
+        codeforces-Edu-44题解  
+      </a>
+    </h1>
+    
+    <div class="entry-content">
+      <p>
+        </p><p>5.21 cf-edu-44 3/7<br></p>
+      <p></p>
+    </div>
+    <div class="post-more-link text-center">
+            <a class="btn" href="/2018/05/21/codeforces-Edu-44题解/" rel="contents">
+              阅读全文 »
+            </a>
+    </div>
+    <p class="posted-on">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+    	2018-05-21
+    </p>
+    <div class="tags-links">
+      <i class="fa fa-tags" aria-hidden="true"></i>
+      
+      <a href="/tags/ACM题解/" rel="tag">
+        ACM题解
+      </a>
+      
+    </div>
+    
+  </article>
+</div>
+
+        </div> 
+    
+        <div class="article">
+          <div class="container">
+  <article class="post">
+    <h1 class="entry-title">
+      <a href="/2018/05/18/codeforces-484-div2题解/" rel="bookmark">
+        codeforces-484-div2题解  
+      </a>
+    </h1>
+    
+    <div class="entry-content">
+      <p>
+        </p><p>5.18 cf484 div2 3/6<br></p>
+      <p></p>
+    </div>
+    <div class="post-more-link text-center">
+            <a class="btn" href="/2018/05/18/codeforces-484-div2题解/" rel="contents">
+              阅读全文 »
+            </a>
+    </div>
+    <p class="posted-on">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+    	2018-05-18
+    </p>
+    <div class="tags-links">
+      <i class="fa fa-tags" aria-hidden="true"></i>
+      
+      <a href="/tags/ACM题解/" rel="tag">
+        ACM题解
+      </a>
+      
+    </div>
+    
+  </article>
+</div>
+
+        </div> 
+    
+        <div class="article">
+          <div class="container">
+  <article class="post">
+    <h1 class="entry-title">
+      <a href="/2018/05/17/搭建BP神经网络预测单车数量/" rel="bookmark">
+        搭建BP神经网络预测单车数量  
+      </a>
+    </h1>
+    
+    <div class="entry-content">
+      <p>
+        </p><p>利用简单的三层bp神经网络进行共享单车的预测。<br></p>
+      <p></p>
+    </div>
+    <div class="post-more-link text-center">
+            <a class="btn" href="/2018/05/17/搭建BP神经网络预测单车数量/" rel="contents">
+              阅读全文 »
+            </a>
+    </div>
+    <p class="posted-on">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+    	2018-05-17
+    </p>
+    <div class="tags-links">
+      <i class="fa fa-tags" aria-hidden="true"></i>
+      
+      <a href="/tags/python/" rel="tag">
+        python
+      </a>
+      
+      <a href="/tags/神经网络/" rel="tag">
+        神经网络
+      </a>
+      
+    </div>
+    
+  </article>
+</div>
+
+        </div> 
+    
+        <div class="article">
+          <div class="container">
+  <article class="post">
+    <h1 class="entry-title">
+      <a href="/2018/05/16/神经网络学习笔记/" rel="bookmark">
+        神经网络学习笔记  
+      </a>
+    </h1>
+    
+    <div class="entry-content">
+      <p>
+        </p><p>神经网络学习笔记。<br></p>
+      <p></p>
+    </div>
+    <div class="post-more-link text-center">
+            <a class="btn" href="/2018/05/16/神经网络学习笔记/" rel="contents">
+              阅读全文 »
+            </a>
+    </div>
+    <p class="posted-on">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+    	2018-05-16
+    </p>
+    <div class="tags-links">
+      <i class="fa fa-tags" aria-hidden="true"></i>
+      
+      <a href="/tags/神经网络/" rel="tag">
+        神经网络
+      </a>
+      
+    </div>
+    
+  </article>
+</div>
+
+        </div> 
+    
+        <div class="article">
+          <div class="container">
+  <article class="post">
+    <h1 class="entry-title">
+      <a href="/2018/05/15/codeforces-483-div2题解/" rel="bookmark">
+        codeforces-483-div2题解  
+      </a>
+    </h1>
+    
+    <div class="entry-content">
+      <p>
+        </p><p>5.15 cf483 div2 3/5 第一次进前1000…<br></p>
+      <p></p>
+    </div>
+    <div class="post-more-link text-center">
+            <a class="btn" href="/2018/05/15/codeforces-483-div2题解/" rel="contents">
+              阅读全文 »
+            </a>
+    </div>
+    <p class="posted-on">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+    	2018-05-15
+    </p>
+    <div class="tags-links">
+      <i class="fa fa-tags" aria-hidden="true"></i>
+      
+      <a href="/tags/ACM题解/" rel="tag">
+        ACM题解
+      </a>
+      
+    </div>
+    
+  </article>
+</div>
+
+        </div> 
+    
+        <div class="article">
+          <div class="container">
+  <article class="post">
+    <h1 class="entry-title">
+      <a href="/2018/05/14/codeforces-482-div2题解/" rel="bookmark">
+        codeforces-482-div2题解  
+      </a>
+    </h1>
+    
+    <div class="entry-content">
+      <p>
+        </p><p>5.14 cf482 div2 1/5被hack了…<br></p>
+      <p></p>
+    </div>
+    <div class="post-more-link text-center">
+            <a class="btn" href="/2018/05/14/codeforces-482-div2题解/" rel="contents">
+              阅读全文 »
+            </a>
+    </div>
+    <p class="posted-on">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+    	2018-05-14
+    </p>
+    <div class="tags-links">
+      <i class="fa fa-tags" aria-hidden="true"></i>
+      
+      <a href="/tags/ACM题解/" rel="tag">
+        ACM题解
+      </a>
+      
+    </div>
+    
+  </article>
+</div>
+
+        </div> 
+    
+
+    
+<div class="container">
+  <ul class="pager">
+    
+      <li class="previous">
+        <a href="/page/2/">
+          上一页
+        </a>
+      </li>
+    
+    
+      <li class="next">
+        <a href="/page/4/">
+          下一页
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  </main>
+
+</div>
+
+
+  <!-- Footer -->
+  <!-- Footer -->
+<footer class="site-info">
+  <p>
+    <span>想飞的小菜鸡 &copy; 2021</span>
+    
+      <span class="split">|</span>
+      <span>照耀的Blog</span>
+    
+  </p>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    本站访客数<span id="busuanzi_value_site_uv"></span>人次
+    本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</footer>
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+<script src="/js/app.js"></script>
+
+
+ 
+  <!-- 使用 aotuload.js 引入看板娘 -->    
+  <!-- //<script src="/js/assets/jquery.min.js?v=3.3.1"></script> -->   
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  <!-- //<script src="/js/assets/jquery-ui.min.js?v=1.12.1"></script>   --> 
+  <script src="https://cdn.jsdelivr.net/npm/jquery-ui-dist@1.12.1/jquery-ui.min.js"></script>
+  <script src="/js/assets/autoload.js?v=1.4.2"></script>
+  <!-- //<script src="https://live2d-cdn.fghrsh.net/assets/1.4.2/autoload.js></script> -->   
+   
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var i=n.imageLazyLoadSetting.isSPA,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){i&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,e,a=0;a<r.length;a++)t=r[a],e=void 0,0<=(e=t.getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},n.src=i}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+
+</html>

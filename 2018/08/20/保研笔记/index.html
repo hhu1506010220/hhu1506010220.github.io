@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<!-- 百度统计 -->
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?e31627579358722b9d300535c8206351";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Vodkazy">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="保研笔记">
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="想飞的小菜鸡">
+  <!--Type page-->
+  
+      <meta property="og:type" content="article">
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- Title -->
+  
+  <title>保研笔记 - 想飞的小菜鸡</title>
+
+
+  <link rel="shortcut icon" href="/../images/icon.ico">
+  <!--font-awesome-->
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+
+<body>
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    
+    <div class="logo">
+      <a href="/" rel="home">
+        
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://cdn2.iconfinder.com/data/icons/weather-color-2/500/weather-01-128.png" alt="想飞的小菜鸡" height="60">
+        
+      </a>
+    </div>
+    <a class="header-name" href="/">
+            <span>想飞的小菜鸡</span>
+            的小窝
+        </a>
+    <!-- navbar -->
+    <nav class="navbar">
+      <!--  nav links -->
+      <div class="collapse">
+        <ul class="navbar-nav">
+          
+          
+            <li>
+              <a href="/.">
+                
+                  <i class="fa fa-home "></i>
+                
+                首页
+              </a>
+            </li>
+          
+            <li>
+              <a href="/archives">
+                
+                  <i class="fa fa-archive "></i>
+                
+                目录
+              </a>
+            </li>
+          
+            <li>
+              <a href="/project">
+                
+                  <i class="fa fa-folder-open "></i>
+                
+                代码库
+              </a>
+            </li>
+          
+            <li>
+              <a href="/photo">
+                
+                  <i class="fa fa-photo "></i>
+                
+                相册薄
+              </a>
+            </li>
+          
+            <li>
+              <a href="/lovetree">
+                
+                  <i class="fa fa-tree "></i>
+                
+                爱情树
+              </a>
+            </li>
+          
+            <li>
+              <a href="/guestbook">
+                
+                  <i class="fa fa-edit "></i>
+                
+                留言板
+              </a>
+            </li>
+          
+            <li>
+              <a href="/about">
+                
+                  <i class="fa fa-user "></i>
+                
+                关于我
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="button-wrap">
+      <button class="menu-toggle">Primary Menu</button>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            保研笔记
+            
+          </h1>
+         
+        </div>
+         <p class="a-posted-on">
+          2018-08-20
+          </p>
+        <!-- Post Main Content -->
+        <div class="entry-content">
+          <p>本文是作者以及作者的同学，在准备保研过程中听了一些保研课而做的笔记，保存下来，分享给有需要的学弟学妹们。<br><a id="more"></a></p>
+<h3><span id="认知">认知</span></h3><p>种类：</p>
+<ol>
+<li>学习成绩</li>
+<li>特长生（体育、文艺）</li>
+<li>创新创业保研</li>
+<li>免试推荐保留入学资格（先出去一两年）</li>
+</ol>
+<p>天时：</p>
+<ol>
+<li>从2014年开始，保研不分内外</li>
+<li>保送研究生名额逐年递增</li>
+<li>推荐不接受交叉（x</li>
+</ol>
+<p>地利：<br>各学校基本情况及一些潜规则</p>
+<ol>
+<li>看学校背景（双一流）</li>
+<li>男生比女生更容易保研</li>
+<li>清华电子系：唯一一个纯靠面试成绩（6轮）；千人计划的老师都有特招名额</li>
+<li>可以不占用本校的推免名额：6所教育部直属的师范类院校</li>
+<li>直博比学硕更加容易</li>
+<li>保研夏令营</li>
+</ol>
+<p>人和：<br>保研时应该具有的素质。一定要谦虚<br>硬实力：<br>学习成绩（必备项）<br>基础知识（必备项）<br>科研、学科竞赛（加分项）：看重你有没有动手实践<br>英语水平（加分项）<br>社会活动（加分项）<br>自身特长：一般不写<br>软实力：<br>材料准备<br>语言表达<br>逻辑思维</p>
+<p>夏令营：<br>七八月份举办，申请时间五六月份<br>准备一份清单：</p>
+<ol>
+<li>申请表</li>
+<li>简历                           </li>
+<li>个人陈述：1500字的，项目经历、科研规划，不是仅仅把简历展开</li>
+<li>推荐信                          </li>
+<li>本科三年成绩单                 </li>
+<li>成绩排名证明                   </li>
+<li>保研资格证明                   </li>
+<li>英语成绩证明：不一定是四六级      </li>
+<li>奖学金证明及奖状复印件          </li>
+<li>学术论文：非常看重<br>第一部分：学生充分了解导师<br>第二部分：导师考察学生</li>
+</ol>
+<p>一般三四月份联系导师，邮件正文、标题、回执</p>
+<p>院校最好分成三份：<br>十拿九稳：<br>合我心意：<br>全力冲刺：</p>
+<p>第一次填写和邮件不要去“全力冲刺”<br>工科一定要提前联系导师<br>如果官网找不到老师的邮箱，可以去找论文里的通讯作者</p>
+<p>预推免：高校自己的系统</p>
+<p>平行志愿不要随意填，还是要按照顺序</p>
+<h3><span id="方法论">方法论</span></h3><ol>
+<li>精准定位<br>目标定位：学校、专业、导师<br>问题定位：什么标准录取你、考核流程</li>
+<li>清晰规划<br>哪个方面不足？怎么弥补？</li>
+<li>彻底执行<br>做好了规划要立即开始<br>持之以恒，坚持</li>
+<li>事事有反馈<br>失败以后要反思<br>导师为什么不回邮件？<br>面试为什么没有通过？</li>
+<li>烂笔头<br>一定要有记录</li>
+</ol>
+<p>经历类问题，四大法则？</p>
+<p>发邮件：<br>正文一定要大致分成三段</p>
+<ol>
+<li>简单的自我介绍，说明意图</li>
+<li>对自己特别突出的经历简单介绍</li>
+<li>表达想去的意向和感谢<br>最后附上个人简历以及证明材料<br>不要点“已读回执”！</li>
+</ol>
+<p>跨保：为什么要跨到这个专业？不能只是兴趣！成绩等</p>
+<p>给同一个所的导师发邮件，一般第一个三五天没回才能发第二个</p>
+<p>简历：这个经历有没有让我收获什么东西？能讲出什么？</p>
+<p>论文：多看文章才能写出来。不一定要发表，能说得有理有据、头头是道就是好的科研经历</p>
+<h3><span id="规划">规划</span></h3><ol>
+<li>二级学科<br>学科门类 -&gt; 一级学科 -&gt; 二级学科</li>
+<li>学硕和专硕</li>
+</ol>
+<ul>
+<li>学年制不同</li>
+<li>学费不同</li>
+<li>升至博士的途径不同</li>
+</ul>
+<ol>
+<li>保研择校的正确思路<br>先确定专业，top2可以例外<br>专业 -&gt; 城市 -&gt; 学校 -&gt; 导师</li>
+<li>保研高校的地域影响</li>
+<li>4+3保研规划法则<br>四个问题<ol>
+<li>能去什么专业呢？能去到哪些个专业？如经济学下面有22个专业</li>
+<li>要去什么专业呢？</li>
+<li>你想要去什么城市？</li>
+<li>你去的这个地方有哪些学校有你要去的专业呢？<br>三个筛选条件</li>
+<li>参照专业排名，后5个我不去了</li>
+<li>招生人数有多少？</li>
+<li>问学姐学长，看他们都去哪里了</li>
+</ol>
+</li>
+</ol>
+<h3><span id="导师">导师</span></h3><ol>
+<li>选导师时的两个衡量角度</li>
+</ol>
+<ul>
+<li>导师实验室的科研水平</li>
+<li>导师的个人特质</li>
+</ul>
+<ol>
+<li><p>如何快速判断导师的学术能力？<br>（详细剖析国内导师背景实力的层级关系）</p>
+<ol>
+<li>院士（只有1000多人）：代表中国学术最高水平（资源不用愁）</li>
+<li>杰青优青（自然基金委员会基金资助）：杰青每项400万，优青每项130万</li>
+<li>长江学者（教育部评定，一般给社会科学）：特聘教授（聘任周期5年）、讲座教授（短期，不考虑）、青年学者</li>
+<li>百人计划：中科院内部的研究水平</li>
+<li>千人计划（中央）：海外引进的人才</li>
+<li>万人计划（中央）：杰出人才（只有100人）、领军人才、青年拔尖人才</li>
+</ol>
+<ul>
+<li>863首席、专家：国家高技术研究发展计划</li>
+<li><p>973首席、专家：国家重点基础研究发展计划<br>两者现已整合为国家重点研发计划，经费不用愁</p>
+<p>排序：</p>
+</li>
+</ul>
+<ol>
+<li>院士、万人计划中的<strong>杰出人才</strong></li>
+<li>国家重点研发计划首席、专家</li>
+<li>长江特聘、千人计划、杰青、万人计划</li>
+<li>更年轻的，优青、青千、万人计划中的<strong>青年拔尖</strong>、长江学者中的<strong>青年学者</strong></li>
+</ol>
+</li>
+<li><p>导师的哪些个人特质需要你提前调研</p>
+<ul>
+<li>导师对学生的科研指导</li>
+<li>导师的性格（公平？易怒？）</li>
+<li>导师是否关注学生的未来成长（科研方向的选择、是否同意实习）</li>
+<li>导师是否有人情味（放假、生病、请假受批评）</li>
+</ul>
+</li>
+</ol>
+<h3><span id="简历">简历</span></h3><p>导师审核简历时间不会很长<br>简历的目的：突出你的个人中心，让导师快速的抓住录取你的点<br>导师最反感的四种简历类型</p>
+<ol>
+<li>错误模板</li>
+<li>毫无重点</li>
+<li>内容空洞</li>
+<li>疯狂自high</li>
+</ol>
+<p>三大原则:</p>
+<ol>
+<li>不造假原则</li>
+<li>匹配性原则<br>看看导师最近的项目，突出匹配的内容<br>也可包括相关主干课的成绩</li>
+<li><p>书面性原则</p>
+</li>
+<li><p>简历的内容和顺序</p>
+</li>
+<li>简历内容的三大原则</li>
+<li>简历基本信息及注意事项</li>
+<li>教育背景及注意事项</li>
+<li>奖项荣誉及注意事项</li>
+<li>科研能力及注意事项<br>项目名称、工作内容、工作成果、起止时间、身份</li>
+<li>综合能力&amp;实践经历</li>
+<li>附加项<ol>
+<li>研究生计划模板<ul>
+<li>现状分析</li>
+<li>存在问题</li>
+<li>总体目标</li>
+</ul>
+</li>
+<li>自我评价</li>
+<li>个人爱好</li>
+</ol>
+</li>
+</ol>
+<h3><span id="简历课">简历课</span></h3><ol>
+<li>如何筛选/审核简历<br> 审核人：招生办老师or导师<br> 有些学校是把简历统一投送到招生办，而有些学校是直接投送到导师邮箱由导师审核<br> 审核时长很短-60s<br> 并不会因为你的简历页多字多就多花费时间，所以精炼和重点突出很关键<br> 基本信息10s<br> 科研经历40s<br> 其他经历10-20s<br> 简历目的：突出个人中心，让老师快速抓住录取你的点</li>
+<li>导师反感的四种简历类型<br>（1）错误模板<br>封面<br>不要封面（天马行空图片、座右铭、“个人简历”四个字……）<br>多页<br>不建议简历多于1页，不会因为多页而花费较多时间审核你的简历。<br>图徽<br>没必要放学校的校徽标志等。<br>“创意”/奇葩<br>黑色底板配红色字体！这种不可取，黑色底板对于PPT或简历都很难驾驭。禁止“微信对话”等类型的奇葩模板<br>（2）毫无重点<br>不是所有经历都要写在简历上，国家助学金不算奖，同一学年获得国家奖学金和国家励志时只写国奖就好<br>（3）内容空洞<br>不要写太多的自我评价，老师看来纯属自high，关键在数据和具体事例<br>（4）视觉崩溃<br>简历内容太多，看上去显得很优秀，但导师会觉得找不到重点所在。哪哪都是重点就是没有重点！</li>
+<li>简历制作的原则和误区</li>
+</ol>
+<ul>
+<li>四大原则<br>艺术品原则<br>简单大方，把其当做一件艺术品，内外兼修，既要注重内容，又要注重外观</li>
+<li>不造假原则<br>自己参与了但证书没名字，不能作假，这时可以把自己的任务工作量和收获写上。写在简历上的所有东西，一定要保证彻底明白的，不能为了简历显得丰满而都写上</li>
+<li>匹配性原则/重点性原则<br>多次投递简历时，尽量不要用同一份简历，要针对性修改。让自己简历上的内容与导师研究方向或某个项目有一定的相关性，如自己会某个软件正好契合老师某个项目的需求，自己将来会很快上手。把与老师研究相关的，老师感兴趣的项目放在前面进行较为详细的介绍，把与老师研究方向相差较远的放到后面简要带过</li>
+<li>书面性原则<br>书面化的语言，如“本人曾于大三学年在校学联任主席一职，负责XX活动的策划准备，取得XX成绩”</li>
+<li>两大误区<br>老师最看重实力，所以只要有足够实力，简历是否精美对保研没有任何影响<br>简历要尽可能详细，所有内容都要介绍非常清楚，这样老师才能更了解我<br>老师没时间从论文一样的长篇大论中总结你的特点；言多必失；当导师通过简历已彻底了解你，就没有兴趣继续了解你了</li>
+</ul>
+<ol>
+<li>优秀简历的具体内容<br>按照下面的顺序先后写，不要颠倒，否则老师不容易找。 一般而言，中文简历即可，不需要英文。<br>（1）基本项-基本信息<br>包含内容：照片、姓名、性别、年龄、籍贯、政治面貌、邮箱、电话、成绩排名、英语成绩<br>六级分高就写具体分数，不高就写六级二字，没过就不写英语成绩。六级分为几个等级“不及格，及格，480+，550+和600+”，具体可见历史推送<br>注意事项：<br>信息遗漏<br>紧急联系人<br>籍贯<br>有些导师有老乡情怀<br>读博意向<br>如果有，就写上。导师更喜欢打算读博的学生<br>证件照<br>不能太随意，照相馆拍摄，画个淡妆，后期美修。<br>邮箱超链接<br>163邮箱，尽量不用QQ邮箱<br>（2）重点项<br>【教育背景】<br>如果科研经历很丰富，可以把教育背景和基本信息放在一起。<br>目的<br>看学习成绩是否优秀<br>看是否契合导师方向<br>内容<br>曾于XX学校XX专业学习，写明起止时间（即本科，不涉及中学）<br>本科阶段的主要课程和学习成绩<br>必要时：相关培训、高分的重要课程<br>若想教育背景显得丰满，可以写曾经参加过的相关培训，如二学历、编程语言等。本科阶段非常重要而且自己考得不错的专业课写出来（此点要具体分析，不同研究方向的老师，看重的课程不一样）<br>【科研能力】<br>重点中的重点！！但也只需要展开其中一两项来写。不要炫技，只需要附上可以代表最高水平的作品集3-5份即可，放的东西越多机会反而越少！简历上的科研经历等，要在面试前重新熟悉一下<br>每一项：项目名称，工作内容，工作成果，起止时间，你的身份/大标题下包含四个板块：项目内容，所需技能，个人贡献，项目成果<br>未发表的论文，写明“哪一年，完成论文XXX题目，内容是……做了什么事”即可。大部分学生都没结项，尤其是大学生创新项目，一般一年。做的项目，如果时间长至1年等可以表明你的毅力的，就可以写明时间<br>若空间限制只能一句话：摆数据<br>如：曾带领5名团队成员，通过5个月的研发和测试，成功实现了一款可独立飞行的飞行器，在近5000个参赛队伍中跻身百分之五，获得一等奖<br>【奖项荣誉】<br>不要写优秀宿舍长、钢琴级别-附加项个人爱好<br>时间倒序，大奖在前<br>注意顺序，勿加冗余<br>【专业技能】<br>奖项荣誉和专业技能可以颠倒。切忌“精通XX”，要写“熟悉”。精通excel？那你会不会透视表？各种公式？<br>英语能力<br>计算机能力<br>会计证等<br>【实践经历】/综合能力/学生工作<br>“列出每项活动，每项活动加1句话介绍”的做法不可取，因为老师不知道具体情况，不了解你在其中充当的角色和从中的收获​，更无法判断你实际上是否参加<br>选择其中1-2个活动，具体介绍工作任务等<br>老师注重：学生有无主观能动力-马不扬鞭自奋蹄，有时比科研经历更重要<br>学生工作-摆数据<br>2015-2016学年，担任学生会主席。（不好）要说明具体，如：曾任学生会副主席，在学院新年晚会中解决了所需的3万元经费问题<br>捡重点写，不能头重脚轻。不能超过两条。科研经历占主要，这个为辅。<br>（3）附加项<br>一页纸没用完时（如实在没有科研经历），则可以写1-2点的附加项。<br>【研究生规划】（首选）<br>明确的规划：本人目前对编程很感兴趣，但缺乏一些想法或主动探索的科研能力，在未来三年中，我要在第一年做……第二年发表……文章，毕业后达到……的高度。<br>现状分析<br>自己的优势在哪，对哪方面更熟悉<br>存在问题<br>在哪方面补充加强<br>总体目标<br>研究生三年的总体目标，如何一步步走？<br>【自我评价】<br>清水老师的经验：大部分简历的自我评价，导师们都不看。因为千篇一律。建议：每夸赞一句就跟一个实例，如本人毅力较强坚持不懈，曾学习钢琴持续5年。<br>【个人爱好】<br>套路：导师也乐意把自己的兴趣爱好写在网站上，如果和导师有相同的爱好，如都喜欢NBA，就可以写，一定可以就这个话题聊下去</li>
+<li>制作简历的步骤<br>每次的简历版本都要保存起来Vx<br>（1）成立自己的简历库<br>财政、会计、金融三个领域文件夹，每个文件夹都有对应的学校人大、上财、央财文件夹，其内又可以有多个Vx，在多次投递简历时不断完善美化简历，就是一个增强自信的成熟过程<br>（2）绘制初稿书写脑图<br>回顾大学做过的所有事情（不论大小），按照时间顺序完整写一遍<br>按照要写的内容（基本项、重点项、附加项）进行分类，梳理出属于自己的逻辑思维脑图（推荐：网页版百度脑图）<br>（3）分析与匹配需求<br>优先匹配相关性经历<br>如：金融专硕的实习经历占主要部分，经济学学硕的科研经济占主要部分<br>挖掘与导师相关研究方向的科研经历<br>如：与导师相关的且分数很高的学科成绩要重点突出<br>挖掘与导师相关的兴趣爱好<br>（4）美化润色<br>修内<br>做好后，多问自己为什么，猜测老师会问什么问题。准备英文的提问和英文的回答。<br>修外<br>版面风格<br>表格式简历早已大跌眼镜！而且有非常多的条框约束，会浪费很多空间<br>黑白系<br>色彩系<br>淘宝的简历模板多为彩色系<br>让人心情愉悦，推荐<br>创意系<br>简历网站推荐：千图网、向日葵简历、五百丁、淘宝<br>比较好的模板，需要花几块钱购买<br>（5）投递/打印简历<br>版式<br>PDF<br>发送老师时也务必PDF，最好选择没有之一<br>彩打<br>彩打的简历比黑白打印的简历更能突显诚意，更容易得到青睐！<br>好纸<br>用的纸不能太随意，推荐信也如此。能用80g的纸就不要70g，能用含棉25%就不用一般纸<br>其他<br>文件名：申请攻读博士/硕士研究生-学校-姓名<br>单独附件：简历和其他文档分开，在同一邮件中以不同附件发送<br>先练手：第一次投递简历，不要直接投给心仪的导师，先拿其他老师练练手</li>
+<li>个人总结：<br>政治面貌：写“中共党员”而非“党员”<br>版式上，各个大标题和分区线在同一水平，而非上下排列，可以更节省空间</li>
+<li>其他杂碎信息<br>清华更看重裸绩排名，北大更看重综合排名<br>跨专业读研，不要强调兴趣，没用！相关能力才重要<br>本校的学长学姐，以点带面，了解其他师兄姐<br>单纯的参观某公司，没必要写在简历上，要真正实习才行<br>推荐信模板，各个学校夏令营都有相应的模板，下载即可</li>
+</ol>
+<blockquote>
+<p>本文来源：「想飞的小菜鸡」的个人网站  <a href="https://vodkazy.cn" target="_blank" rel="noopener">vodkazy.cn</a></p>
+<p>版权声明：本文为「想飞的小菜鸡」的原创文章，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请附上原文出处链接及本声明。</p>
+<p>原文链接：<a href="https://vodkazy.cn/2018/08/20/保研笔记" target="_blank" rel="noopener">https://vodkazy.cn/2018/08/20/保研笔记</a></p>
+</blockquote>
+
+        </div>
+      </article>
+    </div>
+
+	<!-- 打赏 -->
+    <div class="reward">
+	<div class="reward-button">赏 <span class="reward-code">
+		<span class="alipay-code"> <img class="alipay-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/alipay.webp"><b>支付宝打赏</b> </span> 
+		<span class="wechat-code"> <img class="wechat-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/weixin.webp"><b>微信打赏</b> </span> </span>
+	</div>
+	<p class="reward-notice">如果文章对你有帮助，欢迎点击上方按钮打赏作者，更多文章请访问<a href="https://vodkazy.cn" style="color:blue">想飞的小菜鸡</a></p>
+	    <style>
+		*,*:before,*:after {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			-ms-box-sizing: border-box;
+			box-sizing: border-box
+		}
+
+		.reward {
+			padding: 5px 0
+		}
+
+		.reward .reward-notice {
+			font-size: 14px;
+			line-height: 14px;
+			margin: 15px auto;
+			text-align: center
+		}
+
+		.reward .reward-button {
+			font-size: 28px;
+			line-height: 58px;
+			position: relative;
+			display: block;
+			width: 60px;
+			height: 60px;
+			margin: 0 auto;
+			padding: 0;
+			-webkit-user-select: none;
+			text-align: center;
+			vertical-align: middle;
+			color: #fff;
+			border: 1px solid #f1b60e;
+			border-radius: 50%;
+			background: #fccd60;
+			background: -webkit-gradient(linear,left top,left bottom,color-stop(0,#fccd60),color-stop(100%,#fbae12),color-stop(100%,#2989d8),color-stop(100%,#207cca));
+			background: -webkit-linear-gradient(top,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%);
+			background: linear-gradient(to bottom,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%)
+		}
+
+		.reward .reward-code {
+			position: absolute;
+			top: -220px;
+			left: 50%;
+			display: none;
+			width: 350px;
+			height: 200px;
+			margin-left: -175px;
+			padding: 15px;
+			border: 1px solid #e6e6e6;
+			background: #fff;
+			box-shadow: 0 1px 1px 1px #efefef
+		}
+
+		.reward .reward-button:hover .reward-code {
+			display: block
+		}
+
+		.reward .reward-code span {
+			display: inline-block;
+			width: 150px;
+			height: 150px
+		}
+
+		.reward .reward-code span.alipay-code {
+			float: left
+		}
+
+		.reward .reward-code span.alipay-code a {
+			padding: 0
+		}
+
+		.reward .reward-code span.wechat-code {
+			float: right
+		}
+
+		.reward .reward-code img {
+			display: inline-block;
+			float: left;
+			width: 150px;
+			height: 150px;
+			margin: 0 auto;
+			border: 0
+		}
+
+		.reward .reward-code b {
+			font-size: 14px;
+			line-height: 26px;
+			display: block;
+			margin: 0;
+			text-align: center;
+			color: #666
+		}
+
+		.reward .reward-code b.notice {
+			line-height: 2rem;
+			margin-top: -1rem;
+			color: #999
+		}
+
+		.reward .reward-code:after,.reward .reward-code:before {
+			position: absolute;
+			content: '';
+			border: 10px solid transparent
+		}
+
+		.reward .reward-code:after {
+			bottom: -19px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #fff
+		}
+
+		.reward .reward-code:before {
+			bottom: -20px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #e6e6e6
+		}
+    </style>
+
+
+    <!-- Pre or Next -->
+    
+	<div class="container">
+           <ul class="pager">
+    	     
+      	     <li class="previous">
+              <a href="/2018/08/26/Ubuntu下安装MediaWiki/" rel="prev">上一篇</a>
+             </li>
+           
+           
+              <li class="next">
+              <a href="/2018/06/22/Matlab实现落差指数试算/" rel="prev">下一篇</a>
+            </li>
+           
+          </ul>
+       </div>
+   
+
+    <!-- Valine无后端评论系统 -->   
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+		    el: '#vcomments' ,
+		    appId: 'lH3VkMCd4MHaKtr2n2SRWdoi-MdYXbMMI',
+		    appKey: '5aMXSY7b4KwnzfgpzLA0hPLv',
+		    notify:true, 
+		    verify:false, 
+		    placeholder: '填写正确的邮箱和昵称才能收到我的回复哦       ٩( ^o^ )و  ' ,
+		    avatar: 'retro'
+		});
+    </script>
+    <!-- Valine无后端评论系统 -->  
+
+  </div>
+</div>
+</div>
+
+  <!-- Footer -->
+  <!-- Footer -->
+<footer class="site-info">
+  <p>
+    <span>想飞的小菜鸡 &copy; 2021</span>
+    
+      <span class="split">|</span>
+      <span>照耀的Blog</span>
+    
+  </p>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    本站访客数<span id="busuanzi_value_site_uv"></span>人次
+    本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</footer>
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+<script src="/js/app.js"></script>
+
+
+ 
+  <!-- 使用 aotuload.js 引入看板娘 -->    
+  <!-- //<script src="/js/assets/jquery.min.js?v=3.3.1"></script> -->   
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  <!-- //<script src="/js/assets/jquery-ui.min.js?v=1.12.1"></script>   --> 
+  <script src="https://cdn.jsdelivr.net/npm/jquery-ui-dist@1.12.1/jquery-ui.min.js"></script>
+  <script src="/js/assets/autoload.js?v=1.4.2"></script>
+  <!-- //<script src="https://live2d-cdn.fghrsh.net/assets/1.4.2/autoload.js></script> -->   
+   
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var i=n.imageLazyLoadSetting.isSPA,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){i&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,e,a=0;a<r.length;a++)t=r[a],e=void 0,0<=(e=t.getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},n.src=i}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+
+</html>

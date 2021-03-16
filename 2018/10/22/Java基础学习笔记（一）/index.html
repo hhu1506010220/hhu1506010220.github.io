@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<!-- 百度统计 -->
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?e31627579358722b9d300535c8206351";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Vodkazy">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="Java基础学习笔记（一）">
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="想飞的小菜鸡">
+  <!--Type page-->
+  
+      <meta property="og:type" content="article">
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- Title -->
+  
+  <title>Java基础学习笔记（一） - 想飞的小菜鸡</title>
+
+
+  <link rel="shortcut icon" href="/../images/icon.ico">
+  <!--font-awesome-->
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+
+<body>
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    
+    <div class="logo">
+      <a href="/" rel="home">
+        
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://cdn2.iconfinder.com/data/icons/weather-color-2/500/weather-01-128.png" alt="想飞的小菜鸡" height="60">
+        
+      </a>
+    </div>
+    <a class="header-name" href="/">
+            <span>想飞的小菜鸡</span>
+            的小窝
+        </a>
+    <!-- navbar -->
+    <nav class="navbar">
+      <!--  nav links -->
+      <div class="collapse">
+        <ul class="navbar-nav">
+          
+          
+            <li>
+              <a href="/.">
+                
+                  <i class="fa fa-home "></i>
+                
+                首页
+              </a>
+            </li>
+          
+            <li>
+              <a href="/archives">
+                
+                  <i class="fa fa-archive "></i>
+                
+                目录
+              </a>
+            </li>
+          
+            <li>
+              <a href="/project">
+                
+                  <i class="fa fa-folder-open "></i>
+                
+                代码库
+              </a>
+            </li>
+          
+            <li>
+              <a href="/photo">
+                
+                  <i class="fa fa-photo "></i>
+                
+                相册薄
+              </a>
+            </li>
+          
+            <li>
+              <a href="/lovetree">
+                
+                  <i class="fa fa-tree "></i>
+                
+                爱情树
+              </a>
+            </li>
+          
+            <li>
+              <a href="/guestbook">
+                
+                  <i class="fa fa-edit "></i>
+                
+                留言板
+              </a>
+            </li>
+          
+            <li>
+              <a href="/about">
+                
+                  <i class="fa fa-user "></i>
+                
+                关于我
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="button-wrap">
+      <button class="menu-toggle">Primary Menu</button>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            Java基础学习笔记（一）
+            
+          </h1>
+         
+        </div>
+         <p class="a-posted-on">
+          2018-10-22
+          </p>
+        <!-- Post Main Content -->
+        <div class="entry-content">
+          <p>How2J的Java基础教程的学习笔记，涉及Java中的一些比较基础的概念。<br><a id="more"></a></p>
+<!-- toc -->
+<ul>
+<li><a href="#环境变量配置-httphow2jcnmodule42html">环境变量配置 <a href="http://how2j.cn/module/42.html" target="_blank" rel="noopener">☜</a></a></li>
+<li><a href="#变量-httphow2jcnmodule49html">变量 <a href="http://how2j.cn/module/49.html" target="_blank" rel="noopener">☜</a></a></li>
+<li><a href="#运算操作符-httphow2jcnmodule50html">运算操作符 <a href="http://how2j.cn/module/50.html" target="_blank" rel="noopener">☜</a></a></li>
+<li><a href="#数组-httphow2jcnmodule52html">数组 <a href="http://how2j.cn/module/52.html" target="_blank" rel="noopener">☜</a></a></li>
+<li><a href="#类和对象-httphow2jcnmodule53html">类和对象 <a href="http://how2j.cn/module/53.html" target="_blank" rel="noopener">☜</a></a></li>
+<li><a href="#接口与继承-httphow2jcnmodule54html">接口与继承 <a href="http://how2j.cn/module/54.html" target="_blank" rel="noopener">☜</a></a><ul>
+<li><a href="#接口">接口</a></li>
+<li><a href="#类型转换">类型转换</a></li>
+<li><a href="#抽象类">抽象类</a></li>
+<li><a href="#内部类">内部类</a></li>
+<li><a href="#uml类图">UML类图</a></li>
+</ul>
+</li>
+<li><a href="#数字与字符串-httphow2jcnmodule55html">数字与字符串 <a href="http://how2j.cn/module/55.html" target="_blank" rel="noopener">☜</a></a></li>
+<li><a href="#日期与时间-httphow2jcnmodule78html">日期与时间 <a href="http://how2j.cn/module/78.html" target="_blank" rel="noopener">☜</a></a></li>
+</ul>
+<!-- tocstop -->
+<h2><span id="环境变量配置">环境变量配置 </span></h2><ul>
+<li>Java跨平台的原理：不同的操作系统有不同的Java虚拟机（JVM），Java程序运行在JVM中。</li>
+<li>JRE：Java runtime envirornment。Java运行环境，里面包括了JVM和核心类库。</li>
+<li>JDK：Java development Kit.开发工具包。</li>
+<li>JVM运行的是.class字节码文件。编译过程是用javac实现的。先javac xx.java，再java xx来加载到虚拟机中运行。</li>
+<li>JVM内存区划分：<ul>
+<li>堆：存放对象（凡是new出来的东西都看作是对象）；栈：存储变量</li>
+</ul>
+</li>
+</ul>
+<h2><span id="变量">变量 </span></h2><ul>
+<li>bit1一位，byte8位，short16位，char16位，int32位，long64位，float32位，double64位。byte的范围[-128,127]。1字节byte=8bit。</li>
+<li>2进制0b开头，8进制0开头，16进制0x或者0X开头。Java7开始可以在数字之间使用下划线。直接写1123代表int，longlong后面要加1123LL。直接写3.14代表double，float后面要加3.14f，并且double不能强转float。‘\u0041’表示用16进制整数表示字符。Java中不能把01赋值给boolean类型变量。</li>
+<li>对于变量的隐式转换，只要等式右边的类型的范围可以包含在等式右边的类型的范围中（低精度-&gt;高精度），就可以自动隐式转换，否则不能。</li>
+<li>如果任何运算单元的长度都不超过int,那么运算结果就按照int来计算。如byte a = 1;  byte b= 2;  a+b 的结果为int 类型。</li>
+</ul>
+<h2><span id="运算操作符">运算操作符 </span></h2><ul>
+<li><p>Scanner类输入。</p>
+<ul>
+<li><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line">Scanner in = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line"><span class="keyword">int</span> a = in.nextInt();</span><br><span class="line"><span class="keyword">float</span> b = in.nextFloat();</span><br><span class="line">String c = in.nextLine();</span><br><span class="line"><span class="keyword">double</span> d = in.nextDouble();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>长路 和 短路</p>
+<ul>
+<li>长路与<code>&amp;</code>，不论两侧表达式的真假 都会被运算；短路与<code>&amp;&amp;</code>，若第一个表达式为false，第二个就会被短路。</li>
+<li>长路或<code>|</code>，不论两侧表达式的真假 都会被运算；短路或<code>||</code>，若第一个表达式为true，第二个就会被短路。</li>
+</ul>
+</li>
+<li><p>异或<code>^</code>，不同为真，相同为假。</p>
+</li>
+<li><p>通过<code>Integer.toBinaryString()</code>方法，可以将一个十进制整数转换为一个二进制字符串。</p>
+</li>
+<li><p><code>|</code>对二进制表示的每一位进行或运算；<code>&amp;</code>对二进制表示的每一位进行与运算；<code>^</code>对二进制表示的每一位进行异或运算；<code>~</code>对二进制表示的每一位取反。</p>
+</li>
+<li><p><code>&gt;&gt;</code>带符号右移，最左边正数补0负数补1；<code>&gt;&gt;&gt;</code>无符号右移，负数变正数。</p>
+</li>
+<li><p>“==”：两个对象地址完全一致（即两个引用指向同一个对象）时返回true，否则返回false。equals()方法，对于非String类的对象，和双等号一个效果，对String类对象可以直接利用equals()方法比较字面量是否相同（区分大小写），equalsIgnoreCase()忽略大小写，若字符串相同则返回true否则返回false。</p>
+</li>
+<li><p>switch可以使用byte,short,int,char,String(Java从1.7开始支持switch用String),enum。</p>
+</li>
+</ul>
+<h2><span id="数组">数组 </span></h2><ul>
+<li><p>java创建数组：<code>int[] a = new int[5];</code>或者<code>int[] a = new int[]{100,102,444,836,3236};</code>或者<code>int[] b = {100,102,444,836,3236};</code></p>
+</li>
+<li><p><code>a.length()</code>可访问长度，数组的长度是不可变的，一旦分配好空间，是多长，就多长。</p>
+</li>
+<li><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> []a = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">5</span>];</span><br><span class="line">a[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span>[]b = a;  <span class="comment">// 声明一个数组b（实际上只是一个变量名，它在栈里面的地址与a不同，但是内容，即指向的内存单元是相同的，所以二者任何一者的改变都会是另一个也发生改变）</span></span><br><span class="line">b[<span class="number">0</span>] = <span class="number">2</span>;</span><br><span class="line">System.out.print(a[<span class="number">0</span>]); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2><span id="类和对象">类和对象 </span></h2><ul>
+<li><p>java里对于对象的”XX h = new XX()”，new XX()产生的是一个对象或者叫实例，h叫做引用，多个引用可以指向同一个对象，一个引用只能指向一个对象。</p>
+</li>
+<li><p>构造方法：public 类名(){}。一旦提供了一个有参的构造方法，又没有显式的提供一个无参的构造方法，那么默认的无参的构造方法就不存在了。<code>this</code>代表当前类，可以通过this访问属性，同时可用this()调用构造方法。在类的方法里，this.静态变量名 和 静态变量名 等效。</p>
+</li>
+<li><p>继承：public class 类名 <code>extends</code> 父类名。当实例化一个子类时，子类和父类的构造方法都会被调用，并且是父类的构造方法先被调用，子类构造方法会默认调用父类的无参的构造方法。与this的用法相似，<code>super</code>代表父类。super()调用父类构造方法，super.类属性/super.类方法()。</p>
+</li>
+<li><p>private、package、protected、public的区别：属性通常使用private封装起来，属性通常使用private封装起来，会被子类继承的方法，通常使用protected，package用的不多。<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="1.png" alt=""></p>
+</li>
+<li><p>当一个属性/方法被static修饰的时候，就叫做类属性/方法，又叫做静态属性/方法。当一个属性/方法被声明成类属性/方法，那么所有的对象，都共享一个值，<code>类名.类属性/方法</code>，不需要对象的存在。对象属性/方法： 又叫实例属性/方法，非静态属性/方法。对象属性初始化有3种：1. 声明该属性的时候初始化  2. 构造方法中初始化 3. 初始化块{}。类属性初始化有2种：1. 声明该属性的时候初始化 2. 静态初始化块。</p>
+</li>
+<li><p><code>import java.*</code>只会导入下面的直接的子包，而不会导入子包的子包</p>
+</li>
+<li><p><strong>单例模式</strong>，又叫做 Singleton模式，指的是一个类，在一个JVM里，只有一个实例存在。通过私有化其构造方法，使得外部无法通过new得到新的实例。</p>
+<ul>
+<li><p>下面的方法通过提供一个public static的getInstance方法，外部调用者只startsWith能通过该方法获取对象，而且每一次都是获取同一个对象，从而达到单例的目的。 这种单例模式又叫做<strong>饿汉式单例模式</strong>，无论如何都会创建一个实例。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Example</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">//私有化构造方法使得该类无法在外部通过new 进行实例化</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Example</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">//准备一个类属性，指向一个实例化对象。 因为是类属性，所以只有一个</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Example instance = <span class="keyword">new</span> Example();</span><br><span class="line">     </span><br><span class="line">    <span class="comment">//public static 方法，提供对象</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Example <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        Example instance1 = Example.getInstance();</span><br><span class="line">        Example instance2 = Example.getInstance();</span><br><span class="line">        System.out.println(instance1 == instance2); <span class="comment">// True</span></span><br><span class="line">        <span class="comment">// Example instance = new Example();这样会报错</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>另一种是把new对象写到getInstance里，且只能new一次，这种模式叫<strong>懒汉式单例模式</strong>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Example</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">//私有化构造方法使得该类无法在外部通过new 进行实例化</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Example</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">//准备一个类属性，指向一个实例化对象。 因为是类属性，所以只有一个</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Example instance;</span><br><span class="line">     startsWith</span><br><span class="line">    <span class="comment">//与饿汉模式不同的地方</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Example <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(instance == <span class="keyword">null</span>)</span><br><span class="line">            instance = <span class="keyword">new</span> Example();</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        Example instance1 = Example.getInstance();</span><br><span class="line">        Example instance2 = Example.getInstance();</span><br><span class="line">        System.out.println(instance1 == instance2); <span class="comment">// True</span></span><br><span class="line">        <span class="comment">// Example instance = new Example();这样会报错</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>二者的区别：</p>
+<ul>
+<li>饿汉式是立即加载的方式，无论是否会用到这个对象，都会加载。 如果在构造方法里写了性能消耗较大，占时较久的代码，比如建立与数据库的连接，那么就会在启动的时候感觉稍微有些卡顿。 </li>
+<li>懒汉式，是延迟加载的方式，只有使用的时候才会加载。 并且有线程安全的考量。 使用懒汉式，在启动的时候，会感觉到比饿汉式略快，因为并没有做对象的实例化。 但是在第一次调用的时候，会进行实例化操作，感觉上就略慢。  </li>
+<li>看业务需求，如果业务上允许有比较充分的启动和初始化时间，就使用饿汉式，否则就使用懒汉式</li>
+</ul>
+</li>
+<li><p>面试常问：</p>
+<ul>
+<li>什么是单例模式？</li>
+<li>答案三要素：<ul>
+<li>构造方法私有化</li>
+<li>实例化对象是静态属性</li>
+<li>public static的 getInstance方法，返回静态实例化对象startsWith</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>枚举类型</strong>。枚举<code>enum</code>是一种特殊的类(还是类)，使用枚举可以很方便的定义常量。</p>
+<ul>
+<li><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//常用场合是switch和enum配合使用。注：因为enum的是常量，所以一般都是全大写</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Season &#123;</span><br><span class="line">	SPRING,SUMMER,AUTUMN,WINTER</span><br><span class="line">&#125;</span><br><span class="line">Season season = Season.SPRING;<span class="comment">//这样就可以直接将常量SPRING赋值给season</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2><span id="接口与继承">接口与继承 </span></h2><h3><span id="接口">接口</span></h3><p>public class 类名 <code>implenments</code> 接口名。接口内的方法一般都是一个空方法，具体实现应该在后续类中进行override重写。实现某个接口，就相当于承诺了某种约定。如果一个类实现了接口，那么该子类<strong>必须实现父接口的所有方法</strong>。但是在JDK8中添加了一个新特性，指的是接口也可以提供具体方法了，具体的就是添加了default默认方法，该方法可以有具体的实现，并且在实现该接口的类中可以不重写该方法。假设没有默认方法这种机制，那么如果要为该接口增加一个新的方法,那么所有实现了该接口的类，都需要做改动。但是引入了默认方法后，原来的类，不需要做任何改动，并且还能得到这个默认方法。</p>
+<ul>
+<li><strong>引用：</strong><code>引用a instanceof 类名A</code> 判断一个引用a所指向的对象是否是A类或者A的子类。</li>
+<li><strong>重写：</strong><code>override</code> （需方法名、参数完全一致）是子类覆盖父类的对象方法，重写后就不会执行父类的该方法了，只能执行当前类的该方法。</li>
+<li><strong>多态：</strong>要实现类的多态，需要如下条件 1. 父类（接口）引用指向子类对象 2. 调用的方法有重写。</li>
+<li><strong>隐藏：</strong>是子类隐藏父类的类方法。<ul>
+<li>举例：假如父类A有一个类方法X()，子类B继承了父类并且也有一个不一样的类方法X()。</li>
+<li>若是 <code>A a = new B(); a.X();</code> 则会调用A的X()。</li>
+<li>若是 <code>B a = new B();  a.X();</code> 则会调用B的X()。</li>
+<li>所以对于隐藏，调用哪个类方法，与引用指向哪个对象无关，只和引用的类型有关系。</li>
+</ul>
+</li>
+</ul>
+<h3><span id="类型转换">类型转换</span></h3><p>所有子类可以转换成其父类。父类转子类要具体分析，要看两个类最后的引用是否是父子类关系，若是则可以转换。没有继承关系的两个类，不能互相转换，即使他们继承自同一个父类。比如看A是否能转换成，就看B的属性和方法是不是A中都有。若是则可以转换。转换后保持原类的属性、方法。</p>
+<ul>
+<li><p>声明一个类时，默认是继承了Object。当一个对象没有任何引用指向它时，它就满足垃圾回收的条件，当它被垃圾回收时，它的<code>finalize()</code>就会被调用。<code>finalize()</code>不是开发人员主动调用的方法，而是由虚拟机JVM调用的。</p>
+</li>
+<li><p>关键词 <code>final</code> ： 当类被修饰成final的时候，表示类不能够被继承，其子类会出现编译错误。当方法修饰成final时，该方法在子类中不能被重写。final修饰基本类型变量时，表示该变量只有一次赋值机会。引用被修饰成final，表示该引用只有1次指向对象的机会。在匿名类中使用外部的局部变量，外部的局部变量必须修饰为final 。</p>
+</li>
+</ul>
+<h3><span id="抽象类">抽象类</span></h3><p>在类中声明一个方法，这个方法没有实现体，是一个“空”方法，这样的方法就叫抽象方法，使用修饰符“abstract”，当一个类有抽象方法的时候，该类必须被声明为抽象类。当然，<strong>抽象类不一定非得有抽象方法</strong>。一旦一个类被声明为抽象类，就不能被直接实例化。如果一个类继承了抽象类，那么该子类<strong>必须实现抽象类的所有抽象方法</strong>。</p>
+<ul>
+<li>抽象类和接口的区别：<ul>
+<li>区别1：子类只能继承一个抽象类，不能继承多个；子类可以实现多个接口。</li>
+<li>区别2：抽象类的属性可以是 public/protected/package/private {static} {final}；但是接口中声明的属性只能是public static final的，就算没有显示的声明也默认该类型。</li>
+</ul>
+</li>
+</ul>
+<h3><span id="内部类">内部类</span></h3><p>内部类分为四种，非静态内部类、静态内部类、匿名类、本地类</p>
+<ul>
+<li>非静态内部类。语法：<code>外部类的实例.new 内部类()</code>，可以直接访问外部类的<code>private</code>属性。</li>
+<li>静态内部类。语法：<code>new 外部类.静态内部类()</code>，不需要一个外部类的实例为基础，因此不可以访问外部类的实例属性和方法，除了可以访问外部类的私有静态成员外，静态内部类和普通类没什么大的区别。</li>
+<li>匿名类。声明一个类的同时实例化它 ，形如 <code>A a = new A(){this.name = &quot;111&quot;;}</code>。</li>
+<li>本地类。本地类可以理解为有名字的匿名类。内部类与匿名类不一样的是，内部类必须声明在成员的位置，即与属性和方法平等的位置。 本地类和匿名类一样，直接声明在代码块里面，可以是主方法，for循环里等等地方。</li>
+</ul>
+<h3><span id="uml类图">UML类图</span></h3><p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="2.png" alt=""> </p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="3.png" alt=""></p>
+<p>​    带箭头的实线表示继承父类，带箭头的虚线表示实现接口。</p>
+<p>  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="4.png" alt=""></p>
+<h2><span id="数字与字符串">数字与字符串 </span></h2><ul>
+<li><p>所有基本类型都有对应的类类型。比如Number及其子类Byte，Short，Integer，Long，Float，Double。可以使用<code>Interger integer  = new Integer(i)</code>将基本类型转换成封装类，也可以通过等号’=’自动转换（叫做装箱），<code>i = integer.intValue();</code>将封装类型转换成基本类型，也可以通过等号’=’自动转换（叫做拆箱）。<code>Integer.MAX_VALUE</code> 表示int的最大值。</p>
+</li>
+<li><p><code>String.valueof(integer)</code>和<code>(integer.toString())</code>用来转换数字到字符串；<code>Integer.parseInt(str)</code>字符串转数字。</p>
+</li>
+<li><p>Character类的一些方法：<code>isLetter()</code>判断是否为字母，<code>isDigit()</code>判断是否为数字，<code>isWhitespace()</code>是否是空白，<code>isLowerCase()</code>是否大写，<code>toUpperCase()</code>转换为大写，<code>toString()</code>转换为字符串。</p>
+</li>
+<li><p>在java中，字符串是一个final类，所以我们见到的字符串都是对象。常见创建字符串手段：1. 每当有一个字面值出现的时候，虚拟机就会创建一个字符串；2. 调用String的构造方法创建一个字符串对象；3. 通过+加号进行字符串拼接也会创建新的字符串对象。String对象一旦创建之后就是<strong>不可改变</strong>的，所有的改变都会生成一个新的字符串对象。</p>
+<ul>
+<li><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">String str1 = <span class="string">"the light"</span>;</span><br><span class="line">String str2 = <span class="keyword">new</span> String(str1);</span><br><span class="line"><span class="comment">// 这里str1 != str2 ，但是 str1.equals(str2)==True</span></span><br><span class="line"></span><br><span class="line">String str1 = <span class="string">"the light"</span>;</span><br><span class="line">String str3 = <span class="string">"the light"</span>;</span><br><span class="line"><span class="comment">// 一般说来，编译器每碰到一个字符串的字面值，就会创建一个新的对象，所以在声明str1的时候会创建一个新的字符串"the light"；在声明str2时，编译器发现已经存在现成的"the light"，那么就直接拿来使用，而没有进行重复创建。所以这里的str1==str2且equals==True。</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong>StringBuffer</strong>是可变长的字符串。和String内部是一个字符数组一样，StringBuffer也维护了一个字符数组。 但是这个字符数组留有冗余长度。例如new StringBuffer(“the”)，其内部的字符数组的长度是19，而不是3，这样调用插入和追加，在现成的数组的基础上就可以完成了。 如果追加的长度超过了19，就会分配一个新的数组，长度比原来多一些，把原来的数据复制到新的数组中，看上去数组长度就变长了。值得一提的是，<strong>StringBuffer的性能较之String提升很大</strong>。</p>
+<ul>
+<li><p>StringBuffer的扩容，可以根据插入字符串的长度和已经存在的内容的长度计算出一个新的容量，然后根据这个容量创建一个新的数组，接着把原来的数组的内容复制到这个新数组中来，并让用于存储字符串的字符数组引用指向新的数组，从而完成扩容。</p>
+</li>
+<li><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">StringBuffer sb = <span class="keyword">new</span> StringBuffer(<span class="string">"abc"</span>); <span class="comment">//根据str创建一个StringBuffer对象</span></span><br><span class="line">sb.append(<span class="string">"be light"</span>); <span class="comment">//在最后追加</span></span><br><span class="line">sb.delete(<span class="number">4</span>, <span class="number">10</span>);<span class="comment">//删除4-10之间的字符</span></span><br><span class="line">sb.insert(<span class="number">4</span>, <span class="string">"there "</span>);<span class="comment">//在4这个位置插入 there</span></span><br><span class="line">sb.reverse(); <span class="comment">//反转</span></span><br><span class="line">sb.capacity()；<span class="comment">//查看分配的总空间大小</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>一些常见的方法：</p>
+<ul>
+<li><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">str.charAt(<span class="keyword">int</span> index)	 <span class="comment">// 获取指定位置的字符</span></span><br><span class="line">str.toCharArray();  	 <span class="comment">// 获取对应的字符数组</span></span><br><span class="line">str.subString(a,b);		 <span class="comment">// 左闭右开，截取字符串</span></span><br><span class="line">str.split(<span class="string">","</span>);			 <span class="comment">// 根据分隔符进行分隔</span></span><br><span class="line">str.trim();				 <span class="comment">// 去掉首尾空格</span></span><br><span class="line">str.toLowerCase();		 <span class="comment">// 全部变成小写 </span></span><br><span class="line">str.indexOf(<span class="string">""</span> &#123;,start_pos&#125;);	<span class="comment">// 从某位置之后第一次出现的位置</span></span><br><span class="line">str.lastIndexOf(<span class="string">""</span>);	 <span class="comment">// 最后出现的位置</span></span><br><span class="line">str.contains(<span class="string">""</span>);		 <span class="comment">// 是否包含字符串</span></span><br><span class="line">str.replaceAll(a,b);	 <span class="comment">// 用b替换所有的a</span></span><br><span class="line">str.replaceFirst(a,b);	 <span class="comment">// 用b替换第一个出现的a</span></span><br><span class="line">str.startWith(<span class="string">""</span>);	  	 <span class="comment">// 以...开始</span></span><br><span class="line">Math.round()  <span class="comment">// 四舍五入</span></span><br><span class="line">Math.random() <span class="comment">// 得到一个0-1之间的随机浮点数（取不到1）</span></span><br><span class="line">Math.sqrt()   <span class="comment">// 开方</span></span><br><span class="line">Math.pow(a,b) <span class="comment">// a^b</span></span><br><span class="line">Math.PI</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong>格式化输出：</strong><code>%s</code>表示字符串，<code>%d</code> 表示数字，<code>%n</code> 表示换行</p>
+<ul>
+<li><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">System.out.printf(<span class="string">"%s  %d ， %s   %n"</span>,name,kill,title);</span><br><span class="line">System.out.format(<span class="string">"%s  %d ， %s   %n"</span>,name,kill,title);</span><br><span class="line">System.out.format(<span class="string">"%8d%n"</span>,year);  <span class="comment">//总长度是8,默认右对齐</span></span><br><span class="line">System.out.format(<span class="string">"%-8d%n"</span>,year); <span class="comment">//总长度是8,左对齐</span></span><br><span class="line">System.out.format(<span class="string">"%08d%n"</span>,year); <span class="comment">//总长度是8,不够补0</span></span><br><span class="line">System.out.format(<span class="string">"%,8d%n"</span>,year*<span class="number">10000</span>); <span class="comment">//千位分隔符</span></span><br><span class="line">System.out.format(<span class="string">"%.2f%n"</span>,Math.PI); <span class="comment">//小数点位数</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>（1）在DOS和Windows中，每行结尾是 “\r\n”； </p>
+<p>（2）Linux系统里，每行结尾只有 “\n”； </p>
+<p>（3）Mac系统里，每行结尾是只有 “\r”。 </p>
+<p>使用%n，就可以做到平台无关的换行，同一个java程序的换行符在所有的操作系统中都有一样的表现。</p>
+</li>
+</ul>
+<h2><span id="日期与时间">日期与时间 </span></h2><ul>
+<li><p>Date类，java.util.Date。所有的数据类型，无论是整数、布尔、浮点数、字符串还是日期，最后都需要以数字的形式表现出来。特殊地，0代表Java中的时间原点，其对应的日期是1970年1月1日 8点0分0秒 。</p>
+</li>
+<li><p><code>new Date();</code> 创建一个时间对象，可传一个long作为参数进行初始化，<code>date.toString()</code>表示当前时间，<code>getTime()</code> 得到表示具体0过去多少毫秒的long型的整数，与<code>System.currentTimeMillis()</code>结果一样。</p>
+</li>
+<li><p>日期的格式化输出可利用<code>SimpleDateFormat</code>类。</p>
+<ul>
+<li><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="comment">//y 代表年</span></span><br><span class="line"><span class="comment">//M 代表月</span></span><br><span class="line"><span class="comment">//d 代表日</span></span><br><span class="line"><span class="comment">//H 代表24进制的小时</span></span><br><span class="line"><span class="comment">//h 代表12进制的小时</span></span><br><span class="line"><span class="comment">//m 代表分钟</span></span><br><span class="line"><span class="comment">//s 代表秒</span></span><br><span class="line"><span class="comment">//S 代表毫秒</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 日期转字符串</span></span><br><span class="line">SimpleDateFormat sdf =<span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy-MM-dd HH:mm:ss SSS"</span> );</span><br><span class="line">Date d= <span class="keyword">new</span> Date();</span><br><span class="line">String str = sdf.format(d);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 字符串转日期</span></span><br><span class="line">SimpleDateFormat sdf =<span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy/MM/dd HH:mm:ss"</span> );</span><br><span class="line">String str = <span class="string">"2016/1/5 12:12:12"</span>;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  Date d = sdf.parse(str);</span><br><span class="line">  System.out.printf(<span class="string">"字符串 %s 转换为日期对象: %s"</span>,str,d.toString());</span><br><span class="line">&#125; <span class="keyword">catch</span> (ParseException e) &#123;</span><br><span class="line">  <span class="comment">// 模式（yyyy/MM/dd HH:mm:ss）需要和字符串格式保持一致，如果不一样就会抛出解析异常ParseException</span></span><br><span class="line">  e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>Calendar类即日历类，常用于进行“翻日历”，比如下个月的今天是什么时候。</p>
+<ul>
+<li><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Calendar;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line">Calendar c = Calendar.getInstance();</span><br><span class="line">Date now = c.getTime();</span><br><span class="line">c.setTime(now);</span><br><span class="line">c.add(Calendar.MONTH, <span class="number">1</span>); <span class="comment">//下个月</span></span><br><span class="line">c.add(Calendar.YEAR, -<span class="number">1</span>); <span class="comment">//去年</span></span><br><span class="line">c.set(Calendar.DATE, <span class="number">3</span>);  <span class="comment">//第三天</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>本文来源：「想飞的小菜鸡」的个人网站  <a href="https://vodkazy.cn" target="_blank" rel="noopener">vodkazy.cn</a></p>
+<p>版权声明：本文为「想飞的小菜鸡」的原创文章，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请附上原文出处链接及本声明。</p>
+<p>原文链接：<a href="https://vodkazy.cn/2018/10/22/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/" target="_blank" rel="noopener">https://vodkazy.cn/2018/10/30/Java基础学习笔记（一）</a></p>
+</blockquote>
+
+        </div>
+      </article>
+    </div>
+
+	<!-- 打赏 -->
+    <div class="reward">
+	<div class="reward-button">赏 <span class="reward-code">
+		<span class="alipay-code"> <img class="alipay-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/alipay.webp"><b>支付宝打赏</b> </span> 
+		<span class="wechat-code"> <img class="wechat-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/weixin.webp"><b>微信打赏</b> </span> </span>
+	</div>
+	<p class="reward-notice">如果文章对你有帮助，欢迎点击上方按钮打赏作者，更多文章请访问<a href="https://vodkazy.cn" style="color:blue">想飞的小菜鸡</a></p>
+	    <style>
+		*,*:before,*:after {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			-ms-box-sizing: border-box;
+			box-sizing: border-box
+		}
+
+		.reward {
+			padding: 5px 0
+		}
+
+		.reward .reward-notice {
+			font-size: 14px;
+			line-height: 14px;
+			margin: 15px auto;
+			text-align: center
+		}
+
+		.reward .reward-button {
+			font-size: 28px;
+			line-height: 58px;
+			position: relative;
+			display: block;
+			width: 60px;
+			height: 60px;
+			margin: 0 auto;
+			padding: 0;
+			-webkit-user-select: none;
+			text-align: center;
+			vertical-align: middle;
+			color: #fff;
+			border: 1px solid #f1b60e;
+			border-radius: 50%;
+			background: #fccd60;
+			background: -webkit-gradient(linear,left top,left bottom,color-stop(0,#fccd60),color-stop(100%,#fbae12),color-stop(100%,#2989d8),color-stop(100%,#207cca));
+			background: -webkit-linear-gradient(top,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%);
+			background: linear-gradient(to bottom,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%)
+		}
+
+		.reward .reward-code {
+			position: absolute;
+			top: -220px;
+			left: 50%;
+			display: none;
+			width: 350px;
+			height: 200px;
+			margin-left: -175px;
+			padding: 15px;
+			border: 1px solid #e6e6e6;
+			background: #fff;
+			box-shadow: 0 1px 1px 1px #efefef
+		}
+
+		.reward .reward-button:hover .reward-code {
+			display: block
+		}
+
+		.reward .reward-code span {
+			display: inline-block;
+			width: 150px;
+			height: 150px
+		}
+
+		.reward .reward-code span.alipay-code {
+			float: left
+		}
+
+		.reward .reward-code span.alipay-code a {
+			padding: 0
+		}
+
+		.reward .reward-code span.wechat-code {
+			float: right
+		}
+
+		.reward .reward-code img {
+			display: inline-block;
+			float: left;
+			width: 150px;
+			height: 150px;
+			margin: 0 auto;
+			border: 0
+		}
+
+		.reward .reward-code b {
+			font-size: 14px;
+			line-height: 26px;
+			display: block;
+			margin: 0;
+			text-align: center;
+			color: #666
+		}
+
+		.reward .reward-code b.notice {
+			line-height: 2rem;
+			margin-top: -1rem;
+			color: #999
+		}
+
+		.reward .reward-code:after,.reward .reward-code:before {
+			position: absolute;
+			content: '';
+			border: 10px solid transparent
+		}
+
+		.reward .reward-code:after {
+			bottom: -19px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #fff
+		}
+
+		.reward .reward-code:before {
+			bottom: -20px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #e6e6e6
+		}
+    </style>
+
+
+    <!-- Pre or Next -->
+    
+	<div class="container">
+           <ul class="pager">
+    	     
+      	     <li class="previous">
+              <a href="/2018/10/28/Java基础学习笔记（二）/" rel="prev">上一篇</a>
+             </li>
+           
+           
+              <li class="next">
+              <a href="/2018/09/22/《围城》读后感/" rel="prev">下一篇</a>
+            </li>
+           
+          </ul>
+       </div>
+   
+
+    <!-- Valine无后端评论系统 -->   
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+		    el: '#vcomments' ,
+		    appId: 'lH3VkMCd4MHaKtr2n2SRWdoi-MdYXbMMI',
+		    appKey: '5aMXSY7b4KwnzfgpzLA0hPLv',
+		    notify:true, 
+		    verify:false, 
+		    placeholder: '填写正确的邮箱和昵称才能收到我的回复哦       ٩( ^o^ )و  ' ,
+		    avatar: 'retro'
+		});
+    </script>
+    <!-- Valine无后端评论系统 -->  
+
+  </div>
+</div>
+</div>
+
+  <!-- Footer -->
+  <!-- Footer -->
+<footer class="site-info">
+  <p>
+    <span>想飞的小菜鸡 &copy; 2021</span>
+    
+      <span class="split">|</span>
+      <span>照耀的Blog</span>
+    
+  </p>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    本站访客数<span id="busuanzi_value_site_uv"></span>人次
+    本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</footer>
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+<script src="/js/app.js"></script>
+
+
+ 
+  <!-- 使用 aotuload.js 引入看板娘 -->    
+  <!-- //<script src="/js/assets/jquery.min.js?v=3.3.1"></script> -->   
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  <!-- //<script src="/js/assets/jquery-ui.min.js?v=1.12.1"></script>   --> 
+  <script src="https://cdn.jsdelivr.net/npm/jquery-ui-dist@1.12.1/jquery-ui.min.js"></script>
+  <script src="/js/assets/autoload.js?v=1.4.2"></script>
+  <!-- //<script src="https://live2d-cdn.fghrsh.net/assets/1.4.2/autoload.js></script> -->   
+   
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var i=n.imageLazyLoadSetting.isSPA,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){i&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,e,a=0;a<r.length;a++)t=r[a],e=void 0,0<=(e=t.getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},n.src=i}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+
+</html>

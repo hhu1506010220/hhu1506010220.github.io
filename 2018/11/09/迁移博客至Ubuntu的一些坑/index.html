@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<!-- 百度统计 -->
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?e31627579358722b9d300535c8206351";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Vodkazy">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="迁移博客至Ubuntu的一些坑">
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="想飞的小菜鸡">
+  <!--Type page-->
+  
+      <meta property="og:type" content="article">
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- Title -->
+  
+  <title>迁移博客至Ubuntu的一些坑 - 想飞的小菜鸡</title>
+
+
+  <link rel="shortcut icon" href="/../images/icon.ico">
+  <!--font-awesome-->
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+
+<body>
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    
+    <div class="logo">
+      <a href="/" rel="home">
+        
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://cdn2.iconfinder.com/data/icons/weather-color-2/500/weather-01-128.png" alt="想飞的小菜鸡" height="60">
+        
+      </a>
+    </div>
+    <a class="header-name" href="/">
+            <span>想飞的小菜鸡</span>
+            的小窝
+        </a>
+    <!-- navbar -->
+    <nav class="navbar">
+      <!--  nav links -->
+      <div class="collapse">
+        <ul class="navbar-nav">
+          
+          
+            <li>
+              <a href="/.">
+                
+                  <i class="fa fa-home "></i>
+                
+                首页
+              </a>
+            </li>
+          
+            <li>
+              <a href="/archives">
+                
+                  <i class="fa fa-archive "></i>
+                
+                目录
+              </a>
+            </li>
+          
+            <li>
+              <a href="/project">
+                
+                  <i class="fa fa-folder-open "></i>
+                
+                代码库
+              </a>
+            </li>
+          
+            <li>
+              <a href="/photo">
+                
+                  <i class="fa fa-photo "></i>
+                
+                相册薄
+              </a>
+            </li>
+          
+            <li>
+              <a href="/lovetree">
+                
+                  <i class="fa fa-tree "></i>
+                
+                爱情树
+              </a>
+            </li>
+          
+            <li>
+              <a href="/guestbook">
+                
+                  <i class="fa fa-edit "></i>
+                
+                留言板
+              </a>
+            </li>
+          
+            <li>
+              <a href="/about">
+                
+                  <i class="fa fa-user "></i>
+                
+                关于我
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="button-wrap">
+      <button class="menu-toggle">Primary Menu</button>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            迁移博客至Ubuntu的一些坑
+            
+          </h1>
+         
+        </div>
+         <p class="a-posted-on">
+          2018-11-09
+          </p>
+        <!-- Post Main Content -->
+        <div class="entry-content">
+          <p>把Ubuntu装Hexo的坑几乎踩了一遍..心累（<br><a id="more"></a></p>
+<h3><span id="初衷">初衷</span></h3><p>迁移的目的是为了更频繁的使用Ubuntu进行开发，但是我的博客在windows，每次切个系统去发个博客比较sb，所以就想到了把blog弄到linux来。</p>
+<h3><span id="初期准备">初期准备</span></h3><ul>
+<li>安装Git<br>Linux自带，不用安装了。</li>
+<li><p>安装Node.js<br>Ubuntu16.04下，使用apt-get下载的nodejs最新版本为v4.4.x，而hexo需要v4.5.x及以上的版本，用以下命令可以安装最新版本的（需先把低版本的nodejs卸载）</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="keyword">get</span> install nodejs  <span class="comment">//v4.4.x</span></span><br><span class="line">sudo npm install n -g</span><br><span class="line">sudo n stable		<span class="comment">//v11.x</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装npm</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt <span class="keyword">install</span> npm</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装hexo<br>首先挑个位置创建一个blog文件夹（这里建议不要放到一些需要sudo权限才能操作的地方，放到桌面就很方便）。cd到这个文件夹，然后运行安装hexo</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="selector-tag">i</span> -g hexo</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3><span id="进行中">进行中</span></h3><p>之后初始化hexo<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hexo init</span></span><br></pre></td></tr></table></figure></p>
+<p>初始化完成之后打开所在的文件夹可以看到以下文件：</p>
+<ul>
+<li>node_modules：是依赖包</li>
+<li>public：存放的是生成的页面</li>
+<li>scaffolds：命令生成文章等的模板</li>
+<li>source：用命令创建的各种文章</li>
+<li>themes：主题</li>
+<li>_config.yml：整个博客的配置</li>
+<li>db.json：source解析所得到的</li>
+<li>package.json：项目所需模块项目的配置信息</li>
+</ul>
+<p>这里我们需要把之前windows的blog里面的scaffolds、source、themes、_config.yml、package.json这五个东西copy到我们在ubuntu下创建的blog里面。</p>
+<p>之后还要再安装几个插件用来解析服务什么的：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">本地测试的时候需要用到的hexo<span class="built_in"> server	</span>	sudo npm i hexo-server</span><br><span class="line">将文章部署到github上的模块			sudo npm install hexo-deployer-git --save</span><br><span class="line">安装RSS插件			  sudo npm install hexo-generator-feed --save</span><br><span class="line">添加Sitemap,加速网页收录速度		sudo npm install hexo-generator-sitemap --save</span><br></pre></td></tr></table></figure></p>
+<p>搞完这些之后用hexo s尝试跑一下，会发现什么东西都没有只有报错。然后我F12看了下错误信息<br><figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Refused <span class="keyword">to</span> apply style <span class="keyword">from</span> <span class="string">'http://localhost:4000/css/style.css'</span> because its MIME <span class="keyword">type</span> (<span class="string">'text/html'</span>) <span class="keyword">is</span> <span class="keyword">not</span> a supported stylesheet MIME <span class="keyword">type</span>, <span class="keyword">and</span> <span class="keyword">strict</span> MIME checking <span class="keyword">is</span> enabled</span><br></pre></td></tr></table></figure></p>
+<p>是说/css/style.css找不到。去那个文件夹下找了发现确实没有style.css但是有style.scss。这就说明我们的hexo框架里应该该有一部分插件是用来将scss解析为css的。于是运行以下代码来解决这个问题：<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm <span class="keyword">install </span>hexo-renderer-<span class="keyword">scss </span>--save</span><br></pre></td></tr></table></figure></p>
+<p>这里遇到的肯定就是一开始没有加—unsafe-perm选项的时候安装是一直报错的，因为好像是没有权限还是咋的，后来百度了下安装了这个选项后再执行就好了<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> <span class="comment">--unsafe-perm</span></span><br><span class="line">sudo npm <span class="keyword">install</span> hexo-renderer-scss <span class="comment">--save --unsafe-perm</span></span><br></pre></td></tr></table></figure></p>
+<p>你以为做到这里就大功告成了吗？事实证明还差得远。再用hexo s尝试一下，结果你会发现index.html还是没有显示东西反而是只出现了一串代码：<br><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="meta">%</span>- partial<span class="comment">('_partial/head')</span> <span class="meta">%</span>&gt;</span><br><span class="line">&lt;<span class="meta">%</span>- partial<span class="comment">('_partial/header')</span> <span class="meta">%</span>&gt;</span><br><span class="line">&lt;<span class="meta">%</span>- body <span class="meta">%</span>&gt;</span><br><span class="line">&lt;<span class="meta">%</span> <span class="keyword">if</span> <span class="comment">(theme.sidebar &amp;&amp; theme.sidebar !== 'bottom')</span>&#123; <span class="meta">%</span>&gt; &lt;<span class="meta">%</span>- partial<span class="comment">('_partial/sidebar')</span> <span class="meta">%</span>&gt; &lt;<span class="meta">%</span> &#125; <span class="meta">%</span>&gt;</span><br><span class="line">&lt;<span class="meta">%</span>- partial<span class="comment">('_partial/footer')</span> <span class="meta">%</span>&gt;</span><br><span class="line">&lt;<span class="meta">%</span>- partial<span class="comment">('_partial/mobile-nav')</span> <span class="meta">%</span>&gt; &lt;<span class="meta">%</span>- partial<span class="comment">('_partial/after-footer')</span> <span class="meta">%</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<p>这说明，服务器解析错误，没有把应有的东西解析出来。我们都知道，当遇到问题时，先解决提出问题的人。于是这个问题很明显得就是由于框架本身自带的ejs类型文件没有被正确解析导致的，所以我们下载它的解析器。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo npm <span class="keyword">install</span> hexo-renderer-ejs <span class="comment">--save</span></span><br><span class="line">sudo npm <span class="keyword">install</span> hexo-renderer-stylus <span class="comment">--save</span></span><br><span class="line">sudo npm <span class="keyword">install</span> hexo-renderer-marked <span class="comment">--save</span></span><br></pre></td></tr></table></figure></p>
+<p>到这里hexo已经差不多能在本地安然无恙的运行了…<br>然后再贴几个常用的插件下载方式：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-generator-<span class="keyword">index</span> <span class="comment">--save</span></span><br><span class="line">npm <span class="keyword">install</span> hexo-generator-<span class="keyword">archive</span> <span class="comment">--save</span></span><br><span class="line">npm <span class="keyword">install</span> hexo-generator-<span class="keyword">category</span> <span class="comment">--save</span></span><br><span class="line">npm <span class="keyword">install</span> hexo-generator-tag <span class="comment">--save</span></span><br><span class="line">npm <span class="keyword">install</span> hexo-<span class="keyword">server</span> <span class="comment">--save</span></span><br><span class="line">npm <span class="keyword">install</span> hexo-deployer-git <span class="comment">--save</span></span><br><span class="line">npm <span class="keyword">install</span> hexo-deployer-heroku <span class="comment">--save</span></span><br><span class="line">npm <span class="keyword">install</span> hexo-deployer-rsync <span class="comment">--save</span></span><br><span class="line">npm <span class="keyword">install</span> hexo-deployer-openshift <span class="comment">--save</span></span><br><span class="line">npm <span class="keyword">install</span> hexo-renderer-marked@<span class="number">0.2</span> <span class="comment">--save</span></span><br><span class="line">npm <span class="keyword">install</span> hexo-renderer-stylus@<span class="number">0.2</span> <span class="comment">--save</span></span><br><span class="line">npm <span class="keyword">install</span> hexo-generator-feed@<span class="number">1</span> <span class="comment">--save</span></span><br><span class="line">npm <span class="keyword">install</span> hexo-generator-sitemap@<span class="number">1</span> <span class="comment">--save</span></span><br></pre></td></tr></table></figure></p>
+<p>以及<a href="https://baijiahao.baidu.com/s?id=1603706320831966425&amp;wfr=spider&amp;for=pc" target="_blank" rel="noopener">在hexo使用mathjax的教程</a><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">安装 hexo-renderer-mathjax 包：</span><br><span class="line">	npm install hexo-renderer-mathjax --save</span><br><span class="line">打开/node_modules/hexo-renderer-mathjax/mathjax.html	</span><br><span class="line">然后，把<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined">更改为：</span></span><br><span class="line"><span class="handlebars"><span class="xml">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"</span>&gt;</span><span class="undefined"></span></span></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>有个要注意的地方：由于mathjax和hexo本身有冲突，并且网上的办法都不适用于本主题，所以当mathjax中有`{{}}`的时候，我们要用<code>raw endraw %}</code>括起来。</p>
+<p>我的博客的dependencies有以下这些：<br><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"hexo"</span>: <span class="string">"^3.2.0"</span>,</span><br><span class="line"><span class="string">"hexo-asset-image"</span>: <span class="string">"0.0.3"</span>,</span><br><span class="line"><span class="string">"hexo-deployer-git"</span>: <span class="string">"^0.2.0"</span>,</span><br><span class="line"><span class="string">"hexo-generator-archive"</span>: <span class="string">"^0.1.4"</span>,</span><br><span class="line"><span class="string">"hexo-generator-category"</span>: <span class="string">"^0.1.3"</span>,</span><br><span class="line"><span class="string">"hexo-generator-feed"</span>: <span class="string">"^1.2.2"</span>,</span><br><span class="line"><span class="string">"hexo-generator-index"</span>: <span class="string">"^0.2.0"</span>,</span><br><span class="line"><span class="string">"hexo-generator-sitemap"</span>: <span class="string">"^1.2.0"</span>,</span><br><span class="line"><span class="string">"hexo-generator-tag"</span>: <span class="string">"^0.2.0"</span>,</span><br><span class="line"><span class="string">"hexo-inject"</span>: <span class="string">"^1.0.0"</span>,</span><br><span class="line"><span class="string">"hexo-renderer-ejs"</span>: <span class="string">"^0.2.0"</span>,</span><br><span class="line"><span class="string">"hexo-renderer-marked"</span>: <span class="string">"^0.3.2"</span>,</span><br><span class="line"><span class="string">"hexo-renderer-mathjax"</span>: <span class="string">"^0.6.0"</span>,</span><br><span class="line"><span class="string">"hexo-renderer-sass"</span>: <span class="string">"^0.3.2"</span>,</span><br><span class="line"><span class="string">"hexo-renderer-scss"</span>: <span class="string">"^1.2.0"</span>,</span><br><span class="line"><span class="string">"hexo-renderer-stylus"</span>: <span class="string">"^0.3.3"</span>,</span><br><span class="line"><span class="string">"hexo-server"</span>: <span class="string">"^0.2.2"</span>,</span><br><span class="line"><span class="string">"hexo-tag-cloud"</span>: <span class="string">"2.0.*"</span>,</span><br><span class="line"><span class="string">"hexo-toc"</span>: <span class="string">"^1.1.0"</span>,</span><br><span class="line"><span class="string">"leancloud-storage"</span>: <span class="string">"^3.11.0"</span>,</span><br><span class="line"><span class="string">"valine"</span>: <span class="string">"^1.3.4"</span></span><br></pre></td></tr></table></figure></p>
+<h3><span id="坑还得继续踩">坑还得继续踩</span></h3><p>然后我以为终于结束了的时候，hexo d想要push到我的github上去，然后又出现了以下情节：<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Warning: Permanently added <span class="keyword">the</span> RSA host key <span class="keyword">for</span> IP address <span class="string">'192.30.252.128'</span> <span class="built_in">to</span> <span class="keyword">the</span> list <span class="keyword">of</span> known host</span><br></pre></td></tr></table></figure></p>
+<p>哦对，现在环境变了，我们的密钥也要更新了。<br>首先创建SSH Key。在用户主目录下，看看有没有.ssh目录，如果有，再看看这个目录下有没有id_rsa和id_rsa.pub这两个文件，如果已经有了，可直接跳到下一步。如果没有，打开Shell创建SSH Key：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">ssh-keygen</span> <span class="selector-tag">-t</span> <span class="selector-tag">rsa</span> <span class="selector-tag">-C</span> "<span class="selector-tag">youremail</span>@<span class="keyword">example</span>.<span class="keyword">com</span>"</span><br></pre></td></tr></table></figure></p>
+<p>在用户主目录里找到.ssh目录，里面有id_rsa和id_rsa.pub两个文件。然后把id_rsa.pub里面的所有东西复制，登录github，粘贴到SSH KEYS一栏中即可。</p>
+<p>然后后来我下了个remarkable来写markdown，却发现每次都要在文件里用sudo xxxxx的命令才能运行，所以我就尝试着将自己的用户的权限设置为root。<br>首先我们第一次给root修改密码，运行<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo passwd</span></span><br></pre></td></tr></table></figure></p>
+<p>然后系统会让你输入密码，这时输入的密码就是root用户的密码了，设置完成之后就可以切换root用户登录了。然后为了设置权限，我执行了以下步骤<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano <span class="regexp">/etc/</span>passwd</span><br></pre></td></tr></table></figure></p>
+<p>将  vodka:x:<strong>1000:1000</strong>:Vodka,,,:/home/vodka:/bin/bash<br>改为了  vodka:x:<strong>0:0</strong>:Vodka,,,:/home/vodka:/bin/bash<br>然后再输入<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano <span class="regexp">/root/</span>.profile</span><br></pre></td></tr></table></figure></p>
+<p>打开文件后找到“mesg n”，将其更改为“<strong>tty -s &amp;&amp; mesg n</strong>”<br>然后又去修改sudoers<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano <span class="regexp">/etc/</span>sudoers</span><br></pre></td></tr></table></figure></p>
+<p>添加了一行：<br><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用户名 <span class="keyword">ALL</span>=(<span class="keyword">ALL</span>) <span class="keyword">ALL</span></span><br></pre></td></tr></table></figure></p>
+<p>结果报错了- -。。。搞得任何sudo指令都运行不了了。<br>于是我重启进入了recovery mode，先运行下grub获取权限，然后进入root shell。这时候你可以重新去编辑出错的那个文件，修改好之后就恢复好了。<br>等我再次重启，我发现，登录界面只有一个游客登录选项了？？TMD。。于是又去百度，在recovery mode下运行了下面命令：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /usr/share/lightdm/lightdm<span class="selector-class">.conf</span><span class="selector-class">.d</span>/<span class="number">50</span>-ubuntu.conf</span><br></pre></td></tr></table></figure></p>
+<p>在里面添加了两行<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">greeter-show-manual-login</span>=<span class="literal">true</span>  //root用户可在登录页面登录</span><br><span class="line"><span class="attr">allow-guest</span>=<span class="literal">false</span> // 禁止游客登录</span><br></pre></td></tr></table></figure></p>
+<p>重启之后就可以以root身份登录我原来的用户啦！</p>
+<p>这时候我运行什么指令都不用加sudo啦哈哈哈哈哈哈哈哈哈…</p>
+<p>结果我还没高兴几分钟，我就发现，在root权限下，chrome是打不开的！！！我真的是醉了…又得想办法解决。运行 /usr/bin/google-chrome-stable 发现会报错，应该是启动的问题。于是百度了一下发现chrome好像确实自带不允许root使用属性。<br>最终的解决办法是可以在usr/share/applications中找到Chrome的快捷方式，然后右键在其properties中command中增加”–no-sandbox”选项即可。然后这时候确实可以运行了，但是为什么我每次点开浏览器都要我输三次“设置默认密钥环”？？？ 在终端输入seahorse打开管理密钥环的软件，文件-&gt;新建-&gt;密码和密钥-&gt;输入名字，却告诉我找不到路径/。<br>没想到，我最终还是败在了这个问题上…这个问题我百度了好久也没有人遇到过我这个情况..而且如果每开一次浏览器都要输入三次这个密钥环的话我宁愿不用这个浏览器。所以…没办法…我只能再用户权限换回非root了。<br>唉，好气啊。</p>
+<h3><span id="finally">Finally…</span></h3><p>就在我换回来之后，我发现了一个更为严重的问题，如果我每次<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">sudo</span> <span class="selector-tag">remarkable</span> <span class="selector-tag">xxx</span><span class="selector-class">.md</span></span><br></pre></td></tr></table></figure></p>
+<p>来编辑md文件的话，你会发现在这个软件里我切换不了输入法！也就是说我只能用英文去写文章？？也正是因为这个原因我才会选择去尝试切换root权限。就在我想不出来好办法的时候，我突然发现，linux桌面上文件执行起来是不需要sudo权限的！这可真的是太激动人心了。于是我把之前在系统权限区域的blog举家搬迁到了桌面上，然后再去试着编辑文件。Nice！完全可用！完美解决！<br>之后又安装了一个无后端的可免登录的评论系统<a href="https://valine.js.org/quickstart.html#%E8%AF%84%E8%AE%BA%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86" target="_blank" rel="noopener">Valine</a>，弃用了原来的来必力。管理页面在<a href="https://leancloud.cn/" target="_blank" rel="noopener">leancloud</a>，具体可以参照<a href="https://blog.csdn.net/u012208219/article/details/106883083/" target="_blank" rel="noopener">该博客</a>，建议使用国际版，因为国内版不再提供免费的二级域名了。<br>还有这个<a href="https://github.com/MikeCoder/hexo-tag-cloud" target="_blank" rel="noopener">tagcloud标签云</a>来实现分类。<br>之后又用以下命令安装了能搭配<code>&lt;!-- tocc(应该是toc。为了防止toc被hexo解释，这里采用tocc暂时代替) --&gt;</code>来生成文章目录的插件hexo-toc。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-toc <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
+<h3><span id="后记">后记</span></h3><p>后来又遇到了本地git仓库中套了一个git仓库，使得无法把库中的全部文件推到github上去的情况。这种情况是由于子git库采用了subtree的结构，一般小项目根本不会用到，只有大型项目才会用。解决办法是把子项目的.git全删了，然后把本地项目的.git也删了，然后重新初始化仓库覆盖掉。代价是原仓库中的git的记录会消失（因为.git中记录的是各个时期文件的状态）<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git remote add origin xxxx.git</span><br><span class="line">git checkout -b <span class="literal">master</span></span><br><span class="line">git push --set-upstream origin <span class="keyword">master</span> <span class="title">或者 git</span> push origin <span class="keyword">master</span> <span class="title">-f</span> 硬推上去覆盖</span><br></pre></td></tr></table></figure></p>
+<p>心情很爽～</p>
+<blockquote>
+<p>本文来源：「想飞的小菜鸡」的个人网站  <a href="https://vodkazy.cn" target="_blank" rel="noopener">vodkazy.cn</a></p>
+<p>版权声明：本文为「想飞的小菜鸡」的原创文章，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请附上原文出处链接及本声明。</p>
+<p>原文链接：<a href="https://vodkazy.cn/2018/11/09/迁移博客至Ubuntu的一些坑" target="_blank" rel="noopener">https://vodkazy.cn/2018/11/09/迁移博客至Ubuntu的一些坑</a></p>
+</blockquote>
+
+        </div>
+      </article>
+    </div>
+
+	<!-- 打赏 -->
+    <div class="reward">
+	<div class="reward-button">赏 <span class="reward-code">
+		<span class="alipay-code"> <img class="alipay-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/alipay.webp"><b>支付宝打赏</b> </span> 
+		<span class="wechat-code"> <img class="wechat-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/weixin.webp"><b>微信打赏</b> </span> </span>
+	</div>
+	<p class="reward-notice">如果文章对你有帮助，欢迎点击上方按钮打赏作者，更多文章请访问<a href="https://vodkazy.cn" style="color:blue">想飞的小菜鸡</a></p>
+	    <style>
+		*,*:before,*:after {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			-ms-box-sizing: border-box;
+			box-sizing: border-box
+		}
+
+		.reward {
+			padding: 5px 0
+		}
+
+		.reward .reward-notice {
+			font-size: 14px;
+			line-height: 14px;
+			margin: 15px auto;
+			text-align: center
+		}
+
+		.reward .reward-button {
+			font-size: 28px;
+			line-height: 58px;
+			position: relative;
+			display: block;
+			width: 60px;
+			height: 60px;
+			margin: 0 auto;
+			padding: 0;
+			-webkit-user-select: none;
+			text-align: center;
+			vertical-align: middle;
+			color: #fff;
+			border: 1px solid #f1b60e;
+			border-radius: 50%;
+			background: #fccd60;
+			background: -webkit-gradient(linear,left top,left bottom,color-stop(0,#fccd60),color-stop(100%,#fbae12),color-stop(100%,#2989d8),color-stop(100%,#207cca));
+			background: -webkit-linear-gradient(top,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%);
+			background: linear-gradient(to bottom,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%)
+		}
+
+		.reward .reward-code {
+			position: absolute;
+			top: -220px;
+			left: 50%;
+			display: none;
+			width: 350px;
+			height: 200px;
+			margin-left: -175px;
+			padding: 15px;
+			border: 1px solid #e6e6e6;
+			background: #fff;
+			box-shadow: 0 1px 1px 1px #efefef
+		}
+
+		.reward .reward-button:hover .reward-code {
+			display: block
+		}
+
+		.reward .reward-code span {
+			display: inline-block;
+			width: 150px;
+			height: 150px
+		}
+
+		.reward .reward-code span.alipay-code {
+			float: left
+		}
+
+		.reward .reward-code span.alipay-code a {
+			padding: 0
+		}
+
+		.reward .reward-code span.wechat-code {
+			float: right
+		}
+
+		.reward .reward-code img {
+			display: inline-block;
+			float: left;
+			width: 150px;
+			height: 150px;
+			margin: 0 auto;
+			border: 0
+		}
+
+		.reward .reward-code b {
+			font-size: 14px;
+			line-height: 26px;
+			display: block;
+			margin: 0;
+			text-align: center;
+			color: #666
+		}
+
+		.reward .reward-code b.notice {
+			line-height: 2rem;
+			margin-top: -1rem;
+			color: #999
+		}
+
+		.reward .reward-code:after,.reward .reward-code:before {
+			position: absolute;
+			content: '';
+			border: 10px solid transparent
+		}
+
+		.reward .reward-code:after {
+			bottom: -19px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #fff
+		}
+
+		.reward .reward-code:before {
+			bottom: -20px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #e6e6e6
+		}
+    </style>
+
+
+    <!-- Pre or Next -->
+    
+	<div class="container">
+           <ul class="pager">
+    	     
+      	     <li class="previous">
+              <a href="/2018/11/19/Linux&Win&Deepin安装virtuoso数据库/" rel="prev">上一篇</a>
+             </li>
+           
+           
+              <li class="next">
+              <a href="/2018/10/30/Java基础学习笔记（四）/" rel="prev">下一篇</a>
+            </li>
+           
+          </ul>
+       </div>
+   
+
+    <!-- Valine无后端评论系统 -->   
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+		    el: '#vcomments' ,
+		    appId: 'lH3VkMCd4MHaKtr2n2SRWdoi-MdYXbMMI',
+		    appKey: '5aMXSY7b4KwnzfgpzLA0hPLv',
+		    notify:true, 
+		    verify:false, 
+		    placeholder: '填写正确的邮箱和昵称才能收到我的回复哦       ٩( ^o^ )و  ' ,
+		    avatar: 'retro'
+		});
+    </script>
+    <!-- Valine无后端评论系统 -->  
+
+  </div>
+</div>
+</div>
+
+  <!-- Footer -->
+  <!-- Footer -->
+<footer class="site-info">
+  <p>
+    <span>想飞的小菜鸡 &copy; 2021</span>
+    
+      <span class="split">|</span>
+      <span>照耀的Blog</span>
+    
+  </p>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    本站访客数<span id="busuanzi_value_site_uv"></span>人次
+    本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</footer>
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+<script src="/js/app.js"></script>
+
+
+ 
+  <!-- 使用 aotuload.js 引入看板娘 -->    
+  <!-- //<script src="/js/assets/jquery.min.js?v=3.3.1"></script> -->   
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  <!-- //<script src="/js/assets/jquery-ui.min.js?v=1.12.1"></script>   --> 
+  <script src="https://cdn.jsdelivr.net/npm/jquery-ui-dist@1.12.1/jquery-ui.min.js"></script>
+  <script src="/js/assets/autoload.js?v=1.4.2"></script>
+  <!-- //<script src="https://live2d-cdn.fghrsh.net/assets/1.4.2/autoload.js></script> -->   
+   
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var i=n.imageLazyLoadSetting.isSPA,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){i&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,e,a=0;a<r.length;a++)t=r[a],e=void 0,0<=(e=t.getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},n.src=i}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+
+</html>

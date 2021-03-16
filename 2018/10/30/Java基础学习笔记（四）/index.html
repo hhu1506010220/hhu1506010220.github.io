@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<!-- 百度统计 -->
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?e31627579358722b9d300535c8206351";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Vodkazy">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="Java基础学习笔记（四）">
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="想飞的小菜鸡">
+  <!--Type page-->
+  
+      <meta property="og:type" content="article">
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- Title -->
+  
+  <title>Java基础学习笔记（四） - 想飞的小菜鸡</title>
+
+
+  <link rel="shortcut icon" href="/../images/icon.ico">
+  <!--font-awesome-->
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+
+<body>
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    
+    <div class="logo">
+      <a href="/" rel="home">
+        
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://cdn2.iconfinder.com/data/icons/weather-color-2/500/weather-01-128.png" alt="想飞的小菜鸡" height="60">
+        
+      </a>
+    </div>
+    <a class="header-name" href="/">
+            <span>想飞的小菜鸡</span>
+            的小窝
+        </a>
+    <!-- navbar -->
+    <nav class="navbar">
+      <!--  nav links -->
+      <div class="collapse">
+        <ul class="navbar-nav">
+          
+          
+            <li>
+              <a href="/.">
+                
+                  <i class="fa fa-home "></i>
+                
+                首页
+              </a>
+            </li>
+          
+            <li>
+              <a href="/archives">
+                
+                  <i class="fa fa-archive "></i>
+                
+                目录
+              </a>
+            </li>
+          
+            <li>
+              <a href="/project">
+                
+                  <i class="fa fa-folder-open "></i>
+                
+                代码库
+              </a>
+            </li>
+          
+            <li>
+              <a href="/photo">
+                
+                  <i class="fa fa-photo "></i>
+                
+                相册薄
+              </a>
+            </li>
+          
+            <li>
+              <a href="/lovetree">
+                
+                  <i class="fa fa-tree "></i>
+                
+                爱情树
+              </a>
+            </li>
+          
+            <li>
+              <a href="/guestbook">
+                
+                  <i class="fa fa-edit "></i>
+                
+                留言板
+              </a>
+            </li>
+          
+            <li>
+              <a href="/about">
+                
+                  <i class="fa fa-user "></i>
+                
+                关于我
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="button-wrap">
+      <button class="menu-toggle">Primary Menu</button>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            Java基础学习笔记（四）
+            
+          </h1>
+         
+        </div>
+         <p class="a-posted-on">
+          2018-10-30
+          </p>
+        <!-- Post Main Content -->
+        <div class="entry-content">
+          <p>涉及GUI图形用户界面、网络编程、反射机制和注解。<br><a id="more"></a></p>
+<!-- toc -->
+<ul>
+<li><a href="#gui图形用户界面-httphow2jcnmodule60html">GUI图形用户界面 <a href="http://how2j.cn/module/60.html" target="_blank" rel="noopener">☜</a></a><ul>
+<li><a href="#监听器">监听器</a></li>
+<li><a href="#容器">容器</a></li>
+<li><a href="#组件">组件</a></li>
+<li><a href="#面板">面板</a></li>
+<li><a href="#菜单栏">菜单栏</a></li>
+<li><a href="#工具栏">工具栏</a></li>
+<li><a href="#表格">表格</a></li>
+<li><a href="#swing中的线程">Swing中的线程</a></li>
+</ul>
+</li>
+<li><a href="#网络编程-httphow2jcnmodule59html">网络编程 <a href="http://how2j.cn/module/59.html" target="_blank" rel="noopener">☜</a></a><ul>
+<li><a href="#建立连接">建立连接</a></li>
+<li><a href="#多线程">多线程</a></li>
+</ul>
+</li>
+<li><a href="#反射机制-httphow2jcnmodule43html">反射机制 <a href="http://how2j.cn/module/43.html" target="_blank" rel="noopener">☜</a></a></li>
+<li><a href="#注解-httphow2jcnmodule118html">注解 <a href="http://how2j.cn/module/118.html" target="_blank" rel="noopener">☜</a></a><ul>
+<li><a href="#基本注解">基本注解</a></li>
+<li><a href="#自定义注解">自定义注解</a></li>
+</ul>
+</li>
+<li><a href="#log4j">Log4j</a><ul>
+<li><a href="#用法">用法</a></li>
+<li><a href="#配置文件">配置文件</a></li>
+<li><a href="#输出格式">输出格式</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h2><span id="gui图形用户界面">GUI图形用户界面 </span></h2><ul>
+<li><p><code>JFrame</code>是GUI中的容器，<code>JButton</code>是最常见的组件-按钮。<code>f.setVisible(true)</code>会对所有的组件进行渲染，所以一定要放在最后面。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.swing.JButton;</span><br><span class="line"><span class="keyword">import</span> javax.swing.JFrame;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestGUI</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 主窗体</span></span><br><span class="line">        JFrame f = <span class="keyword">new</span> JFrame(<span class="string">"窗体名称"</span>);</span><br><span class="line">        <span class="comment">// 主窗体设置大小</span></span><br><span class="line">        f.setSize(<span class="number">400</span>, <span class="number">300</span>);</span><br><span class="line">        <span class="comment">// 主窗体设置位置</span></span><br><span class="line">        f.setLocation(<span class="number">200</span>, <span class="number">200</span>);</span><br><span class="line">        <span class="comment">// 主窗体中的组件设置为绝对定位</span></span><br><span class="line">        f.setLayout(<span class="keyword">null</span>);</span><br><span class="line">        <span class="comment">// 按钮组件</span></span><br><span class="line">        JButton b = <span class="keyword">new</span> JButton(<span class="string">"按钮"</span>);</span><br><span class="line">        <span class="comment">// 同时设置组件的大小和位置</span></span><br><span class="line">        b.setBounds(<span class="number">50</span>, <span class="number">50</span>, <span class="number">280</span>, <span class="number">30</span>);</span><br><span class="line">        <span class="comment">// 把按钮加入到主窗体中</span></span><br><span class="line">        f.add(b);</span><br><span class="line">        <span class="comment">// 关闭窗体的时候，退出程序</span></span><br><span class="line">        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span><br><span class="line">        <span class="comment">// 让窗体变得可见</span></span><br><span class="line">        f.setVisible(<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>利用 <code>javax.swing.UIManager.setLookAndFeel(&quot;com.birosoft.liquid.LiquidLookAndFeel&quot;)</code> 就可以把所有的组件切换成不同的风格。需要注意的是，这句话需要加在最前面，如果已经创建了界面，再加这个有时候不能正常起作用。各种皮肤可以自行下载jar包。</p>
+</li>
+</ul>
+<h3><span id="监听器">监听器</span></h3><ul>
+<li><p>ActionListener：按钮监听。内置<code>actionPerformed</code>方法，一点击按钮该方法就执行。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">b.addActionListener(<span class="keyword">new</span> ActionListener() &#123;</span><br><span class="line">    <span class="comment">// 当按钮被点击时，就会触发 ActionEvent事件，actionPerformed 方法就会被执行</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent e)</span> </span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>KeyListener：键盘监听。<code>keyPressed</code>键被按下、<code>keyReleased</code> 键被弹起、<code>keyTyped</code> 按下弹起的组合动作。<code>KeyEvent.getKeyCode()</code> 可以获取当前点下了哪个键。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">f.addKeyListener(<span class="keyword">new</span> KeyListener() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">keyReleased</span><span class="params">(KeyEvent e)</span> </span>&#123;    <span class="comment">// 键被弹起</span></span><br><span class="line">        <span class="keyword">if</span> (e.getKeyCode() == <span class="number">39</span>) &#123;</span><br><span class="line">            <span class="comment">// 39代表按下了 “右键”</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">keyPressed</span><span class="params">(KeyEvent e)</span> </span>&#123;&#125;	 <span class="comment">// 键被按下</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">keyTyped</span><span class="params">(KeyEvent e)</span> </span>&#123;&#125;		 <span class="comment">// 按下弹起的组合动作</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>MouseListener：鼠标监听。<code>mouseReleased</code> 鼠标释放、 <code>mousePressed</code> 鼠标按下、 <code>mouseExited</code> 鼠标退出、 <code>mouseEntered</code> 鼠标进入、 <code>mouseClicked</code> 鼠标点击。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">l.addMouseListener(<span class="keyword">new</span> MouseListener() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">mouseReleased</span><span class="params">(MouseEvent e)</span> </span>&#123;&#125;	 <span class="comment">// 释放鼠标</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">mousePressed</span><span class="params">(MouseEvent e)</span> </span>&#123;&#125;	 <span class="comment">// 按下鼠标</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">mouseExited</span><span class="params">(MouseEvent e)</span> </span>&#123;&#125;    <span class="comment">// 鼠标退出</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">mouseEntered</span><span class="params">(MouseEvent e)</span> </span>&#123;    <span class="comment">// 鼠标进入</span></span><br><span class="line">        Random r = <span class="keyword">new</span> Random();</span><br><span class="line">        <span class="keyword">int</span> x = r.nextInt(f.getWidth() - l.getWidth());</span><br><span class="line">        <span class="keyword">int</span> y = r.nextInt(f.getHeight() - l.getHeight());</span><br><span class="line">        l.setLocation(x, y);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">mouseClicked</span><span class="params">(MouseEvent e)</span> </span>&#123;&#125;   <span class="comment">// 按下释放组合动作为点击鼠标</span></span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ItemListener：条目监听。<code>itemStateChanged</code> 条目状态改变。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">l.addItemListener(<span class="keyword">new</span> ItemListener() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">itemStateChanged</span><span class="params">(ItemEvent evt)</span> </span>&#123;</span><br><span class="line">        CardLayout cl = (CardLayout) (cards.getLayout());</span><br><span class="line">        cl.show(cards, (String) evt.getItem());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Adapter：适配器。一般说来在写监听器的时候，会实现xxxListener。 但是xxxListener里面有很多方法实际上都没有用到，可能我们只需要重写其中的某一个方法。 这个时候就可以使用监听适配器，xxxAdapter 只需要重写必要的方法即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// MouseAdapter 适配器，只需要重写用到的方法，没有用到的就不用写了</span></span><br><span class="line">l.addMouseListener(<span class="keyword">new</span> MouseAdapter() &#123;</span><br><span class="line">    <span class="comment">// 只有mouseEntered用到了</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">mouseEntered</span><span class="params">(MouseEvent e)</span> </span>&#123;</span><br><span class="line">		...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3><span id="容器">容器</span></h3><p>java的图形界面中，容器是用来存放 按钮，输入框等组件的。 窗体型容器有两个，一个是 <code>JFrame</code>,一个是 <code>JDialog</code>。区别就是前者有最大化最小化按钮，后者没有。</p>
+<ul>
+<li><p>当一个对话框被设置为模态的时候，其背后的父窗体是不能被激活的，除非该对话框被关闭。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">JFrame f = <span class="keyword">new</span> JFrame(<span class="string">"外部窗体"</span>);</span><br><span class="line"><span class="comment">// 根据外部窗体实例化JDialog</span></span><br><span class="line">JDialog d = <span class="keyword">new</span> JDialog(f);</span><br><span class="line"><span class="comment">// 设置为模态</span></span><br><span class="line">d.setModal(<span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过调用方法 <code>f.setResizable(false);</code> 可以做到窗体大小不可变化。</p>
+</li>
+<li><p>绝对定位</p>
+<ul>
+<li><p>不使用布局器，组件的位置和大小需要单独指定。</p>
+</li>
+<li><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">JFrame f = <span class="keyword">new</span> JFrame(<span class="string">"窗体名"</span>);</span><br><span class="line">f.setSize(<span class="number">400</span>, <span class="number">300</span>);</span><br><span class="line">f.setLocation(<span class="number">200</span>, <span class="number">200</span>);</span><br><span class="line"><span class="comment">// 设置布局器为null，即进行绝对定位</span></span><br><span class="line">f.setLayout(<span class="keyword">null</span>);</span><br><span class="line">JButton b = <span class="keyword">new</span> JButton(<span class="string">"按钮"</span>);</span><br><span class="line"><span class="comment">// 指定位置和大小</span></span><br><span class="line">b.setBounds(<span class="number">50</span>, <span class="number">50</span>, <span class="number">80</span>, <span class="number">30</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>布局器</p>
+<ul>
+<li><p>布局器 <code>FlowLayout</code>，顺序布局器，容器上的组件水平摆放。加入到容器即可，无需单独指定大小和位置。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">f.setLayout(<span class="keyword">new</span> FlowLayout());</span><br><span class="line">f.add(<span class="keyword">new</span> JButton(<span class="string">"按钮1"</span>));</span><br><span class="line">f.add(<span class="keyword">new</span> JButton(<span class="string">"按钮2"</span>));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>布局器 <code>BorderLayout</code>，容器上的组件按照 <code>上北 下南 左西 右东 中</code> 的顺序摆放。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">f.setLayout(<span class="keyword">new</span> BorderLayout());</span><br><span class="line">f.add(<span class="keyword">new</span> JButton(<span class="string">"上"</span>), BorderLayout.NORTH);</span><br><span class="line">f.add(<span class="keyword">new</span> JButton(<span class="string">"下"</span>), BorderLayout.SOUTH);</span><br><span class="line">f.add(<span class="keyword">new</span> JButton(<span class="string">"左"</span>), BorderLayout.WEST);</span><br><span class="line">f.add(<span class="keyword">new</span> JButton(<span class="string">"右"</span>), BorderLayout.EAST);</span><br><span class="line">f.add(<span class="keyword">new</span> JButton(<span class="string">"中"</span>), BorderLayout.CENTER);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>布局器 <code>GridLayout</code>，即网格布局器，可设置几行几列。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置布局器为GridLayerout，即网格布局器</span></span><br><span class="line"><span class="comment">// 该GridLayerout的构造方法表示该网格是2行3列</span></span><br><span class="line">f.add(<span class="keyword">new</span> JButton(<span class="string">"1"</span>));</span><br><span class="line">f.add(<span class="keyword">new</span> JButton(<span class="string">"2"</span>));</span><br><span class="line">f.add(<span class="keyword">new</span> JButton(<span class="string">"3"</span>));</span><br><span class="line">f.add(<span class="keyword">new</span> JButton(<span class="string">"4"</span>));</span><br><span class="line">f.add(<span class="keyword">new</span> JButton(<span class="string">"5"</span>));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可以通过 <code>setPreferredSize</code>，向布局器建议该组件显示的大小。但是该方法只对部分布局器起作用，比如FlowLayout可以起作用，而GridLayout就不起作用，因为网格布局器必须对齐。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">f.setLayout(<span class="keyword">new</span> FlowLayout());</span><br><span class="line">JButton button = <span class="keyword">new</span> JButton(<span class="string">"按钮"</span>);</span><br><span class="line">button.setPreferredSize(<span class="keyword">new</span> Dimension(<span class="number">180</span>, <span class="number">40</span>));</span><br><span class="line">f.add(button);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3><span id="组件">组件</span></h3><p>Java的图形界面下有两组控件，一组是<code>awt，</code>一组是<code>swing</code>，一般都是使用<code>swing</code>。</p>
+<ul>
+<li><p><strong>标签JLabel</strong>。用于显示文字。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">JLabel l = <span class="keyword">new</span> JLabel(<span class="string">"文字"</span>);</span><br><span class="line">l.setForeground(Color.red);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>图片ImageIcon</strong>。java GUI 显示图片是通过在label上设置图标实现的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">JLabel l = <span class="keyword">new</span> JLabel();</span><br><span class="line"><span class="comment">//根据图片创建ImageIcon对象</span></span><br><span class="line">ImageIcon i = <span class="keyword">new</span> ImageIcon(<span class="string">"/home/vodka/Desktop/1.png"</span>);</span><br><span class="line"><span class="comment">//设置ImageIcon</span></span><br><span class="line">l.setIcon(i);</span><br><span class="line"><span class="comment">//label的大小设置为ImageIcon,否则显示不完整</span></span><br><span class="line">l.setBounds(<span class="number">50</span>, <span class="number">50</span>, i.getIconWidth(), i.getIconHeight());</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>按钮JButton</strong>。<code>JButton b = new JButton(&quot;按钮&quot;);</code></p>
+</li>
+<li><p><strong>复选框JCheckBox</strong>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">JCheckBox bCheckBox = <span class="keyword">new</span> JCheckBox(<span class="string">"复选框"</span>);</span><br><span class="line"><span class="comment">//设置 为 默认被选中</span></span><br><span class="line">bCheckBox.setSelected(<span class="keyword">true</span>);</span><br><span class="line"><span class="comment">//判断 是否 被选中</span></span><br><span class="line">System.out.println(bCheckBox.isSelected());</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>单选框JRadioButton</strong>。两个单选框可以被同时选中，为了实现只能选中一个，还需要用到ButtonGroup。可以使用 isSelected 来获取是否选中了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">JRadioButton bRadioButton = <span class="keyword">new</span> JRadioButton(<span class="string">"物理英雄"</span>);</span><br><span class="line"><span class="comment">// 设置 为 默认被选中</span></span><br><span class="line">bRadioButton.setSelected(<span class="keyword">true</span>);</span><br><span class="line">System.out.println(bRadioButton.isSelected());</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>按钮组ButtonGroup</strong>。对按钮进行分组，把不同的按钮，放在同一个分组里 ，同一时间，只有一个按钮会被选中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">JRadioButton b1 = <span class="keyword">new</span> JRadioButton(<span class="string">"a"</span>);</span><br><span class="line">JRadioButton b2 = <span class="keyword">new</span> JRadioButton(<span class="string">"b"</span>);</span><br><span class="line"><span class="comment">// 按钮分组</span></span><br><span class="line">ButtonGroup bg = <span class="keyword">new</span> ButtonGroup();</span><br><span class="line"><span class="comment">// 把b1，b2放在同一个按钮分组对象里，这样同一时间，只有一个按钮会被选中</span></span><br><span class="line">bg.add(b1);</span><br><span class="line">bg.add(b2);</span><br><span class="line"><span class="comment">// 最后向容器中添加的依旧是b1、b2，而不是bg。</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>下拉框JComboBox</strong>。使用 <code>getSelectedItem</code> 来获取被选中项 使用 <code>setSelectedItem()</code> 来指定要选中项。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 下拉框出现的条目</span></span><br><span class="line">String[] arr = <span class="keyword">new</span> String[] &#123; <span class="string">"a"</span>, <span class="string">"b"</span> &#125;;</span><br><span class="line"><span class="comment">// 按照条目生成下拉框</span></span><br><span class="line">JComboBox cb = <span class="keyword">new</span> JComboBox(arr);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>对话框JOptionPane</strong>。用于弹出对话框，<code>JOptionPane.showConfirmDialog</code> 询问框，<code>JOptionPane.showInputDialog</code> 输入框，<code>JOptionPane.showMessageDialog</code>消息框。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> option = JOptionPane.showConfirmDialog(f, <span class="string">"询问的问题"</span>);</span><br><span class="line"><span class="keyword">if</span> (JOptionPane.OK_OPTION == option) &#123;</span><br><span class="line">    String answer = JOptionPane.showInputDialog(f, <span class="string">"输入提示语"</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="string">"yes"</span>.equals(answer))</span><br><span class="line">        JOptionPane.showMessageDialog(f, <span class="string">"消息提示"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>文本框JTextField</strong>。<code>setText</code> 设置文本， <code>getText</code> 获取文本。JTextField 是单行文本框，如果要输入多行数据，请使用JTextArea。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">JTextField tfName = <span class="keyword">new</span> JTextField(<span class="string">""</span>);</span><br><span class="line">tfName.setText(<span class="string">"请输入账号"</span>);</span><br><span class="line">tfName.setPreferredSize(<span class="keyword">new</span> Dimension(<span class="number">80</span>, <span class="number">30</span>));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>密码框JPasswordField</strong>。与文本框不同，获取密码框里的内容，推荐使用<code>getPassword</code>，该方法会返回一个字符数组，而非字符串。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 密码框</span></span><br><span class="line">JPasswordField pf = <span class="keyword">new</span> JPasswordField(<span class="string">""</span>);</span><br><span class="line">pf.setText(<span class="string">"&amp;48kdh4@#"</span>);</span><br><span class="line"><span class="comment">// 与文本框不同，获取密码框里的内容，推荐使用getPassword，该方法会返回一个字符数组，而非字符串</span></span><br><span class="line"><span class="keyword">char</span>[] password = pf.getPassword();</span><br><span class="line">String p = String.valueOf(password);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>文本域JTextArea</strong>。和文本框JTextField不同的是，文本域可以输入多行数据。如果要给文本域初始文本，通过<code>\n</code>来实现换行效果。JTextArea通常会用到<code>append</code>来进行数据追加。如果文本太长，会跑出去，可以通过<code>setLineWrap(true)</code>来做到自动换行。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">JTextArea ta = <span class="keyword">new</span> JTextArea();</span><br><span class="line">ta.setPreferredSize(<span class="keyword">new</span> Dimension(<span class="number">200</span>, <span class="number">150</span>));</span><br><span class="line"><span class="comment">//\n换行符</span></span><br><span class="line">ta.setText(<span class="string">"文本域文字\n"</span>);</span><br><span class="line"><span class="comment">//追加数据</span></span><br><span class="line">ta.append(<span class="string">"新的数据"</span>);</span><br><span class="line"><span class="comment">//设置自动换行</span></span><br><span class="line">ta.setLineWrap(<span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>进度条JProgressBar</strong>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">JProgressBar pb = <span class="keyword">new</span> JProgressBar();</span><br><span class="line"><span class="comment">//进度条最大100</span></span><br><span class="line">pb.setMaximum(<span class="number">100</span>);</span><br><span class="line"><span class="comment">//当前进度是50</span></span><br><span class="line">pb.setValue(<span class="number">50</span>);</span><br><span class="line"><span class="comment">//显示当前进度</span></span><br><span class="line">pb.setStringPainted(<span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>文件选择器JFileChooser</strong>。使用FileFilter用于仅选择.txt文件。<code>fc.showOpenDialog()</code> 用于打开文件，<code>fc.showSaveDialog()</code>用于保存文件。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">JFileChooser fc = <span class="keyword">new</span> JFileChooser();</span><br><span class="line">fc.setFileFilter(<span class="keyword">new</span> FileFilter() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getDescription</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">".txt"</span>;‘i  。，</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">accept</span><span class="params">(File f)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> f.getName().toLowerCase().endsWith(<span class="string">".txt"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>日期组件。swing没有自带的日期控件，需要第三方的类。<code>datepicker.jar</code>包不能设置时间，只能在创建控件的时候传入指定日期。<code>swingx-core-1.6.2.jar</code>包界面比较简约，可以设置日期。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Date date = <span class="keyword">new</span> Date();</span><br><span class="line">JXDatePicker datepick = <span class="keyword">new</span> JXDatePicker();</span><br><span class="line">datepick.setDate(date);		<span class="comment">// 设置 date日期</span></span><br><span class="line">Date d = datepick.getDate();<span class="comment">// 获取 日期</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3><span id="面板">面板</span></h3><ul>
+<li><p><strong>基本面板JPanel</strong>。JPanel即为基本面板，面板和JFrame一样都是容器，不过面板一般用来充当中间容器，把组件放在面板上，然后再把面板放在窗体上。 一旦移动一个面板，其上面的组件，就会全部统一跟着移动，采用这种方式，便于进行整体界面的设计。</p>
+</li>
+<li><p><strong>ContentPane</strong>。JFrame上有一层面板，叫做ContentPane，平时通过<code>f.add()</code>向JFrame增加组件，其实是向JFrame上的 ContentPane加东西。<code>f.add</code>等同于<code>f.getContentPane().add(b)</code>。</p>
+</li>
+<li><p><strong>分隔条面板JSplitPane</strong>。带有分隔条的面板。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个水平JSplitPane，左边是p1,右边是p2</span></span><br><span class="line">JSplitPane sp = <span class="keyword">new</span> JSplitPane(JSplitPane.HORIZONTAL_SPLIT, pLeft, pRight);</span><br><span class="line"><span class="comment">// 设置分割条的位置</span></span><br><span class="line">sp.setDividerLocation(<span class="number">80</span>);</span><br><span class="line"><span class="comment">// 把sp当作ContentPane</span></span><br><span class="line">f.setContentPane(sp);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>滚动条面板JScrollPanel</strong>。在创建JScrollPane，把组件作为参数传进去。希望带滚动条的面板显示其他组件的时候，调用setViewportView。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">JScrollPane sp = <span class="keyword">new</span> JScrollPane(ta);</span><br><span class="line">f.setContentPane(sp);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>标签页面板TabbedPanel</strong>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// p1、p2是两个JPanel对象</span></span><br><span class="line">JTabbedPane tp = <span class="keyword">new</span> JTabbedPane();</span><br><span class="line">tp.add(p1);</span><br><span class="line">tp.add(p2);</span><br><span class="line"><span class="comment">// 设置tab的标题</span></span><br><span class="line">tp.setTitleAt(<span class="number">0</span>, <span class="string">"红色tab"</span>);</span><br><span class="line">tp.setTitleAt(<span class="number">1</span>, <span class="string">"蓝色tab"</span>);</span><br><span class="line">ImageIcon i = <span class="keyword">new</span> ImageIcon(<span class="string">"/home/vodka/Desktop/1.png"</span>);</span><br><span class="line">tp.setIconAt(<span class="number">0</span>,i );</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>CardLayerout。就是用<code>new JPanel(new CardLayout())</code>来创造JPanel。</p>
+</li>
+</ul>
+<h3><span id="菜单栏">菜单栏</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 菜单栏</span></span><br><span class="line">JMenuBar mb = <span class="keyword">new</span> JMenuBar();</span><br><span class="line"><span class="comment">// 菜单</span></span><br><span class="line">JMenu mHero = <span class="keyword">new</span> JMenu(<span class="string">"英雄"</span>);</span><br><span class="line">JMenu mItem = <span class="keyword">new</span> JMenu(<span class="string">"道具"</span>);</span><br><span class="line"><span class="comment">//菜单项</span></span><br><span class="line">mHero.add(<span class="keyword">new</span> JMenuItem(<span class="string">"近战-Warriar"</span>));</span><br><span class="line">mHero.add(<span class="keyword">new</span> JMenuItem(<span class="string">"远程-Range"</span>));</span><br><span class="line"><span class="comment">// 分隔符</span></span><br><span class="line">mHero.addSeparator();</span><br><span class="line">mHero.add(<span class="keyword">new</span> JMenuItem(<span class="string">"所有-All"</span>));</span><br><span class="line"><span class="comment">// 把菜单加入到菜单栏</span></span><br><span class="line">mb.add(mHero);</span><br><span class="line">mb.add(mItem);</span><br><span class="line"><span class="comment">// 把菜单栏加入到frame，这里用的是set而非add</span></span><br><span class="line">f.setJMenuBar(mb);</span><br></pre></td></tr></table></figure>
+<h3><span id="工具栏">工具栏</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 工具栏</span></span><br><span class="line">JToolBar tb = <span class="keyword">new</span> JToolBar();</span><br><span class="line"><span class="comment">// 禁止工具栏拖动</span></span><br><span class="line">tb.setFloatable(<span class="keyword">false</span>);</span><br><span class="line"><span class="comment">// 为工具栏增加按钮</span></span><br><span class="line">JButton b1 = <span class="keyword">new</span> JButton(<span class="keyword">new</span> ImageIcon(<span class="string">"/home/vodka/Desktop/1.png"</span>));</span><br><span class="line">tb.add(b1);</span><br><span class="line"><span class="comment">// 给按钮设置提示信息</span></span><br><span class="line">b1.setToolTipText(<span class="string">"提示信息"</span>);</span><br><span class="line"><span class="comment">// 默认情况下 工具栏可以通过鼠标拖动，setFloatable(false)可以禁止鼠标拖动功能</span></span><br></pre></td></tr></table></figure>
+<h3><span id="表格">表格</span></h3><ul>
+<li><p><strong>基本表格</strong>。显示一个Table需要两组数据  1. 一维数组：<code>String[]columnNames</code>，表示表格的标题；2. 二维数组：<code>String[][] heros</code>，表示表格中的内容。默认情况下，表格的标题是不会显示出来了，除非使用了<code>JScrollPane</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 表格上的title</span></span><br><span class="line">String[] columnNames = <span class="keyword">new</span> String[] &#123; <span class="string">"col1"</span>, <span class="string">"col2"</span> &#125;;</span><br><span class="line"><span class="comment">// 表格中的内容，是一个二维数组</span></span><br><span class="line">String[][] arr = <span class="keyword">new</span> String[][] &#123; &#123; <span class="string">"1-1"</span>, <span class="string">"1-2"</span> &#125;, &#123; <span class="string">"2-1"</span>, <span class="string">"2-2"</span> &#125;, &#123; <span class="string">"3-1"</span>, <span class="string">"3-2"</span> &#125; &#125;;</span><br><span class="line">JTable t = <span class="keyword">new</span> JTable(arr, columnNames);</span><br><span class="line"><span class="comment">// 设置列宽度</span></span><br><span class="line">t.getColumnModel().getColumn(<span class="number">0</span>).setPreferredWidth(<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 也可以根据JTable创建JScrollPane，然后把JScrollPane而非JTable加入到JFrame上</span></span><br><span class="line">JScrollPane sp = <span class="keyword">new</span> JScrollPane(t);  f.add(sp);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>TableModel。首先说下TableModel的设计思想，在Model这种思想的指导下，数据和显示分离开来了。 比如对于JTable而言，有数据部分，也有显示部分(比如列宽等信息)。 数据部分，专门做一个类，叫做TableModel，就用于存放要显示的数据。使用TableModel的方式存放Table需要显示的数据，编写类使之继承AbstractTableModel ，进而实现了接口TableModel。具体实现以下几个方法：</p>
+<ul>
+<li>getRowCount 返回一共有多少行</li>
+<li>getColumnCount 返回一共有多少列</li>
+<li>getColumnName 每一列的名字</li>
+<li>isCellEditable 单元格是否可以修改</li>
+<li>getValueAt 每一个单元格里的值</li>
+</ul>
+<p>当图形界面需要渲染第一个单元格的数据的时候，就会调用方法TabelModel的getValueAt(0,0) ，把返回值拿到并显示。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">typeTableModel</span> <span class="keyword">extends</span> <span class="title">AbstractTableModel</span> </span>&#123; </span><br><span class="line">    <span class="comment">// 数据类</span></span><br><span class="line">    String[] columnNames = <span class="keyword">new</span> String[] &#123; <span class="string">"col1"</span>, <span class="string">"col2"</span> &#125;;</span><br><span class="line">    <span class="comment">// 使用从DAO返回的List作为TableModel的数据</span></span><br><span class="line">    <span class="keyword">public</span> List&lt;Type&gt; data = <span class="keyword">new</span> TypeDAO().list();</span><br><span class="line">    <span class="comment">// 编写get函数，来从数据对象中返回数据</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getRowCount</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> data.size(); &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="comment">//创建一个TableModel</span></span><br><span class="line">        typeTableModel htm= <span class="keyword">new</span> typeTableModel();</span><br><span class="line">        <span class="comment">//根据 TableModel来创建 Table</span></span><br><span class="line">        JTable t = <span class="keyword">new</span> JTable(htm);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>TableSelectionModel。通过table可以获取一个 TableSelectionModel，专门用于监听jtable选中项的变化。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置选择模式为 只能选中一行</span></span><br><span class="line">t.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);</span><br><span class="line"><span class="comment">// 选中第一行（0 base）</span></span><br><span class="line">t.getSelectionModel().setSelectionInterval(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="comment">// 使用selection监听器来监听table的哪个条目被选中</span></span><br><span class="line">t.getSelectionModel().addListSelectionListener(<span class="keyword">new</span> ListSelectionListener() &#123;</span><br><span class="line">    <span class="comment">// 当选择了某一行的时候触发该事件</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">valueChanged</span><span class="params">(ListSelectionEvent e)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> row = t.getSelectedRow();  <span class="comment">// 获取哪一行被选中了</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;）；</span><br><span class="line"></span><br><span class="line"><span class="comment">/*  若想把数据更新到数据库中，则需要通过dao更新tablemodel中的数据。</span></span><br><span class="line"><span class="comment">	建立一个DAO对象，然后为该对象的属性赋值，调用dao的add方法加到数据库中.</span></span><br><span class="line"><span class="comment">	然后把新的dao对象赋值给typeTableModel中的list来实现数据更新。</span></span><br><span class="line"><span class="comment">	最后调用JTable的updateUI，刷新界面。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">TypeDAO dao = <span class="keyword">new</span> TypeDAO();</span><br><span class="line"><span class="comment">// 根据输入框数据创建一个Hero对象</span></span><br><span class="line">Type h = <span class="keyword">new</span> Type();</span><br><span class="line">h.name = <span class="string">"xxx"</span>;</span><br><span class="line"><span class="comment">// 通过dao把该对象加入到数据库</span></span><br><span class="line">dao.add(h);</span><br><span class="line"><span class="comment">// 通过dao更新tablemodel中的数据</span></span><br><span class="line">htm.data = dao.list();</span><br><span class="line"><span class="comment">// 调用JTable的updateUI，刷新界面。刷新界面的时候，会到tablemodel中去取最新的数据,就能看到新加进去的数据了</span></span><br><span class="line">t.updateUI();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>输入项验证，如果输入的数据不合格，应该弹出对话框提示用户具体原因。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 通过name长度判断 名称是否为空</span></span><br><span class="line"><span class="keyword">if</span> (name.length() == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="comment">// 弹出对话框提示用户</span></span><br><span class="line">    JOptionPane.showMessageDialog(f, <span class="string">"名称不能为空"</span>);</span><br><span class="line">    <span class="comment">// 名称输入框获取焦点</span></span><br><span class="line">    tfName.grabFocus();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3><span id="swing中的线程">Swing中的线程</span></h3><p>Swing里面的各种组件类都不是线程安全的，这会会导致同步问题以及错误数据的发生。如果把组件类设计成为线程安全的，由于Swing事件调度的复杂性，就很有可能导致死锁的发生。为了规避同步问题，以及降低整个Swing设计的复杂度，提高Swing的相应速度，Swing中的<strong>事件调度线程</strong>被设计成为了单线程模式，即只有一个线程在负责事件的响应工作。在Swing程序的开发中，需要建立3种线程的概念</p>
+<ul>
+<li><p><strong>初始化线程</strong>。用于创建各种容器、组件并显示他们，一旦创建并显示，初始化线程的任务就结束了。</p>
+</li>
+<li><p><strong>事件调度线程</strong>。Swing是一个事件驱动的模型，所有和事件相关的操作都放是放在事件调度线程 (Event Dispatch)中进行的。比如点击一个按钮，对应的ActionListener.actionPerformed 方法中的代码，就是在事件调度线程 Event Dispatch Thread中执行的。<strong>事件调度线程是单线程的。</strong>可以使用<code>SwingUtilities.isEventDispatchThread()</code> 来判断当前线程是否是事件调度线程。</p>
+</li>
+<li><p><strong>长耗时任务线程</strong>。有时候需要进行一些长时间的操作，比如访问数据库，文件复制，连接网络，统计文件总数等等。这些操作就不适合放在事件调度线程中进行，因为占用时间久了，会让使用者感觉界面响应很卡顿。为了保持界面响应的流畅性，所有长耗时任务都应该放在专门的长耗时任务线程中进行。Swing提供了一个SwingWorker类来解决长耗时任务。<code>SwingWorker</code>是一个抽象类，为了使用，必须实现方法 </p>
+<p><code>doInBackground</code>，在该方法中编写长耗时任务，然后执行SwingWorker的<code>execute</code>方法，放在专门的工作线程中去运行。</p>
+</li>
+</ul>
+<h2><span id="网络编程">网络编程 </span></h2><p>获取本机IP地址：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.net.InetAddress;</span><br><span class="line">InetAddress host = InetAddress.getLocalHost();</span><br><span class="line">String ip =host.getHostAddress();</span><br></pre></td></tr></table></figure>
+<p>使用java执行ping命令：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Process p = Runtime.getRuntime().exec(<span class="string">"ping "</span> + <span class="string">"127.0.0.1"</span>);</span><br><span class="line">BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(p.getInputStream()));</span><br><span class="line">String line = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">while</span> ((line = br.readLine()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (line.length() != <span class="number">0</span>)</span><br><span class="line">        System.out.println(line);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="建立连接">建立连接</span></h3><p>服务端开启8888端口，并监听着，时刻等待着客户端的连接请求。客户端知道服务端的ip地址和监听端口号，发出请求到服务端 。一旦建立了连接，服务端会得到一个新的<code>Socket</code>对象，该对象负责与客户端进行通信。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Server</span> </span>&#123; <span class="comment">// 服务器端</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span>  </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//服务端打开端口8888</span></span><br><span class="line">            ServerSocket ss = <span class="keyword">new</span> ServerSocket(<span class="number">8888</span>);</span><br><span class="line">            <span class="comment">//在8888端口上监听，看是否有连接请求过来</span></span><br><span class="line">            Socket s =  ss.accept();</span><br><span class="line">            <span class="comment">// 接收到一条请求就关闭，无请求则一直等待</span></span><br><span class="line">            InputStream is = s.getInputStream();</span><br><span class="line"> 			</span><br><span class="line">            <span class="comment">// 收发数字</span></span><br><span class="line">            <span class="keyword">int</span> msg = is.read(); 			     <span class="comment">//读取客户端发送的数据</span></span><br><span class="line">            System.out.println(msg);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 收发字符串</span></span><br><span class="line">            DataInputStream dis = <span class="keyword">new</span> DataInputStream(is); <span class="comment">//把输入流封装在DataInputStream</span></span><br><span class="line">            String msg = dis.readUTF(); <span class="comment">//使用readUTF读取字符串</span></span><br><span class="line">            System.out.println(msg);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 以上方式太麻烦，还得根据传输类型来写不同的代码，可以使用Scanner统一处理</span></span><br><span class="line">            </span><br><span class="line">            </span><br><span class="line">            s.close();</span><br><span class="line">            ss.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123; <span class="comment">// 客户端</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span>  </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//连接到本机的8888端口</span></span><br><span class="line">            Socket s = <span class="keyword">new</span> Socket(<span class="string">"127.0.0.1"</span>,<span class="number">8888</span>);</span><br><span class="line">            OutputStream os = s.getOutputStream(); <span class="comment">// 打开输出流</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 收发数字</span></span><br><span class="line">            os.write(<span class="number">110</span>); <span class="comment">// 发送数字110到服务端</span></span><br><span class="line">            os.close();</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 收发字符串</span></span><br><span class="line">            DataOutputStream dos = <span class="keyword">new</span> DataOutputStream(os); <span class="comment">//把输出流封装在DataOutputStream中</span></span><br><span class="line">            dos.writeUTF(<span class="string">"Legendary!"</span>); <span class="comment">//使用writeUTF发送字符串</span></span><br><span class="line">            dos.close();</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 以上方式太麻烦，还得根据传输类型来写不同的代码，可以使用Scanner统一处理</span></span><br><span class="line">            DataOutputStream dos = <span class="keyword">new</span> DataOutputStream(os);</span><br><span class="line">            <span class="comment">//使用Scanner读取控制台的输入，并发送到服务端</span></span><br><span class="line">            Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">            String str = sc.next();</span><br><span class="line">            dos.writeUTF(str);</span><br><span class="line">            dos.close();</span><br><span class="line">            </span><br><span class="line">            s.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (UnknownHostException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="多线程">多线程</span></h3><p>比如说聊天，如果是单线程就必须一个人发完另一个人才能发，这样明显是不行的。为了实现同时收发消息，基本设计思路是把收发分别放在不同的线程中进行。</p>
+<ul>
+<li>SendThread 发送消息线程</li>
+<li>RecieveThread 接受消息线程</li>
+<li>Server一旦接受到连接，就启动收发两个线程</li>
+<li>Client 一旦建立了连接，就启动收发两个线程</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Server</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ServerSocket ss = <span class="keyword">new</span> ServerSocket(<span class="number">8888</span>);</span><br><span class="line">            Socket s = ss.accept();</span><br><span class="line">            <span class="keyword">new</span> SendThread(s).start();<span class="comment">//启动发送消息线程</span></span><br><span class="line">            <span class="keyword">new</span> RecieveThread(s).start();<span class="comment">//启动接受消息线程</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RecieveThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Socket s;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RecieveThread</span><span class="params">(Socket s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.s = s;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            InputStream is = s.getInputStream();</span><br><span class="line">            DataInputStream dis = <span class="keyword">new</span> DataInputStream(is);</span><br><span class="line">            <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">                String msg = dis.readUTF();</span><br><span class="line">                System.out.println(msg);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SendThread</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Socket s;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SendThread</span><span class="params">(Socket s)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.s = s;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            OutputStream os = s.getOutputStream();</span><br><span class="line">            DataOutputStream dos = <span class="keyword">new</span> DataOutputStream(os);</span><br><span class="line">            <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">                Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">                String str = sc.next();</span><br><span class="line">                dos.writeUTF(str);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Socket s = <span class="keyword">new</span> Socket(<span class="string">"127.0.0.1"</span>, <span class="number">8888</span>);</span><br><span class="line">            <span class="keyword">new</span> SendThread(s).start(); 		<span class="comment">// 启动发送消息线程</span></span><br><span class="line">            <span class="keyword">new</span> RecieveThread(s).start();	<span class="comment">// 启动接受消息线程</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (UnknownHostException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="反射机制">反射机制 </span></h2><p><strong>类对象</strong>概念： 所有的类都存在一个类对象，这个类对象用于提供类本身的信息，比如有几种构造方法， 有多少属性，有哪些普通方法。</p>
+<ul>
+<li><p>获取类对象有3种方式</p>
+<ul>
+<li>Class.forName</li>
+<li><code>Type</code>.class</li>
+<li>new <code>Type</code>().getClass() </li>
+</ul>
+<p>在一个JVM中，准确的讲是一个ClassLoader下，一种类，只会有一个类对象存在。所以以上三种方式取出来的类对象，都是一样的。 通常一个JVM下，只会有一个ClassLoader。</p>
+<p>获取类对象的时候，会导致类属性被初始化。无论什么途径获取类对象，都会导致静态属性被初始化，而且只会执行一次。（除了直接使用 Class c = <code>Type</code>.class 这种方式，这种方式不会导致静态属性被初始化）</p>
+</li>
+<li><p>创建对象。与传统的通过new来获取对象的方式不同，反射机制会先拿到Type的“类对象”，然后通过类对象获取“构造器对象”  再通过构造器对象创建一个对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    String className = <span class="string">"Hero"</span>;    <span class="comment">//使用反射的方式创建对象</span></span><br><span class="line">    Class pClass=Class.forName(className);    <span class="comment">//类对象</span></span><br><span class="line">    Constructor c= pClass.getConstructor();    <span class="comment">//构造器</span></span><br><span class="line">    Hero h2= (Hero) c.newInstance();    <span class="comment">//通过构造器实例化</span></span><br><span class="line">&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 以上等价于 Hero h1 =new Hero();</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>访问属性。为了访问属性，把成员修改为public。 对于private修饰的成员，需要使用setAccessible(true)才能访问和修改。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    Field f1= h.getClass().getDeclaredField(<span class="string">"name"</span>);    <span class="comment">//获取类Hero的名字叫做name的字段</span></span><br><span class="line">    f1.set(h, <span class="string">"teemo"</span>);    <span class="comment">//修改这个字段的值</span></span><br><span class="line">&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 以上等价于 h.name = "teemo";</span></span><br></pre></td></tr></table></figure>
+<p><code>getField</code> 和 <code>getDeclaredField</code> 的区别：这两个方法都是用于获取字段。getField只能获取public的，包括从父类继承来的字段。 getDeclaredField可以获取本类所有的字段，包括private的，但是不能获取继承来的字段。 (注： 这里只能获取到private的字段，但并不能访问该private字段的值，除非加上setAccessible(true))</p>
+</li>
+<li><p>调用方法。首先为要获得的属性，增加setXxx和getXxx的方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// 获取这个名字叫做setName，参数类型是String的方法</span></span><br><span class="line">    Method m = h.getClass().getMethod(<span class="string">"setName"</span>, String.class);</span><br><span class="line">    <span class="comment">// 对h对象，调用这个方法</span></span><br><span class="line">    m.invoke(h, <span class="string">"Mark"</span>);</span><br><span class="line">&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 以上等价于 h.setName("Mark");</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>反射机制的作用。反射非常强大，但是学习了之后，会不知道该如何使用，反而觉得还不如直接调用方法来的直接和方便。通常来说，需要在学习了Spring 的依赖注入和反转控制之后，才会对反射有更好的理解。目前为止我的直观感觉就是 反射机制相当于编写了更大的模板，可以供所有的类及其属性方法来使用。这里就不说啦！</p>
+</li>
+</ul>
+<h2><span id="注解">注解 </span></h2><h3><span id="基本注解">基本注解</span></h3><ul>
+<li><p>@Override。<code>@Override</code> 用在方法上，表示这个方法重写了父类的方法。 如果父类没有这个方法，那么就无法编译通过。</p>
+</li>
+<li><p>@Deprecated。<code>@Deprecated</code> 表示这个方法已经过期，不建议开发者使用。(暗示在将来某个不确定的版本，就有可能会取消掉)。</p>
+</li>
+<li><p>@SuppressWarnings。Suppress英文的意思是抑制的意思，这个注解的用处是忽略警告信息。比如有时会报warning，用上这个注解就不报了。<code>@SuppressWarnings</code> 有常见的值，分别对应如下意思：</p>
+<ul>
+<li>deprecation：使用了不赞成使用的类或方法时的警告(使用@Deprecated使得编译器产生的警告)</li>
+<li>unchecked：执行了未检查的转换时的警告，例如当使用集合时没有用泛型 (Generics) 来指定集合保存的类型; 关闭编译器警告</li>
+<li>fallthrough：当 Switch 程序块直接通往下一种情况而没有 Break 时的警告</li>
+<li>path：在类路径、源文件路径等中有不存在的路径时的警告</li>
+<li>serial：当在可序列化的类上缺少 serialVersionUID 定义时的警告</li>
+<li>finally：任何 finally 子句不能正常完成时的警告</li>
+<li>rawtypes 泛型类型未指明</li>
+<li>unused 引用定义了，但是没有被使用</li>
+<li>all：关于以上所有情况的警告。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SuppressWarnings</span>(&#123; <span class="string">"rawtypes"</span>, <span class="string">"unused"</span> &#125;) </span><br><span class="line"><span class="comment">//表示忽视“泛型类型未指明”以及“未使用”的warning</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    List heros = <span class="keyword">new</span> ArrayList();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>@SafeVarargs。<code>@SafeVarargs</code> 这是1.7 之后新加入的基本注解。当使用可变数量的参数的时候，而参数的类型又是泛型T的话，就会出现警告。这个时候，就使用@SafeVarargs来去掉这个警告。@SafeVarargs注解只能用在参数长度可变的方法或构造方法上，且方法必须声明为static或final，否则会出现编译错误。一个方法使用@SafeVarargs注解的前提是，开发人员必须确保这个方法的实现中对泛型类型参数的处理不会引发类型安全问题。</p>
+</li>
+<li><p>@FunctionalInterface。<code>@FunctionalInterface</code> 这是Java1.8 新增的注解，用于约定函数式接口（如果接口中只有一个抽象方法&lt;可以包含多个默认方法或多个static方法&gt;，该接口称为函数式接口）。函数式接口其存在的意义，主要是配合Lambda 表达式来使用。 </p>
+</li>
+</ul>
+<h3><span id="自定义注解">自定义注解</span></h3><ul>
+<li><p>非注解方式DBUtil。通常来讲，在一个基于JDBC开发的项目里，都会有一个DBUtil这么一个类，在这个类里统一提供连接数据库的IP地址，端口，数据库名称， 账号，密码，编码方式等信息。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DBUtil</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> String ip = <span class="string">"127.0.0.1"</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> port = <span class="number">3306</span>;</span><br><span class="line">    <span class="keyword">static</span> String database = <span class="string">"test"</span>;</span><br><span class="line">    <span class="keyword">static</span> String encoding = <span class="string">"UTF-8"</span>;</span><br><span class="line">    <span class="keyword">static</span> String loginName = <span class="string">"root"</span>;</span><br><span class="line">    <span class="keyword">static</span> String password = <span class="string">"admin"</span>;</span><br><span class="line">    <span class="keyword">static</span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Class.forName(<span class="string">"com.mysql.jdbc.Driver"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Connection <span class="title">getConnection</span><span class="params">()</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        String url = String.format(<span class="string">"jdbc:mysql://%s:%d/%s?characterEncoding=%s"</span>, ip, port, database, encoding);</span><br><span class="line">        <span class="keyword">return</span> DriverManager.getConnection(url, loginName, password);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        System.out.println(getConnection());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>自定义注解@xxxx。创建注解类型的时候即不使用class也不使用interface，而是使用<code>@interface</code>。</p>
+<ul>
+<li><p>元注解。首先，<code>元数据</code>的概念是，为其他数据提供信息的数据。从而，元注解就是用来 注解(动词) 自定义注解(专有名词) 的注解(名词)。元注解有以下几种：</p>
+<ul>
+<li><p><code>@Target</code> 表示这个注解能放在什么位置上。如<code>@Target({METHOD,TYPE})</code> 表示这个注解可以用用在类/接口上，还可以用在方法上，但是不能放在属性等其他位置。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ElementType.TYPE：能修饰类、接口或枚举类型</span><br><span class="line">ElementType.FIELD：能修饰成员变量</span><br><span class="line">ElementType.METHOD：能修饰方法</span><br><span class="line">ElementType.PARAMETER：能修饰参数</span><br><span class="line">ElementType.CONSTRUCTOR：能修饰构造器</span><br><span class="line">ElementType.LOCAL_VARIABLE：能修饰局部变量</span><br><span class="line">ElementType.ANNOTATION_TYPE：能修饰注解</span><br><span class="line">ElementType.PACKAGE：能修饰包</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>@Retention</code> 表示生命周期，<code>@Retention(RetentionPolicy.RUNTIME)</code> 表示这是一个运行时注解，即运行起来之后，才获取注解中的相关信息，而不像基本注解如<code>@Override</code>那种不用运行，在编译时eclipse就可以进行相关工作的编译时注解。 <code>@Retention</code>可选的值有3个。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RetentionPolicy.SOURCE： 注解只在源代码中存在，编译成class之后就没了。@Override 就是这种注解。</span><br><span class="line">RetentionPolicy.CLASS： 注解在java文件编程成.class文件后，依然存在，但是运行起来后就没了。@Retention的默认值，即当没有显式指定@Retention的时候，就会是这种类型。</span><br><span class="line">RetentionPolicy.RUNTIME： 注解在运行起来之后依然存在，程序可以通过反射获取这些信息，自定义注解@JDBCConfig 就是这样。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>@Inherited</code> 表示这个注解可以被子类继承 </p>
+</li>
+<li><p><code>@Documented</code> 表示当执行javadoc的时候，本注解会生成相关文档。</p>
+</li>
+<li><p><code>@Repeatable</code> 这是JDK1.8新增的。当没有@Repeatable修饰的时候，注解在同一个位置，只能出现一次；使用@Repeatable之后，再配合一些其他动作，就可以在同一个地方使用多次了。</p>
+</li>
+</ul>
+</li>
+<li><p>注解元素：这些注解元素就用于存放注解信息，在解析的时候获取出来。</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target</span>(&#123;METHOD,TYPE&#125;)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> JDBCConfig &#123; <span class="comment">// 创造注解类型用@interface</span></span><br><span class="line">     <span class="function">String <span class="title">ip</span><span class="params">()</span></span>;</span><br><span class="line">     <span class="function"><span class="keyword">int</span> <span class="title">port</span><span class="params">()</span> <span class="keyword">default</span> 3306</span>;</span><br><span class="line">     <span class="function">String <span class="title">database</span><span class="params">()</span></span>;</span><br><span class="line">     <span class="function">String <span class="title">encoding</span><span class="params">()</span></span>;</span><br><span class="line">     <span class="function">String <span class="title">loginName</span><span class="params">()</span></span>;</span><br><span class="line">     <span class="function">String <span class="title">password</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注解方式DBUtil。利用自定义注解就可以把非注解方式改为注解方式，并且注解元素都放在注解里。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@JDBCConfig</span>(ip = <span class="string">"127.0.0.1"</span>, database = <span class="string">"test"</span>, encoding = <span class="string">"UTF-8"</span>, loginName = <span class="string">"root"</span>, password = <span class="string">"admin"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DBUtil</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Class.forName(<span class="string">"com.mysql.jdbc.Driver"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解析注解。接下来就通过反射，获取这个DBUtil这个类上的注解对象：<code>JDBCConfig config = DBUtil.class.getAnnotation(JDBCConfig.class);</code>。拿到注解对象之后，通过其方法，获取各个注解元素的值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@JDBCConfig</span>(ip = <span class="string">"127.0.0.1"</span>, database = <span class="string">"test"</span>, encoding = <span class="string">"UTF-8"</span>, loginName = <span class="string">"root"</span>, password = <span class="string">"admin"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DBUtil</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Class.forName(<span class="string">"com.mysql.jdbc.Driver"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Connection <span class="title">getConnection</span><span class="params">()</span> <span class="keyword">throws</span> SQLException, NoSuchMethodException, SecurityException </span>&#123;</span><br><span class="line">        JDBCConfig config = DBUtil.class.getAnnotation(JDBCConfig.class);</span><br><span class="line"> </span><br><span class="line">        String ip = config.ip();</span><br><span class="line">        <span class="keyword">int</span> port = config.port();</span><br><span class="line">        String database = config.database();</span><br><span class="line">        String encoding = config.encoding();</span><br><span class="line">        String loginName = config.loginName();</span><br><span class="line">        String password = config.password();</span><br><span class="line"> </span><br><span class="line">        String url = String.format(<span class="string">"jdbc:mysql://%s:%d/%s?characterEncoding=%s"</span>, ip, port, database, encoding);</span><br><span class="line">        <span class="keyword">return</span> DriverManager.getConnection(url, loginName, password);</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> NoSuchMethodException, SecurityException, SQLException </span>&#123;</span><br><span class="line">        Connection c = getConnection();</span><br><span class="line">        System.out.println(c);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>总结。根据注解的作用域<code>@Retention</code>，注解分为：</p>
+<ul>
+<li>RetentionPolicy.SOURCE： Java源文件上的注解 </li>
+<li>RetentionPolicy.CLASS： Class类文件上的注解 </li>
+<li>RetentionPolicy.RUNTIME： 运行时的注解</li>
+</ul>
+<p>按照注解的来源，也是分为三类：</p>
+<ul>
+<li>内置注解 如@Override ，@Deprecated 等等</li>
+<li>第三方注解，如Hibernate, Struts等等</li>
+<li>自定义注解</li>
+</ul>
+</li>
+</ul>
+<h2><span id="log4j">Log4j</span></h2><p>Log4j是用于日志输出的一个工具，主要能帮助我们debug。其打印内容中包含每句日志消耗的毫秒数、日志级别、线程名称等信息。</p>
+<h3><span id="用法">用法</span></h3><p>首先基于类的名称获取日志对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> Logger logger = Logger.getLogger(TestLog4j.class);</span><br></pre></td></tr></table></figure>
+<p>然后进行默认配置，或者指定配置文件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">BasicConfigurator.configure();	<span class="comment">// 默认配置</span></span><br><span class="line">PropertyConfigurator.configure(<span class="string">"/home/vodka/log4j.properties"</span>);	<span class="comment">//指定配置</span></span><br></pre></td></tr></table></figure>
+<p>设置日志输出级别</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logger.setLevel(Level.DEBUG);</span><br></pre></td></tr></table></figure>
+<p>进行不同级别的日志输出。日志级别可观察，一共有6个级别 <code>TRACE</code>、 <code>DEBUG</code>、 <code>INFO</code>、 <code>WARN</code>、 <code>ERROR</code>、 <code>FATAL</code>。日志输出级别范围可控制， 比如可以设置只输出高于DEBUG级别的，那么TRACE级别的日志自动不输出。</p>
+<h3><span id="配置文件">配置文件</span></h3><p><code>log4j.properties</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置日志输出的等级为debug，低于debug就不会输出了。设置日志输出到两种地方，分别是stdout和R。</span></span><br><span class="line">log4j.rootLogger=debug, stdout, R</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 第一个地方stdout, 输出到控制台</span></span><br><span class="line">log4j.appender.stdout=org.apache.log4j.ConsoleAppender</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出格式，代表 宽度是5的优先等级 线程名称 (文件名:行号) - 信息 回车换行</span></span><br><span class="line">log4j.appender.stdout.layout=org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.stdout.layout.ConversionPattern=%<span class="number">5</span>p [%t] (%F:%L) - %m%n</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 第二个地方R, 以滚动的方式输出到文件，文件名是example.log,文件最大100k, 最多滚动5个文件</span></span><br><span class="line">log4j.appender.R=org.apache.log4j.RollingFileAppender</span><br><span class="line">log4j.appender.R.File=example.log</span><br><span class="line">log4j.appender.R.MaxFileSize=<span class="number">100</span>KB</span><br><span class="line">log4j.appender.R.MaxBackupIndex=<span class="number">5</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">// 输出格式</span></span><br><span class="line">log4j.appender.R.layout=org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.R.layout.ConversionPattern=%p %t %c - %m%n</span><br></pre></td></tr></table></figure>
+<p>设置xml型配置文件：PropertyConfigurator.configure(path)`</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE log4j:configuration PUBLIC "-//log4j/log4j Configuration//EN" "log4j.dtd"&gt;</span></span><br><span class="line">  </span><br><span class="line"><span class="tag">&lt;<span class="name">log4j:configuration</span> <span class="attr">xmlns:log4j</span>=<span class="string">"http://jakarta.apache.org/log4j/"</span>&gt;</span></span><br><span class="line">      </span><br><span class="line">    <span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">"STDOUT"</span> <span class="attr">class</span>=<span class="string">"org.apache.log4j.ConsoleAppender"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">layout</span> <span class="attr">class</span>=<span class="string">"org.apache.log4j.PatternLayout"</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">"ConversionPattern"</span> <span class="attr">value</span>=<span class="string">"%d %-5p %c.%M:%L - %m%n"</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">layout</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br><span class="line">   </span><br><span class="line">    <span class="comment">&lt;!-- specify the logging level for loggers from other libraries --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">"com.opensymphony"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">level</span> <span class="attr">value</span>=<span class="string">"ERROR"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">logger</span>&gt;</span></span><br><span class="line">  </span><br><span class="line">    <span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">"org.apache"</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">level</span> <span class="attr">value</span>=<span class="string">"ERROR"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">logger</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">"org.hibernate"</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">level</span> <span class="attr">value</span>=<span class="string">"ERROR"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">logger</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">   <span class="comment">&lt;!-- for all other loggers log only debug and above log messages --&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">root</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">priority</span> <span class="attr">value</span>=<span class="string">"ERROR"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"STDOUT"</span> /&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br><span class="line">      </span><br><span class="line"><span class="tag">&lt;/<span class="name">log4j:configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3><span id="输出格式">输出格式</span></h3><p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="1.png" alt=""></p>
+<blockquote>
+<p>本文来源：「想飞的小菜鸡」的个人网站  <a href="https://vodkazy.cn" target="_blank" rel="noopener">vodkazy.cn</a></p>
+<p>版权声明：本文为「想飞的小菜鸡」的原创文章，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请附上原文出处链接及本声明。</p>
+<p>原文链接：<a href="https://vodkazy.cn/2018/10/30/Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89/" target="_blank" rel="noopener">https://vodkazy.cn/2018/10/30/Java基础学习笔记（四）</a></p>
+</blockquote>
+
+        </div>
+      </article>
+    </div>
+
+	<!-- 打赏 -->
+    <div class="reward">
+	<div class="reward-button">赏 <span class="reward-code">
+		<span class="alipay-code"> <img class="alipay-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/alipay.webp"><b>支付宝打赏</b> </span> 
+		<span class="wechat-code"> <img class="wechat-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/weixin.webp"><b>微信打赏</b> </span> </span>
+	</div>
+	<p class="reward-notice">如果文章对你有帮助，欢迎点击上方按钮打赏作者，更多文章请访问<a href="https://vodkazy.cn" style="color:blue">想飞的小菜鸡</a></p>
+	    <style>
+		*,*:before,*:after {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			-ms-box-sizing: border-box;
+			box-sizing: border-box
+		}
+
+		.reward {
+			padding: 5px 0
+		}
+
+		.reward .reward-notice {
+			font-size: 14px;
+			line-height: 14px;
+			margin: 15px auto;
+			text-align: center
+		}
+
+		.reward .reward-button {
+			font-size: 28px;
+			line-height: 58px;
+			position: relative;
+			display: block;
+			width: 60px;
+			height: 60px;
+			margin: 0 auto;
+			padding: 0;
+			-webkit-user-select: none;
+			text-align: center;
+			vertical-align: middle;
+			color: #fff;
+			border: 1px solid #f1b60e;
+			border-radius: 50%;
+			background: #fccd60;
+			background: -webkit-gradient(linear,left top,left bottom,color-stop(0,#fccd60),color-stop(100%,#fbae12),color-stop(100%,#2989d8),color-stop(100%,#207cca));
+			background: -webkit-linear-gradient(top,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%);
+			background: linear-gradient(to bottom,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%)
+		}
+
+		.reward .reward-code {
+			position: absolute;
+			top: -220px;
+			left: 50%;
+			display: none;
+			width: 350px;
+			height: 200px;
+			margin-left: -175px;
+			padding: 15px;
+			border: 1px solid #e6e6e6;
+			background: #fff;
+			box-shadow: 0 1px 1px 1px #efefef
+		}
+
+		.reward .reward-button:hover .reward-code {
+			display: block
+		}
+
+		.reward .reward-code span {
+			display: inline-block;
+			width: 150px;
+			height: 150px
+		}
+
+		.reward .reward-code span.alipay-code {
+			float: left
+		}
+
+		.reward .reward-code span.alipay-code a {
+			padding: 0
+		}
+
+		.reward .reward-code span.wechat-code {
+			float: right
+		}
+
+		.reward .reward-code img {
+			display: inline-block;
+			float: left;
+			width: 150px;
+			height: 150px;
+			margin: 0 auto;
+			border: 0
+		}
+
+		.reward .reward-code b {
+			font-size: 14px;
+			line-height: 26px;
+			display: block;
+			margin: 0;
+			text-align: center;
+			color: #666
+		}
+
+		.reward .reward-code b.notice {
+			line-height: 2rem;
+			margin-top: -1rem;
+			color: #999
+		}
+
+		.reward .reward-code:after,.reward .reward-code:before {
+			position: absolute;
+			content: '';
+			border: 10px solid transparent
+		}
+
+		.reward .reward-code:after {
+			bottom: -19px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #fff
+		}
+
+		.reward .reward-code:before {
+			bottom: -20px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #e6e6e6
+		}
+    </style>
+
+
+    <!-- Pre or Next -->
+    
+	<div class="container">
+           <ul class="pager">
+    	     
+      	     <li class="previous">
+              <a href="/2018/11/09/迁移博客至Ubuntu的一些坑/" rel="prev">上一篇</a>
+             </li>
+           
+           
+              <li class="next">
+              <a href="/2018/10/29/Java基础学习笔记（三）/" rel="prev">下一篇</a>
+            </li>
+           
+          </ul>
+       </div>
+   
+
+    <!-- Valine无后端评论系统 -->   
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+		    el: '#vcomments' ,
+		    appId: 'lH3VkMCd4MHaKtr2n2SRWdoi-MdYXbMMI',
+		    appKey: '5aMXSY7b4KwnzfgpzLA0hPLv',
+		    notify:true, 
+		    verify:false, 
+		    placeholder: '填写正确的邮箱和昵称才能收到我的回复哦       ٩( ^o^ )و  ' ,
+		    avatar: 'retro'
+		});
+    </script>
+    <!-- Valine无后端评论系统 -->  
+
+  </div>
+</div>
+</div>
+
+  <!-- Footer -->
+  <!-- Footer -->
+<footer class="site-info">
+  <p>
+    <span>想飞的小菜鸡 &copy; 2021</span>
+    
+      <span class="split">|</span>
+      <span>照耀的Blog</span>
+    
+  </p>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    本站访客数<span id="busuanzi_value_site_uv"></span>人次
+    本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</footer>
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+<script src="/js/app.js"></script>
+
+
+ 
+  <!-- 使用 aotuload.js 引入看板娘 -->    
+  <!-- //<script src="/js/assets/jquery.min.js?v=3.3.1"></script> -->   
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  <!-- //<script src="/js/assets/jquery-ui.min.js?v=1.12.1"></script>   --> 
+  <script src="https://cdn.jsdelivr.net/npm/jquery-ui-dist@1.12.1/jquery-ui.min.js"></script>
+  <script src="/js/assets/autoload.js?v=1.4.2"></script>
+  <!-- //<script src="https://live2d-cdn.fghrsh.net/assets/1.4.2/autoload.js></script> -->   
+   
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var i=n.imageLazyLoadSetting.isSPA,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){i&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,e,a=0;a<r.length;a++)t=r[a],e=void 0,0<=(e=t.getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},n.src=i}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+
+</html>

@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<!-- 百度统计 -->
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?e31627579358722b9d300535c8206351";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Vodkazy">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="《百面机器学习》阅读笔记">
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="想飞的小菜鸡">
+  <!--Type page-->
+  
+      <meta property="og:type" content="article">
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- Title -->
+  
+  <title>《百面机器学习》阅读笔记 - 想飞的小菜鸡</title>
+
+
+  <link rel="shortcut icon" href="/../images/icon.ico">
+  <!--font-awesome-->
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+
+<body>
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    
+    <div class="logo">
+      <a href="/" rel="home">
+        
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://cdn2.iconfinder.com/data/icons/weather-color-2/500/weather-01-128.png" alt="想飞的小菜鸡" height="60">
+        
+      </a>
+    </div>
+    <a class="header-name" href="/">
+            <span>想飞的小菜鸡</span>
+            的小窝
+        </a>
+    <!-- navbar -->
+    <nav class="navbar">
+      <!--  nav links -->
+      <div class="collapse">
+        <ul class="navbar-nav">
+          
+          
+            <li>
+              <a href="/.">
+                
+                  <i class="fa fa-home "></i>
+                
+                首页
+              </a>
+            </li>
+          
+            <li>
+              <a href="/archives">
+                
+                  <i class="fa fa-archive "></i>
+                
+                目录
+              </a>
+            </li>
+          
+            <li>
+              <a href="/project">
+                
+                  <i class="fa fa-folder-open "></i>
+                
+                代码库
+              </a>
+            </li>
+          
+            <li>
+              <a href="/photo">
+                
+                  <i class="fa fa-photo "></i>
+                
+                相册薄
+              </a>
+            </li>
+          
+            <li>
+              <a href="/lovetree">
+                
+                  <i class="fa fa-tree "></i>
+                
+                爱情树
+              </a>
+            </li>
+          
+            <li>
+              <a href="/guestbook">
+                
+                  <i class="fa fa-edit "></i>
+                
+                留言板
+              </a>
+            </li>
+          
+            <li>
+              <a href="/about">
+                
+                  <i class="fa fa-user "></i>
+                
+                关于我
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="button-wrap">
+      <button class="menu-toggle">Primary Menu</button>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            《百面机器学习》阅读笔记
+            
+          </h1>
+         
+        </div>
+         <p class="a-posted-on">
+          2020-10-06
+          </p>
+        <!-- Post Main Content -->
+        <div class="entry-content">
+          <p>特征工程、模型评估、机器学习、神经网络。<br><a id="more"></a></p>
+<!-- toc -->
+<ul>
+<li><a href="#特征工程">特征工程</a></li>
+<li><a href="#模型评估">模型评估</a></li>
+<li><a href="#机器学习">机器学习</a><ul>
+<li><a href="#svm">SVM</a></li>
+<li><a href="#逻辑回归-线性回归">逻辑回归、线性回归</a></li>
+<li><a href="#降维">降维</a></li>
+<li><a href="#非监督">非监督</a></li>
+<li><a href="#概率图">概率图</a></li>
+<li><a href="#优化算法">优化算法</a></li>
+<li><a href="#采样">采样</a></li>
+<li><a href="#集成学习">集成学习</a></li>
+<li><a href="#梯度提升决策树gbdt">梯度提升决策树GBDT</a></li>
+</ul>
+</li>
+<li><a href="#神经网络">神经网络</a><ul>
+<li><a href="#前向神经网络">前向神经网络</a></li>
+<li><a href="#激活函数">激活函数</a></li>
+<li><a href="#反向传播">反向传播</a></li>
+<li><a href="#循环神经网络">循环神经网络</a><ul>
+<li><a href="#梯度爆炸">梯度爆炸</a></li>
+<li><a href="#lstm">LSTM</a></li>
+<li><a href="#seq2seq">Seq2Seq</a></li>
+<li><a href="#attention">Attention</a></li>
+</ul>
+</li>
+<li><a href="#训练技巧">训练技巧</a></li>
+<li><a href="#其他">其他</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<h2><span id="特征工程">特征工程</span></h2><hr>
+<ol>
+<li><p>为什么需要做归一化？答：归一化到相同数值区间之后，更新速度更为一致，容易更快地通过梯度下降找到最优解。主要方法包括线性归一化、零均值归一化。（适用于梯度下降求解的方法，对于决策树之类的不适用）</p>
+</li>
+<li><p>类别特征怎么处理？答：序号编码（保留偏序关系）、独热编码（0 0 0 1 0 0）、二进制编码（允许多位为1，hash）。</p>
+</li>
+<li><p>什么是组合特征？答：一阶离散特征组合成高阶，提高复杂关系的拟合能力。</p>
+</li>
+<li><p>文本表示模型？</p>
+<ul>
+<li>词袋模型：是将文章以词为单位切分开，忽略词的出现顺序，将文章表示成一个长向量，每一维代表一个单词，该维的权重表示重要程度。常用<strong>TF-IDF</strong>来计算权重。</li>
+<li>N-gram：指有些词组不能拆开，那么由这n个词组成的词组(N-gram)也作为一个单独的特征放到向量表示中，构成N-gram模型。</li>
+<li>TF-IDF：TF(t,d)单词t在文档d中出现的概率，IDF(t)逆文档概率。TF-IDF=TF×IDF。IDF(t) = log(文章总数/(包含单词t的文章总数+1))</li>
+<li>Topic：将具有<strong>相同主题的词或词组映射到同一维度上</strong>，映射到的这一维度表示某个主题。</li>
+<li>词嵌入：向量化。</li>
+</ul>
+</li>
+<li><p>Word2vec？</p>
+<ul>
+<li><p>COBW根据上下文出现的词语来预测当前词的生成概率，Skip-gram根据当前词来预测上下文中各词的生成概率。图中w(t)即当前词，w(t-2)、w(t-1)、w(t+1)、w(t+2)即上下文中出现的词，所谓的滑动窗口大小就是上下文取词个数，为2。</p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="1.jpg" alt=""></p>
+</li>
+<li><p>模型结构：输入层+映射层+输出层。</p>
+</li>
+<li><p>输入层是one-hot编码的上下文词，如果词汇表中单词总数为N，则输入层的词表示即为N维one-hot向量。</p>
+</li>
+<li><p>映射层(隐含层)有个K隐含单元，即我们要得到的K维词嵌入向量，这里就是K个隐含单元。映射层的值由输入层的N维向量和N×K维权重矩阵计算得到。<br>注：CBOW模型需要将输入词计算的隐含单元值求和，比Skip-gram多这一部分。</p>
+</li>
+<li><p>输出层向量的值由隐含层的K维向量和K×N维向量计算得到，输出也是N维向量。但是这里的输出向量并不能保证所有维度加起来为1(one-hot编码加起来就为1)，要通过Softmax激活函数进行归一化。</p>
+</li>
+<li><p>训练的目标是使得语料库中所有单词的整体生成概率最大化。可以用反向传播，沿梯度更优的方向更新权重，但是由于Softmax存在归一化项，推导出来的迭代公式需要对词汇表中所有单词进行遍历(毕竟是维词向量)，所以每次迭代过程非常缓慢。有Hierarchical Softmax和Negative Sampling两种改进方法。</p>
+</li>
+<li><p>得到训练出来的各词对应的向量：训练得到的维度为N×K和K×N的矩阵，可以选择任意一个作为N个词的K维词向量。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2><span id="模型评估">模型评估</span></h2><hr>
+<ol>
+<li>Precision、Recall、F1、Accuracy、ROC、AUC</li>
+<li>余弦距离（相对差异）、欧氏距离（数值绝对差异）。距离公理（正定、对称、三角不等式）</li>
+<li>Holdout 7/3验证、K-fold交叉验证（分词k份，k-1份训练，1份验证，最后k次取平均，经常取10折）、自助验证（n次有放回的随机抽样，抽出过的训练，没抽出过的验证，极限趋向于0.368）</li>
+<li>超参数调优：网格搜索（复杂度高，通常先广度范围+长步长找大范围，再缩小找精确最优值）、随机搜索（比网格快一些）、贝叶斯优化（学习目标函数形状）</li>
+<li>过拟合（数据增广、降低模型复杂度、加正则项、集成学习）、欠拟合（添加新特征、增加模型复杂度、减少正则化系数）</li>
+</ol>
+<h2><span id="机器学习">机器学习</span></h2><hr>
+<h3><span id="svm">SVM</span></h3><p>若训练集中不存在两个点在同一位置，则存在一组参数$\{\alpha_1,…,\alpha_m,b\}$以及参数$\gamma$使得该SVM的训练误差为0。训练误差为0的SVM分类器一定存在。加入松弛变量的SVM的训练误差可以为0吗？答案是，<strong>并不一定</strong>能得到训练误差为0的模型。如果使用SMO算法来训练一个加入松弛变量的线性SVM模型，则我们的<strong>优化目标改变了</strong>，并不再是使训练误差最小。当C取0时，w也取0时即可达到优化目标。</p>
+<h3><span id="逻辑回归-线性回归">逻辑回归、线性回归</span></h3><p>【逻辑回归和线性回归的区别】为什么逻辑回归名字叫回归但是处理的却是分类任务？答：Logistic回归是通过log函数将线性回归方程转为0到1之间的概率值，再以阈值threshold(默认是0.5)将概率值低于0.5的概率值转为0，高于等于0.5的概率值转为1，这就是为什么logistic回归可以解决分类的问题。而线性回归中实际上求解的是$y’=\theta^Tx$，是对我们假设的真实关系$y=\theta^Tx+\epsilon$的一个近似，其中$\epsilon$代表误差项，我们使用这个近似项来处理回归问题。还有一个很大的区别是，逻辑回归中的因变量是<strong>离散</strong>的，线性回归中的因变量是<strong>连续</strong>的。两者都使用了<strong>极大似然估计</strong>来对训练样本进行建模。线性回归使用最小二乘法，逻辑回归使用如下似然函数。都可以用梯度下降的方法进行求解。</p>
+<script type="math/tex; mode=display">L(\theta)=\prod_{i=1}^{N}P(y_i|x_i;\theta)=\prod_{i=1}^{N}(\pi(x_i))^{y_i}(1-\pi(x_i))^{1-y_i}</script><h3><span id="降维">降维</span></h3><p><a href="https://www.jianshu.com/p/c888fe7ad900" target="_blank" rel="noopener">主成分分析PCA、线性判别LDA</a></p>
+<h3><span id="非监督">非监督</span></h3><p><a href="https://www.jianshu.com/p/7676f3b9808f" target="_blank" rel="noopener">K-Mean聚类、高斯混合GMM、自组织映射神经网络SOM、聚类评估</a></p>
+<h3><span id="概率图">概率图</span></h3><p><a href="https://www.jianshu.com/p/4b75ef727218" target="_blank" rel="noopener">联合概率分布、概率图表示、生成式与判别式模型、马尔科夫模型</a>、<a href="https://www.jianshu.com/p/1696319bedcb" target="_blank" rel="noopener">主题模型pLSA+LDA</a></p>
+<h3><span id="优化算法">优化算法</span></h3><ol>
+<li><a href="https://www.jianshu.com/p/6bd07708e608" target="_blank" rel="noopener">有监督的二分类损失函数：0-1损失、Hinge损失、Logistic损失、交叉熵损失</a></li>
+<li><a href="https://www.jianshu.com/p/6bd07708e608" target="_blank" rel="noopener">凸函数 &amp; 凸优化</a></li>
+<li><a href="https://www.jianshu.com/p/6bd07708e608" target="_blank" rel="noopener">经典优化方法：直接法、迭代法</a></li>
+<li><a href="https://www.jianshu.com/p/6bd07708e608" target="_blank" rel="noopener">随机梯度下降：随机梯度下降、小批量梯度下降</a></li>
+<li><a href="https://www.jianshu.com/p/873f02053bd5" target="_blank" rel="noopener">优化的梯度下降方法：动量(Momentum)、AdaGrad、Adam、Nesterov Accelerated Gradient、AdaDelta、RMSProp、AdaMax、Nadam</a></li>
+<li><a href="https://www.jianshu.com/p/873f02053bd5" target="_blank" rel="noopener">L1、L2正则化，稀疏性</a></li>
+</ol>
+<p>为什么L1正则化产生稀疏解？答：①<strong>解空间形状</strong>，L2正则项约束后的解空间是圆形，而L1正则项约束的解空间是多边形。显然，多边形的解空间更容易在尖角处与等高线碰撞出稀疏解；②<strong>函数叠加</strong>，观察最小值，L1的最小值在零点处取得，对应的w是0，产生了稀疏性。L2<strong>只有减小w的作用</strong>，对解空间的稀疏性没有贡献；③贝叶斯先验，L1正则化相当于对模型参数w引入了<strong>拉普拉斯先验</strong>，L2正则化相当于引入了<strong>高斯先验</strong>，而拉普拉斯先验使参数为0的可能性更大。</p>
+<h3><span id="采样">采样</span></h3><p><a href="https://www.jianshu.com/p/c602eaad78c1" target="_blank" rel="noopener">作用、常见采样方法、高斯分布采样、马尔科夫蒙特卡洛采样、贝叶斯网络采样、不均衡样本集重采样</a></p>
+<p><a href="https://www.jianshu.com/p/35b76485aba5" target="_blank" rel="noopener">偏差与方差</a></p>
+<h3><span id="集成学习">集成学习</span></h3><p>Boosting：Boosting方法训练基分类器时采用<strong>串行</strong>的方式，各个基分类器之间有<strong>依赖</strong>。其基本思想是将基分类器层层叠加，每一层在训练的时候，对前一层基分类器分错的样本，给予更高的权重。测试时，根据各层分类器的结果的加权得到最终结果。</p>
+<p>Bagging：Bagging是Bootstrap Aggregating的简称，意思就是再抽样，然后在每个样本上训练出来的模型取平均。Bagging方法在训练过程中，各基分类器之间<strong>无强依赖</strong>，可以进行<strong>并行</strong>训练。为了让基分类器之间相互独立，将训练集分为若干子集。由于个体之间存在差异性，最终做出的判断不会完全一致。在最终做决策时，每个个体单独作出判断，再通过投票的方式作出最后的集体决策。Bagging的主要好处是集成后的分类器的方差，比基分类器的方差小，所采用的基分类器最好是<strong>本身对样本分布较为敏感</strong>的(即所谓不稳定的分类器)，这样Bagging才能有用武之地。线性分类器或者K近邻都是较为稳定的分类器，本身方差就不大，所以用他们做基分类器Bagging并不能在原有基分类器的基础上获得更好的表现，甚至可能因为Bagging的采样，导致它们在训练中更难收敛，从而增大了集成分类器的偏差。</p>
+<ul>
+<li>Bagging能够提高弱分类器性能的原因是<strong>降低了方差</strong>。</li>
+<li>Boosting能够提高弱分类器性能的原因是<strong>降低了偏差</strong>。</li>
+<li><a href="https://www.jianshu.com/p/35b76485aba5" target="_blank" rel="noopener">从减小方差和偏差的角度解释Boosting和Bagging的原理</a></li>
+</ul>
+<p>基分类器的错误率要大于集成分类器，<strong>基分类器的错误是偏差和方差两种错误之和</strong>。<strong>偏差</strong>主要是由于分类器的<strong>表达能力有限</strong>导致的<strong>系统性误差</strong>，表现在训练误差<strong>不收敛</strong>。Boosting方法通过逐步聚焦于基分类器分错的样本，减小集成分类器的偏差。方差是由于分类器<strong>对于样本分布过于敏感</strong>，导致在训练样本数较少时，产生<strong>过拟合</strong>。Bagging方法则是采取<strong>分而治之</strong>的策略，通过对训练样本多次采样，训练多个不同模型进行综合，来减小集成分类器的<strong>方差</strong>。用简单多数投票方法来集成结果，超过半数基分类器出错的概率会<strong>随着基分类器的数量增加而下降</strong>。</p>
+<p>集成学习一般可以分为以下3个步骤：</p>
+<ul>
+<li>找到误差相互独立的基分类器。</li>
+<li>训练基分类器。</li>
+<li>合并基分类器的结果。合并基分类器的方法有voting和stacking两种。stacking是用<strong>串行</strong>的方式，把前一个基分类器的结果<strong>输出到下一个分类器</strong>，将所有基分类器的输出结果相加作为最终的输出(或用更复杂的方法，将各基分类器的输出作为<strong>特征</strong>，用逻辑回归作为融合模型进行最后的结果预测)。一般voting的方式更多一点。</li>
+</ul>
+<p>Adaboost采取了Boosting的思想，对分类正确的样本降低了权重，对分类错误的样本<strong>升高或者保持权重不变</strong>。在最后进行模型融合的过程中，也根据错误率对基分类器进行<strong>加权融合</strong>。<br>另一个非常流行的是<strong>梯度提升决策树（GDBT）</strong>，思想是每一棵树学的是之前所有树结论和的<strong>残差</strong>，这个残差是一个加预测值后能得真实值的累加量。比如预测年龄，真实年龄是25岁，第一棵树预测22岁，则第二棵树将年龄设为3岁去学习。使用残差继续学习，就是GBDT中的Gradient Boosted所表达的意思。</p>
+<p><strong><a href="https://www.jianshu.com/p/35285f01cc8e" target="_blank" rel="noopener">决策树</a></strong>：决策树可以较为方便地将样本的<strong>权重整合</strong>到训练过程中，而不需要使用过采样的方法来调整样本权重。决策树的<strong>表达能力</strong>和<strong>泛化能力</strong>，可以通过调节树的层数来做折中。数据样本的<strong>扰动</strong>对于决策树的<strong>影响较大</strong>，因此不同子样本集合生成的决策树基分类器<strong>随机性较大</strong>，这样的“不稳定学习器”更适合作为基分类器。此外，在决策树节点分裂的时候，随机地选择一个特征子集，从中找出最优分类属性，很好地引入了随机性。其中很著名的算法是基于决策树基分类器的<strong>随机森林</strong>。ID3最大信息增益、C4.5最大信息增益比、CART树最大基尼指数。三种决策树的构造准则、前后剪枝。</p>
+<h3><span id="梯度提升决策树gbdt">梯度提升决策树GBDT</span></h3><p>梯度提升决策树(Gradient Boosting Decision Tree，GBDT)是Boosting算法中非常流行的模型。Gradient Boosting是Boosting中的一大类算法，基本思想是根据当前模型损失函数的负梯度信息来训练新加入的弱分类器，然后将训练好的弱分类器以<strong>累加</strong>的形式结合到现有模型中。采用<strong>决策树</strong>为弱分类器的Gradient Boosting算法被称为GBDT，有时也称MART(Multiple Additive Regression Tree)。GBDT中使用的决策树通常为<strong>CART树</strong>。</p>
+<p><a href="https://www.jianshu.com/p/4d59c94fa0c6" target="_blank" rel="noopener">梯度提升和梯度下降的区别和联系？</a></p>
+<p><a href="https://www.jianshu.com/p/4d59c94fa0c6" target="_blank" rel="noopener">GBDT的优点和局限性？</a></p>
+<ul>
+<li>优点：<ul>
+<li>预测阶段的计算速度快，树与树之间可<strong>并行计算</strong>。</li>
+<li>在分布<strong>稠密</strong>的数据集上，泛化能力和表达能力都很好。</li>
+<li>采用决策树作为弱分类器使得GBDT模型具有较好的<strong>解释性</strong>和<strong>鲁棒性</strong>，能够自动发现<strong>特征间的高阶关系</strong>，也不需要对数据进行特殊的预处理如归一化等。</li>
+</ul>
+</li>
+<li>局限：<ul>
+<li>GBDT在<strong>高维稀疏</strong>的数据集上，表现不如支持向量机或神经网络。</li>
+<li>GBDT在处理<strong>文本分类特征</strong>问题上，相对于其他模型优势不如在处理数值特征时明显。</li>
+<li>训练过程需要<strong>串行</strong>训练，只能在决策树内部采用一些<strong>局部并行</strong>的手段提升训练速度。</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://www.jianshu.com/p/4d59c94fa0c6" target="_blank" rel="noopener">XGBoost与GBDT的联系和区别？</a> </p>
+<ul>
+<li>GBDT是<strong>机器学习算法</strong>，XGBoost是该算法的<strong>工程实现</strong>。</li>
+<li>在使用CART作为基分类器时，XGBoost就显式地加入了<strong>正则项</strong>来控制模型的复杂度，有利于防止过拟合，提高模型的泛化能力。</li>
+<li>GBDT在模型训练时只使用了代价函数的一阶导数信息，XGBoost对代价函数进行<strong>二阶泰勒展开</strong>，可以同时使用一阶和二阶导数。</li>
+<li>传统的GBDT使用CART作为基分类器，XGBoost<strong>支持多种类型的基分类器</strong>，比如线性分类器。</li>
+<li>传统的GBDT在每轮迭代时使用<strong>全部</strong>的数据，XGBoost则采用了与随机森林相似的策略，支持对数据进行<strong>采样</strong>。</li>
+<li>传统的GBDT没有设计对<strong>缺失值</strong>进行处理，XGBoost能够自动学习出缺失值的处理策略。 </li>
+</ul>
+<h2><span id="神经网络">神经网络</span></h2><hr>
+<h3><span id="前向神经网络">前向神经网络</span></h3><ol>
+<li>如果只使用一个隐藏层，需要多少隐节点能够实现包含$n$元输入的任意布尔函数？答：$2^{n-1}$个隐节点。</li>
+<li>考虑多隐层的情况，实现包含$n$元输入的任意布尔函数最少需要多少个网络节点和网络层？<br>答：<strong>一个隐藏层即可计算异或函数</strong>。$n$元异或函数需要包括$3(n-1)$个节点(包括最终输出节点)。可以发现，多隐层结构可以将隐节点的数目从指数级$O(2^{n-1})$直接减少至线性级$O(3(n-1))$。需要的最少网络层数为$2\log_2N$(向上取整)。</li>
+</ol>
+<h3><span id="激活函数">激活函数</span></h3><p><a href="https://www.jianshu.com/p/f44b7b7afa18" target="_blank" rel="noopener">Sigmoid、Tanh、ReLU</a> </p>
+<ol>
+<li>Sigmoid和Tanh激活函数为什么会导致梯度消失的现象？答：因为它们的导数f’(z)在z很大或者很小的时候都会趋近于0，造成梯度消失的情况。</li>
+<li>ReLU系列激活函数相对于Sigmoid和Tanh激活函数的优点是什么？它们有什么局限性以及如何改进？答：优点：从计算的角度上，Sigmoid和Tanh激活函数都<strong>需要计算指数函数</strong>，<strong>复杂度高</strong>，而ReLU<strong>只需要一个阈值</strong>即可得到激活值。ReLU的<strong>非饱和性</strong>可以有效解决梯度消失的问题，提供<strong>相对宽的激活边界</strong>。ReLU的<strong>单侧抑制</strong>提供了网络的<strong>稀疏表达能力</strong>。局限：其训练过程中会<strong>导致神经元死亡</strong>。函数$f(z)=\max(0,z)$导致负梯度在经过ReLU单元时被置为0，且在之后也不被任何数据激活，即流经该神经元的梯度永远为0，不对任何数据产生响应。在实际训练中，如果学习率设置较大，会导致超过一定比例的神经元不可逆死亡，进而参数梯度无法更新，整个训练过程失败。从而有人推出了LReLU。</li>
+</ol>
+<h3><span id="反向传播">反向传播</span></h3><p>在网络训练中，前向传播最终产生一个标量损失函数，反向传播算法则将损失函数的信息沿网络层向后传播用以计算梯度，达到优化网络参数的目的。</p>
+<p>损失函数：平方误差（更适合输出为<strong>连续</strong>，并且最后一层不含Sigmoid或Softmax激活函数的神经网络）、交叉熵误差（更适合<strong>二分类</strong>或<strong>多分类</strong>的场景）。</p>
+<p>为什么平方损失不适合最后一层含有Sigmoid或Softmax激活函数的神经网络？答：平方误差损失函数相对于输出层的导数其中激活函数的导数的那一项$f’(z^{(L)})$，当激活函数为sigmoid的时候，如果$z^{(L)}$绝对值比较大，函数梯度会趋于饱和，从而使得基于梯度的<strong>学习速度非常缓慢</strong>。而交叉熵损失函数对于输出层的导数是线性的，不会存在学习速度过慢的问题。</p>
+<h3><span id="循环神经网络">循环神经网络</span></h3><p>在网络训练中，前向传播最终产生一个标量损失函数，反向传播算法则将损失函数的信息沿网络层向后传播用以计算梯度，达到优化网络参数的目的。</p>
+<h4><span id="梯度爆炸">梯度爆炸</span></h4><p>梯度爆炸的问题可以通过<strong>梯度裁剪</strong>来缓解，即当梯度的范式大于某个给定值时，对梯度进行<strong>等比收缩</strong>。<strong>梯度消失</strong>问题相对棘手，需要对模型本身进行改进。深度残差网络是对前馈神经网络的改进，通过<strong>残差学习</strong>的方式缓解了梯度消失的现象；对于循环神经网络来说，LSTM及其变种GRU等模型通过加入<strong>门控机制</strong>，很大程度上弥补了梯度消失所带来的损失。</p>
+<p>在循环神经网络中使用ReLU作为激活函数，需要对矩阵W的<strong>初值做一定限制</strong>，否则十分容易引发<strong>数值问题</strong>。而在卷积神经网络中一般不会出现严重的数值问题。只有当W的取值在<strong>单位矩阵附近</strong>时才能取得比较好的效果，因此需要将W初始化为单位矩阵，在一些应用中取得了与LSTM相似的结果，并且学习速度比LSTM更快，是一个小trick。</p>
+<h4><span id="lstm">LSTM</span></h4><p><a href="https://www.jianshu.com/p/711a40a3f609" target="_blank" rel="noopener">LSTM</a>输入门控制当前计算的新状态以多大程度更新到记忆单元中；遗忘门控制前一步记忆单元中的信息有多大程度被遗忘掉；输出门控制当前的输出有多大程度上取决于当前的记忆单元。与传统的循环神经网络不同的是，从上一个记忆单元的状态到当前的状态的转移不一定完全取决于激活函数计算得到的状态，还由<strong>输入门和遗忘门来共同控制</strong>。</p>
+<p>为什么遗忘门、输入门和输出门使用Sigmoid，生成候选记忆用Tanh作为激活函数？答：这两个激活函数都是<strong>饱和</strong>的，即在输入达到一定值时输出不再明显变化。如果用非饱和激活函数如ReLU，则难以实现门控效果。<br> Sigmoid函数输出在0~1之间，符合<strong>门控的物理定义</strong>；Tanh函数输出在-1~1之间，与大多数场景下特征分布是<strong>0中心</strong>吻合。此外，Tanh函数在输入为0附近相比Sigmoid函数有更大的梯度，通常使模型收敛更快。</p>
+<h4><span id="seq2seq">Seq2Seq</span></h4><p>在Seq2Seq模型中，当前输出词由当前隐状态以及上一个输出词决定，即：</p>
+<script type="math/tex; mode=display">s_i=f(y_{i-1},s_{i-1}),</script><script type="math/tex; mode=display">p(y_i|y_1,y_2,...,y_{i-1})=g(y_{i-1},s_i).</script><p>核心思想是，通过深度神经网络将一个作为输入的序列映射为一个作为输出的序列，这一过程由<strong>编码输入</strong>和<strong>解码输出</strong>两个环节构成。在经典的实现中，编码器和解码器各由一个循环神经网络构成，既可以选择传统循环神经网络也可以使用LSTM、GRU等。Seq2Seq模型中，两个循环神经网络是共同训练的。Seq2Seq模型最核心的部分是其解码部分。最基础的解码方法是<strong>贪心法</strong>，即选取一种度量标准后，每次都在当前状态下选择最佳的一个结果，直到结束。贪心法的<strong>计算代价低</strong>，适合作为<strong>基准结果</strong>与其他方法相比较。贪心法获得的是一个<strong>局部最优解</strong>，由于实际问题的复杂性，该方法往往并不能取得最好的结果。</p>
+<p><strong>集束搜索</strong>是常见的改进算法，它时一种<strong>启发式算法</strong>。该方法会保存beam size个当前的较佳选择，然后解码时每一步根据保存的结果进行下一步扩展和排序，接着选择前beam size个进行保存，循环迭代，直到结束时选择最佳的一个作为解码的结果。实际应用中<strong>beam size取8~12为佳</strong>。除了集束搜索，解码时使用<strong>堆叠的RNN</strong>、增加<strong>Dropout</strong>机制、与解码器之间建立<strong>残差连接</strong>等，均是常见的改进措施。此外，解码时还可以采用<strong>记忆网络</strong>等，从外界获取知识。</p>
+<p>实际使用中，随着输入序列的增长，模型的性能会显著下降。因为编码时输入序列的全部信息压缩到了一个向量表示中，随着序列增长，句子越前面的词的信息丢失就越严重。将源语言句子<strong>逆序输入</strong>，或者<strong>重复输入两遍</strong>来训练模型，可以得到一定的性能提升。使用LSTM也能够一定程度上缓解这个问题，但在实践中过长的序列仍然难以有很好的表现。同时，Seq2Seq模型的输出序列中，常常会损失部分输入序列的信息，这是因为在解码时，当前词及对应的源语言词的<strong>上下文信息</strong>和<strong>位置信息</strong>在解码过程中丢失了。</p>
+<h4><span id="attention">Attention</span></h4><p><strong>注意力机制</strong>使得解码时每一步可以有针对性地关注与当前有关的编码结果，从而减小解码器输出表示的学习难度，也更容易学习到长期的依赖关系。</p>
+<p>Seq2Seq中加入注意力机制也是为了解决过长序列的问题，在注意力机制中，仍然可以用普通的循环神经网络对输入序列进行解码，得到隐状态$h_1,h_2,…,h_T$。但在解码时，每一个输出词都依赖于前一个隐状态以及输入序列每一个对应的隐状态。</p>
+<script type="math/tex; mode=display">s_i=f(s_{i-1},y_{i-1},c_i),</script><script type="math/tex; mode=display">p(y_i|y_1,y_2,...,y_{i-1})=g(y_{i-1},s_i,c_i).</script><p>其中$c_i$为<strong>语境向量</strong>，是输入序列全部隐状态$h_1,h_2,…,h_T$的<strong>加权和</strong></p>
+<script type="math/tex; mode=display">c_i=\sum_{j=1}^T\alpha_{ij}h_j.</script><p>其中注意力权重参数$\alpha_{ij}$并不是一个固定权重，而是由另一个神经网络计算得到</p>
+<script type="math/tex; mode=display">\alpha_{ij}=\frac{\exp(e_{ij})}{\sum_{k=1}^T\exp(e_{ik})},</script><script type="math/tex; mode=display">e_{ij}=a(s_{i-1},h_j).</script><p>神经网络$a$根据上一个时间步的输出序列隐状态$s_{i-1}$和当前时间步的输入序列隐状态$h_j$，计算出一个$x_j,y_j$对齐的值$e_{ij}$，再归一化得到权重$\alpha_{ij}$。一个直观的解释是，在生成一个输出词时，会考虑每一个输入词和当前输出词的<strong>对齐关系</strong>，对齐越好的词，会有越大的权重，对生成当前输出词的影响也就越大。</p>
+<h3><span id="训练技巧">训练技巧</span></h3><ol>
+<li>解决过拟合的方法有：数据集增强、参数范数惩罚/正则化、模型集成等；其中Dropout是<strong>模型集成方法</strong>中最高效与常用的技巧。同时，深度神经网络的训练中涉及诸多手调参数，如学习率、权重衰减系数、Dropout比例等，这些参数的选择会显著影响模型最终的训练效果。批量归一化(Batch Normalization，BN)方法有效规避了这些复杂参数对网络训练产生的影响，在<strong>加速训练收敛</strong>的同时也<strong>提升了网络的泛化能力</strong>。</li>
+<li>神经网络训练时是否可以将全部参数初始化为0？答：不能。<br>考虑全连接的深度神经网络，同一层的神经元都是<strong>同构</strong>的，拥有相同的输入和输出，如果再将参数全部初始化为相同的值，那么无论前向传播还是反向传播的取值都是相同的。学习过程将永远无法打破这种<strong>对称性</strong>，最终同一个网络层中的各个参数仍然是相同的。</li>
+<li>Dropout抑制过拟合的工作原理：Dropout随机丢弃部分神经元的机制，相当于每次迭代都在<strong>训练不同结构的神经网络</strong>。类比于Bagging方法，Dropout可以被认为是一种实用的<strong>大规模深度神经网络的模型集成算法</strong>。这是由于传统意义上的Bagging涉及多个模型的同时训练与测试评估，当网络与参数规模庞大时，这种集成方式需要消耗大量的运算时间与空间。Dropout在<strong>小批量级别</strong>上的操作，提供了一种<strong>轻量级的Bagging集成</strong>近似，能够实现指数级数量神经网络的训练与评测。对于包含N个神经元节点的网络，在Dropout的作用下可以看作$2^N$个模型的集成。这$2^N$个模型可认为是原始网络的子网络，它们共享部分权重，并且具有相同的网络层数，而模型整体的参数数目不变，大大简化了运算。对于任意神经元，每次训练中都与一组随机挑选的不同的神经元集合共同进行优化，这个过程为<strong>减弱全体神经元之间的联合适应性</strong>，减少过拟合的风险，增强泛化能力。</li>
+<li>批量归一化的基本动机与原理：神经网络训练过程的本质是学习数据分布，如果训练数据与测试数据的分布不同将会大大降低网络的泛化能力，因此我们需要在训练开始前对所有输入数据进行归一化处理。然而随着网络训练的进行，每个隐层的参数变化使得<strong>后一层的输入发生变化</strong>，从而每一批训练数据的分布也随之变化，致使网络在每次迭代中都需要拟合不同的数据分布，增大训练的复杂度以及过拟合的风险。<br>批量归一化方法是针对每一批数据，<strong>在网络每一层输入之间增加归一化处理</strong>(均值为0，标准差为1)，将所有批数据强制性在同一的数据分布下。可以看作在每一层输入和上一层输出之间<strong>加入了一个新的计算层</strong>，对数据的分布进行了额外的约束，从而增强模型的泛化能力。但是批量归一化同时也<strong>降低了模型的拟合能力</strong>，归一化之后的输入分被强制为0均值和1标准差。在具体的应用中，是会加入变换重构以及其他可学习参数的。</li>
+</ol>
+<h3><span id="其他">其他</span></h3><p><a href="https://www.jianshu.com/p/3f726cfe7ff8" target="_blank" rel="noopener">深度卷积网络、深度残差网络</a> </p>
+<p>参考文献：本文部分内容参考自<a href="https://www.jianshu.com/c/90223df0f45c" target="_blank" rel="noopener">蓝白绛</a>。</p>
+<blockquote>
+<p>本文来源：「想飞的小菜鸡」的个人网站  <a href="https://vodkazy.cn" target="_blank" rel="noopener">vodkazy.cn</a></p>
+<p>版权声明：本文为「想飞的小菜鸡」的原创文章，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请附上原文出处链接及本声明。</p>
+<p>原文链接：<a href="https://vodkazy.cn/2020/10/06/《百面机器学习》阅读笔记" target="_blank" rel="noopener">https://vodkazy.cn/2020/10/06/《百面机器学习》阅读笔记</a></p>
+</blockquote>
+
+        </div>
+      </article>
+    </div>
+
+	<!-- 打赏 -->
+    <div class="reward">
+	<div class="reward-button">赏 <span class="reward-code">
+		<span class="alipay-code"> <img class="alipay-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/alipay.webp"><b>支付宝打赏</b> </span> 
+		<span class="wechat-code"> <img class="wechat-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/weixin.webp"><b>微信打赏</b> </span> </span>
+	</div>
+	<p class="reward-notice">如果文章对你有帮助，欢迎点击上方按钮打赏作者，更多文章请访问<a href="https://vodkazy.cn" style="color:blue">想飞的小菜鸡</a></p>
+	    <style>
+		*,*:before,*:after {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			-ms-box-sizing: border-box;
+			box-sizing: border-box
+		}
+
+		.reward {
+			padding: 5px 0
+		}
+
+		.reward .reward-notice {
+			font-size: 14px;
+			line-height: 14px;
+			margin: 15px auto;
+			text-align: center
+		}
+
+		.reward .reward-button {
+			font-size: 28px;
+			line-height: 58px;
+			position: relative;
+			display: block;
+			width: 60px;
+			height: 60px;
+			margin: 0 auto;
+			padding: 0;
+			-webkit-user-select: none;
+			text-align: center;
+			vertical-align: middle;
+			color: #fff;
+			border: 1px solid #f1b60e;
+			border-radius: 50%;
+			background: #fccd60;
+			background: -webkit-gradient(linear,left top,left bottom,color-stop(0,#fccd60),color-stop(100%,#fbae12),color-stop(100%,#2989d8),color-stop(100%,#207cca));
+			background: -webkit-linear-gradient(top,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%);
+			background: linear-gradient(to bottom,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%)
+		}
+
+		.reward .reward-code {
+			position: absolute;
+			top: -220px;
+			left: 50%;
+			display: none;
+			width: 350px;
+			height: 200px;
+			margin-left: -175px;
+			padding: 15px;
+			border: 1px solid #e6e6e6;
+			background: #fff;
+			box-shadow: 0 1px 1px 1px #efefef
+		}
+
+		.reward .reward-button:hover .reward-code {
+			display: block
+		}
+
+		.reward .reward-code span {
+			display: inline-block;
+			width: 150px;
+			height: 150px
+		}
+
+		.reward .reward-code span.alipay-code {
+			float: left
+		}
+
+		.reward .reward-code span.alipay-code a {
+			padding: 0
+		}
+
+		.reward .reward-code span.wechat-code {
+			float: right
+		}
+
+		.reward .reward-code img {
+			display: inline-block;
+			float: left;
+			width: 150px;
+			height: 150px;
+			margin: 0 auto;
+			border: 0
+		}
+
+		.reward .reward-code b {
+			font-size: 14px;
+			line-height: 26px;
+			display: block;
+			margin: 0;
+			text-align: center;
+			color: #666
+		}
+
+		.reward .reward-code b.notice {
+			line-height: 2rem;
+			margin-top: -1rem;
+			color: #999
+		}
+
+		.reward .reward-code:after,.reward .reward-code:before {
+			position: absolute;
+			content: '';
+			border: 10px solid transparent
+		}
+
+		.reward .reward-code:after {
+			bottom: -19px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #fff
+		}
+
+		.reward .reward-code:before {
+			bottom: -20px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #e6e6e6
+		}
+    </style>
+
+
+    <!-- Pre or Next -->
+    
+	<div class="container">
+           <ul class="pager">
+    	     
+      	     <li class="previous">
+              <a href="/2020/10/10/我想去面试系列——BERT/" rel="prev">上一篇</a>
+             </li>
+           
+           
+              <li class="next">
+              <a href="/2020/02/14/吴恩达CS230深度学习笔记（五）/" rel="prev">下一篇</a>
+            </li>
+           
+          </ul>
+       </div>
+   
+
+    <!-- Valine无后端评论系统 -->   
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+		    el: '#vcomments' ,
+		    appId: 'lH3VkMCd4MHaKtr2n2SRWdoi-MdYXbMMI',
+		    appKey: '5aMXSY7b4KwnzfgpzLA0hPLv',
+		    notify:true, 
+		    verify:false, 
+		    placeholder: '填写正确的邮箱和昵称才能收到我的回复哦       ٩( ^o^ )و  ' ,
+		    avatar: 'retro'
+		});
+    </script>
+    <!-- Valine无后端评论系统 -->  
+
+  </div>
+</div>
+</div>
+
+  <!-- Footer -->
+  <!-- Footer -->
+<footer class="site-info">
+  <p>
+    <span>想飞的小菜鸡 &copy; 2021</span>
+    
+      <span class="split">|</span>
+      <span>照耀的Blog</span>
+    
+  </p>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    本站访客数<span id="busuanzi_value_site_uv"></span>人次
+    本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</footer>
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+<script src="/js/app.js"></script>
+
+
+ 
+  <!-- 使用 aotuload.js 引入看板娘 -->    
+  <!-- //<script src="/js/assets/jquery.min.js?v=3.3.1"></script> -->   
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  <!-- //<script src="/js/assets/jquery-ui.min.js?v=1.12.1"></script>   --> 
+  <script src="https://cdn.jsdelivr.net/npm/jquery-ui-dist@1.12.1/jquery-ui.min.js"></script>
+  <script src="/js/assets/autoload.js?v=1.4.2"></script>
+  <!-- //<script src="https://live2d-cdn.fghrsh.net/assets/1.4.2/autoload.js></script> -->   
+   
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var i=n.imageLazyLoadSetting.isSPA,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){i&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,e,a=0;a<r.length;a++)t=r[a],e=void 0,0<=(e=t.getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},n.src=i}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+
+</html>

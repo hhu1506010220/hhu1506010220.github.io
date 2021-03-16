@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<!-- 百度统计 -->
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?e31627579358722b9d300535c8206351";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Vodkazy">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="小记：处理LSTM+embedding变长序列">
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="想飞的小菜鸡">
+  <!--Type page-->
+  
+      <meta property="og:type" content="article">
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- Title -->
+  
+  <title>小记：处理LSTM+embedding变长序列 - 想飞的小菜鸡</title>
+
+
+  <link rel="shortcut icon" href="/../images/icon.ico">
+  <!--font-awesome-->
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+
+<body>
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    
+    <div class="logo">
+      <a href="/" rel="home">
+        
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://cdn2.iconfinder.com/data/icons/weather-color-2/500/weather-01-128.png" alt="想飞的小菜鸡" height="60">
+        
+      </a>
+    </div>
+    <a class="header-name" href="/">
+            <span>想飞的小菜鸡</span>
+            的小窝
+        </a>
+    <!-- navbar -->
+    <nav class="navbar">
+      <!--  nav links -->
+      <div class="collapse">
+        <ul class="navbar-nav">
+          
+          
+            <li>
+              <a href="/.">
+                
+                  <i class="fa fa-home "></i>
+                
+                首页
+              </a>
+            </li>
+          
+            <li>
+              <a href="/archives">
+                
+                  <i class="fa fa-archive "></i>
+                
+                目录
+              </a>
+            </li>
+          
+            <li>
+              <a href="/project">
+                
+                  <i class="fa fa-folder-open "></i>
+                
+                代码库
+              </a>
+            </li>
+          
+            <li>
+              <a href="/photo">
+                
+                  <i class="fa fa-photo "></i>
+                
+                相册薄
+              </a>
+            </li>
+          
+            <li>
+              <a href="/lovetree">
+                
+                  <i class="fa fa-tree "></i>
+                
+                爱情树
+              </a>
+            </li>
+          
+            <li>
+              <a href="/guestbook">
+                
+                  <i class="fa fa-edit "></i>
+                
+                留言板
+              </a>
+            </li>
+          
+            <li>
+              <a href="/about">
+                
+                  <i class="fa fa-user "></i>
+                
+                关于我
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="button-wrap">
+      <button class="menu-toggle">Primary Menu</button>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            小记：处理LSTM+embedding变长序列
+            
+          </h1>
+         
+        </div>
+         <p class="a-posted-on">
+          2019-12-12
+          </p>
+        <!-- Post Main Content -->
+        <div class="entry-content">
+          <p>花了两天的时间学习了一下如何利用torch.nn.utils.rnn来处理变长LSTM，期间遇到了不少bug，特定来记录一下，以后避免踩坑。<br><a id="more"></a></p>
+<h2><span id="前言">前言</span></h2><p>在做NLP作业文章打分任务时，由于输入的文章是不定长的，而转成tensor又要求所有的输入单元要等长，因此通常的做法是利用截断、或者填充的做法统一长度，但是这样有可能会造成信息丢失或者是padding过长最后把前面的记忆都遗忘了的情况。因此学习了一下 <code>torch.nn.utils.rnn</code> 自带的 <code>pack_padded_sequence</code> 方法（压包），该方法返回的是一个带有实际处理长度的PackedSequence对象。对应的 <code>pad_packed_sequence</code> 方法（解包）则是将PackedSequence对象返回成数个mini-batch序列，并返回一个实际处理长度的列表。 </p>
+<p>在处理期间主要遇到了两个问题：</p>
+<p>第一个是在每个batch中，除了最长的那个序列所对应的输出是有变化的，其他的几个序列输出值都是一样的，我观测了输入是没毛病的，输出的前几个值也都是不一样的，但是在某个位置之后就都开始一样了。因为我一开始都是取的最后一个时间步的h作为输出，但是通过debug之后发现，对于每个batch，除了最长的序列的输出是正常的，其余的序列最后一个h都是一样的，我觉得可能是这些padding在前向传播过程中压根就没传过来，最后我采取的措施是分别取最后一个不是padding的时间步的h作为输出就解决了；</p>
+<p>第二个问题是发现虽然我有几百个验证数据，并且他们的分数上到12下到2，但是最后输出的时候却都集中地趋向于8，不管label是2的还是12的，输出都趋向于8，这个我纳闷了好久。最后发现原因竟然是我的训练数据的分布极不均匀，训练集中一共有1070条数据，但是其中的420条的label是8，只有6条的label是2，60多条label是12，所以这也就造成了为什么我的输出会倾向于8左右（因为训练数据的均值是8）。后来我把label的每个种类的数据条数都扩充至一样的，模型的输出就会区分2、8、12了。</p>
+<h3><span id="torchnnutilsrnn">torch.nn.utils.rnn</span></h3><p>首先介绍一下padding部分，这部分主要参考了<a href="https://zhuanlan.zhihu.com/p/59772104" target="_blank" rel="noopener">知乎的一篇文章</a>。</p>
+<p><code>pad_sequence</code> 方法用于返回利用padding的返回一个长度统一的列表。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">train_x = [torch.tensor([<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>]),</span><br><span class="line">           torch.tensor([<span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>]),</span><br><span class="line">           torch.tensor([<span class="number">6</span>, <span class="number">6</span>])]</span><br><span class="line"></span><br><span class="line">x = rnn_utils.pad_sequence(train_x, batch_first=<span class="keyword">True</span>, padding_value=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line">x = tensor([[<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>],</span><br><span class="line">        [<span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">        [<span class="number">6</span>, <span class="number">6</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>]])</span><br></pre></td></tr></table></figure>
+<p>我们发现，这个函数会把长度小于最大长度的 sequences 用 0 填充，并且把 list 中所有的元素拼成一个 tensor。这样做的主要目的是为了让 DataLoader 可以返回 batch，因为 batch 是一个高维的 tensor，其中每个元素的数据必须长度相同。</p>
+<h3><span id="pack_padded_sequence">pack_padded_sequence</span></h3><p>让我们想一下RNN是如何训练的：对于batch为3的数据，首先投进去time_step都为1的数据、加上他们的hidden state，获得输出；然后再读取下一个time_step的所有数据，再加上上一个时间步的输出，以此类推。以上的数据为例，网络读取数据的顺序是：[1, 3, 6]，[1, 3, 6]，[1, 3, 0]，[1, 3, 0]，[1, 3, 0]，[1, 0, 0]，[1, 0, 0]。显然，对于那些用来padding的0，计算它们显然浪费了大量资源没必要，所以就要想办法在计算的时候不让这些0加进去。这就用到了<strong>pack_padded_sequence</strong>方法。</p>
+<p><code>pack_padded_sequence</code> 有三个参数：<code>input, lengths, batch_first</code> 。<code>input</code> 是加过 padding 的数据，<code>lengths</code> 是各个 sequence 的实际长度，<code>batch_first</code>是数据各个 dimension 按照 <code>[batch_size, sequence_length, data_dim]</code>顺序排列。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rnn_utils.pack_padded_sequence(batch_x, [<span class="number">7</span>,<span class="number">5</span>,<span class="number">2</span>], batch_first=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line">PackedSequence(data=tensor([<span class="number">1.</span>, <span class="number">3.</span>, <span class="number">6.</span>, <span class="number">1.</span>, <span class="number">3.</span>, <span class="number">6.</span>, <span class="number">1.</span>, <span class="number">3.</span>, <span class="number">1.</span>, <span class="number">3.</span>, <span class="number">1.</span>, <span class="number">3.</span>, <span class="number">1.</span>, <span class="number">1.</span>]),batch_sizes=tensor([<span class="number">3</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>]))</span><br></pre></td></tr></table></figure>
+<p>所以说相当于RNN把每个batch又划分为了更小的batch，并且每个batch的大小是不一样的。原理我们懂了，但是如何方便的既获取padding过的序列又获取每个序列的实际长度呢，这就需要我们自己实现一个类似于DataLoader的数据返回迭代器了。</p>
+<h3><span id="dataloader-amp-collate_fn">DataLoader &amp; collate_fn</span></h3><p>Pytorch虽然有已经封装好的DataLoader，返回的是迭代对象，用法如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data = DataLoader(X, y)</span><br><span class="line">loader = DataLoader(dataset=data, batch_size=<span class="number">128</span>)</span><br><span class="line"><span class="keyword">for</span> X, y <span class="keyword">in</span> loader:</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<p>对于本文这种需要返回自定义结构的迭代器，需要自己重写一些细节：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyData</span><span class="params">(torch.utils.data.Dataset)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    定义数据读取迭代器结构</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, data_seq, data_label)</span>:</span></span><br><span class="line">        self.data_seq = data_seq</span><br><span class="line">        self.data_label = data_label <span class="comment"># 修改传入形参列表</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> len(self.data_seq)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self, idx)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.data_seq[idx], self.data_label[idx] <span class="comment"># 修改方法的返回值</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">collate_fn</span><span class="params">(data)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    定义 dataloader 的返回值</span></span><br><span class="line"><span class="string">    :param data: 第0维：data，第1维：label</span></span><br><span class="line"><span class="string">    :return: 序列化的data、记录实际长度的序列、以及label列表</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    data.sort(key=<span class="keyword">lambda</span> x: len(x[<span class="number">0</span>]), reverse=<span class="keyword">True</span>) <span class="comment"># pack_padded_sequence 要求要按照序列的长度倒序排列</span></span><br><span class="line">    data_length = [len(sq[<span class="number">0</span>]) <span class="keyword">for</span> sq <span class="keyword">in</span> data]</span><br><span class="line">    x = [i[<span class="number">0</span>] <span class="keyword">for</span> i <span class="keyword">in</span> data]</span><br><span class="line">    y = [i[<span class="number">1</span>] <span class="keyword">for</span> i <span class="keyword">in</span> data]</span><br><span class="line">    data = rnn_utils.pad_sequence(x, batch_first=<span class="keyword">True</span>, padding_value=<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> data.unsqueeze(<span class="number">-1</span>), data_length, torch.tensor(y, dtype=torch.float32)</span><br></pre></td></tr></table></figure>
+<p>这样一来，每次返回的就是一个PackedSequence对象、一个记录实际长度的序列、以及标签序列。重新定义collate_fn之后的返回结果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">batch_x, batch_x_len = loader.next()</span><br><span class="line">batch_x_pack = rnn_utils.pack_padded_sequence(batch_x, </span><br><span class="line">                                                  batch_x_len, batch_first=<span class="keyword">True</span>)</span><br><span class="line">batch_x = tensor([[[<span class="number">1.</span>],</span><br><span class="line">         [<span class="number">1.</span>],</span><br><span class="line">         [<span class="number">1.</span>],</span><br><span class="line">         [<span class="number">1.</span>],</span><br><span class="line">         [<span class="number">1.</span>],</span><br><span class="line">         [<span class="number">1.</span>],</span><br><span class="line">         [<span class="number">1.</span>]],</span><br><span class="line">        [[<span class="number">3.</span>],</span><br><span class="line">         [<span class="number">3.</span>],</span><br><span class="line">         [<span class="number">3.</span>],</span><br><span class="line">         [<span class="number">3.</span>],</span><br><span class="line">         [<span class="number">3.</span>],</span><br><span class="line">         [<span class="number">0.</span>],</span><br><span class="line">         [<span class="number">0.</span>]],</span><br><span class="line">        [[<span class="number">6.</span>],</span><br><span class="line">         [<span class="number">6.</span>],</span><br><span class="line">         [<span class="number">0.</span>],</span><br><span class="line">         [<span class="number">0.</span>],</span><br><span class="line">         [<span class="number">0.</span>],</span><br><span class="line">         [<span class="number">0.</span>],</span><br><span class="line">         [<span class="number">0.</span>]]])</span><br><span class="line">batch_x_len = [<span class="number">7</span>,<span class="number">5</span>,<span class="number">2</span>]</span><br><span class="line">batch_x_pack = PackedSequence(data=tensor([</span><br><span class="line">        [<span class="number">1.</span>],</span><br><span class="line">        [<span class="number">3.</span>],</span><br><span class="line">        [<span class="number">6.</span>],</span><br><span class="line">        [<span class="number">1.</span>],</span><br><span class="line">        [<span class="number">3.</span>],</span><br><span class="line">        [<span class="number">6.</span>],</span><br><span class="line">        [<span class="number">1.</span>],</span><br><span class="line">        [<span class="number">3.</span>],</span><br><span class="line">        [<span class="number">1.</span>],</span><br><span class="line">        [<span class="number">3.</span>],</span><br><span class="line">        [<span class="number">1.</span>],</span><br><span class="line">        [<span class="number">3.</span>],</span><br><span class="line">        [<span class="number">1.</span>],</span><br><span class="line">        [<span class="number">1.</span>]]), batch_sizes=tensor([<span class="number">3</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>]))</span><br></pre></td></tr></table></figure>
+<h3><span id="pad_packed_sequence">pad_packed_sequence</span></h3><p><code>pad_packed_sequence</code> 执行的是 <code>pack_padded_sequence</code> 的逆操作。</p>
+<p><strong>pack_padded_sequence</strong> 将padding矩阵</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">batch_x = tensor([[[<span class="number">1.</span>], [<span class="number">1.</span>], [<span class="number">1.</span>], [<span class="number">1.</span>], [<span class="number">1.</span>], [<span class="number">1.</span>], [<span class="number">1.</span>]],</span><br><span class="line">        [[<span class="number">3.</span>], [<span class="number">3.</span>], [<span class="number">3.</span>], [<span class="number">3.</span>], [<span class="number">3.</span>], [<span class="number">0.</span>], [<span class="number">0.</span>]],</span><br><span class="line">        [[<span class="number">6.</span>], [<span class="number">6.</span>], [<span class="number">0.</span>], [<span class="number">0.</span>], [<span class="number">0.</span>], [<span class="number">0.</span>], [<span class="number">0.</span>]]])</span><br></pre></td></tr></table></figure>
+<p>加上传入实际的len数组，转化为更小的mini-batch以及对应的len（无padding），输出类型是PackedSequence。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">batch_x_pack = PackedSequence(data=tensor([</span><br><span class="line">        [<span class="number">1.</span>],</span><br><span class="line">        [<span class="number">3.</span>],</span><br><span class="line">        [<span class="number">6.</span>],</span><br><span class="line">        [<span class="number">1.</span>],</span><br><span class="line">        [<span class="number">3.</span>],</span><br><span class="line">        [<span class="number">6.</span>],</span><br><span class="line">        [<span class="number">1.</span>],</span><br><span class="line">        [<span class="number">3.</span>],</span><br><span class="line">        [<span class="number">1.</span>],</span><br><span class="line">        [<span class="number">3.</span>],</span><br><span class="line">        [<span class="number">1.</span>],</span><br><span class="line">        [<span class="number">3.</span>],</span><br><span class="line">        [<span class="number">1.</span>],</span><br><span class="line">        [<span class="number">1.</span>]]), batch_sizes=tensor([<span class="number">3</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>]))</span><br></pre></td></tr></table></figure>
+<p><strong>pad_packed_sequence</strong> 将 PackedSequence 转换为具有 padding 的矩阵。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">out, _ = net(batch_x_pack)</span><br><span class="line">out_pad, out_len = rnn_utils.pad_packed_sequence(out, batch_first=<span class="keyword">True</span>)</span><br><span class="line">out_pad.shape = torch.Size([<span class="number">3</span>, <span class="number">7</span>, <span class="number">10</span>]) <span class="comment"># batch_size * max_len * hidden_size</span></span><br><span class="line">out.data.shape = torch.Size([<span class="number">14</span>, <span class="number">10</span>])  <span class="comment"># 实际的元素个数 * hidden_size</span></span><br><span class="line">out_len = tensor([<span class="number">7</span>, <span class="number">5</span>, <span class="number">2</span>])</span><br></pre></td></tr></table></figure>
+<h3><span id="embedding">Embedding</span></h3><p>本部分参照<a href="https://mp.weixin.qq.com/s/YueTspxyLQdgvM9iEcQGtA" target="_blank" rel="noopener">THU数据派的一篇文章</a>，讲述如何在网络net中添加embedding层。</p>
+<p>本部分需要注意的一点是，前面部分的 <code>pack_padded_sequence</code> 的结果不能直接传进embedding层，因为embedding层不接受PackedSequence对象作为参数，只接收tensor对象，所以只能先利用 <code>pad_packed_sequence</code> 解包再转化为embedding。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获得训练集、验证集和测试集的预料统计</span></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'../../data/token_vocab_pack.json'</span>, <span class="string">'r'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="comment"># vocab: OrderedDict，key为词，value为在所有数据集上统计的个数。使用list(token_vocab.keys())可以得到所有词按顺序的列表。</span></span><br><span class="line">    <span class="comment"># stoi: dict, key为词, value为索引下标。</span></span><br><span class="line">    <span class="comment"># itos: dict, key为索引下标，value为词。</span></span><br><span class="line">    json_token_vocab_pack = f.read()</span><br><span class="line">    token_vocab, token_stoi, token_itos, token_num_word = json.loads(json_token_vocab_pack)</span><br></pre></td></tr></table></figure>
+<p>上边的代码可以获得词和索引的下标。之后再利用已有的预训练词表，生成一个embeddings_index索引表。然后利用自身语料，为每个词找到对应的向量表示，并且加个序号。这样的话相当于来一个词就先利用token_stoi获取token的id，然后在embedding层利用这个id获取对应行的embedding。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 利用Glove，获得现有语料的权重矩阵，并获得[index,vector]的索引列表，矩阵要被加人nn.embedding()</span></span><br><span class="line">EMBEDDING_FILE = <span class="string">'../../data/glove.6B.50d.txt'</span></span><br><span class="line">embeddings_index = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> i, line <span class="keyword">in</span> enumerate(open(EMBEDDING_FILE)):</span><br><span class="line">    val = line.split()</span><br><span class="line">    embeddings_index[val[<span class="number">0</span>]] = np.asarray(val[<span class="number">1</span>:], dtype=<span class="string">'float32'</span>)</span><br><span class="line">embedding_matrix = np.zeros((len(token_itos), vocab_dim))</span><br><span class="line"><span class="keyword">for</span> _index, word <span class="keyword">in</span> token_itos.items():</span><br><span class="line">    embedding_vector = embeddings_index.get(word)</span><br><span class="line">    <span class="keyword">if</span> embedding_vector <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">        embedding_matrix[int(_index)] = embedding_vector</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        embedding_matrix[int(_index)] = np.asarray(np.zeros(vocab_dim), dtype=<span class="string">'float32'</span>)  <span class="comment"># &lt;unk&gt;</span></span><br><span class="line">embedding_matrix[<span class="number">0</span>] = np.asarray(np.ones(vocab_dim), dtype=<span class="string">'float32'</span>)  <span class="comment"># &lt;pad&gt;</span></span><br></pre></td></tr></table></figure>
+<p>torch.nn包下的Embedding，提供了封装好的可以作为<strong>训练的一层</strong>，参数为词表大小和维度，然后借助于现有的权重矩阵进行初始化权重，并可设置参不参与调参。</p>
+<p><strong>建立词向量层</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># torch.nn.Embedding(n_vocabulary,embedding_size)</span></span><br><span class="line">self.embedding = nn.Embedding(len(token_itos), vocab_dim)</span><br><span class="line">self.embedding.weight.data.copy_(torch.from_numpy(embedding_matrix))</span><br><span class="line">self.embedding.weight.requires_grad = <span class="keyword">False</span> <span class="comment"># 这里设置embedding层不参与训练</span></span><br><span class="line">self.embedding_dropout = nn.Dropout2d(<span class="number">0.1</span>)</span><br></pre></td></tr></table></figure>
+<h3><span id="参考链接">参考链接</span></h3><p><a href="https://zhuanlan.zhihu.com/p/63219625" target="_blank" rel="noopener">使用Keras和Pytorch处理RNN变长序列输入的方法总结</a></p>
+<p><a href="https://blog.csdn.net/baidu_32885165/article/details/102155219" target="_blank" rel="noopener">LSTM在text embedding中的作用(Cross modal retrieval)</a></p>
+<p><a href="https://www.cnblogs.com/duye/p/10590146.html" target="_blank" rel="noopener">【pytorch】关于Embedding和GRU、LSTM的使用详解</a></p>
+<p><a href="https://www.jianshu.com/p/043083d114d4" target="_blank" rel="noopener">pytorch中LSTM笔记</a></p>
+<h3><span id="附录代码">附录代码</span></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">  @ Time     : 2019/12/10 上午10:24</span></span><br><span class="line"><span class="string">  @ Author   : Vodka</span></span><br><span class="line"><span class="string">  @ File     : LSTM .py</span></span><br><span class="line"><span class="string">  @ Software : PyCharm</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torch.optim <span class="keyword">as</span> optim</span><br><span class="line"><span class="keyword">import</span> torch.nn.utils.rnn <span class="keyword">as</span> rnn_utils</span><br><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> TensorDataset, DataLoader</span><br><span class="line"></span><br><span class="line">batch_size = <span class="number">64</span></span><br><span class="line">epoch_size = <span class="number">1000</span></span><br><span class="line">softmax_size = <span class="number">20</span></span><br><span class="line">input_size = <span class="number">50</span></span><br><span class="line">hidden_size = <span class="number">32</span></span><br><span class="line">vocab_dim = <span class="number">50</span></span><br><span class="line">learning_rate = <span class="number">0.01</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyData</span><span class="params">(torch.utils.data.Dataset)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    定义数据读取迭代器结构</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, data_seq, data_label)</span>:</span></span><br><span class="line">        self.data_seq = data_seq</span><br><span class="line">        self.data_label = data_label</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> len(self.data_seq)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self, idx)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.data_seq[idx], self.data_label[idx]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">collate_fn</span><span class="params">(data)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    定义 dataloader 的返回值</span></span><br><span class="line"><span class="string">    :param data:</span></span><br><span class="line"><span class="string">    :return:</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    data.sort(key=<span class="keyword">lambda</span> x: len(x[<span class="number">0</span>]), reverse=<span class="keyword">True</span>)</span><br><span class="line">    data_length = [len(sq[<span class="number">0</span>]) <span class="keyword">for</span> sq <span class="keyword">in</span> data]</span><br><span class="line">    x = [i[<span class="number">0</span>] <span class="keyword">for</span> i <span class="keyword">in</span> data]</span><br><span class="line">    y = [i[<span class="number">1</span>] <span class="keyword">for</span> i <span class="keyword">in</span> data]</span><br><span class="line">    data = rnn_utils.pad_sequence(x, batch_first=<span class="keyword">True</span>, padding_value=<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> data.unsqueeze(<span class="number">-1</span>), data_length, torch.tensor(y, dtype=torch.float32).view(<span class="number">-1</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RNN</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    自己封装一个RNN</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.embedding = nn.Embedding(len(token_itos), vocab_dim)</span><br><span class="line">        self.embedding.weight.data.copy_(torch.from_numpy(embedding_matrix))</span><br><span class="line">        self.embedding.weight.requires_grad = <span class="keyword">False</span></span><br><span class="line">        self.embedding_dropout = nn.Dropout2d(<span class="number">0.1</span>)</span><br><span class="line">        self.embedding_dropout.requires_grad = <span class="keyword">False</span></span><br><span class="line">        self.lstm = nn.LSTM(input_size, hidden_size, batch_first=<span class="keyword">True</span>)</span><br><span class="line">        self.linear = nn.Linear(hidden_size, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        <span class="comment"># 先解包传进来的x,得到真实的输入序列和真实长度</span></span><br><span class="line">        _pad, _len = rnn_utils.pad_packed_sequence(x, batch_first=<span class="keyword">True</span>)</span><br><span class="line">        <span class="comment"># 过一个embedding</span></span><br><span class="line">        x_embedding = self.embedding(_pad)</span><br><span class="line">        x_embedding = x_embedding.view(x_embedding.shape[<span class="number">0</span>], x_embedding.shape[<span class="number">1</span>], <span class="number">-1</span>)</span><br><span class="line">        output, _ = self.lstm(x_embedding)</span><br><span class="line">        <span class="comment"># 拿出来最后一个单词对应的时间步的h作为输出</span></span><br><span class="line">        temp = []</span><br><span class="line">        _len = _len - <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(_len)):</span><br><span class="line">            temp.append(output[i, _len[i], :].tolist())</span><br><span class="line">        temp = torch.tensor(temp)</span><br><span class="line">        <span class="comment"># 再过一个线性层</span></span><br><span class="line">        out = self.linear(temp)</span><br><span class="line">        <span class="comment"># print(out)</span></span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获得训练集、验证集和测试集的预料统计</span></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'../../data/token_vocab_pack.json'</span>, <span class="string">'r'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="comment"># vocab: OrderedDict，key为词，value为在所有数据集上统计的个数。使用list(token_vocab.keys())可以得到所有词按顺序的列表。</span></span><br><span class="line">    <span class="comment"># stoi: dict, key为词, value为索引下标。</span></span><br><span class="line">    <span class="comment"># itos: dict, key为索引下标，value为词。</span></span><br><span class="line">    json_token_vocab_pack = f.read()</span><br><span class="line">    token_vocab, token_stoi, token_itos, token_num_word = json.loads(json_token_vocab_pack)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 利用Glove，获得现有语料的权重矩阵，并获得[index,vector]的索引列表,矩阵要被加入结果从</span></span><br><span class="line">EMBEDDING_FILE = <span class="string">'../../data/glove.6B.50d.txt'</span></span><br><span class="line">embeddings_index = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> i, line <span class="keyword">in</span> enumerate(open(EMBEDDING_FILE)):</span><br><span class="line">    val = line.split()</span><br><span class="line">    embeddings_index[val[<span class="number">0</span>]] = np.asarray(val[<span class="number">1</span>:], dtype=<span class="string">'float32'</span>)</span><br><span class="line">embedding_matrix = np.zeros((len(token_itos), vocab_dim))</span><br><span class="line"><span class="keyword">for</span> _index, word <span class="keyword">in</span> token_itos.items():</span><br><span class="line">    embedding_vector = embeddings_index.get(word)</span><br><span class="line">    <span class="keyword">if</span> embedding_vector <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">        embedding_matrix[int(_index)] = embedding_vector</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        embedding_matrix[int(_index)] = np.asarray(np.zeros(vocab_dim), dtype=<span class="string">'float32'</span>)  <span class="comment"># &lt;unk&gt;</span></span><br><span class="line">embedding_matrix[<span class="number">0</span>] = np.asarray(np.ones(vocab_dim), dtype=<span class="string">'float32'</span>)  <span class="comment"># &lt;pad&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> essay_id <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">9</span>):</span><br><span class="line">        <span class="comment"># 加载训练集</span></span><br><span class="line">        data = pd.read_csv(<span class="string">'../../data/train.csv'</span>)</span><br><span class="line">        data = data.loc[data[<span class="string">'essay_set'</span>] == essay_id]</span><br><span class="line">        X_train = data[<span class="string">'tokens'</span>]</span><br><span class="line">        y_train = data[<span class="string">'score'</span>].values.reshape(<span class="number">-1</span>, <span class="number">1</span>)</span><br><span class="line">        X = []</span><br><span class="line">        y = torch.tensor(y_train)</span><br><span class="line">        <span class="keyword">for</span> essay <span class="keyword">in</span> X_train:</span><br><span class="line">            essay_vec = []</span><br><span class="line">            essay_tokens = eval(essay)</span><br><span class="line">            <span class="keyword">for</span> token <span class="keyword">in</span> essay_tokens:</span><br><span class="line">                <span class="keyword">try</span>:</span><br><span class="line">                    essay_vec.append(token_stoi[token.lower()])</span><br><span class="line">                <span class="keyword">except</span>:</span><br><span class="line">                    essay_vec.append(<span class="number">1</span>) <span class="comment"># 没见过的词视为&lt;unk&gt;</span></span><br><span class="line">            X.append(torch.tensor(essay_vec))</span><br><span class="line">        train = MyData(X, y)</span><br><span class="line">        trainloader = DataLoader(train, batch_size=batch_size, collate_fn=collate_fn)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 加载验证集</span></span><br><span class="line">        data = pd.read_csv(<span class="string">'../../data/dev.csv'</span>)</span><br><span class="line">        data = data.loc[data[<span class="string">'essay_set'</span>] == essay_id]</span><br><span class="line">        X_dev = data[<span class="string">'tokens'</span>]</span><br><span class="line">        y_dev = data[<span class="string">'score'</span>].values.reshape(<span class="number">-1</span>, <span class="number">1</span>)</span><br><span class="line">        X = []</span><br><span class="line">        y = torch.tensor(y_dev)</span><br><span class="line">        <span class="keyword">for</span> essay <span class="keyword">in</span> X_dev:</span><br><span class="line">            essay_vec = []</span><br><span class="line">            essay_tokens = eval(essay)</span><br><span class="line">            <span class="keyword">for</span> token <span class="keyword">in</span> essay_tokens:</span><br><span class="line">                <span class="keyword">try</span>:</span><br><span class="line">                    essay_vec.append(token_stoi[token.lower()])</span><br><span class="line">                <span class="keyword">except</span>:</span><br><span class="line">                    essay_vec.append(<span class="number">1</span>)</span><br><span class="line">            X.append(torch.tensor(essay_vec))</span><br><span class="line">        valid = MyData(X, y)</span><br><span class="line">        validloader = DataLoader(valid, batch_size=batch_size, collate_fn=collate_fn)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 定义网络</span></span><br><span class="line">        net = RNN()</span><br><span class="line">        optimizer = optim.Adam(net.parameters(), lr=learning_rate)</span><br><span class="line">        loss_F = nn.MSELoss()</span><br><span class="line"></span><br><span class="line">        best_valid_loss = <span class="number">111111.0</span></span><br><span class="line">        valid_losses = []</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> epoch <span class="keyword">in</span> range(<span class="number">1</span>, epoch_size + <span class="number">1</span>):</span><br><span class="line">            train_loss, valid_loss = [], []</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 训练部分</span></span><br><span class="line">            _index = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> data, length, target <span class="keyword">in</span> trainloader:</span><br><span class="line">                batch_x_pack = rnn_utils.pack_padded_sequence(data, length, batch_first=<span class="keyword">True</span>)</span><br><span class="line">                net.zero_grad()</span><br><span class="line">                output = net(batch_x_pack)</span><br><span class="line">                loss = loss_F(output, target)</span><br><span class="line">                loss.backward()</span><br><span class="line">                <span class="comment"># for i in range(len(output)):</span></span><br><span class="line">                <span class="comment">#     if(_index==1 or _index==27 or _index==59):</span></span><br><span class="line">                <span class="comment">#         print(str(output[i].item()) + "    " + str(target[i].item()) + "    " + str(loss.item()))</span></span><br><span class="line">                optimizer.step()</span><br><span class="line">                train_loss.append(loss.item())</span><br><span class="line">                _index += <span class="number">1</span></span><br><span class="line">            print(<span class="string">"*********train*********\nEpoch &#123;&#125; of Essay &#123;&#125;, Loss : &#123;&#125; . "</span>.format(epoch, essay_id,</span><br><span class="line">                                                                                       sum(train_loss) / (</span><br><span class="line">                                                                                           len(train_loss))))</span><br><span class="line">            <span class="comment"># 验证部分</span></span><br><span class="line">            <span class="keyword">for</span> data, length, target <span class="keyword">in</span> validloader:</span><br><span class="line">                batch_x_pack = rnn_utils.pack_padded_sequence(data, length, batch_first=<span class="keyword">True</span>)</span><br><span class="line">                output = net(batch_x_pack)</span><br><span class="line">                loss = loss_F(output, target)</span><br><span class="line">                valid_loss.append(loss.item())</span><br><span class="line">            print(<span class="string">"*********eval*********\nEpoch &#123;&#125; of Essay &#123;&#125;, Loss : &#123;&#125; . "</span>.format(epoch, essay_id,</span><br><span class="line">                                                                                      sum(valid_loss) / (</span><br><span class="line">                                                                                          len(valid_loss))))</span><br><span class="line">            <span class="comment"># print(list(net.named_parameters()))</span></span><br><span class="line"></span><br><span class="line">            <span class="comment"># valid_losses.append(sum(valid_loss))</span></span><br><span class="line">            <span class="comment">#</span></span><br><span class="line">            <span class="comment"># if (len(valid_losses) &gt; 20):</span></span><br><span class="line">            <span class="comment">#     flag = True</span></span><br><span class="line">            <span class="comment">#     for i in range(1, 21):</span></span><br><span class="line">            <span class="comment">#         if (valid_losses[-i] &lt;= best_valid_loss):</span></span><br><span class="line">            <span class="comment">#             best_valid_loss = valid_losses[-i]</span></span><br><span class="line">            <span class="comment">#             flag = False</span></span><br><span class="line">            <span class="comment">#     if flag == True:</span></span><br><span class="line">            <span class="comment">#         break</span></span><br><span class="line"></span><br><span class="line">        torch.save(net, <span class="string">"model_"</span> + str(essay_id) + <span class="string">".pkl"</span>)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>本文来源：「想飞的小菜鸡」的个人网站  <a href="https://vodkazy.cn" target="_blank" rel="noopener">vodkazy.cn</a></p>
+<p>版权声明：本文为「想飞的小菜鸡」的原创文章，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请附上原文出处链接及本声明。</p>
+<p>原文链接：<a href="https://vodkazy.cn/2019/12/12/小记：处理LSTM-embedding变长序列" target="_blank" rel="noopener">https://vodkazy.cn/2019/12/12/小记：处理LSTM-embedding变长序列</a></p>
+</blockquote>
+
+        </div>
+      </article>
+    </div>
+
+	<!-- 打赏 -->
+    <div class="reward">
+	<div class="reward-button">赏 <span class="reward-code">
+		<span class="alipay-code"> <img class="alipay-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/alipay.webp"><b>支付宝打赏</b> </span> 
+		<span class="wechat-code"> <img class="wechat-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/weixin.webp"><b>微信打赏</b> </span> </span>
+	</div>
+	<p class="reward-notice">如果文章对你有帮助，欢迎点击上方按钮打赏作者，更多文章请访问<a href="https://vodkazy.cn" style="color:blue">想飞的小菜鸡</a></p>
+	    <style>
+		*,*:before,*:after {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			-ms-box-sizing: border-box;
+			box-sizing: border-box
+		}
+
+		.reward {
+			padding: 5px 0
+		}
+
+		.reward .reward-notice {
+			font-size: 14px;
+			line-height: 14px;
+			margin: 15px auto;
+			text-align: center
+		}
+
+		.reward .reward-button {
+			font-size: 28px;
+			line-height: 58px;
+			position: relative;
+			display: block;
+			width: 60px;
+			height: 60px;
+			margin: 0 auto;
+			padding: 0;
+			-webkit-user-select: none;
+			text-align: center;
+			vertical-align: middle;
+			color: #fff;
+			border: 1px solid #f1b60e;
+			border-radius: 50%;
+			background: #fccd60;
+			background: -webkit-gradient(linear,left top,left bottom,color-stop(0,#fccd60),color-stop(100%,#fbae12),color-stop(100%,#2989d8),color-stop(100%,#207cca));
+			background: -webkit-linear-gradient(top,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%);
+			background: linear-gradient(to bottom,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%)
+		}
+
+		.reward .reward-code {
+			position: absolute;
+			top: -220px;
+			left: 50%;
+			display: none;
+			width: 350px;
+			height: 200px;
+			margin-left: -175px;
+			padding: 15px;
+			border: 1px solid #e6e6e6;
+			background: #fff;
+			box-shadow: 0 1px 1px 1px #efefef
+		}
+
+		.reward .reward-button:hover .reward-code {
+			display: block
+		}
+
+		.reward .reward-code span {
+			display: inline-block;
+			width: 150px;
+			height: 150px
+		}
+
+		.reward .reward-code span.alipay-code {
+			float: left
+		}
+
+		.reward .reward-code span.alipay-code a {
+			padding: 0
+		}
+
+		.reward .reward-code span.wechat-code {
+			float: right
+		}
+
+		.reward .reward-code img {
+			display: inline-block;
+			float: left;
+			width: 150px;
+			height: 150px;
+			margin: 0 auto;
+			border: 0
+		}
+
+		.reward .reward-code b {
+			font-size: 14px;
+			line-height: 26px;
+			display: block;
+			margin: 0;
+			text-align: center;
+			color: #666
+		}
+
+		.reward .reward-code b.notice {
+			line-height: 2rem;
+			margin-top: -1rem;
+			color: #999
+		}
+
+		.reward .reward-code:after,.reward .reward-code:before {
+			position: absolute;
+			content: '';
+			border: 10px solid transparent
+		}
+
+		.reward .reward-code:after {
+			bottom: -19px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #fff
+		}
+
+		.reward .reward-code:before {
+			bottom: -20px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #e6e6e6
+		}
+    </style>
+
+
+    <!-- Pre or Next -->
+    
+	<div class="container">
+           <ul class="pager">
+    	     
+      	     <li class="previous">
+              <a href="/2019/12/27/《自然语言处理》课程知识点整理/" rel="prev">上一篇</a>
+             </li>
+           
+           
+              <li class="next">
+              <a href="/2019/11/08/Go学习笔记/" rel="prev">下一篇</a>
+            </li>
+           
+          </ul>
+       </div>
+   
+
+    <!-- Valine无后端评论系统 -->   
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+		    el: '#vcomments' ,
+		    appId: 'lH3VkMCd4MHaKtr2n2SRWdoi-MdYXbMMI',
+		    appKey: '5aMXSY7b4KwnzfgpzLA0hPLv',
+		    notify:true, 
+		    verify:false, 
+		    placeholder: '填写正确的邮箱和昵称才能收到我的回复哦       ٩( ^o^ )و  ' ,
+		    avatar: 'retro'
+		});
+    </script>
+    <!-- Valine无后端评论系统 -->  
+
+  </div>
+</div>
+</div>
+
+  <!-- Footer -->
+  <!-- Footer -->
+<footer class="site-info">
+  <p>
+    <span>想飞的小菜鸡 &copy; 2021</span>
+    
+      <span class="split">|</span>
+      <span>照耀的Blog</span>
+    
+  </p>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    本站访客数<span id="busuanzi_value_site_uv"></span>人次
+    本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</footer>
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+<script src="/js/app.js"></script>
+
+
+ 
+  <!-- 使用 aotuload.js 引入看板娘 -->    
+  <!-- //<script src="/js/assets/jquery.min.js?v=3.3.1"></script> -->   
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  <!-- //<script src="/js/assets/jquery-ui.min.js?v=1.12.1"></script>   --> 
+  <script src="https://cdn.jsdelivr.net/npm/jquery-ui-dist@1.12.1/jquery-ui.min.js"></script>
+  <script src="/js/assets/autoload.js?v=1.4.2"></script>
+  <!-- //<script src="https://live2d-cdn.fghrsh.net/assets/1.4.2/autoload.js></script> -->   
+   
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var i=n.imageLazyLoadSetting.isSPA,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){i&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,e,a=0;a<r.length;a++)t=r[a],e=void 0,0<=(e=t.getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},n.src=i}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+
+</html>

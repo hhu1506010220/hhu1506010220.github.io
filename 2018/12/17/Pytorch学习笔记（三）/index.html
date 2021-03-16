@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<!-- 百度统计 -->
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?e31627579358722b9d300535c8206351";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Vodkazy">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="Pytorch学习笔记（三）">
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="想飞的小菜鸡">
+  <!--Type page-->
+  
+      <meta property="og:type" content="article">
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- Title -->
+  
+  <title>Pytorch学习笔记（三） - 想飞的小菜鸡</title>
+
+
+  <link rel="shortcut icon" href="/../images/icon.ico">
+  <!--font-awesome-->
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+
+<body>
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    
+    <div class="logo">
+      <a href="/" rel="home">
+        
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://cdn2.iconfinder.com/data/icons/weather-color-2/500/weather-01-128.png" alt="想飞的小菜鸡" height="60">
+        
+      </a>
+    </div>
+    <a class="header-name" href="/">
+            <span>想飞的小菜鸡</span>
+            的小窝
+        </a>
+    <!-- navbar -->
+    <nav class="navbar">
+      <!--  nav links -->
+      <div class="collapse">
+        <ul class="navbar-nav">
+          
+          
+            <li>
+              <a href="/.">
+                
+                  <i class="fa fa-home "></i>
+                
+                首页
+              </a>
+            </li>
+          
+            <li>
+              <a href="/archives">
+                
+                  <i class="fa fa-archive "></i>
+                
+                目录
+              </a>
+            </li>
+          
+            <li>
+              <a href="/project">
+                
+                  <i class="fa fa-folder-open "></i>
+                
+                代码库
+              </a>
+            </li>
+          
+            <li>
+              <a href="/photo">
+                
+                  <i class="fa fa-photo "></i>
+                
+                相册薄
+              </a>
+            </li>
+          
+            <li>
+              <a href="/lovetree">
+                
+                  <i class="fa fa-tree "></i>
+                
+                爱情树
+              </a>
+            </li>
+          
+            <li>
+              <a href="/guestbook">
+                
+                  <i class="fa fa-edit "></i>
+                
+                留言板
+              </a>
+            </li>
+          
+            <li>
+              <a href="/about">
+                
+                  <i class="fa fa-user "></i>
+                
+                关于我
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="button-wrap">
+      <button class="menu-toggle">Primary Menu</button>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            Pytorch学习笔记（三）
+            
+          </h1>
+         
+        </div>
+         <p class="a-posted-on">
+          2018-12-17
+          </p>
+        <!-- Post Main Content -->
+        <div class="entry-content">
+          <p>本文涉及应用一个基于字符级别的RNN模型训练一个国家名称的分类模型。<br><a id="more"></a></p>
+<!-- toc -->
+<ul>
+<li><a href="#recommended-reading">Recommended Reading</a></li>
+<li><a href="#task-description">Task Description</a></li>
+<li><a href="#processing-flow">Processing Flow</a><ul>
+<li><a href="#preparing-the-data">PREPARING THE DATA</a></li>
+<li><a href="#turning-names-into-tensors">Turning Names into Tensors</a></li>
+<li><a href="#creating-the-network">Creating the Network</a></li>
+<li><a href="#training">Training</a><ul>
+<li><a href="#preparing-for-training">Preparing for Training</a></li>
+<li><a href="#training-the-network">Training the Network</a></li>
+</ul>
+</li>
+<li><a href="#plotting-the-results">Plotting the Results</a></li>
+<li><a href="#evaluating-the-results">Evaluating the Results</a><ul>
+<li><a href="#running-on-user-input">Running on User Input</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<p>我们将建立和训练一个基本的字符级RNN来对单词进行分类。字符级RNN将单词读取为一串字符，在每一步输出一个prediction和“hidden state”，将其先前的隐藏状态输入到下一步。我们将最后的预测作为输出，即单词属于哪一类。</p>
+<p>具体来说，我们将对来自18种语言的几千个姓氏进行培训，并根据拼写预测一个名字来自哪种语言。</p>
+<h1><span id="recommended-reading">Recommended Reading</span></h1><p> 在阅读本文之前，你需要安装了Pytorch、了解Python，以及理解了Tensor。</p>
+<ul>
+<li><a href="https://pytorch.org/" target="_blank" rel="noopener">https://pytorch.org/</a> For installation instructions</li>
+<li><a href="https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html" target="_blank" rel="noopener">Deep Learning with PyTorch: A 60 Minute Blitz</a> to get started with PyTorch in general</li>
+<li><a href="https://pytorch.org/tutorials/beginner/pytorch_with_examples.html" target="_blank" rel="noopener">Learning PyTorch with Examples</a> for a wide and deep overview</li>
+<li><a href="https://pytorch.org/tutorials/beginner/former_torchies_tutorial.html" target="_blank" rel="noopener">PyTorch for Former Torch Users</a> if you are former Lua Torch user<br>除此之外，你也可以了解一下RNN和LSTM的原理。</li>
+<li><a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/" target="_blank" rel="noopener">The Unreasonable Effectiveness of Recurrent Neural Networks</a> shows a bunch of real life examples</li>
+<li><a href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/" target="_blank" rel="noopener">Understanding LSTM Networks</a> is about LSTMs specifically but also informative about RNNs in general.</li>
+</ul>
+<h1><span id="task-description">Task Description</span></h1><p>从机器学习的角度来说，这是个分类任务。具体来说，我们将从18种语言的原始语言中训练几千个名字，并根据测试集的名字来预测这个名字来自哪一种语言。本文的<a href="https://download.pytorch.org/tutorial/data.zip" target="_blank" rel="noopener">训练数据</a>可在此处下载。里面包含18个名为“[Language] .txt”的文本文件。每个文件包含很多名字数据集，每行一个名字。每个文件所包含的名字来自一种语言(比如中文、英文)，所以数据集包含的18种语言代表18类。训练的样本是(名字，语言)，当模型训练后，输入名字，预测此名字属于哪一类(属于那种语言)。</p>
+<h1><span id="processing-flow">Processing Flow</span></h1><h2><span id="preparing-the-data">PREPARING THE DATA</span></h2><p>首先解决编码问题以及将类别放入python list。然后类别对应的名字以字典类型读入，方面后面模型训练使用。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> unicode_literals, print_function, division</span><br><span class="line"><span class="keyword">from</span> io <span class="keyword">import</span> open</span><br><span class="line"><span class="keyword">import</span> glob</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">findFiles</span><span class="params">(path)</span>:</span> <span class="keyword">return</span> glob.glob(path)</span><br><span class="line"></span><br><span class="line"><span class="comment"># print(findFiles('data/names/*.txt'))</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> unicodedata</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"></span><br><span class="line"><span class="comment"># 所有的英文字母加上五个标点符号" .,;'"。一个57个字符</span></span><br><span class="line">all_letters = string.ascii_letters + <span class="string">" .,;'"</span></span><br><span class="line">n_letters = len(all_letters)</span><br><span class="line"><span class="comment"># print(all_letters)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Turn a Unicode string to plain ASCII, thanks to http://stackoverflow.com/a/518232/2809427</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">unicodeToAscii</span><span class="params">(s)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">''</span>.join(</span><br><span class="line">		<span class="comment">#  NFC表示字符应该是整体组成(比如可能的话就使用单一编码)，而NFD表示字符应该分解为多个组合字符表示</span></span><br><span class="line">        c <span class="keyword">for</span> c <span class="keyword">in</span> unicodedata.normalize(<span class="string">'NFD'</span>, s)</span><br><span class="line">        <span class="keyword">if</span> unicodedata.category(c) != <span class="string">'Mn'</span></span><br><span class="line">        <span class="keyword">and</span> c <span class="keyword">in</span> all_letters</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line"><span class="comment"># print(unicodeToAscii('Ślusàrski'))</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Build the category_lines dictionary, a list of names per language</span></span><br><span class="line">category_lines = &#123;&#125;</span><br><span class="line">all_categories = []</span><br><span class="line"></span><br><span class="line"><span class="comment"># Read a file and split into lines</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">readLines</span><span class="params">(filename)</span>:</span></span><br><span class="line">	<span class="comment">#  strip() 方法用于移除字符串头尾指定的字符(默认为空格或换行符)或字符序列</span></span><br><span class="line">    lines = open(filename, encoding=<span class="string">'utf-8'</span>).read().strip().split(<span class="string">'\n'</span>)</span><br><span class="line">    <span class="comment"># lines 返回的是 ['x1','x2'……'xn']</span></span><br><span class="line">    <span class="keyword">return</span> [unicodeToAscii(line) <span class="keyword">for</span> line <span class="keyword">in</span> lines]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> filename <span class="keyword">in</span> findFiles(<span class="string">'data/names/*.txt'</span>):</span><br><span class="line">	<span class="comment"># filename 是形如 data/names\\xxx.txt</span></span><br><span class="line">	<span class="comment"># os.path.splitext(os.path.basename(filename))返回的是('xxx','.txt')</span></span><br><span class="line">    category = os.path.splitext(os.path.basename(filename))[<span class="number">0</span>]</span><br><span class="line">	<span class="comment"># 18种类别</span></span><br><span class="line">    all_categories.append(category)</span><br><span class="line">    lines = readLines(filename)</span><br><span class="line">    <span class="comment"># category_lines：字典类型（类别: 名字list）</span></span><br><span class="line">	<span class="comment"># 字典&#123;'A':'xx','B':'XX'&#125;</span></span><br><span class="line">	<span class="comment"># list:[a,b,c,d...]，array:np.array([a,b,c,d...])。二者均可通过下标访问数组元素，但是list不可对整个数组一起运算而array可以</span></span><br><span class="line">    category_lines[category] = lines</span><br><span class="line"></span><br><span class="line">n_categories = len(all_categories)</span><br><span class="line">print(<span class="string">"all_letters: "</span>+str(len(all_letters)))</span><br><span class="line">print(<span class="string">"n_categories: "</span>+str(n_categories))</span><br><span class="line">print(<span class="string">"category_lines:"</span>+str(category_lines[<span class="string">'Chinese'</span>][:<span class="number">5</span>]))</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">all_letters: <span class="number">57</span></span><br><span class="line">n_categories: <span class="number">18</span></span><br><span class="line">category_lines:[<span class="string">'Ang'</span>, <span class="string">'AuYong'</span>, <span class="string">'Bai'</span>, <span class="string">'Ban'</span>, <span class="string">'Bao'</span>]</span><br></pre></td></tr></table></figure></p>
+<h2><span id="turning-names-into-tensors">Turning Names into Tensors</span></h2><p>在PyTorch中，我们需要将名字数据转换成Tensor才能在模型中读入使用。在本文中，最小粒度为字符，意思是我们将名字里面的每个字符都作为一个独立的语言粒度来处理，为了数学化字符，我们这里使用”one-hot vector”来表示，这里每个字符被表示成<1 57="" *="">的向量。由于名字由多个字符组成，所以每个名字就被表示成了2D的矩阵&lt;名字字符个数 <em> 1 </em> 57&gt;。这个额外的一维是因为PyTorch假设所有的东西都是分批的-我们只是在这里使用1的批次大小。(tensor的形式是 <code>tensor([x,x,x,x])</code>，里面的每个x都是<code>[[x,x,x,x]]</code>形式的)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line"><span class="comment"># Find letter index from all_letters, e.g. "a" = 0</span></span><br><span class="line"><span class="comment"># 返回字母所在下标</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">letterToIndex</span><span class="params">(letter)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> all_letters.find(letter)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Just for demonstration, turn a letter into a &lt;1 x n_letters&gt; Tensor</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">letterToTensor</span><span class="params">(letter)</span>:</span></span><br><span class="line">    tensor = torch.zeros(<span class="number">1</span>, n_letters)</span><br><span class="line">    <span class="comment"># tensor是一个list包着一个list，[[],[],[]]的形式</span></span><br><span class="line">    tensor[<span class="number">0</span>][letterToIndex(letter)] = <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> tensor</span><br><span class="line"></span><br><span class="line"><span class="comment"># Turn a line into a &lt;line_length x 1 x n_letters&gt;,</span></span><br><span class="line"><span class="comment"># or an array of one-hot letter vectors</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lineToTensor</span><span class="params">(line)</span>:</span></span><br><span class="line">    tensor = torch.zeros(len(line), <span class="number">1</span>, n_letters)</span><br><span class="line">    <span class="comment"># enumerate() 函数用于将一个可遍历的数据对象(如列表、元组或字符串)组合为一个索引序列，同时列出数据和数据下标，一般用在 for 循环当中。如返回[(i,a_i),(i+1,a_i+1)]的形式。</span></span><br><span class="line">    <span class="keyword">for</span> li, letter <span class="keyword">in</span> enumerate(line):</span><br><span class="line">        tensor[li][<span class="number">0</span>][letterToIndex(letter)] = <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> tensor</span><br><span class="line"></span><br><span class="line">print(letterToTensor(<span class="string">'J'</span>))</span><br><span class="line">print(lineToTensor(<span class="string">'Jones'</span>).size())</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">tensor([[ <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,</span><br><span class="line">          <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,</span><br><span class="line">          <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">1.</span>,</span><br><span class="line">          <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,</span><br><span class="line">          <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>,  <span class="number">0.</span>]])</span><br><span class="line">torch.Size([<span class="number">5</span>, <span class="number">1</span>, <span class="number">57</span>])</span><br></pre></td></tr></table></figure></1></p>
+<h2><span id="creating-the-network">Creating the Network</span></h2><p>在自动求导之前，在Tensor中创建一个递归的神经网络需要在几个timesteps里克隆出一个层的参数。这些层包含隐藏状态和梯度（完全归属于这个图），这意味着你可以非常“纯”得实现RNN，作为常规的前馈层。</p>
+<p>下面的这个RNN module由两个线性层组成，它们作用在输入层和隐藏层上，然后在输出层后面有一个LogSoftmax层。<br><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="1.jpg" alt=""><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RNN</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, input_size, hidden_size, output_size)</span>:</span></span><br><span class="line">        super(RNN, self).__init__()</span><br><span class="line"></span><br><span class="line">        self.hidden_size = hidden_size</span><br><span class="line"></span><br><span class="line">        self.i2h = nn.Linear(input_size + hidden_size, hidden_size)</span><br><span class="line">        self.i2o = nn.Linear(input_size + hidden_size, output_size)</span><br><span class="line">        self.softmax = nn.LogSoftmax(dim=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, input, hidden)</span>:</span></span><br><span class="line">        <span class="comment"># torch.cat的作用是把两个Tensor连在一起，第二个参数1代表按行（上下）0代表按列（左右）</span></span><br><span class="line">        combined = torch.cat((input, hidden), <span class="number">1</span>)</span><br><span class="line">        hidden = self.i2h(combined)</span><br><span class="line">        output = self.i2o(combined)</span><br><span class="line">        output = self.softmax(output)</span><br><span class="line">        <span class="keyword">return</span> output, hidden</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">initHidden</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> torch.zeros(<span class="number">1</span>, self.hidden_size)</span><br><span class="line"></span><br><span class="line">n_hidden = <span class="number">128</span></span><br><span class="line">rnn = RNN(n_letters, n_hidden, n_categories)</span><br></pre></td></tr></table></figure></p>
+<p>为了运行这个网络的一个步(step)，我们需要传入输入（在我们的例子中，当前字母的张量）和一个先前的隐藏状态（初始化为零）。 我们将返回输出（每种语言的概率）和下一个隐藏状态（我们为下一步保留）。下面来测试一下。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">input = letterToTensor(<span class="string">'A'</span>)</span><br><span class="line">hidden =torch.zeros(<span class="number">1</span>, n_hidden)</span><br><span class="line"></span><br><span class="line">output, next_hidden = rnn(input, hidden)</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">tensor([[<span class="number">-2.8834</span>, <span class="number">-2.9605</span>, <span class="number">-2.8716</span>, <span class="number">-2.8836</span>, <span class="number">-2.8435</span>, <span class="number">-3.0421</span>, <span class="number">-2.8215</span>,</span><br><span class="line">         <span class="number">-2.8237</span>, <span class="number">-2.9479</span>, <span class="number">-2.9012</span>, <span class="number">-2.9043</span>, <span class="number">-2.7766</span>, <span class="number">-2.9645</span>, <span class="number">-2.8986</span>,</span><br><span class="line">         <span class="number">-2.9966</span>, <span class="number">-2.8645</span>, <span class="number">-2.8830</span>, <span class="number">-2.8002</span>]]) tensor([[ <span class="number">0.0349</span>,  <span class="number">0.0630</span>,  <span class="number">0.0390</span>, <span class="number">-0.1138</span>, <span class="number">-0.0121</span>,  <span class="number">0.0225</span>,  <span class="number">0.0151</span>,</span><br><span class="line">          <span class="number">0.0150</span>, <span class="number">-0.0606</span>,  <span class="number">0.1185</span>, <span class="number">-0.0688</span>, <span class="number">-0.0340</span>,  <span class="number">0.0115</span>, <span class="number">-0.0540</span>,</span><br><span class="line">          <span class="number">0.0141</span>, <span class="number">-0.0232</span>,  <span class="number">0.0322</span>, <span class="number">-0.0111</span>,  <span class="number">0.0185</span>, <span class="number">-0.0777</span>, <span class="number">-0.0144</span>,</span><br><span class="line">          <span class="number">0.0070</span>, <span class="number">-0.0806</span>,  <span class="number">0.0173</span>, <span class="number">-0.0764</span>, <span class="number">-0.0582</span>,  <span class="number">0.0117</span>,  <span class="number">0.0373</span>,</span><br><span class="line">          <span class="number">0.0358</span>, <span class="number">-0.0730</span>, <span class="number">-0.1175</span>,  <span class="number">0.0121</span>,  <span class="number">0.0851</span>,  <span class="number">0.0514</span>,  <span class="number">0.0251</span>,</span><br><span class="line">         <span class="number">-0.0029</span>, <span class="number">-0.0581</span>, <span class="number">-0.0684</span>, <span class="number">-0.0295</span>, <span class="number">-0.0176</span>, <span class="number">-0.0717</span>, <span class="number">-0.0114</span>,</span><br><span class="line">          <span class="number">0.1108</span>, <span class="number">-0.0850</span>, <span class="number">-0.0092</span>,  <span class="number">0.0557</span>, <span class="number">-0.0428</span>,  <span class="number">0.0215</span>,  <span class="number">0.0270</span>,</span><br><span class="line">         <span class="number">-0.0594</span>, <span class="number">-0.0791</span>, <span class="number">-0.0117</span>,  <span class="number">0.0963</span>, <span class="number">-0.0552</span>,  <span class="number">0.0348</span>,  <span class="number">0.0199</span>,</span><br><span class="line">         <span class="number">-0.1099</span>, <span class="number">-0.0455</span>, <span class="number">-0.0050</span>,  <span class="number">0.0466</span>,  <span class="number">0.0120</span>, <span class="number">-0.0765</span>,  <span class="number">0.0904</span>,</span><br><span class="line">          <span class="number">0.0951</span>,  <span class="number">0.0350</span>,  <span class="number">0.0016</span>,  <span class="number">0.0220</span>, <span class="number">-0.1223</span>,  <span class="number">0.0892</span>,  <span class="number">0.0187</span>,</span><br><span class="line">         <span class="number">-0.0113</span>,  <span class="number">0.0333</span>, <span class="number">-0.0876</span>,  <span class="number">0.0420</span>, <span class="number">-0.0724</span>, <span class="number">-0.0900</span>,  <span class="number">0.0470</span>,</span><br><span class="line">          <span class="number">0.1084</span>, <span class="number">-0.0746</span>,  <span class="number">0.0001</span>,  <span class="number">0.0609</span>, <span class="number">-0.0043</span>, <span class="number">-0.0224</span>,  <span class="number">0.0867</span>,</span><br><span class="line">         <span class="number">-0.0062</span>,  <span class="number">0.0764</span>, <span class="number">-0.0261</span>,  <span class="number">0.0413</span>,  <span class="number">0.0657</span>, <span class="number">-0.0280</span>, <span class="number">-0.0594</span>,</span><br><span class="line">         <span class="number">-0.0602</span>,  <span class="number">0.0622</span>,  <span class="number">0.1100</span>,  <span class="number">0.0487</span>, <span class="number">-0.0218</span>,  <span class="number">0.0676</span>,  <span class="number">0.0755</span>,</span><br><span class="line">         <span class="number">-0.0052</span>,  <span class="number">0.0319</span>,  <span class="number">0.0267</span>, <span class="number">-0.0070</span>,  <span class="number">0.0734</span>, <span class="number">-0.0206</span>,  <span class="number">0.0219</span>,</span><br><span class="line">         <span class="number">-0.0242</span>,  <span class="number">0.0549</span>, <span class="number">-0.0286</span>,  <span class="number">0.0876</span>,  <span class="number">0.0802</span>, <span class="number">-0.0669</span>, <span class="number">-0.0160</span>,</span><br><span class="line">         <span class="number">-0.1227</span>,  <span class="number">0.1216</span>,  <span class="number">0.0064</span>, <span class="number">-0.0975</span>, <span class="number">-0.0887</span>,  <span class="number">0.0880</span>, <span class="number">-0.0095</span>,</span><br><span class="line">         <span class="number">-0.0132</span>,  <span class="number">0.0181</span>, <span class="number">-0.0699</span>,  <span class="number">0.0252</span>, <span class="number">-0.0033</span>, <span class="number">-0.0169</span>,  <span class="number">0.0660</span>,</span><br><span class="line">         <span class="number">-0.0262</span>,  <span class="number">0.0060</span>]])</span><br></pre></td></tr></table></figure></p>
+<p>为了提高效率，我们不想为每一步创建一个新的张量，所以我们将使用<code>lineToTensor</code>而不是<code>letterToTensor</code>。并且我们将会使用切片。这可以通过预计算Tensor的batch来优化运算速度。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">input = lineToTensor(<span class="string">'Albert'</span>)</span><br><span class="line">hidden = torch.zeros(<span class="number">1</span>, n_hidden)</span><br><span class="line"></span><br><span class="line">output, next_hidden = rnn(input[<span class="number">0</span>], hidden)</span><br><span class="line">print(output)</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">tensor([[<span class="number">-2.8209</span>, <span class="number">-2.9620</span>, <span class="number">-2.7678</span>, <span class="number">-2.9134</span>, <span class="number">-2.9096</span>, <span class="number">-2.9340</span>, <span class="number">-2.9292</span>,</span><br><span class="line">         <span class="number">-2.8248</span>, <span class="number">-2.9066</span>, <span class="number">-2.8925</span>, <span class="number">-2.8650</span>, <span class="number">-2.8142</span>, <span class="number">-3.0028</span>, <span class="number">-2.8984</span>,</span><br><span class="line">         <span class="number">-2.8664</span>, <span class="number">-2.9377</span>, <span class="number">-2.8813</span>, <span class="number">-2.9289</span>]])</span><br></pre></td></tr></table></figure></p>
+<p>如你所见，输出是<code>&lt;1 x n_categories&gt;</code>张量，其中每一项都是该类别的可能性likelihood。有关<a href="http://www.cnblogs.com/pinard/p/6437495.html" target="_blank" rel="noopener">对数似然损失函数</a>请查看此文。</p>
+<h2><span id="training">Training</span></h2><h3><span id="preparing-for-training">Preparing for Training</span></h3><p>在接受训练之前，我们应该写一些辅助函数。首先是解释网络的输出，tensor的每个值都代表了当前输入归档于此类别的可能性。我们可以用<code>Tensor.topk</code>来获得最大值的索引：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">categoryFromOutput</span><span class="params">(output)</span>:</span></span><br><span class="line">    top_n, top_i = output.topk(<span class="number">1</span>)</span><br><span class="line">    category_i = top_i[<span class="number">0</span>].item()</span><br><span class="line">    <span class="keyword">return</span> all_categories[category_i], category_i</span><br><span class="line"></span><br><span class="line">print(categoryFromOutput(output))</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">(<span class="string">'Dutch'</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure></p>
+<p>官方教程里还写了一个快速获取训练样例的函数:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">randomChoice</span><span class="params">(l)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> l[random.randint(<span class="number">0</span>, len(l) - <span class="number">1</span>)]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">randomTrainingExample</span><span class="params">()</span>:</span></span><br><span class="line">    category = randomChoice(all_categories)</span><br><span class="line">    line = randomChoice(category_lines[category])</span><br><span class="line">    category_tensor = torch.tensor([all_categories.index(category)], dtype=torch.long)</span><br><span class="line">    line_tensor = lineToTensor(line)</span><br><span class="line">    <span class="keyword">return</span> category, line, category_tensor, line_tensor</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">    category, line, category_tensor, line_tensor = randomTrainingExample()</span><br><span class="line">    print(<span class="string">'category ='</span>, category, <span class="string">'/ line ='</span>, line)</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">category = Greek / line = Papadelias</span><br><span class="line">category = Greek / line = Demakis</span><br><span class="line">category = German / line = Siskind</span><br><span class="line">category = Russian / line = Abduloff</span><br><span class="line">category = Russian / line = Kaberman</span><br><span class="line">category = Vietnamese / line = Ngo</span><br><span class="line">category = Chinese / line = Jue</span><br><span class="line">category = Scottish / line = Kerr</span><br><span class="line">category = English / line = Eastwood</span><br><span class="line">category = Vietnamese / line = Thuy</span><br></pre></td></tr></table></figure></p>
+<h3><span id="training-the-network">Training the Network</span></h3><p>现在训练这个网络所需要的就是给它展示一堆训练样例，让它去猜测，如果它错了就告诉它来帮助他修正。<br>这里我们使用的损失函数是 <code>nn.NLLLoss</code>，RNNN的最后一层是 <code>nn.LogSoftmax</code>.<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">criterion</span> = nn.NLLLoss()</span><br></pre></td></tr></table></figure></p>
+<p>每一轮训练都包括以下步骤： </p>
+<ol>
+<li>创建输入和目标张量 </li>
+<li>创建一个初始隐藏状态(初始化为0) </li>
+<li>读入该步的每个字母然后保持该步的隐藏状态，将此隐藏状态和下一步的字母输入一起组成下一步输出 </li>
+<li>比较最终输出结果和标记目标</li>
+<li>反向传播(并且更新参数) </li>
+<li>返回输出和损失</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">learning_rate = <span class="number">0.005</span> <span class="comment"># If you set this too high, it might explode. If too low, it might not learn</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train</span><span class="params">(category_tensor, line_tensor)</span>:</span> </span><br><span class="line">    <span class="comment"># line_tensor是输入张量(是一个) category_tensor是目标张量</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 创建一个初始隐藏状态(初始化为0) </span></span><br><span class="line">    hidden = rnn.initHidden()</span><br><span class="line"></span><br><span class="line">    rnn.zero_grad()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(line_tensor.size()[<span class="number">0</span>]):</span><br><span class="line">        output, hidden = rnn(line_tensor[i], hidden)</span><br><span class="line"></span><br><span class="line">    loss = criterion(output, category_tensor)</span><br><span class="line">    loss.backward()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Add parameters' gradients to their values, multiplied by learning rate</span></span><br><span class="line">    <span class="keyword">for</span> p <span class="keyword">in</span> rnn.parameters():</span><br><span class="line">        p.data.add_(-learning_rate, p.grad.data)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> output, loss.item()</span><br></pre></td></tr></table></figure>
+<p>测试：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"></span><br><span class="line">n_iters = <span class="number">100000</span></span><br><span class="line">print_every = <span class="number">5000</span></span><br><span class="line">plot_every = <span class="number">1000</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Keep track of losses for plotting</span></span><br><span class="line">current_loss = <span class="number">0</span></span><br><span class="line">all_losses = []</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">timeSince</span><span class="params">(since)</span>:</span></span><br><span class="line">    now = time.time()</span><br><span class="line">    s = now - since</span><br><span class="line">    m = math.floor(s / <span class="number">60</span>)</span><br><span class="line">    s -= m * <span class="number">60</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'%dm %ds'</span> % (m, s)</span><br><span class="line"></span><br><span class="line">start = time.time()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> iter <span class="keyword">in</span> range(<span class="number">1</span>, n_iters + <span class="number">1</span>):</span><br><span class="line">    category, line, category_tensor, line_tensor = randomTrainingExample()</span><br><span class="line">    output, loss = train(category_tensor, line_tensor)</span><br><span class="line">    current_loss += loss</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Print iter number, loss, name and guess</span></span><br><span class="line">    <span class="keyword">if</span> iter % print_every == <span class="number">0</span>:</span><br><span class="line">        guess, guess_i = categoryFromOutput(output)</span><br><span class="line">        correct = <span class="string">'✓'</span> <span class="keyword">if</span> guess == category <span class="keyword">else</span> <span class="string">'✗ (%s)'</span> % category</span><br><span class="line">        print(<span class="string">'%d %d%% (%s) %.4f %s / %s %s'</span> % (iter, iter / n_iters * <span class="number">100</span>, timeSince(start), loss, line, guess, correct))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Add current loss avg to list of losses</span></span><br><span class="line">    <span class="keyword">if</span> iter % plot_every == <span class="number">0</span>:</span><br><span class="line">        all_losses.append(current_loss / plot_every)</span><br><span class="line">        current_loss = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line"><span class="number">5000</span> <span class="number">5</span>% (<span class="number">0</span>m <span class="number">7</span>s) <span class="number">2.7471</span> Eckstein / Russian ✗ (German)</span><br><span class="line"><span class="number">10000</span> <span class="number">10</span>% (<span class="number">0</span>m <span class="number">15</span>s) <span class="number">2.3858</span> Akera / Spanish ✗ (Japanese)</span><br><span class="line"><span class="number">15000</span> <span class="number">15</span>% (<span class="number">0</span>m <span class="number">23</span>s) <span class="number">2.1613</span> Borde / English ✗ (French)</span><br><span class="line"><span class="number">20000</span> <span class="number">20</span>% (<span class="number">0</span>m <span class="number">31</span>s) <span class="number">0.8195</span> Kerner / German ✓</span><br><span class="line"><span class="number">25000</span> <span class="number">25</span>% (<span class="number">0</span>m <span class="number">40</span>s) <span class="number">2.1763</span> Gately / French ✗ (English)</span><br><span class="line"><span class="number">30000</span> <span class="number">30</span>% (<span class="number">0</span>m <span class="number">49</span>s) <span class="number">1.1153</span> Didrikil / Russian ✓</span><br><span class="line"><span class="number">35000</span> <span class="number">35</span>% (<span class="number">0</span>m <span class="number">57</span>s) <span class="number">0.5463</span> Yim / Korean ✓</span><br><span class="line"><span class="number">40000</span> <span class="number">40</span>% (<span class="number">1</span>m <span class="number">5</span>s) <span class="number">0.5045</span> Stevenson / Scottish ✓</span><br><span class="line"><span class="number">45000</span> <span class="number">45</span>% (<span class="number">1</span>m <span class="number">13</span>s) <span class="number">0.9374</span> Polymenakou / Greek ✓</span><br><span class="line"><span class="number">50000</span> <span class="number">50</span>% (<span class="number">1</span>m <span class="number">20</span>s) <span class="number">1.9215</span> Prchal / Irish ✗ (Czech)</span><br><span class="line"><span class="number">55000</span> <span class="number">55</span>% (<span class="number">1</span>m <span class="number">28</span>s) <span class="number">1.3433</span> Maciomhair / Irish ✓</span><br><span class="line"><span class="number">60000</span> <span class="number">60</span>% (<span class="number">1</span>m <span class="number">36</span>s) <span class="number">2.0990</span> Chemlik / Scottish ✗ (Czech)</span><br><span class="line"><span class="number">65000</span> <span class="number">65</span>% (<span class="number">1</span>m <span class="number">44</span>s) <span class="number">0.2319</span> Seghers / Dutch ✓</span><br><span class="line"><span class="number">70000</span> <span class="number">70</span>% (<span class="number">1</span>m <span class="number">52</span>s) <span class="number">1.3295</span> Mcmahon / Irish ✓</span><br><span class="line"><span class="number">75000</span> <span class="number">75</span>% (<span class="number">2</span>m <span class="number">0</span>s) <span class="number">2.3238</span> Cruz / Spanish ✗ (Portuguese)</span><br><span class="line"><span class="number">80000</span> <span class="number">80</span>% (<span class="number">2</span>m <span class="number">7</span>s) <span class="number">2.3112</span> William / Scottish ✗ (Irish)</span><br><span class="line"><span class="number">85000</span> <span class="number">85</span>% (<span class="number">2</span>m <span class="number">15</span>s) <span class="number">1.3948</span> Brown / Irish ✗ (Scottish)</span><br><span class="line"><span class="number">90000</span> <span class="number">90</span>% (<span class="number">2</span>m <span class="number">23</span>s) <span class="number">0.4818</span> Oberti / Italian ✓</span><br><span class="line"><span class="number">95000</span> <span class="number">95</span>% (<span class="number">2</span>m <span class="number">31</span>s) <span class="number">0.1396</span> Ukiyo / Japanese ✓</span><br><span class="line"><span class="number">100000</span> <span class="number">100</span>% (<span class="number">2</span>m <span class="number">39</span>s) <span class="number">2.3235</span> Shahin / Arabic ✗ (Russian)</span><br></pre></td></tr></table></figure>
+<h2><span id="plotting-the-results">Plotting the Results</span></h2><p>接下来我们用可视化图的形式描绘出all_losses的变化趋势。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> matplotlib.ticker <span class="keyword">as</span> ticker</span><br><span class="line"></span><br><span class="line">plt.figure()</span><br><span class="line">plt.plot(all_losses)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure></p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="2.jpg" alt=""></p>
+<h2><span id="evaluating-the-results">Evaluating the Results</span></h2><p>为了查看网络在不同类别上的性能，我们将创建一个混淆矩阵，为网络猜测的语言(列名)指示其对应的实际使用语言(行名)。为了计算混淆矩阵，我们将选择一些数据在网络中使用<code>evaluate()</code>函数，这个函数和<code>train()</code>函数差不多但是它少了回传。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Keep track of correct guesses in a confusion matrix</span></span><br><span class="line">confusion = torch.zeros(n_categories, n_categories)</span><br><span class="line">n_confusion = <span class="number">10000</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Just return an output given a line</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">evaluate</span><span class="params">(line_tensor)</span>:</span></span><br><span class="line">    hidden = rnn.initHidden()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(line_tensor.size()[<span class="number">0</span>]):</span><br><span class="line">        output, hidden = rnn(line_tensor[i], hidden)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> output</span><br><span class="line"></span><br><span class="line"><span class="comment"># Go through a bunch of examples and record which are correctly guessed</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(n_confusion):</span><br><span class="line">    category, line, category_tensor, line_tensor = randomTrainingExample()</span><br><span class="line">    output = evaluate(line_tensor)</span><br><span class="line">    guess, guess_i = categoryFromOutput(output)</span><br><span class="line">    category_i = all_categories.index(category)</span><br><span class="line">    confusion[category_i][guess_i] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Normalize by dividing every row by its sum</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(n_categories):</span><br><span class="line">    confusion[i] = confusion[i] / confusion[i].sum()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set up plot</span></span><br><span class="line">fig = plt.figure()</span><br><span class="line">ax = fig.add_subplot(<span class="number">111</span>)</span><br><span class="line">cax = ax.matshow(confusion.numpy())</span><br><span class="line">fig.colorbar(cax)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set up axes</span></span><br><span class="line">ax.set_xticklabels([<span class="string">''</span>] + all_categories, rotation=<span class="number">90</span>)</span><br><span class="line">ax.set_yticklabels([<span class="string">''</span>] + all_categories)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Force label at every tick</span></span><br><span class="line">ax.xaxis.set_major_locator(ticker.MultipleLocator(<span class="number">1</span>))</span><br><span class="line">ax.yaxis.set_major_locator(ticker.MultipleLocator(<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># sphinx_gallery_thumbnail_number = 2</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure></p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="3.jpg" alt=""><br>你可以从主轴上找出亮点，显示它猜错了哪种语言，例如汉语被认成了韩语，Portuguese葡萄牙语被认成了西班牙语。它似乎在Greek方面做得很好，在英语方面则很差(也许是因为与其他语言的重叠)。</p>
+<h3><span id="running-on-user-input">Running on User Input</span></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">predict</span><span class="params">(input_line, n_predictions=<span class="number">3</span>)</span>:</span></span><br><span class="line">    print(<span class="string">'\n&gt; %s'</span> % input_line)</span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">        output = evaluate(lineToTensor(input_line))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># tensor.data.topk(x) 返回第x大的数，会返回一个tuple，里面包含两个tensor，分别是第x大值 和 第一次出现这个数的下标值</span></span><br><span class="line">        topv, topi = output.topk(n_predictions, <span class="number">1</span>, <span class="keyword">True</span>)</span><br><span class="line">        predictions = []</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n_predictions):</span><br><span class="line">            value = topv[<span class="number">0</span>][i].item()</span><br><span class="line">            category_index = topi[<span class="number">0</span>][i].item()</span><br><span class="line">            print(<span class="string">'(%.2f) %s'</span> % (value, all_categories[category_index]))</span><br><span class="line">            predictions.append([value, all_categories[category_index]])</span><br><span class="line"></span><br><span class="line">predict(<span class="string">'Dovesky'</span>)</span><br><span class="line">predict(<span class="string">'Jackson'</span>)</span><br><span class="line">predict(<span class="string">'Satoshi'</span>)</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">&gt; Dovesky</span><br><span class="line">(<span class="number">-0.32</span>) Russian</span><br><span class="line">(<span class="number">-1.68</span>) Czech</span><br><span class="line">(<span class="number">-2.80</span>) English</span><br><span class="line"></span><br><span class="line">&gt; Jackson</span><br><span class="line">(<span class="number">-0.67</span>) Scottish</span><br><span class="line">(<span class="number">-1.17</span>) Russian</span><br><span class="line">(<span class="number">-2.38</span>) English</span><br><span class="line"></span><br><span class="line">&gt; Satoshi</span><br><span class="line">(<span class="number">-1.15</span>) Arabic</span><br><span class="line">(<span class="number">-1.74</span>) Polish</span><br><span class="line">(<span class="number">-2.13</span>) Italian</span><br></pre></td></tr></table></figure>
+<p>官网给的代码样例可在<a href="https://github.com/spro/practical-pytorch/tree/master/char-rnn-classification" target="_blank" rel="noopener">github</a>上找到。</p>
+<blockquote>
+<p>本文来源：「想飞的小菜鸡」的个人网站  <a href="https://vodkazy.cn" target="_blank" rel="noopener">vodkazy.cn</a></p>
+<p>版权声明：本文为「想飞的小菜鸡」的原创文章，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请附上原文出处链接及本声明。</p>
+<p>原文链接：<a href="https://vodkazy.cn/2018/12/17/Pytorch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/" target="_blank" rel="noopener">https://vodkazy.cn/2018/12/17/Pytorch学习笔记（三）</a></p>
+</blockquote>
+
+        </div>
+      </article>
+    </div>
+
+	<!-- 打赏 -->
+    <div class="reward">
+	<div class="reward-button">赏 <span class="reward-code">
+		<span class="alipay-code"> <img class="alipay-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/alipay.webp"><b>支付宝打赏</b> </span> 
+		<span class="wechat-code"> <img class="wechat-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/weixin.webp"><b>微信打赏</b> </span> </span>
+	</div>
+	<p class="reward-notice">如果文章对你有帮助，欢迎点击上方按钮打赏作者，更多文章请访问<a href="https://vodkazy.cn" style="color:blue">想飞的小菜鸡</a></p>
+	    <style>
+		*,*:before,*:after {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			-ms-box-sizing: border-box;
+			box-sizing: border-box
+		}
+
+		.reward {
+			padding: 5px 0
+		}
+
+		.reward .reward-notice {
+			font-size: 14px;
+			line-height: 14px;
+			margin: 15px auto;
+			text-align: center
+		}
+
+		.reward .reward-button {
+			font-size: 28px;
+			line-height: 58px;
+			position: relative;
+			display: block;
+			width: 60px;
+			height: 60px;
+			margin: 0 auto;
+			padding: 0;
+			-webkit-user-select: none;
+			text-align: center;
+			vertical-align: middle;
+			color: #fff;
+			border: 1px solid #f1b60e;
+			border-radius: 50%;
+			background: #fccd60;
+			background: -webkit-gradient(linear,left top,left bottom,color-stop(0,#fccd60),color-stop(100%,#fbae12),color-stop(100%,#2989d8),color-stop(100%,#207cca));
+			background: -webkit-linear-gradient(top,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%);
+			background: linear-gradient(to bottom,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%)
+		}
+
+		.reward .reward-code {
+			position: absolute;
+			top: -220px;
+			left: 50%;
+			display: none;
+			width: 350px;
+			height: 200px;
+			margin-left: -175px;
+			padding: 15px;
+			border: 1px solid #e6e6e6;
+			background: #fff;
+			box-shadow: 0 1px 1px 1px #efefef
+		}
+
+		.reward .reward-button:hover .reward-code {
+			display: block
+		}
+
+		.reward .reward-code span {
+			display: inline-block;
+			width: 150px;
+			height: 150px
+		}
+
+		.reward .reward-code span.alipay-code {
+			float: left
+		}
+
+		.reward .reward-code span.alipay-code a {
+			padding: 0
+		}
+
+		.reward .reward-code span.wechat-code {
+			float: right
+		}
+
+		.reward .reward-code img {
+			display: inline-block;
+			float: left;
+			width: 150px;
+			height: 150px;
+			margin: 0 auto;
+			border: 0
+		}
+
+		.reward .reward-code b {
+			font-size: 14px;
+			line-height: 26px;
+			display: block;
+			margin: 0;
+			text-align: center;
+			color: #666
+		}
+
+		.reward .reward-code b.notice {
+			line-height: 2rem;
+			margin-top: -1rem;
+			color: #999
+		}
+
+		.reward .reward-code:after,.reward .reward-code:before {
+			position: absolute;
+			content: '';
+			border: 10px solid transparent
+		}
+
+		.reward .reward-code:after {
+			bottom: -19px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #fff
+		}
+
+		.reward .reward-code:before {
+			bottom: -20px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #e6e6e6
+		}
+    </style>
+
+
+    <!-- Pre or Next -->
+    
+	<div class="container">
+           <ul class="pager">
+    	     
+      	     <li class="previous">
+              <a href="/2018/12/21/EARL配置记录/" rel="prev">上一篇</a>
+             </li>
+           
+           
+              <li class="next">
+              <a href="/2018/12/14/Pytorch学习笔记（二）/" rel="prev">下一篇</a>
+            </li>
+           
+          </ul>
+       </div>
+   
+
+    <!-- Valine无后端评论系统 -->   
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+		    el: '#vcomments' ,
+		    appId: 'lH3VkMCd4MHaKtr2n2SRWdoi-MdYXbMMI',
+		    appKey: '5aMXSY7b4KwnzfgpzLA0hPLv',
+		    notify:true, 
+		    verify:false, 
+		    placeholder: '填写正确的邮箱和昵称才能收到我的回复哦       ٩( ^o^ )و  ' ,
+		    avatar: 'retro'
+		});
+    </script>
+    <!-- Valine无后端评论系统 -->  
+
+  </div>
+</div>
+</div>
+
+  <!-- Footer -->
+  <!-- Footer -->
+<footer class="site-info">
+  <p>
+    <span>想飞的小菜鸡 &copy; 2021</span>
+    
+      <span class="split">|</span>
+      <span>照耀的Blog</span>
+    
+  </p>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    本站访客数<span id="busuanzi_value_site_uv"></span>人次
+    本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</footer>
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+<script src="/js/app.js"></script>
+
+
+ 
+  <!-- 使用 aotuload.js 引入看板娘 -->    
+  <!-- //<script src="/js/assets/jquery.min.js?v=3.3.1"></script> -->   
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  <!-- //<script src="/js/assets/jquery-ui.min.js?v=1.12.1"></script>   --> 
+  <script src="https://cdn.jsdelivr.net/npm/jquery-ui-dist@1.12.1/jquery-ui.min.js"></script>
+  <script src="/js/assets/autoload.js?v=1.4.2"></script>
+  <!-- //<script src="https://live2d-cdn.fghrsh.net/assets/1.4.2/autoload.js></script> -->   
+   
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var i=n.imageLazyLoadSetting.isSPA,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){i&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,e,a=0;a<r.length;a++)t=r[a],e=void 0,0<=(e=t.getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},n.src=i}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+
+</html>

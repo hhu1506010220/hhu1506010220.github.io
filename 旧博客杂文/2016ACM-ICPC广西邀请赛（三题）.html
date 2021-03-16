@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<!-- 百度统计 -->
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?e31627579358722b9d300535c8206351";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Vodkazy">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="2016ACM-ICPC广西邀请赛（三题）">
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="想飞的小菜鸡">
+  <!--Type page-->
+  
+      <meta property="og:type" content="article">
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- Title -->
+  
+  <title>2016ACM-ICPC广西邀请赛（三题） - 想飞的小菜鸡</title>
+
+
+  <link rel="shortcut icon" href="/../images/icon.ico">
+  <!--font-awesome-->
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+
+<body>
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    
+    <div class="logo">
+      <a href="/" rel="home">
+        
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://cdn2.iconfinder.com/data/icons/weather-color-2/500/weather-01-128.png" alt="想飞的小菜鸡" height="60">
+        
+      </a>
+    </div>
+    <a class="header-name" href="/">
+            <span>想飞的小菜鸡</span>
+            的小窝
+        </a>
+    <!-- navbar -->
+    <nav class="navbar">
+      <!--  nav links -->
+      <div class="collapse">
+        <ul class="navbar-nav">
+          
+          
+            <li>
+              <a href="/.">
+                
+                  <i class="fa fa-home "></i>
+                
+                首页
+              </a>
+            </li>
+          
+            <li>
+              <a href="/archives">
+                
+                  <i class="fa fa-archive "></i>
+                
+                目录
+              </a>
+            </li>
+          
+            <li>
+              <a href="/project">
+                
+                  <i class="fa fa-folder-open "></i>
+                
+                代码库
+              </a>
+            </li>
+          
+            <li>
+              <a href="/photo">
+                
+                  <i class="fa fa-photo "></i>
+                
+                相册薄
+              </a>
+            </li>
+          
+            <li>
+              <a href="/lovetree">
+                
+                  <i class="fa fa-tree "></i>
+                
+                爱情树
+              </a>
+            </li>
+          
+            <li>
+              <a href="/guestbook">
+                
+                  <i class="fa fa-edit "></i>
+                
+                留言板
+              </a>
+            </li>
+          
+            <li>
+              <a href="/about">
+                
+                  <i class="fa fa-user "></i>
+                
+                关于我
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="button-wrap">
+      <button class="menu-toggle">Primary Menu</button>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            2016ACM-ICPC广西邀请赛（三题）
+            
+          </h1>
+         
+        </div>
+         <p class="a-posted-on">
+          2017-09-06
+          </p>
+        <!-- Post Main Content -->
+        <div class="entry-content">
+          <p>1001  A Math Problem</p>
+<p>送分题，问有多少个数 k^k&lt;=n。打表即可。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> a[<span class="number">16</span>]=&#123;<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">15</span>;i++)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=i;j++)&#123;</span><br><span class="line">			a[i]*=i;</span><br><span class="line">		&#125;	</span><br><span class="line">	&#125;</span><br><span class="line"><span class="comment">//	long long ans=1;</span></span><br><span class="line"><span class="comment">//	for(int i=1;i&lt;=15;i++)ans*=15;</span></span><br><span class="line"><span class="comment">//	cout&lt;&lt;ans&lt;&lt;endl;</span></span><br><span class="line"><span class="comment">//	cout&lt;&lt;pow(15,15)&lt;&lt;endl;</span></span><br><span class="line"><span class="comment">//  long long 不宜用pow </span></span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> n;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">cin</span>&gt;&gt;n)&#123;</span><br><span class="line">		<span class="keyword">if</span>(n&gt;=<span class="number">437893890380859375</span>)<span class="built_in">cout</span>&lt;&lt;<span class="string">"15"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">else</span>	<span class="built_in">cout</span>&lt;&lt;upper_bound(a,a+<span class="number">15</span>,n)-a<span class="number">-1</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>1004 Covering</p>
+<p>dp+矩阵快速幂。或者直接线性递推前10项，用杜教模版暴力杠。</p>
+<p>如果我们考虑状态压缩DP，用0-15表示当前列的被覆盖的情况，可以压缩对称状态。并统计方案数，时间复杂度O(n)。然后利用矩阵快速幂加速即可，矩阵仅需6/*6。时间复杂度O(216logn)</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;cstdio&gt;</span><br><span class="line">#include &lt;cstring&gt;</span><br><span class="line">#include &lt;cmath&gt;</span><br><span class="line">#include &lt;algorithm&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">#include &lt;map&gt;</span><br><span class="line">#include &lt;set&gt;</span><br><span class="line">#include &lt;cassert&gt;</span><br><span class="line">using namespace std<span class="comment">;</span></span><br><span class="line">#define rep(<span class="name">i</span>,a,n) for (<span class="name">ll</span> i=a<span class="comment">;i&lt;n;i++)</span></span><br><span class="line">#define per(<span class="name">i</span>,a,n) for (<span class="name">ll</span> i=n-1<span class="comment">;i&gt;=a;i--)</span></span><br><span class="line">#define pb push_back</span><br><span class="line">#define mp make_pair</span><br><span class="line">#define all(<span class="name">x</span>) (<span class="name">x</span>).begin(),(<span class="name">x</span>).end()</span><br><span class="line">#define fi first</span><br><span class="line">#define se second</span><br><span class="line">#define SZ(<span class="name">x</span>) ((<span class="name">ll</span>)(<span class="name">x</span>).size())</span><br><span class="line">typedef long long ll<span class="comment">;</span></span><br><span class="line">typedef vector&lt;ll&gt; VI<span class="comment">;</span></span><br><span class="line">typedef pair&lt;ll,ll&gt; PII<span class="comment">;</span></span><br><span class="line">const ll mod=1000000007<span class="comment">;</span></span><br><span class="line">ll powmod(<span class="name">ll</span> a,ll b) &#123;ll res=1<span class="comment">;a%=mod; assert(b&gt;=0); for(;b;b&gt;&gt;=1)&#123;if(b&amp;1)res=res*a%mod;a=a*a%mod;&#125;return res;&#125;</span></span><br><span class="line">// head</span><br><span class="line"></span><br><span class="line">ll _<span class="comment">;</span></span><br><span class="line">ll n<span class="comment">;</span></span><br><span class="line">namespace linear_seq &#123;</span><br><span class="line">    const ll N=1e7<span class="comment">;</span></span><br><span class="line">    ll res[N],base[N],_c[N],_md[N]<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    vector&lt;ll&gt; Md<span class="comment">;</span></span><br><span class="line">    void mul(<span class="name">ll</span> *a,ll *b,ll k) &#123;</span><br><span class="line">        rep(<span class="name">i</span>,<span class="number">0</span>,k+k) _c[i]=0<span class="comment">;</span></span><br><span class="line">        rep(<span class="name">i</span>,<span class="number">0</span>,k) if (<span class="name">a</span>[i]) rep(<span class="name">j</span>,<span class="number">0</span>,k) _c[i+j]=(<span class="name">_c</span>[i+j]+a[i]*b[j])%mod;</span><br><span class="line">        for (ll i=k+k-1;i&gt;=k;i--) if (_c[i])</span><br><span class="line">            rep(j,0,SZ(Md)) _c[i-k+Md[j]]=(_c[i-k+Md[j]]-_c[i]*_md[Md[j]])%mod<span class="comment">;</span></span><br><span class="line">        rep(<span class="name">i</span>,<span class="number">0</span>,k) a[i]=_c[i]<span class="comment">;</span></span><br><span class="line">    &#125;</span><br><span class="line">    ll solve(<span class="name">ll</span> n,VI a,VI b) &#123; // a 系数 b 初值 b[n+1]=a[<span class="number">0</span>]*b[n]+...</span><br><span class="line">//        printf("%d\n",SZ(b));</span><br><span class="line">        ll ans=0,pnt=0;</span><br><span class="line">        ll k=SZ(a);</span><br><span class="line">        assert(SZ(a)==SZ(b));</span><br><span class="line">        rep(i,0,k) _md[k-1-i]=-a[i];_md[k]=1;</span><br><span class="line">        Md.clear();</span><br><span class="line">        rep(i,0,k) if (_md[i]!=0) Md.push_back(i);</span><br><span class="line">        rep(i,0,k) res[i]=base[i]=0;</span><br><span class="line">        res[0]=1;</span><br><span class="line">        while ((1ll&lt;&lt;pnt)&lt;=n) pnt++;</span><br><span class="line">        for (ll p=pnt;p&gt;=0;p--) &#123;</span><br><span class="line">            mul(res,res,k);</span><br><span class="line">            if ((n&gt;&gt;p)&amp;1) &#123;</span><br><span class="line">                for (ll i=k-1;i&gt;=0;i--) res[i+1]=res[i];res[0]=0;</span><br><span class="line">                rep(j,0,SZ(Md)) res[Md[j]]=(res[Md[j]]-res[k]*_md[Md[j]])%mod<span class="comment">;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        rep(<span class="name">i</span>,<span class="number">0</span>,k) ans=(<span class="name">ans+res</span>[i]*b[i])%mod;</span><br><span class="line">        if (ans&lt;0) ans+=mod;</span><br><span class="line">        return ans;</span><br><span class="line">    &#125;</span><br><span class="line">    VI BM(VI s) &#123;</span><br><span class="line">        VI C(1,1),B(1,1);</span><br><span class="line">        ll L=0,m=1,b=1;</span><br><span class="line">        rep(n,0,SZ(s)) &#123;</span><br><span class="line">            ll d=0;</span><br><span class="line">            rep(i,0,L+1) d=(d+(ll)C[i]*s[n-i])%mod<span class="comment">;</span></span><br><span class="line">            if (<span class="name">d==0</span>) ++m<span class="comment">;</span></span><br><span class="line">            else if (<span class="number">2</span>*L&lt;=n) &#123;</span><br><span class="line">                VI T=C;</span><br><span class="line">                ll c=mod-d*powmod(<span class="name">b</span>,mod-2)%mod<span class="comment">;</span></span><br><span class="line">                while (<span class="name">SZ</span>(<span class="name">C</span>)&lt;SZ(<span class="name">B</span>)+m) C.pb(<span class="number">0</span>)<span class="comment">;</span></span><br><span class="line">                rep(<span class="name">i</span>,<span class="number">0</span>,SZ(<span class="name">B</span>)) C[i+m]=(<span class="name">C</span>[i+m]+c*B[i])%mod<span class="comment">;</span></span><br><span class="line">                L=n+1-L<span class="comment">; B=T; b=d; m=1;</span></span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                ll c=mod-d*powmod(<span class="name">b</span>,mod-2)%mod<span class="comment">;</span></span><br><span class="line">                while (<span class="name">SZ</span>(<span class="name">C</span>)&lt;SZ(<span class="name">B</span>)+m) C.pb(<span class="number">0</span>)<span class="comment">;</span></span><br><span class="line">                rep(<span class="name">i</span>,<span class="number">0</span>,SZ(<span class="name">B</span>)) C[i+m]=(<span class="name">C</span>[i+m]+c*B[i])%mod<span class="comment">;</span></span><br><span class="line">                ++m<span class="comment">;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return C<span class="comment">;</span></span><br><span class="line">    &#125;</span><br><span class="line">    ll gao(<span class="name">VI</span> a,ll n) &#123;</span><br><span class="line">        VI c=BM(<span class="name">a</span>)<span class="comment">;</span></span><br><span class="line">        c.erase(<span class="name">c</span>.begin())<span class="comment">;</span></span><br><span class="line">        rep(<span class="name">i</span>,<span class="number">0</span>,SZ(<span class="name">c</span>)) c[i]=(<span class="name">mod-c</span>[i])%mod<span class="comment">;</span></span><br><span class="line">        return solve(<span class="name">n</span>,c,VI(<span class="name">a</span>.begin(),a.begin()+SZ(<span class="name">c</span>)))<span class="comment">;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    while(~scanf(<span class="string">"%lld"</span>,<span class="symbol">&amp;n</span>))</span><br><span class="line">        printf(<span class="string">"%d\n"</span>,linear_seq:<span class="symbol">:gao</span>(<span class="name">VI</span>&#123;<span class="number">1</span>,<span class="number">5</span>,<span class="number">11</span>,<span class="number">36</span>,<span class="number">95</span>,<span class="number">281</span>,<span class="number">781</span>,<span class="number">2245</span>,<span class="number">6336</span>,<span class="number">18061</span>&#125;,n-1))<span class="comment">;</span></span><br><span class="line">    return <span class="number">0</span><span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>或者快速幂做法：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;cstdio&gt;</span><br><span class="line">#include &lt;algorithm&gt;</span><br><span class="line">#include &lt;cstring&gt;</span><br><span class="line">#include &lt;cmath&gt;</span><br><span class="line">#include &lt;set&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">typedef long long ll;</span><br><span class="line">const int mod = <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line">struct matrix &#123;</span><br><span class="line">	ll m[<span class="number">4</span>][<span class="number">4</span>];</span><br><span class="line">&#125;;</span><br><span class="line">matrix multi(matrix a, matrix b) &#123;</span><br><span class="line">	matrix tmp;</span><br><span class="line">	for(int i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">		for(int j = <span class="number">0</span>; j &lt; <span class="number">4</span>; j++) &#123;</span><br><span class="line">			tmp.m[i][j] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">			for(int k = <span class="number">0</span>; k &lt; <span class="number">4</span>; k++) &#123;</span><br><span class="line">				tmp.m[i][j] = (tmp.m[i][j] % mod + ((a.m[i][k] % mod) * (b.m[k][j] % mod)) % mod) % mod;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return tmp;</span><br><span class="line">&#125;</span><br><span class="line">void print(matrix a)&#123;</span><br><span class="line">	for(int i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">		for(int j = <span class="number">0</span>; j &lt; <span class="number">4</span>; j++) &#123;</span><br><span class="line">			cout&lt;&lt;a.m[i][j]&lt;&lt;<span class="string">" "</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		cout&lt;&lt;endl;</span><br><span class="line">	&#125;	</span><br><span class="line">	puts(<span class="string">""</span>);</span><br><span class="line">&#125;</span><br><span class="line">matrix fill(matrix &amp;a, int x) &#123;</span><br><span class="line">	for(int i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">		for(int j = <span class="number">0</span>; j &lt; <span class="number">4</span>; j++) &#123;</span><br><span class="line">			a.m[i][j] = x;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="comment">//	print(a);</span></span><br><span class="line">	return a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">matrix quick_mod(ll n) &#123;</span><br><span class="line">	matrix base, ans;</span><br><span class="line">	fill(ans, <span class="number">0</span>);</span><br><span class="line">	fill(base, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//	print(ans);</span></span><br><span class="line">	</span><br><span class="line">	base.m[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>, base.m[<span class="number">0</span>][<span class="number">1</span>] = <span class="number">5</span> ,base.m[<span class="number">0</span>][<span class="number">2</span>] = <span class="number">1</span>, base.m[<span class="number">0</span>][<span class="number">3</span>] =<span class="number">-1</span>;</span><br><span class="line">	base.m[<span class="number">1</span>][<span class="number">0</span>] = base.m[<span class="number">2</span>][<span class="number">1</span>] = base.m[<span class="number">3</span>][<span class="number">2</span>] = <span class="number">1</span>;</span><br><span class="line">	ans.m[<span class="number">0</span>][<span class="number">0</span>] = ans.m[<span class="number">1</span>][<span class="number">1</span>] = ans.m[<span class="number">2</span>][<span class="number">2</span>] = ans.m[<span class="number">3</span>][<span class="number">3</span>] = <span class="number">1</span>;</span><br><span class="line">	while(n) &#123;</span><br><span class="line">		if(n &amp; <span class="number">1</span>) ans = multi(ans, base);</span><br><span class="line">		base = multi(base, base);</span><br><span class="line">		n &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	return ans;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">int main() &#123;</span><br><span class="line">	ll n;</span><br><span class="line">	while(~scanf(<span class="string">"%lld"</span>, &amp;n)) &#123;</span><br><span class="line">		</span><br><span class="line">		matrix save = quick_mod(n - <span class="number">1</span>);</span><br><span class="line">		matrix ans;</span><br><span class="line">		</span><br><span class="line">		fill(ans, <span class="number">0</span>);</span><br><span class="line">		</span><br><span class="line">		ans.m[<span class="number">0</span>][<span class="number">0</span>]=<span class="number">36</span>;</span><br><span class="line">		ans.m[<span class="number">1</span>][<span class="number">0</span>]=<span class="number">11</span>;</span><br><span class="line">		ans.m[<span class="number">2</span>][<span class="number">0</span>]=<span class="number">5</span>;</span><br><span class="line">		ans.m[<span class="number">3</span>][<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">		</span><br><span class="line"><span class="comment">//		print(ans);</span></span><br><span class="line">		ans = multi(save, ans);</span><br><span class="line">		</span><br><span class="line"><span class="comment">//		print(ans);</span></span><br><span class="line">		ll res = (ans.m[<span class="number">3</span>][<span class="number">0</span>] % mod + mod) % mod;</span><br><span class="line">		printf(<span class="string">"%lld<span class="subst">\n</span>"</span>, res);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>1005 Cs Course</p>
+<p>统计前n个数的and or xor，只需统计每个数的每个位置上的01的个数。有0的and肯定是0，有1的or肯定是1，xor就是用了性质：x^b^b=x。</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#include&lt;bits/stdc++.h&gt;</span></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> a[<span class="number">100005</span>],b[<span class="number">100005</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> main()&#123;</span><br><span class="line">	<span class="keyword">int</span> n,p;</span><br><span class="line">	<span class="keyword">while</span>(~scanf(<span class="string">"%d%d"</span>,&amp;n,&amp;p))&#123;</span><br><span class="line">		memset(b,<span class="number">0</span>,sizeof(b)); </span><br><span class="line">		<span class="keyword">int</span> ans_and=<span class="number">0xffffffff</span>,ans_or=<span class="number">0</span>,ans_xor=<span class="number">0</span>;</span><br><span class="line">				</span><br><span class="line">//		cout&lt;&lt;<span class="string">"1 "</span>&lt;&lt;ans_and&lt;&lt;<span class="string">" "</span>&lt;&lt;ans_or&lt;&lt;<span class="string">" "</span>&lt;&lt;ans_xor&lt;&lt;endl;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">			scanf(<span class="string">"%d"</span>,&amp;a[i]);</span><br><span class="line">			<span class="keyword">int</span> <span class="keyword">x</span> = a[i];</span><br><span class="line">			ans_and = (ans_and&amp;a[i]);</span><br><span class="line">			ans_or  = (ans_or|a[i]);</span><br><span class="line">			ans_xor = (ans_xor^a[i]); </span><br><span class="line">//			cout&lt;&lt;i&lt;&lt;<span class="string">" "</span>&lt;&lt;ans_and&lt;&lt;<span class="string">" "</span>&lt;&lt;ans_or&lt;&lt;<span class="string">" "</span>&lt;&lt;ans_xor&lt;&lt;endl;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;<span class="keyword">x</span>;j++,<span class="keyword">x</span>&gt;&gt;=<span class="number">1</span>)  </span><br><span class="line">                b[j]+=<span class="keyword">x</span>%2;  </span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=p;i++)&#123;</span><br><span class="line">			<span class="keyword">int</span> co;</span><br><span class="line">			scanf(<span class="string">"%d"</span>,&amp;co);	</span><br><span class="line">			<span class="keyword">int</span> temp = a[co];</span><br><span class="line">			<span class="keyword">int</span> A = ans_and , O = ans_or , X = ans_xor;</span><br><span class="line">			X=X^temp;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;=<span class="number">30</span>;j++,temp&gt;&gt;=<span class="number">1</span>)  </span><br><span class="line">            &#123;  </span><br><span class="line">                <span class="keyword">if</span>(b[j]==n-<span class="number">1</span>&amp;&amp;temp%2==<span class="number">0</span>)A+=(<span class="number">1</span>&lt;&lt;j);  </span><br><span class="line">                <span class="keyword">if</span>(b[j]==<span class="number">1</span>  &amp;&amp;temp%2   )O-=(<span class="number">1</span>&lt;&lt;j);  </span><br><span class="line">            &#125;  </span><br><span class="line">			<span class="keyword">printf</span>(<span class="string">"%d %d %d\n"</span>,A,O,X);</span><br><span class="line">		&#125;		</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 1007 Duizi and Shunzi</p>
+<p>签到题<br>排序，从小到大枚举每个整数。<br>对于每个整数｛<br>当前数能作为某个顺子的最大值，则取顺子；<br>否则能取对子，则取对子。<br>｝</p>
+
+        </div>
+      </article>
+    </div>
+
+	<!-- 打赏 -->
+    <div class="reward">
+	<div class="reward-button">赏 <span class="reward-code">
+		<span class="alipay-code"> <img class="alipay-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/alipay.webp"><b>支付宝打赏</b> </span> 
+		<span class="wechat-code"> <img class="wechat-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/weixin.webp"><b>微信打赏</b> </span> </span>
+	</div>
+	<p class="reward-notice">如果文章对你有帮助，欢迎点击上方按钮打赏作者，更多文章请访问<a href="https://vodkazy.cn" style="color:blue">想飞的小菜鸡</a></p>
+	    <style>
+		*,*:before,*:after {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			-ms-box-sizing: border-box;
+			box-sizing: border-box
+		}
+
+		.reward {
+			padding: 5px 0
+		}
+
+		.reward .reward-notice {
+			font-size: 14px;
+			line-height: 14px;
+			margin: 15px auto;
+			text-align: center
+		}
+
+		.reward .reward-button {
+			font-size: 28px;
+			line-height: 58px;
+			position: relative;
+			display: block;
+			width: 60px;
+			height: 60px;
+			margin: 0 auto;
+			padding: 0;
+			-webkit-user-select: none;
+			text-align: center;
+			vertical-align: middle;
+			color: #fff;
+			border: 1px solid #f1b60e;
+			border-radius: 50%;
+			background: #fccd60;
+			background: -webkit-gradient(linear,left top,left bottom,color-stop(0,#fccd60),color-stop(100%,#fbae12),color-stop(100%,#2989d8),color-stop(100%,#207cca));
+			background: -webkit-linear-gradient(top,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%);
+			background: linear-gradient(to bottom,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%)
+		}
+
+		.reward .reward-code {
+			position: absolute;
+			top: -220px;
+			left: 50%;
+			display: none;
+			width: 350px;
+			height: 200px;
+			margin-left: -175px;
+			padding: 15px;
+			border: 1px solid #e6e6e6;
+			background: #fff;
+			box-shadow: 0 1px 1px 1px #efefef
+		}
+
+		.reward .reward-button:hover .reward-code {
+			display: block
+		}
+
+		.reward .reward-code span {
+			display: inline-block;
+			width: 150px;
+			height: 150px
+		}
+
+		.reward .reward-code span.alipay-code {
+			float: left
+		}
+
+		.reward .reward-code span.alipay-code a {
+			padding: 0
+		}
+
+		.reward .reward-code span.wechat-code {
+			float: right
+		}
+
+		.reward .reward-code img {
+			display: inline-block;
+			float: left;
+			width: 150px;
+			height: 150px;
+			margin: 0 auto;
+			border: 0
+		}
+
+		.reward .reward-code b {
+			font-size: 14px;
+			line-height: 26px;
+			display: block;
+			margin: 0;
+			text-align: center;
+			color: #666
+		}
+
+		.reward .reward-code b.notice {
+			line-height: 2rem;
+			margin-top: -1rem;
+			color: #999
+		}
+
+		.reward .reward-code:after,.reward .reward-code:before {
+			position: absolute;
+			content: '';
+			border: 10px solid transparent
+		}
+
+		.reward .reward-code:after {
+			bottom: -19px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #fff
+		}
+
+		.reward .reward-code:before {
+			bottom: -20px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #e6e6e6
+		}
+    </style>
+
+
+    <!-- Pre or Next -->
+    
+
+    <!-- Valine无后端评论系统 -->   
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+		    el: '#vcomments' ,
+		    appId: 'lH3VkMCd4MHaKtr2n2SRWdoi-MdYXbMMI',
+		    appKey: '5aMXSY7b4KwnzfgpzLA0hPLv',
+		    notify:true, 
+		    verify:false, 
+		    placeholder: '填写正确的邮箱和昵称才能收到我的回复哦       ٩( ^o^ )و  ' ,
+		    avatar: 'retro'
+		});
+    </script>
+    <!-- Valine无后端评论系统 -->  
+
+  </div>
+</div>
+</div>
+
+  <!-- Footer -->
+  <!-- Footer -->
+<footer class="site-info">
+  <p>
+    <span>想飞的小菜鸡 &copy; 2021</span>
+    
+      <span class="split">|</span>
+      <span>照耀的Blog</span>
+    
+  </p>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    本站访客数<span id="busuanzi_value_site_uv"></span>人次
+    本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</footer>
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+<script src="/js/app.js"></script>
+
+
+ 
+  <!-- 使用 aotuload.js 引入看板娘 -->    
+  <!-- //<script src="/js/assets/jquery.min.js?v=3.3.1"></script> -->   
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  <!-- //<script src="/js/assets/jquery-ui.min.js?v=1.12.1"></script>   --> 
+  <script src="https://cdn.jsdelivr.net/npm/jquery-ui-dist@1.12.1/jquery-ui.min.js"></script>
+  <script src="/js/assets/autoload.js?v=1.4.2"></script>
+  <!-- //<script src="https://live2d-cdn.fghrsh.net/assets/1.4.2/autoload.js></script> -->   
+   
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var i=n.imageLazyLoadSetting.isSPA,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){i&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,e,a=0;a<r.length;a++)t=r[a],e=void 0,0<=(e=t.getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},n.src=i}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+
+</html>

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<!-- 百度统计 -->
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?e31627579358722b9d300535c8206351";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Vodkazy">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="2018蓝桥杯题解+总结">
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="想飞的小菜鸡">
+  <!--Type page-->
+  
+      <meta property="og:type" content="article">
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- Title -->
+  
+  <title>2018蓝桥杯题解+总结 - 想飞的小菜鸡</title>
+
+
+  <link rel="shortcut icon" href="/../images/icon.ico">
+  <!--font-awesome-->
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+
+<body>
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    
+    <div class="logo">
+      <a href="/" rel="home">
+        
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://cdn2.iconfinder.com/data/icons/weather-color-2/500/weather-01-128.png" alt="想飞的小菜鸡" height="60">
+        
+      </a>
+    </div>
+    <a class="header-name" href="/">
+            <span>想飞的小菜鸡</span>
+            的小窝
+        </a>
+    <!-- navbar -->
+    <nav class="navbar">
+      <!--  nav links -->
+      <div class="collapse">
+        <ul class="navbar-nav">
+          
+          
+            <li>
+              <a href="/.">
+                
+                  <i class="fa fa-home "></i>
+                
+                首页
+              </a>
+            </li>
+          
+            <li>
+              <a href="/archives">
+                
+                  <i class="fa fa-archive "></i>
+                
+                目录
+              </a>
+            </li>
+          
+            <li>
+              <a href="/project">
+                
+                  <i class="fa fa-folder-open "></i>
+                
+                代码库
+              </a>
+            </li>
+          
+            <li>
+              <a href="/photo">
+                
+                  <i class="fa fa-photo "></i>
+                
+                相册薄
+              </a>
+            </li>
+          
+            <li>
+              <a href="/lovetree">
+                
+                  <i class="fa fa-tree "></i>
+                
+                爱情树
+              </a>
+            </li>
+          
+            <li>
+              <a href="/guestbook">
+                
+                  <i class="fa fa-edit "></i>
+                
+                留言板
+              </a>
+            </li>
+          
+            <li>
+              <a href="/about">
+                
+                  <i class="fa fa-user "></i>
+                
+                关于我
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="button-wrap">
+      <button class="menu-toggle">Primary Menu</button>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            2018蓝桥杯题解+总结
+            
+          </h1>
+         
+        </div>
+         <p class="a-posted-on">
+          2018-04-15
+          </p>
+        <!-- Post Main Content -->
+        <div class="entry-content">
+          <p>2018蓝桥杯 遗憾省二<br><a id="more"></a></p>
+<ul>
+<li>结果填空 分数</li>
+</ul>
+<p>1/1 + 1/2 + 1/4 + 1/8 + 1/16 + ….<br>每项是前一项的一半，如果一共有20项,求这个和是多少，结果用分数表示出来。类似：3/2<br>当然，这只是加了前2项而已。分子分母要求互质。<br>注意：需要提交的是已经约分过的分数，中间任何位置不能含有空格。请不要填写任何多余的文字或符号。</p>
+<blockquote>
+<p>化简通分下即可。</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">long</span> x=<span class="built_in">pow</span>(<span class="number">2</span>,<span class="number">19</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d/%d"</span>,x+x<span class="number">-1</span>,x);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>结果填空 星期一</li>
+</ul>
+<p>整个20世纪（1901年1月1日至2000年12月31日之间），一共有多少个星期一？<br>注意：需要提交的只是一个整数，不要填写任何多余的内容或说明文字</p>
+<blockquote>
+<p>判断一共有几天，每7天里面有1个星期一，最后看余数里面还能不能再有一个星期一。我一开始把1901当成了1900..后来改掉之后忘记看1901.1.1是不是星期一了，直接当作是做了（因为1900.1.1是星期一），不过好在确实是星期一。。当然你也可以用EXCEL做 T-T</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isLeap</span><span class="params">(<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">     <span class="keyword">return</span> (y%<span class="number">400</span>==<span class="number">0</span>)||((y%<span class="number">100</span>!=<span class="number">0</span>)&amp;&amp;y%<span class="number">4</span>==<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">       <span class="keyword">int</span> day=<span class="number">0</span>;</span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1901</span>;i&lt;=<span class="number">2000</span>;i++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(isLeap(i))</span><br><span class="line">                        day+=<span class="number">366</span>;</span><br><span class="line">                <span class="keyword">else</span> day+=<span class="number">365</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d"</span>,day/<span class="number">7</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>结果填空 星期一</li>
+</ul>
+<p>整个20世纪（1901年1月1日至2000年12月31日之间），一共有多少个星期一？<br>注意：需要提交的只是一个整数，不要填写任何多余的内容或说明文字</p>
+<blockquote>
+<p>判断一共有几天，每7天里面有1个星期一，最后看余数里面还能不能再有一个星期一。我一开始把1901当成了1900..后来改掉之后忘记看1901.1.1是不是星期一了，直接当作是做了（因为1900.1.1是星期一），不过好在确实是星期一。。当然你也可以用EXCEL做 T-T</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isLeap</span><span class="params">(<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">     <span class="keyword">return</span> (y%<span class="number">400</span>==<span class="number">0</span>)||((y%<span class="number">100</span>!=<span class="number">0</span>)&amp;&amp;y%<span class="number">4</span>==<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">       <span class="keyword">int</span> day=<span class="number">0</span>;</span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1901</span>;i&lt;=<span class="number">2000</span>;i++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(isLeap(i))</span><br><span class="line">                        day+=<span class="number">366</span>;</span><br><span class="line">                <span class="keyword">else</span> day+=<span class="number">365</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d"</span>,day/<span class="number">7</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>结果填空 乘积尾零</li>
+</ul>
+<p>如下的10行数据，每行有10个整数，请你求出它们的乘积的末尾有多少个零？<br>5650 4542 3554 473 946 4114 3871 9073 90 4329<br>2758 7949 6113 5659 5245 7432 3051 4434 6704 3594<br>9937 1173 6866 3397 4759 7557 3070 2287 1453 9899<br>1486 5722 3135 1170 4014 5510 5120 729 2880 9019<br>2049 698 4582 4346 4427 646 9742 7340 1230 7683<br>5693 7015 6887 7381 4172 4341 2909 2027 7355 5649<br>6701 6645 1671 5978 2704 9926 295 3125 3878 6785<br>2066 4247 4800 1578 6652 4616 1113 6205 3264 2915<br>3966 5291 2904 1285 2193 1428 2265 8730 9436 7074<br>689 5510 8243 6114 337 4096 8199 7313 3685 211<br>注意：需要提交的是一个整数，表示末尾零的个数。不要填写任何多余内容。</p>
+<blockquote>
+<p>10只能由2×5产生，所以只需要统计所有数的质因子里面2和5的最小值。</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> x;</span><br><span class="line">        <span class="keyword">int</span> cnt2=<span class="number">0</span>，cnt5=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;x)!=EOF)&#123;</span><br><span class="line">            <span class="keyword">while</span>(x%<span class="number">5</span>==<span class="number">0</span>)&#123;</span><br><span class="line">                    x/=<span class="number">5</span>;</span><br><span class="line">                    cnt5++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span>(x%<span class="number">2</span>==<span class="number">0</span>)&#123;</span><br><span class="line">                    x/=<span class="number">5</span>;</span><br><span class="line">                    cnt2++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d"</span>,min(cnt2,cnt5));</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>结果填空 第几个幸运数</li>
+</ul>
+<p>到x星球旅行的游客都被发给一个整数，作为游客编号。x星的国王有个怪癖，他只喜欢数字3,5和7。国王规定，游客的编号如果只含有因子：3,5,7,就可以获得一份奖品。<br>我们来看前10个幸运数字是：<br>3 5 7 9 15 21 25 27 35 45<br>因而第11个幸运数字是：49<br>小明领到了一个幸运数字 59084709587505，他去领奖的时候，人家要求他准确地说出这是第几个幸运数字，否则领不到奖品。<br>请你帮小明计算一下，59084709587505是第几个幸运数字。需要提交的是一个整数，请不要填写任何多余内容。</p>
+<blockquote>
+<p>一开始的做法是从1跑到59084709587505，试图暴力跑出来，但是跑了三个小时也没跑出来，于是最后换了种思路，可以对59084709587505因式分解正好只包含3、5、7三个质因子，于是可以三重循环遍历3、5、7的个数，不断累乘，一旦发现大于等于59084709587505了就直接break掉。一定要这样做，否则不加限制让他一直乘会爆longlong的。</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> REP(i,n) for(int i=0;i&lt;n;i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DOWN(i,b,a) for(int i=b;i&gt;=a;i--)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">getNum</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b,<span class="keyword">int</span> c)</span></span>&#123;</span><br><span class="line">        ll num=<span class="number">1</span>;</span><br><span class="line">        REP(i,a)num*=<span class="number">3</span>;</span><br><span class="line">        REP(i,b)num*=<span class="number">5</span>;</span><br><span class="line">        REP(i,c)num*=<span class="number">7</span>;</span><br><span class="line">        <span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">        ll x;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%lld"</span>,&amp;x);</span><br><span class="line">        <span class="keyword">int</span> a,b,c;</span><br><span class="line">        a=b=c=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(x%<span class="number">3</span>==<span class="number">0</span>)&#123;</span><br><span class="line">                x/=<span class="number">3</span>;</span><br><span class="line">                a++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(x%<span class="number">5</span>==<span class="number">0</span>)&#123;</span><br><span class="line">                x/=<span class="number">5</span>;</span><br><span class="line">                b++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(x%<span class="number">7</span>==<span class="number">0</span>)&#123;</span><br><span class="line">                x/=<span class="number">7</span>;</span><br><span class="line">                c++;</span><br><span class="line">        &#125;</span><br><span class="line">        x=getNum(a,b,c);</span><br><span class="line">        <span class="keyword">int</span> cnt=<span class="number">0</span>;</span><br><span class="line">        REP(i,a+<span class="number">2</span>*(b+c))&#123;</span><br><span class="line">                REP(j,a+b+<span class="number">2</span>*c)&#123;</span><br><span class="line">                        REP(k,a+b+c)&#123;</span><br><span class="line">                                ll tmp=getNum(i,j,k);</span><br><span class="line">                                <span class="keyword">if</span>(tmp&gt;=<span class="number">3</span>&amp;&amp;tmp&lt;=x)</span><br><span class="line">                                        cnt++;</span><br><span class="line">                        &#125;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d"</span>,cnt);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>代码填空 打印图形</li>
+</ul>
+<p>如下的程序会在控制台绘制分形图（就是整体与局部自相似的图形）。<br>当n=1,2,3的时候，输出如下：<br>请仔细分析程序，并填写划线部分缺少的代码。<br>n=1时：<br> o<br>ooo<br> o</p>
+<p>n=2时：<br>    o<br>   ooo<br>    o<br>  o o o<br>ooooooooo<br>  o o o<br>    o<br>   ooo<br>    o</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">(<span class="keyword">char</span>* buf, <span class="keyword">int</span> w)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i,j;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;w; i++) &#123;</span><br><span class="line">		<span class="keyword">for</span>(j=<span class="number">0</span>; j&lt;w; j++) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%c"</span>, buf[i*w+j]==<span class="number">0</span>? <span class="string">' '</span> : <span class="string">'o'</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">(<span class="keyword">char</span>* buf, <span class="keyword">int</span> w, <span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> size)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(size==<span class="number">1</span>) &#123;</span><br><span class="line">		buf[y*w+x] = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> n = _________________________ ; <span class="comment">//填空</span></span><br><span class="line">	draw(buf, w, x, y, n);</span><br><span class="line">	draw(buf, w, x-n, y ,n);</span><br><span class="line">	draw(buf, w, x+n, y ,n);</span><br><span class="line">	draw(buf, w, x, y-n ,n);</span><br><span class="line">	draw(buf, w, x, y+n ,n);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> N = <span class="number">3</span>;</span><br><span class="line">	<span class="keyword">int</span> t = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;N; i++) t *= <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">char</span>* buf = (<span class="keyword">char</span>*)<span class="built_in">malloc</span>(t*t);</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;t*t; i++) buf[i] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	draw(buf, t, t/<span class="number">2</span>, t/<span class="number">2</span>, t);</span><br><span class="line">	show(buf, t);</span><br><span class="line">	<span class="built_in">free</span>(buf);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ans = <span class="string">"size/3;"</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>编程题 航班时间</li>
+</ul>
+<p>【问题背景】<br>小h前往美国参加了蓝桥杯国际赛。小h的女朋友发现小h上午十点出发，上午十二点到达美国，于是感叹到“现在飞机飞得真快，两小时就能到美国了”。<br>小h对超音速飞行感到十分恐惧。仔细观察后发现飞机的起降时间都是当地时间。由于北京和美国东部有12小时时差，故飞机总共需要14小时的飞行时间。<br>不久后小h的女朋友去中东交换。小h并不知道中东与北京的时差。但是小h得到了女朋友来回航班的起降时间。小h想知道女朋友的航班飞行时间是多少。<br>【问题描述】<br>对于一个可能跨时区的航班，给定来回程的起降时间。假设飞机来回飞行时间相同，求飞机的飞行时间。<br>【输入格式】<br>从标准输入读入数据。<br>一个输入包含多组数据。<br>输入第一行为一个正整数T，表示输入数据组数。<br>每组数据包含两行，第一行为去程的 起降 时间，第二行为回程的 起降 时间。<br>起降时间的格式如下<br>h1:m1:s1 h2:m2:s2<br>或<br>h1:m1:s1 h3:m3:s3 (+1)<br>或<br>h1:m1:s1 h4:m4:s4 (+2)<br>表示该航班在当地时间h1时m1分s1秒起飞，<br>第一种格式表示在当地时间 当日 h2时m2分s2秒降落<br>第二种格式表示在当地时间 次日 h3时m3分s3秒降落。<br>第三种格式表示在当地时间 第三天 h4时m4分s4秒降落。<br>对于此题目中的所有以 h:m:s 形式给出的时间, 保证 ( 0&lt;=h&lt;=23, 0&lt;=m,s&lt;=59 ).<br>【输出格式】<br>输出到标准输出。<br>对于每一组数据输出一行一个时间hh:mm:ss，表示飞行时间为hh小时mm分ss秒。<br>注意，当时间为一位数时，要补齐前导零。如三小时四分五秒应写为03:04:05。<br>【样例输入】<br>3<br>17:48:19 21:57:24<br>11:05:18 15:14:23<br>17:21:07 00:31:46 (+1)<br>23:02:41 16:13:20 (+1)<br>10:19:19 20:41:24<br>22:19:04 16:41:09 (+1)<br>【样例输出】<br>04:09:05<br>12:10:39<br>14:22:05<br>【限制与约定】<br>保证输入时间合法，飞行时间不超过24小时。<br>资源约定：<br>峰值内存消耗（含虚拟机） &lt; 256M<br>CPU消耗 &lt; 1000ms<br>请严格按要求输出，不要画蛇添足地打印类似：“请您输入…” 的多余内容。<br>注意：<br>main函数需要返回0;<br>只使用ANSI C/ANSI C++ 标准;<br>不要调用依赖于编译环境或操作系统的特殊函数。<br>所有依赖的函数必须明确地在源文件中 #include <xxx><br>不能通过工程设置而省略常用头文件。<br>提交程序时，注意选择所期望的语言类型和编译器类型。</xxx></p>
+<blockquote>
+<p>一个大模拟，直接按照题意列个方程，然后会发现时差会被消掉，可得到飞行时间的一个函数。然后模拟时间的进位退位即可，也可以统一先换到秒再做。我tm就是傻逼了只写了借位没写进位..还信誓旦旦地觉得题目样例错了…唉，真粗心。</p>
+</blockquote>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//用getline获取一行的输入，用strlen(s)判断结尾是否有+1+2</span></span><br><span class="line"><span class="comment">//其他的就模拟就好了</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>编程题 三体攻击</li>
+</ul>
+<p>【题目描述】<br>三体人将对地球发起攻击。为了抵御攻击，地球人派出了 A × B × C 艘战舰，在太空中排成一个 A 层 B 行 C 列的立方体。其中，第 i 层第 j 行第 k 列的战舰（记为战舰 (i, j, k)）的生命值为 d(i, j, k)。<br>三体人将会对地球发起 m 轮“立方体攻击”，每次攻击会对一个小立方体中的所有战舰都造成相同的伤害。具体地，第 t 轮攻击用 7 个参数 lat, rat, lbt, rbt, lct, rct, ht 描述；<br>所有满足 i ∈ [lat, rat],j ∈ [lbt, rbt],k ∈ [lct, rct] 的战舰 (i, j, k) 会受到 ht 的伤害。如果一个战舰累计受到的总伤害超过其防御力，那么这个战舰会爆炸。<br>地球指挥官希望你能告诉他，第一艘爆炸的战舰是在哪一轮攻击后爆炸的。<br>【输入格式】<br>从标准输入读入数据。<br>第一行包括 4 个正整数 A, B, C, m；<br>第二行包含 A × B × C 个整数，其中第 ((i − 1)×B + (j − 1)) × C + (k − 1)+1 个数为 d(i, j, k)；<br>第 3 到第 m + 2 行中，第 (t − 2) 行包含 7 个正整数 lat, rat, lbt, rbt, lct, rct, ht。<br>【输出格式】<br>输出到标准输出。<br>输出第一个爆炸的战舰是在哪一轮攻击后爆炸的。保证一定存在这样的战舰。<br>【样例输入】<br>2 2 2 3<br>1 1 1 1 1 1 1 1<br>1 2 1 2 1 1 1<br>1 1 1 2 1 2 1<br>1 1 1 1 1 1 2<br>【样例输出】<br>2<br>【样例解释】<br>在第 2 轮攻击后，战舰 (1,1,1) 总共受到了 2 点伤害，超出其防御力导致爆炸。<br>【数据约定】<br>对于 10% 的数据，B = C = 1；<br>对于 20% 的数据，C = 1；<br>对于 40% 的数据，A × B × C, m ≤ 10, 000；<br>对于 70% 的数据，A, B, C ≤ 200；<br>对于所有数据，A × B × C ≤ 10^6, m ≤ 10^6, 0 ≤ d(i, j, k), ht ≤ 10^9。<br>资源约定：<br>峰值内存消耗（含虚拟机） &lt; 256M<br>CPU消耗 &lt; 2000ms<br>请严格按要求输出，不要画蛇添足地打印类似：“请您输入…” 的多余内容。<br>注意：<br>main函数需要返回0;<br>只使用ANSI C/ANSI C++ 标准;<br>不要调用依赖于编译环境或操作系统的特殊函数。<br>所有依赖的函数必须明确地在源文件中 #include <xxx><br>不能通过工程设置而省略常用头文件。<br>提交程序时，注意选择所期望的语言类型和编译器类型。</xxx></p>
+<blockquote>
+<p>当时直接用了个三位数组，每次攻击都遍历一遍-1，然后判断。。很坑的是这里的怎么输入好像是有毛病的，bbb了好大一句话最后就是ijk输入，然而我tm输入之后又重新赋值了一下，估计这里出错了。真的很无语，直接说输入d(i,j,k)不就好了，还整什么((i − 1)×B + (j − 1)) × C + (k − 1)+1 个数为 d(i, j, k)。真的无语。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>编程题 全球变暖</li>
+</ul>
+<p>【题目描述】<br>你有一张某海域NxN像素的照片，”.”表示海洋、”#”表示陆地，如下所示：<br>…….<br>.##….<br>.##….<br>….##.<br>..####.<br>…###.<br>…….<br>其中”上下左右”四个方向上连在一起的一片陆地组成一座岛屿。例如上图就有2座岛屿。<br>由于全球变暖导致了海面上升，科学家预测未来几十年，岛屿边缘一个像素的范围会被海水淹没。具体来说如果一块陆地像素与海洋相邻(上下左右四个相邻像素中有海洋)，它就会被淹没。<br>例如上图中的海域未来会变成如下样子：<br>…….<br>…….<br>…….<br>…….<br>….#..<br>…….<br>…….<br>请你计算：依照科学家的预测，照片中有多少岛屿会被完全淹没。<br>【输入格式】<br>第一行包含一个整数N。 (1 &lt;= N &lt;= 1000)<br>以下N行N列代表一张海域照片。<br>照片保证第1行、第1列、第N行、第N列的像素都是海洋。<br>【输出格式】<br>一个整数表示答案。<br>【样例输入】<br>7<br>…….<br>.##….<br>.##….<br>….##.<br>..####.<br>…###.<br>…….<br>【样例输出】<br>1<br>资源约定：<br>峰值内存消耗（含虚拟机） &lt; 256M<br>CPU消耗 &lt; 1000ms<br>请严格按要求输出，不要画蛇添足地打印类似：“请您输入…” 的多余内容。<br>注意：<br>main函数需要返回0;<br>只使用ANSI C/ANSI C++ 标准;<br>不要调用依赖于编译环境或操作系统的特殊函数。<br>所有依赖的函数必须明确地在源文件中 #include <xxx><br>不能通过工程设置而省略常用头文件。<br>提交程序时，注意选择所期望的语言类型和编译器类型。</xxx></p>
+<blockquote>
+<p>典型的bfs求联通块，不用多说，N只有1e3，怎么解都行，但是很坑的是它让你求的是淹没了多少个，而不是后来最后剩了多少个，所以得求两次联通块数作差。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>编程题 倍数问题</li>
+</ul>
+<p>【题目描述】<br>众所周知，小葱同学擅长计算，尤其擅长计算一个数是否是另外一个数的倍数。但小葱只擅长两个数的情况，当有很多个数之后就会比较苦恼。现在小葱给了你 n 个数，希望你从这 n 个数中找到三个数，使得这三个数的和是 K 的倍数，且这个和最大。数据保证一定有解。<br>【输入格式】<br>从标准输入读入数据。<br>第一行包括 2 个正整数 n, K。<br>第二行 n 个正整数，代表给定的 n 个数。<br>【输出格式】<br>输出到标准输出。<br>输出一行一个整数代表所求的和。<br>【样例入】<br>4 3<br>1 2 3 4<br>【样例输出】<br>9<br>【样例解释】<br>选择2、3、4。<br>【数据约定】<br>对于 30% 的数据，n &lt;= 100。<br>对于 60% 的数据，n &lt;= 1000。<br>对于另外 20% 的数据，K &lt;= 10。<br>对于 100% 的数据，1 &lt;= n &lt;= 10^5, 1 &lt;= K &lt;= 10^3，给定的 n 个数均不超过 10^8。<br>资源约定：<br>峰值内存消耗（含虚拟机） &lt; 256M<br>CPU消耗 &lt; 1000ms<br>请严格按要求输出，不要画蛇添足地打印类似：“请您输入…” 的多余内容。<br>注意：<br>main函数需要返回0;<br>只使用ANSI C/ANSI C++ 标准;<br>不要调用依赖于编译环境或操作系统的特殊函数。<br>所有依赖的函数必须明确地在源文件中 #include <xxx><br>不能通过工程设置而省略常用头文件。<br>提交程序时，注意选择所期望的语言类型和编译器类型。</xxx></p>
+<blockquote>
+<p>没想到什么好办法，直接递归找了一波，应该得了30%的分。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>编程题 付账问题</li>
+</ul>
+<p>【题目描述】<br>几个人一起出去吃饭是常有的事。但在结帐的时候，常常会出现一些争执。<br>现在有 n 个人出去吃饭，他们总共消费了 S 元。其中第 i 个人带了 ai 元。幸运的是，所有人带的钱的总数是足够付账的，但现在问题来了：每个人分别要出多少钱呢？<br>为了公平起见，我们希望在总付钱量恰好为 S 的前提下，最后每个人付的钱的标准差最小。这里我们约定，每个人支付的钱数可以是任意非负实数，即可以不是1分钱的整数倍。你需要输出最小的标准差是多少。<br>标准差的介绍：标准差是多个数与它们平均数差值的平方平均数，一般用于刻画这些数之间的“偏差有多大”。形式化地说，设第 i 个人付的钱为 bi 元，那么标准差为 :<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://images2018.cnblogs.com/blog/844262/201804/844262-20180401181343252-1945227275.png" alt=""><br>【输入格式】<br>从标准输入读入数据。<br>第一行包含两个整数 n、S；<br>第二行包含 n 个非负整数 a1, …, an。<br>【输出格式】<br>输出到标准输出。<br>输出最小的标准差，四舍五入保留 4 位小数。<br>保证正确答案在加上或减去 10^−9 后不会导致四舍五入的结果发生变化。<br>【样例1输入】<br>5 2333<br>666 666 666 666 666<br>【样例输出】<br>0.0000<br>【样例解释】<br>每个人都出 2333/5 元，标准差为 0。<br>再比如：<br>【样例输入】<br>10 30<br>2 1 4 7 4 8 3 6 4 7<br>【样例输出】<br>0.7928<br>【数据说明】<br>对于 10% 的数据，所有 ai 相等；<br>对于 30% 的数据，所有非 0 的 ai 相等；<br>对于 60% 的数据，n ≤ 1000；<br>对于 80% 的数据，n ≤ 10^5；<br>对于所有数据，n ≤ 5 × 10^5, 0 ≤ ai ≤ 10^9。<br>资源约定：<br>峰值内存消耗（含虚拟机） &lt; 256M<br>CPU消耗 &lt; 1000ms<br>请严格按要求输出，不要画蛇添足地打印类似：“请您输入…” 的多余内容。<br>注意：<br>main函数需要返回0;<br>只使用ANSI C/ANSI C++ 标准;<br>不要调用依赖于编译环境或操作系统的特殊函数。<br>所有依赖的函数必须明确地在源文件中 #include <xxx><br>不能通过工程设置而省略常用头文件。<br>提交程序时，注意选择所期望的语言类型和编译器类型。</xxx></p>
+<blockquote>
+<p>当时做到这个题的时候已经没时间了，但是知道怎么做。做法就是贪心地每次先求一个最低值，然后把最低值的这些人让他们付全部，剩下的不够的，匀给现在还有钱的，再求一次平均，然后再看看谁不够了，让他付完全部的……若最终都能付得起，则每个人付当前平均数的钱即可。思路挺简单的，但是真的是手速慢没时间写了。</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> REP(i,n) for(int i=0;i&lt;n;i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FOR(i,a,b) for(int i=a;i&lt;=b;i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DOWN(i,b,a) for(int i=b;i&gt;=a;i--)</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">5e5</span>+<span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> N,S;</span><br><span class="line"><span class="keyword">int</span> a[maxn];</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">QAQ</span><span class="params">(<span class="keyword">int</span> *a,<span class="keyword">int</span> n,<span class="keyword">double</span> remain,<span class="keyword">double</span> AVG)</span></span>&#123;</span><br><span class="line">        <span class="keyword">double</span> avg=remain/(<span class="keyword">double</span>)n;</span><br><span class="line">        <span class="keyword">double</span> sqr_sum=<span class="number">0</span>;</span><br><span class="line">        REP(i,n)&#123;</span><br><span class="line">                <span class="keyword">if</span>(a[i]&lt;avg)&#123;</span><br><span class="line">                        sqr_sum+=(a[i]-AVG)*(a[i]-AVG);</span><br><span class="line">                        remain-=a[i];</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                        <span class="keyword">if</span>(i==<span class="number">0</span>)&#123;</span><br><span class="line">                                REP(j,n)&#123;</span><br><span class="line">                                        sqr_sum+=(avg-AVG)*(avg-AVG);</span><br><span class="line">                                        remain-=avg;</span><br><span class="line">                                &#125;</span><br><span class="line">                                <span class="keyword">break</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">else</span> sqr_sum+=QAQ(a+i,n-i,remain,AVG);<span class="comment">//</span></span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sqr_sum;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">TAT</span><span class="params">()</span></span>&#123;</span><br><span class="line">        REP(i,N)&#123;</span><br><span class="line">                <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;a[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        sort(a,a+N);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%f\n"</span>,<span class="built_in">sqrt</span>(QAQ(a,N,S,(<span class="keyword">double</span>)S/(<span class="keyword">double</span>)N)/N));</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LOCAL</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d %d"</span>,&amp;N,&amp;S)!=EOF)&#123;</span><br><span class="line">                TAT();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="总结"><strong>总结</strong></span></h2><p>最后一年蓝桥杯了，最终拿了个省二。怎么说呢，其实内心心情很复杂，一方面对自己这两年的提升还是看得见的，从大一时候只能靠智商猜答案，到这次省赛可以每个题都知道怎么做了，这两年的训练还是有效果的；另一方面，最后还是没有拿省一确实是蛮遗憾的，不是因为自己没能力做出来那些题，而是因为自己的马虎、因为自己的满手速，造成有的题没时间做，会做的题因为一些细节做不对。这就很伤。张老师出成绩的时候给我私发了一句，“遗憾的二等奖”。是啊，确实蛮遗憾的，但是也就那样了，因为经历的遗憾的事情挺多的了，就不是再去遗憾这种东西那么反响激烈了。还是默默地努力去提高自己吧，名次看淡一下，只要我自己觉得自己进步了，就ok了。这也是ACM带给我心态的转变吧。<br>这次省赛总的来说还是可以的啦，也不能奢求那么多，至少看见了自己的进步。和天梯赛一样，自己都比往年进步了不少的。知足了。<br>剩下的时间，再好好努力一下ACM吧，打完今年的比赛估计就要退役了。希望退役的时候，自己能比现在手速更快，能力更强。</p>
+<blockquote>
+<p>本文来源：「想飞的小菜鸡」的个人网站  <a href="https://vodkazy.cn" target="_blank" rel="noopener">vodkazy.cn</a></p>
+<p>版权声明：本文为「想飞的小菜鸡」的原创文章，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请附上原文出处链接及本声明。</p>
+<p>原文链接：<a href="https://vodkazy.cn/2018/04/15/2018蓝桥杯题解-总结" target="_blank" rel="noopener">https://vodkazy.cn/2018/04/15/2018蓝桥杯题解-总结</a></p>
+</blockquote>
+
+        </div>
+      </article>
+    </div>
+
+	<!-- 打赏 -->
+    <div class="reward">
+	<div class="reward-button">赏 <span class="reward-code">
+		<span class="alipay-code"> <img class="alipay-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/alipay.webp"><b>支付宝打赏</b> </span> 
+		<span class="wechat-code"> <img class="wechat-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/weixin.webp"><b>微信打赏</b> </span> </span>
+	</div>
+	<p class="reward-notice">如果文章对你有帮助，欢迎点击上方按钮打赏作者，更多文章请访问<a href="https://vodkazy.cn" style="color:blue">想飞的小菜鸡</a></p>
+	    <style>
+		*,*:before,*:after {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			-ms-box-sizing: border-box;
+			box-sizing: border-box
+		}
+
+		.reward {
+			padding: 5px 0
+		}
+
+		.reward .reward-notice {
+			font-size: 14px;
+			line-height: 14px;
+			margin: 15px auto;
+			text-align: center
+		}
+
+		.reward .reward-button {
+			font-size: 28px;
+			line-height: 58px;
+			position: relative;
+			display: block;
+			width: 60px;
+			height: 60px;
+			margin: 0 auto;
+			padding: 0;
+			-webkit-user-select: none;
+			text-align: center;
+			vertical-align: middle;
+			color: #fff;
+			border: 1px solid #f1b60e;
+			border-radius: 50%;
+			background: #fccd60;
+			background: -webkit-gradient(linear,left top,left bottom,color-stop(0,#fccd60),color-stop(100%,#fbae12),color-stop(100%,#2989d8),color-stop(100%,#207cca));
+			background: -webkit-linear-gradient(top,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%);
+			background: linear-gradient(to bottom,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%)
+		}
+
+		.reward .reward-code {
+			position: absolute;
+			top: -220px;
+			left: 50%;
+			display: none;
+			width: 350px;
+			height: 200px;
+			margin-left: -175px;
+			padding: 15px;
+			border: 1px solid #e6e6e6;
+			background: #fff;
+			box-shadow: 0 1px 1px 1px #efefef
+		}
+
+		.reward .reward-button:hover .reward-code {
+			display: block
+		}
+
+		.reward .reward-code span {
+			display: inline-block;
+			width: 150px;
+			height: 150px
+		}
+
+		.reward .reward-code span.alipay-code {
+			float: left
+		}
+
+		.reward .reward-code span.alipay-code a {
+			padding: 0
+		}
+
+		.reward .reward-code span.wechat-code {
+			float: right
+		}
+
+		.reward .reward-code img {
+			display: inline-block;
+			float: left;
+			width: 150px;
+			height: 150px;
+			margin: 0 auto;
+			border: 0
+		}
+
+		.reward .reward-code b {
+			font-size: 14px;
+			line-height: 26px;
+			display: block;
+			margin: 0;
+			text-align: center;
+			color: #666
+		}
+
+		.reward .reward-code b.notice {
+			line-height: 2rem;
+			margin-top: -1rem;
+			color: #999
+		}
+
+		.reward .reward-code:after,.reward .reward-code:before {
+			position: absolute;
+			content: '';
+			border: 10px solid transparent
+		}
+
+		.reward .reward-code:after {
+			bottom: -19px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #fff
+		}
+
+		.reward .reward-code:before {
+			bottom: -20px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #e6e6e6
+		}
+    </style>
+
+
+    <!-- Pre or Next -->
+    
+	<div class="container">
+           <ul class="pager">
+    	     
+      	     <li class="previous">
+              <a href="/2018/04/26/湘潭大学程序设计竞赛题解/" rel="prev">上一篇</a>
+             </li>
+           
+           
+              <li class="next">
+              <a href="/2018/04/06/关于AngularJs的http请求/" rel="prev">下一篇</a>
+            </li>
+           
+          </ul>
+       </div>
+   
+
+    <!-- Valine无后端评论系统 -->   
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+		    el: '#vcomments' ,
+		    appId: 'lH3VkMCd4MHaKtr2n2SRWdoi-MdYXbMMI',
+		    appKey: '5aMXSY7b4KwnzfgpzLA0hPLv',
+		    notify:true, 
+		    verify:false, 
+		    placeholder: '填写正确的邮箱和昵称才能收到我的回复哦       ٩( ^o^ )و  ' ,
+		    avatar: 'retro'
+		});
+    </script>
+    <!-- Valine无后端评论系统 -->  
+
+  </div>
+</div>
+</div>
+
+  <!-- Footer -->
+  <!-- Footer -->
+<footer class="site-info">
+  <p>
+    <span>想飞的小菜鸡 &copy; 2021</span>
+    
+      <span class="split">|</span>
+      <span>照耀的Blog</span>
+    
+  </p>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    本站访客数<span id="busuanzi_value_site_uv"></span>人次
+    本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</footer>
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+<script src="/js/app.js"></script>
+
+
+ 
+  <!-- 使用 aotuload.js 引入看板娘 -->    
+  <!-- //<script src="/js/assets/jquery.min.js?v=3.3.1"></script> -->   
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  <!-- //<script src="/js/assets/jquery-ui.min.js?v=1.12.1"></script>   --> 
+  <script src="https://cdn.jsdelivr.net/npm/jquery-ui-dist@1.12.1/jquery-ui.min.js"></script>
+  <script src="/js/assets/autoload.js?v=1.4.2"></script>
+  <!-- //<script src="https://live2d-cdn.fghrsh.net/assets/1.4.2/autoload.js></script> -->   
+   
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var i=n.imageLazyLoadSetting.isSPA,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){i&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,e,a=0;a<r.length;a++)t=r[a],e=void 0,0<=(e=t.getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},n.src=i}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+
+</html>

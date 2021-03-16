@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<!-- 百度统计 -->
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?e31627579358722b9d300535c8206351";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Vodkazy">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="EARL配置记录">
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="想飞的小菜鸡">
+  <!--Type page-->
+  
+      <meta property="og:type" content="article">
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- Title -->
+  
+  <title>EARL配置记录 - 想飞的小菜鸡</title>
+
+
+  <link rel="shortcut icon" href="/../images/icon.ico">
+  <!--font-awesome-->
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+
+<body>
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    
+    <div class="logo">
+      <a href="/" rel="home">
+        
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://cdn2.iconfinder.com/data/icons/weather-color-2/500/weather-01-128.png" alt="想飞的小菜鸡" height="60">
+        
+      </a>
+    </div>
+    <a class="header-name" href="/">
+            <span>想飞的小菜鸡</span>
+            的小窝
+        </a>
+    <!-- navbar -->
+    <nav class="navbar">
+      <!--  nav links -->
+      <div class="collapse">
+        <ul class="navbar-nav">
+          
+          
+            <li>
+              <a href="/.">
+                
+                  <i class="fa fa-home "></i>
+                
+                首页
+              </a>
+            </li>
+          
+            <li>
+              <a href="/archives">
+                
+                  <i class="fa fa-archive "></i>
+                
+                目录
+              </a>
+            </li>
+          
+            <li>
+              <a href="/project">
+                
+                  <i class="fa fa-folder-open "></i>
+                
+                代码库
+              </a>
+            </li>
+          
+            <li>
+              <a href="/photo">
+                
+                  <i class="fa fa-photo "></i>
+                
+                相册薄
+              </a>
+            </li>
+          
+            <li>
+              <a href="/lovetree">
+                
+                  <i class="fa fa-tree "></i>
+                
+                爱情树
+              </a>
+            </li>
+          
+            <li>
+              <a href="/guestbook">
+                
+                  <i class="fa fa-edit "></i>
+                
+                留言板
+              </a>
+            </li>
+          
+            <li>
+              <a href="/about">
+                
+                  <i class="fa fa-user "></i>
+                
+                关于我
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="button-wrap">
+      <button class="menu-toggle">Primary Menu</button>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            EARL配置记录
+            
+          </h1>
+         
+        </div>
+         <p class="a-posted-on">
+          2018-12-21
+          </p>
+        <!-- Post Main Content -->
+        <div class="entry-content">
+          <p>本文基于《_EARL:_ _Joint_ _Entity_ _and_ _Relation_ _Linking_ _for_ _Question_ _Answering_ _over_ Knowledge Graphs》，在服务器上部署了相关服务，可提供一些智能问答的有关服务。<br><a id="more"></a></p>
+<!-- toc -->
+<ul>
+<li><a href="#所需数据">所需数据</a></li>
+<li><a href="#处理流程">处理流程</a><ul>
+<li><a href="#1-shallow-parser">1. Shallow Parser</a></li>
+<li><a href="#2erpredictor">2.ErPredictor</a></li>
+<li><a href="#3textmatch">3.TextMatch</a></li>
+<li><a href="#4jointlinker">4.JointLinker</a></li>
+<li><a href="#5reranker">5.Reranker</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+<p>本系统基于linux+python2.7环境，windows+py3.6无法运行并且无解决办法，望周知。</p>
+<h2><span id="所需数据">所需数据</span></h2><p>1.程序<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">clone</span> <span class="title">https</span>://github.com/AskNowQA/EARL.git</span><br></pre></td></tr></table></figure></p>
+<p>并把JointLinker.py下的<code>from pybloom import BloomFilter</code>改为<code>from pybloom_live import BloomFilter</code><br>2.blooms，下载下载地址里面的5个文件，在EARL/data/文件夹下新建blooms文档，存放至此。<a href="https://drive.google.com/drive/folders/19pq2FIDFMEFP0Aldrd_ZheT2vZRPGNG3" target="_blank" rel="noopener">下载地址</a><br>3.esdumps，下载下载地址里面的5个文件，解压后存放至在EARL/data/elasticsearchdump。<a href="https://drive.google.com/drive/folders/1kLLCXkyYhfVb9LfUPSmdI2692ckS0I1N" target="_blank" rel="noopener">下载地址</a><br>4.词向量，下载下载地址的文件，解压，放置在EARL/data文件夹下。<a href="https://www.dropbox.com/s/flh1fjynqvdsj4p/lexvec.commoncrawl.300d.W.pos.vectors.gz?dl=1" target="_blank" rel="noopener">下载地址</a><br>5.所需python包：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Flask</span><br><span class="line">gevent</span><br><span class="line">stop-words</span><br><span class="line">keras</span><br><span class="line">sklearn</span><br><span class="line">gensim</span><br><span class="line">elasticsearch</span><br><span class="line">editdistance</span><br><span class="line">xgboost</span><br><span class="line">tensorflow</span><br><span class="line">h5py</span><br><span class="line">nltk</span><br><span class="line">pybloom_live</span><br><span class="line"><span class="function"><span class="title">practNLPTools</span><span class="params">(需通过下载源码，进入文件夹后python setup.py install安装)</span></span></span><br></pre></td></tr></table></figure></p>
+<p><a href="https://github.com/biplab-iitb/practNLPTools" target="_blank" rel="noopener">practNLPTools</a>的使用方法可以参考这里。<br>6.安装nodejs、npm。自行百度。<br>7.安装elasticsearch和elasticdump。<br>elasticsearch可直接去官网下载源码，解压后进入文件夹运行<code>./bin/elasticsearch</code>即可启动，默认服务占用9200端口。<a href="https://blog.csdn.net/HcJsJqJSSM/article/details/82969874" target="_blank" rel="noopener">参考教程</a><br>8.运行以下命令启动服务</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> scripts/</span><br><span class="line"><span class="keyword">python</span> TextMatchServer.<span class="keyword">py</span> <span class="number">8888</span>  (this takes several minutes <span class="keyword">to</span> load)</span><br><span class="line"><span class="keyword">python</span> api.<span class="keyword">py</span> <span class="number">4999</span></span><br></pre></td></tr></table></figure>
+<p>启动成功后导入数据<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd EARL/data/elasticsearchdump</span><br><span class="line">elasticdump <span class="attribute">--input</span>=dbentityindex11mapping.json  <span class="attribute">--output</span>=http://localhost:9200/dbentityindex11 <span class="attribute">--type</span>=mapping</span><br><span class="line">elasticdump <span class="attribute">--limit</span>=10000 <span class="attribute">--input</span>=dbentityindex11.json  <span class="attribute">--output</span>=http://localhost:9200/dbentityindex11 <span class="attribute">--type</span>=data</span><br></pre></td></tr></table></figure></p>
+<p>9.访问方式<br><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XPOST <span class="symbol">'localhost</span>:<span class="number">4999</span>/processQuery' -H <span class="symbol">'Content</span>-<span class="keyword">Type</span>: application/json' -d<span class="string">"&#123;\"</span>nlquery\<span class="string">":\"</span>Who <span class="keyword">is</span> the president <span class="keyword">of</span> USA?\<span class="string">"&#125;"</span></span><br></pre></td></tr></table></figure></p>
+<h2><span id="处理流程">处理流程</span></h2><p>本系统的输入为自然语言问句。处理流程如下：</p>
+<h3><span id="1-shallow-parser">1. Shallow Parser</span></h3><p>使用SENNA作为关键词提取器 ，提取问题中的关键词组。如Where was the founder of Tesla and SpaceX born?将<founder, tesla,="" spacex,="" born=""> 识别为关键词组。<br>输入为自然语言问句，输出为一些数组，内含识别的单词以及词性、位置信息。<br><figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[(<span class="symbol">'Who</span>', <span class="symbol">'S-NP</span>', <span class="number">0</span>, <span class="number">3</span>)], [(<span class="symbol">'the</span>', <span class="symbol">'B-NP</span>', <span class="number">7</span>, <span class="number">3</span>), (<span class="symbol">'parent</span>', <span class="symbol">'I-NP</span>', <span class="number">11</span>, <span class="number">6</span>), (<span class="symbol">'organisation</span>', <span class="symbol">'E-NP</span>', <span class="number">18</span>, <span class="number">12</span>)], [(<span class="symbol">'Barack</span>', <span class="symbol">'B-NP</span>', <span class="number">34</span>, <span class="number">6</span>), (<span class="symbol">'Obama</span>', <span class="symbol">'E-NP</span>', <span class="number">41</span>, <span class="number">5</span>)], [(<span class="symbol">'is</span>', <span class="symbol">'S-VP</span>', <span class="number">4</span>, <span class="number">2</span>)]]</span><br></pre></td></tr></table></figure></founder,></p>
+<h3><span id="2erpredictor">2.ErPredictor</span></h3><p>预测关键词是实体还是关系（分类问题）使用基于字符嵌入（character embedding）的 long-short term memory network（LSTM）训练一个模型。对于每个关键词，使用网络判断它是知识库中的关系还是实体。对于上个过程中的关键词短语，这一步将 “founder” 和 “born” 识别为关系, 将“Tesla”和“SpaceX”识别为实体。<br>输入为上步的数组，输出为json数组，内含名词（这步会将几个名词连在一起，比如 the best friend）、位置信息、类别（实体还是关系）。<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123;<span class="attr">"chunk"</span>: <span class="string">"friend"</span>, <span class="attr">"surfacelength"</span>: <span class="number">6</span>, <span class="attr">"class"</span>: <span class="string">"relation"</span>, <span class="attr">"surfacestart"</span>: <span class="number">0</span>&#125;]</span><br></pre></td></tr></table></figure></p>
+<h3><span id="3textmatch">3.TextMatch</span></h3><p>为了提取每个关键词的top candidates集合,首先需要建立一个关于URI-label pairs的Elasticsearch 索引。在建立index时，需要提取每个uri完整的labels列表。由于DBpedia中每个entity的label比较少，所以对于entity来说使用wikidata中提供的labels。对于relation要找到所有语义上相等的label（如writer author）所以使用Oxford Dictionary API 生成同义词。同时为了覆盖一些单词的屈折变化形式（如write，wrote,writing)，加入来自fastText中的inflections.<br>预处理步骤完成后得到一个关键字集合，每个关键字被标示为实体或关系，每个关键字有一个来自KG的候选URIs集合。<br>输入为上步数组，输出为每个词的 topk候选uri集合。<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123;<span class="string">'chunk'</span>: &#123;<span class="string">'chunk'</span>: <span class="string">'Who'</span>, <span class="string">'surfacelength'</span>: <span class="number">3</span>, <span class="string">'class'</span>: <span class="string">'entity'</span>, <span class="string">'surfacestart'</span>: <span class="number">0</span>&#125;, <span class="string">'topkmatches'</span>: [<span class="string">u'http://dbpedia.org/resource/Who'</span>, <span class="string">u'http://dbpedia.org/resource/Who%3F_Who%3F_Ministry'</span>, <span class="string">u'http://dbpedia.org/resource/WHO-DT'</span>, <span class="string">u'http://dbpedia.org/resource/Who%3F_(novel)'</span>, <span class="string">u'http://dbpedia.org/resource/Who,_Me'</span>, <span class="string">u'http://dbpedia.org/resource/Who,_What,_Wear'</span>, <span class="string">u'http://dbpedia.org/resource/WHO/PES'</span>, <span class="string">u'http://dbpedia.org/resource/Chi_(Who)'</span>, <span class="string">u'http://dbpedia.org/resource/Who%3F_(song)'</span>, <span class="string">u'http://dbpedia.org/resource/Who,_whom%3F'</span>, <span class="string">u'http://dbpedia.org/resource/Who%3F_(album)'</span>, <span class="string">u'http://dbpedia.org/resource/Yara-ma-yha-who'</span>, <span class="string">u'http://dbpedia.org/resource/Who_Covers_Who%3F'</span>, <span class="string">u'http://dbpedia.org/resource/Who_Made_Who_World_Tour'</span>, <span class="string">u"http://dbpedia.org/resource/Who_I_Am_Hates_Who_I've_Been"</span>, <span class="string">u'http://dbpedia.org/resource/Who_Is_Dr_Who'</span>, <span class="string">u'http://dbpedia.org/resource/Who_Killed_Who%3F'</span>, <span class="string">u'http://dbpedia.org/resource/Who_Made_Who_(song)'</span>, <span class="string">u'http://dbpedia.org/resource/Who_Shall_Live_and_Who_Shall_Die'</span>, <span class="string">u'http://dbpedia.org/resource/Who_Made_Who'</span>, <span class="string">u'http://dbpedia.org/resource/Who_Knows_Who'</span>, <span class="string">u'http://dbpedia.org/resource/Girls_Who_Like_Boys_Who_Like_Boys'</span>, <span class="string">u'http://dbpedia.org/resource/Vem_\xe4r_det'</span>, <span class="string">u'http://dbpedia.org/resource/Girls_Who_Like_Boys_Who_Like_Boys_(book)'</span>, <span class="string">u'http://dbpedia.org/resource/Who_Booty'</span>, <span class="string">u'http://dbpedia.org/resource/Doctor_Who'</span>, <span class="string">u'http://dbpedia.org/resource/Ledipasvir'</span>, <span class="string">u'http://dbpedia.org/resource/Vinnie_Who'</span>, <span class="string">u'http://dbpedia.org/resource/Who_Cares'</span>, <span class="string">u'http://dbpedia.org/resource/Who_Dunnit'</span>, <span class="string">u'http://dbpedia.org/resource/The_Who'</span>], <span class="string">'class'</span>: <span class="string">'entity'</span>&#125;, &#123;<span class="string">'chunk'</span>: &#123;<span class="string">'chunk'</span>: <span class="string">'the parent organisation'</span>, <span class="string">'surfacelength'</span>: <span class="number">23</span>, <span class="string">'class'</span>: <span class="string">'relation'</span>, <span class="string">'surfacestart'</span>: <span class="number">7</span>&#125;, <span class="string">'topkmatches'</span>: [<span class="string">u'http://dbpedia.org/ontology/parentOrganisation'</span>, <span class="string">u'http://dbpedia.org/property/parentOrganisation'</span>, <span class="string">u'http://dbpedia.org/property/parentOrganization'</span>, <span class="string">u'http://dbpedia.org/property/parentOraganisation'</span>, <span class="string">u'http://dbpedia.org/ontology/parent'</span>, <span class="string">u'http://dbpedia.org/ontology/organisation'</span>, <span class="string">u'http://dbpedia.org/ontology/Organisation'</span>, <span class="string">u'http://dbpedia.org/property/organisation'</span>, <span class="string">u'http://dbpedia.org/property/parantOrganization'</span>, <span class="string">u'http://dbpedia.org/property/agent'</span>, <span class="string">u'http://dbpedia.org/property/parentCo.'</span>, <span class="string">u'http://dbpedia.org/property/parent'</span>, <span class="string">u'http://dbpedia.org/property/organisations'</span>, <span class="string">u'http://dbpedia.org/property/organization'</span>, <span class="string">u'http://dbpedia.org/property/urbanisation'</span>, <span class="string">u'http://dbpedia.org/property/organizations'</span>, <span class="string">u'http://dbpedia.org/property/organiztion'</span>, <span class="string">u'http://www.telegraph.co.uk/finance/property/renting/11908002/Generation-rent-the-reluctant-rise-of-the-older-tenant.html'</span>, <span class="string">u'http://dbpedia.org/property/theN'</span>, <span class="string">u'http://dbpedia.org/property/theE'</span>, <span class="string">u'http://dbpedia.org/property/theA'</span>, <span class="string">u'http://dbpedia.org/property/theW'</span>, <span class="string">u'http://dbpedia.org/property/prarent'</span>, <span class="string">u'http://dbpedia.org/property/parents'</span>, <span class="string">u'http://dbpedia.org/property/perent'</span>, <span class="string">u'http://dbpedia.org/property/parnet'</span>], <span class="string">'class'</span>: <span class="string">'relation'</span>&#125;, &#123;<span class="string">'chunk'</span>: &#123;<span class="string">'chunk'</span>: <span class="string">'Barack Obama'</span>, <span class="string">'surfacelength'</span>: <span class="number">12</span>, <span class="string">'class'</span>: <span class="string">'entity'</span>, <span class="string">'surfacestart'</span>: <span class="number">34</span>&#125;, <span class="string">'topkmatches'</span>: [<span class="string">u'http://dbpedia.org/resource/Barack_Obama'</span>, <span class="string">u'http://dbpedia.org/resource/List_of_topics_related_to_Barack_Obama'</span>, <span class="string">u'http://dbpedia.org/resource/Barack_Obama_%22Joker%22_poster'</span>, <span class="string">u'http://dbpedia.org/resource/Assassination_threats_against_Barack_Obama'</span>, <span class="string">u'http://dbpedia.org/resource/List_of_books_and_films_about_Barack_Obama'</span>, <span class="string">u'http://dbpedia.org/resource/Presidential_transition_of_Barack_Obama'</span>, <span class="string">u'http://dbpedia.org/resource/Public_image_of_Barack_Obama'</span>, <span class="string">u'http://dbpedia.org/resource/Economic_policy_of_Barack_Obama'</span>, <span class="string">u'http://dbpedia.org/resource/Invitations_to_the_first_inauguration_of_Barack_Obama'</span>, <span class="string">u'http://dbpedia.org/resource/Barack_Obama_College_Preparatory_High_School'</span>, <span class="string">u'http://dbpedia.org/resource/Space_policy_of_the_Barack_Obama_administration'</span>, <span class="string">u'http://dbpedia.org/resource/Efforts_to_impeach_Barack_Obama'</span>, <span class="string">u'http://dbpedia.org/resource/Barack_Obama_Selma_50th_anniversary_speech'</span>, <span class="string">u'http://dbpedia.org/resource/Foreign_policy_of_the_Barack_Obama'</span>, <span class="string">u'http://dbpedia.org/resource/Illinois_Senate_career_of_Barack_Obama'</span>, <span class="string">u'http://dbpedia.org/resource/Second_inauguration_of_Barack_Obama'</span>, <span class="string">u'http://dbpedia.org/resource/Barack_Obama_Tucson_memorial_speech'</span>, <span class="string">u'http://dbpedia.org/resource/List_of_things_named_after_Barack_Obama'</span>, <span class="string">u'http://dbpedia.org/resource/First_inauguration_of_Barack_Obama'</span>, <span class="string">u'http://dbpedia.org/resource/Barack_Obama_presidential_campaign,_2008'</span>, <span class="string">u'http://dbpedia.org/resource/United_States_Senate_career_of_Barack_Obama'</span>, <span class="string">u'http://dbpedia.org/resource/Barack_Obama,_Sr.'</span>, <span class="string">u'http://dbpedia.org/resource/Barack_Obama_on_social_media'</span>, <span class="string">u'http://dbpedia.org/resource/Barack_Obama_in_comics'</span>, <span class="string">u'http://dbpedia.org/resource/Barack_Obama_presidential_campaign_endorsements'</span>, <span class="string">u'http://dbpedia.org/resource/Barack_Obama_%22Hope%22_poster'</span>, <span class="string">u'http://dbpedia.org/resource/Barack_Obama_Male_Leadership_Academy'</span>, <span class="string">u'http://dbpedia.org/resource/Barack_Obama_Democratic_Club_of_Upper_Manhattan'</span>, <span class="string">u'http://dbpedia.org/resource/Native_American_Policy_of_the_Barack_Obama_Administration'</span>, <span class="string">u'http://dbpedia.org/resource/Timeline_of_the_presidency_of_Barack_Obama'</span>, <span class="string">u'http://dbpedia.org/resource/Barack_Obama_Green_Charter_High_School'</span>], <span class="string">'class'</span>: <span class="string">'entity'</span>&#125;, &#123;<span class="string">'chunk'</span>: &#123;<span class="string">'chunk'</span>: <span class="string">'is'</span>, <span class="string">'surfacelength'</span>: <span class="number">2</span>, <span class="string">'class'</span>: <span class="string">'relation'</span>, <span class="string">'surfacestart'</span>: <span class="number">4</span>&#125;, <span class="string">'topkmatches'</span>: [<span class="string">u'http://dbpedia.org/property/is'</span>, <span class="string">u'http://dbpedia.org/property/10,000IsADiceGameThatIsPlayedWithFiveDiceA'</span>, <span class="string">u'http://dbpedia.org/property/isArtillery'</span>, <span class="string">u'http://dbpedia.org/property/isSeries'</span>, <span class="string">u'http://dbpedia.org/property/isUk'</span>, <span class="string">u'http://dbpedia.org/property/isRanged'</span>, <span class="string">u'http://dbpedia.org/property/isBladed'</span>, <span class="string">u'http://dbpedia.org/property/isMissile'</span>, <span class="string">u'http://dbpedia.org/property/isBomb'</span>, <span class="string">u'http://dbpedia.org/property/isOn'</span>, <span class="string">u'http://dbpedia.org/property/causeIs'</span>, <span class="string">u'http://dbpedia.org/property/isMulti'</span>, <span class="string">u'http://dbpedia.org/property/isVehicle'</span>, <span class="string">u'http://dbpedia.org/property/isStack'</span>, <span class="string">u'http://dbpedia.org/property/isRangedl'</span>, <span class="string">u'http://dbpedia.org/property/isSeason'</span>, <span class="string">u'http://dbpedia.org/property/featIs'</span>, <span class="string">u'http://dbpedia.org/property/isThermal'</span>, <span class="string">u'http://dbpedia.org/property/isShip'</span>, <span class="string">u'http://dbpedia.org/property/isExplosive'</span>, <span class="string">u'http://dbpedia.org/property/isTube'</span>, <span class="string">u'http://www.independent.co.uk/property/house-and-home/is-elmbridge-britains-beverly-hills-2190344.html'</span>, <span class="string">u'http://www.telegraph.co.uk/finance/property/3293690/When-an-Englishmans-home-is-his-business.html'</span>, <span class="string">u'http://www.smh.com.au/business/property/old-is-new-at-refashioned-amp-square-20110522-1eytn.html'</span>, <span class="string">u'http://www.telegraph.co.uk/property/overseasproperty/3360841/Caribbean-property-Rio-Ferdinand-is-ahead-of-the-game.html'</span>, <span class="string">u'http://www.telegraph.co.uk/property/9285761/Hovis-Hill-is-this-the-greatest-street-since-sliced-bread.html'</span>, <span class="string">u'http://www.timeslive.co.za/sundaytimes/decor/property/2015/11/13/Real-estate-crowdfunding-is-unchartered-territory-in-SA'</span>, <span class="string">u'http://www.news.com.au/money/property/mining-boom-is-strangling-heart-of-gunnedah/story-e6frfmd0-1226298825863'</span>, <span class="string">u'http://dbpedia.org/property/theGovernorIs412YearsOfAgeAndHerNameIsEthelWinkleberryTimezone'</span>, <span class="string">u'http://dbpedia.org/property/isSiSpecs'</span>, <span class="string">u'http://dbpedia.org/property/remains'</span>], <span class="string">'class'</span>: <span class="string">'relation'</span>&#125;])</span><br></pre></td></tr></table></figure></p>
+<h3><span id="4jointlinker">4.JointLinker</span></h3><p>对于每个关键词的所有候选URI，分别抽取特征R_i（候选列表中的排序位置），C（2步以内可达的其他关键词的候选URI的数量），H（到其他关键词的候选URI的平均步数）三个特征，采用xgboost分类器筛选最合适的候选，实验中在测试集上5折交叉验证。<br>输入为上步数组，输出为json，内含 词数组、nodefeatures数组（包含每个候选uri的连接、esrank、hops三个特征）、还有类别数组ertypes。<br><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'chunktext'</span>: [&#123;<span class="string">'chunk'</span>: <span class="string">'Who'</span>, <span class="string">'surfacelength'</span>: <span class="number">3</span>, <span class="string">'class'</span>: <span class="string">'entity'</span>, <span class="string">'surfacestart'</span>: <span class="number">0</span>&#125;, &#123;<span class="string">'chunk'</span>: <span class="string">'the parent organisation'</span>, <span class="string">'surfacelength'</span>: <span class="number">23</span>, <span class="string">'class'</span>: <span class="string">'relation'</span>, <span class="string">'surfacestart'</span>: <span class="number">7</span>&#125;, &#123;<span class="string">'chunk'</span>: <span class="string">'Barack Obama'</span>, <span class="string">'surfacelength'</span>: <span class="number">12</span>, <span class="string">'class'</span>: <span class="string">'entity'</span>, <span class="string">'surfacestart'</span>: <span class="number">34</span>&#125;, &#123;<span class="string">'chunk'</span>: <span class="string">'is'</span>, <span class="string">'surfacelength'</span>: <span class="number">2</span>, <span class="string">'class'</span>: <span class="string">'relation'</span>, <span class="string">'surfacestart'</span>: <span class="number">4</span>&#125;], <span class="string">'nodefeatures'</span>: &#123;<span class="number">0</span>: &#123;<span class="string">'http://dbpedia.org/resource/Yara-ma-yha-who'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">12</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/WHO-DT'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">5</span>, <span class="string">'esrank'</span>: <span class="number">3</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">75</span>&#125;, <span class="string">'http://dbpedia.org/resource/Who_Made_Who'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">25</span>, <span class="string">'esrank'</span>: <span class="number">20</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">375</span>&#125;, <span class="string">'http://dbpedia.org/resource/Vinnie_Who'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">25</span>, <span class="string">'esrank'</span>: <span class="number">28</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">375</span>&#125;, <span class="string">'http://dbpedia.org/resource/Who'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">1</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Who_Knows_Who'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">25</span>, <span class="string">'esrank'</span>: <span class="number">21</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">375</span>&#125;, <span class="string">'http://dbpedia.org/resource/Girls_Who_Like_Boys_Who_Like_Boys'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">22</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Who_Made_Who_(song)'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">25</span>, <span class="string">'esrank'</span>: <span class="number">18</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">375</span>&#125;, <span class="string">'http://dbpedia.org/resource/Girls_Who_Like_Boys_Who_Like_Boys_(book)'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">5</span>, <span class="string">'esrank'</span>: <span class="number">24</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">75</span>&#125;, <span class="string">'http://dbpedia.org/resource/Who_Is_Dr_Who'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">25</span>, <span class="string">'esrank'</span>: <span class="number">16</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">375</span>&#125;, <span class="string">'http://dbpedia.org/resource/Chi_(Who)'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">8</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Who_Made_Who_World_Tour'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">14</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Who%3F_(novel)'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">5</span>, <span class="string">'esrank'</span>: <span class="number">4</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">75</span>&#125;, <span class="string">'http://dbpedia.org/resource/Vem_\xe4r_det'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">23</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Doctor_Who'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">5</span>, <span class="string">'esrank'</span>: <span class="number">26</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">75</span>&#125;, <span class="string">'http://dbpedia.org/resource/Who_Cares'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">29</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Who%3F_(album)'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">25</span>, <span class="string">'esrank'</span>: <span class="number">11</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">375</span>&#125;, <span class="string">"http://dbpedia.org/resource/Who_I_Am_Hates_Who_I've_Been"</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">25</span>, <span class="string">'esrank'</span>: <span class="number">15</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">375</span>&#125;, <span class="string">'http://dbpedia.org/resource/Who_Shall_Live_and_Who_Shall_Die'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">19</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Who,_What,_Wear'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">6</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Who_Dunnit'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">25</span>, <span class="string">'esrank'</span>: <span class="number">30</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">375</span>&#125;, <span class="string">'http://dbpedia.org/resource/Who_Killed_Who%3F'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">25</span>, <span class="string">'esrank'</span>: <span class="number">17</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">375</span>&#125;, <span class="string">'http://dbpedia.org/resource/The_Who'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">5</span>, <span class="string">'esrank'</span>: <span class="number">31</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">875</span>&#125;, <span class="string">'http://dbpedia.org/resource/Who_Booty'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">25</span>, <span class="string">'esrank'</span>: <span class="number">25</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">375</span>&#125;, <span class="string">'http://dbpedia.org/resource/Ledipasvir'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">27</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Who%3F_Who%3F_Ministry'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">2</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Who_Covers_Who%3F'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">13</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Who,_whom%3F'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">10</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Who,_Me'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">5</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/WHO/PES'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">7</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Who%3F_(song)'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">9</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;&#125;, <span class="number">1</span>: &#123;<span class="string">'http://dbpedia.org/property/organizations'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">16</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/ontology/parent'</span>: &#123;<span class="string">'connections'</span>: <span class="number">1.25</span>, <span class="string">'esrank'</span>: <span class="number">5</span>, <span class="string">'sumofhops'</span>: <span class="number">1.625</span>&#125;, <span class="string">'http://dbpedia.org/ontology/organisation'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">6</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/organiztion'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">17</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://www.telegraph.co.uk/finance/property/renting/11908002/Generation-rent-the-reluctant-rise-of-the-older-tenant.html'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">18</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/organisations'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">13</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/organization'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">25</span>, <span class="string">'esrank'</span>: <span class="number">14</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">375</span>&#125;, <span class="string">'http://dbpedia.org/property/parnet'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">26</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/parent'</span>: &#123;<span class="string">'connections'</span>: <span class="number">3.25</span>, <span class="string">'esrank'</span>: <span class="number">12</span>, <span class="string">'sumofhops'</span>: <span class="number">4.875</span>&#125;, <span class="string">'http://dbpedia.org/property/organisation'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">8</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/ontology/parentOrganisation'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">5</span>, <span class="string">'esrank'</span>: <span class="number">1</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">75</span>&#125;, <span class="string">'http://dbpedia.org/property/parantOrganization'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">9</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/urbanisation'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">15</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/theN'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">19</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/perent'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">25</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/parentCo.'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">11</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/theE'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">20</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/theA'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">21</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/prarent'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">23</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/theW'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">22</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/ontology/Organisation'</span>: &#123;<span class="string">'connections'</span>: <span class="number">1.0</span>, <span class="string">'esrank'</span>: <span class="number">7</span>, <span class="string">'sumofhops'</span>: <span class="number">1.5</span>&#125;, <span class="string">'http://dbpedia.org/property/parentOrganisation'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">2</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/parentOrganization'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">3</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/parents'</span>: &#123;<span class="string">'connections'</span>: <span class="number">1.0</span>, <span class="string">'esrank'</span>: <span class="number">24</span>, <span class="string">'sumofhops'</span>: <span class="number">1.5</span>&#125;, <span class="string">'http://dbpedia.org/property/agent'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">10</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/parentOraganisation'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">4</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;&#125;, <span class="number">2</span>: &#123;<span class="string">'http://dbpedia.org/resource/Barack_Obama_Selma_50th_anniversary_speech'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">13</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Economic_policy_of_Barack_Obama'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">8</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Barack_Obama_Green_Charter_High_School'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">31</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Assassination_threats_against_Barack_Obama'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">4</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/United_States_Senate_career_of_Barack_Obama'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">21</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Efforts_to_impeach_Barack_Obama'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">12</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Invitations_to_the_first_inauguration_of_Barack_Obama'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">9</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Barack_Obama_Tucson_memorial_speech'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">17</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Barack_Obama,_Sr.'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">25</span>, <span class="string">'esrank'</span>: <span class="number">22</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">125</span>&#125;, <span class="string">'http://dbpedia.org/resource/Barack_Obama_%22Hope%22_poster'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">26</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Barack_Obama_presidential_campaign,_2008'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">20</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/List_of_topics_related_to_Barack_Obama'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">2</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Barack_Obama_%22Joker%22_poster'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">3</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Foreign_policy_of_the_Barack_Obama'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">14</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Illinois_Senate_career_of_Barack_Obama'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">15</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Barack_Obama_in_comics'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">24</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Barack_Obama'</span>: &#123;<span class="string">'connections'</span>: <span class="number">1.5</span>, <span class="string">'esrank'</span>: <span class="number">1</span>, <span class="string">'sumofhops'</span>: <span class="number">2.375</span>&#125;, <span class="string">'http://dbpedia.org/resource/List_of_things_named_after_Barack_Obama'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">18</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Native_American_Policy_of_the_Barack_Obama_Administration'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">29</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Barack_Obama_Democratic_Club_of_Upper_Manhattan'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">28</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Public_image_of_Barack_Obama'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">7</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Barack_Obama_on_social_media'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">23</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Second_inauguration_of_Barack_Obama'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">16</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Barack_Obama_presidential_campaign_endorsements'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">25</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Barack_Obama_Male_Leadership_Academy'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">27</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Space_policy_of_the_Barack_Obama_administration'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">11</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Presidential_transition_of_Barack_Obama'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">5</span>, <span class="string">'esrank'</span>: <span class="number">6</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">5</span>&#125;, <span class="string">'http://dbpedia.org/resource/First_inauguration_of_Barack_Obama'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">19</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Timeline_of_the_presidency_of_Barack_Obama'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">30</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/Barack_Obama_College_Preparatory_High_School'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">10</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/resource/List_of_books_and_films_about_Barack_Obama'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">5</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;&#125;, <span class="number">3</span>: &#123;<span class="string">'http://www.smh.com.au/business/property/old-is-new-at-refashioned-amp-square-20110522-1eytn.html'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">24</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://www.news.com.au/money/property/mining-boom-is-strangling-heart-of-gunnedah/story-e6frfmd0-1226298825863'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">28</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/causeIs'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">11</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/isSiSpecs'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">30</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/theGovernorIs412YearsOfAgeAndHerNameIsEthelWinkleberryTimezone'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">29</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://www.timeslive.co.za/sundaytimes/decor/property/2015/11/13/Real-estate-crowdfunding-is-unchartered-territory-in-SA'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">27</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/isBladed'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">7</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/isOn'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">10</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://www.independent.co.uk/property/house-and-home/is-elmbridge-britains-beverly-hills-2190344.html'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">22</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/isMulti'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">12</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/isRanged'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">6</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/isRangedl'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">15</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/isTube'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">21</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/isUk'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">5</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://www.telegraph.co.uk/property/overseasproperty/3360841/Caribbean-property-Rio-Ferdinand-is-ahead-of-the-game.html'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">25</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/10,000IsADiceGameThatIsPlayedWithFiveDiceA'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">2</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/isThermal'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">18</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/isVehicle'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">13</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/is'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">1</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/isMissile'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">8</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/isShip'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">19</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/isSeries'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">4</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/remains'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">31</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://www.telegraph.co.uk/property/9285761/Hovis-Hill-is-this-the-greatest-street-since-sliced-bread.html'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">26</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/isArtillery'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">3</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/isStack'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">14</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/isExplosive'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">20</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://www.telegraph.co.uk/finance/property/3293690/When-an-Englishmans-home-is-his-business.html'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">23</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/isBomb'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">9</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/isSeason'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">16</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;, <span class="string">'http://dbpedia.org/property/featIs'</span>: &#123;<span class="string">'connections'</span>: <span class="number">0</span>.<span class="number">0</span>, <span class="string">'esrank'</span>: <span class="number">17</span>, <span class="string">'sumofhops'</span>: <span class="number">0</span>.<span class="number">0</span>&#125;&#125;&#125;, <span class="string">'ertypes'</span>: [<span class="string">'entity'</span>, <span class="string">'relation'</span>, <span class="string">'entity'</span>, <span class="string">'relation'</span>]&#125;</span><br></pre></td></tr></table></figure></p>
+<h3><span id="5reranker">5.Reranker</span></h3><p>将制作好的训练数据送入三种分类器进行训练，分类器会输出每个候选是最佳候选的可能性得分，根据这些得分就可以再排序得到RF（采用MRR作为评测标准）。如果某个关键词短语消歧后得到的URI分值较低（和mention的相似度较低）则可能第二个步骤实体/关系预测错误，那么这里就会更改该关键词的实体/关系标签，重新执行候选生成和消歧步骤。<br>输入为上步数组，输出为结果json。<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'rerankedlists'</span>: rerankedlists, <span class="string">'chunktext'</span><span class="symbol">:topklists</span>[<span class="string">'chunktext'</span>], <span class="string">'ertypes'</span>: topklists[<span class="string">'ertypes'</span>], <span class="string">'er-rerun'</span>: <span class="keyword">self</span>.rerun, <span class="string">'changes'</span>: <span class="keyword">self</span>.pred_change&#125;</span><br></pre></td></tr></table></figure></p>
+<p>另外地，本系统还引用了另一个系统SQG，可在5000端口返回生成的sparql语句之类的（该服务需在另外配置）。<a href="https://github.com/AskNowQA/SQG" target="_blank" rel="noopener">项目地址</a>，需要者自行配置。<br>如服务架设在虚拟机内，且需要局域网内的其他用户可访问该服务，可参照<a href="https://jingyan.baidu.com/album/46650658e1cc84f549e5f806.html?picindex=1" target="_blank" rel="noopener">此文</a>。</p>
+<blockquote>
+<p>本文来源：「想飞的小菜鸡」的个人网站  <a href="https://vodkazy.cn" target="_blank" rel="noopener">vodkazy.cn</a></p>
+<p>版权声明：本文为「想飞的小菜鸡」的原创文章，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请附上原文出处链接及本声明。</p>
+<p>原文链接：<a href="https://vodkazy.cn/2018/12/21/EARL配置记录" target="_blank" rel="noopener">https://vodkazy.cn/2018/12/21/EARL配置记录</a></p>
+</blockquote>
+
+        </div>
+      </article>
+    </div>
+
+	<!-- 打赏 -->
+    <div class="reward">
+	<div class="reward-button">赏 <span class="reward-code">
+		<span class="alipay-code"> <img class="alipay-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/alipay.webp"><b>支付宝打赏</b> </span> 
+		<span class="wechat-code"> <img class="wechat-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/weixin.webp"><b>微信打赏</b> </span> </span>
+	</div>
+	<p class="reward-notice">如果文章对你有帮助，欢迎点击上方按钮打赏作者，更多文章请访问<a href="https://vodkazy.cn" style="color:blue">想飞的小菜鸡</a></p>
+	    <style>
+		*,*:before,*:after {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			-ms-box-sizing: border-box;
+			box-sizing: border-box
+		}
+
+		.reward {
+			padding: 5px 0
+		}
+
+		.reward .reward-notice {
+			font-size: 14px;
+			line-height: 14px;
+			margin: 15px auto;
+			text-align: center
+		}
+
+		.reward .reward-button {
+			font-size: 28px;
+			line-height: 58px;
+			position: relative;
+			display: block;
+			width: 60px;
+			height: 60px;
+			margin: 0 auto;
+			padding: 0;
+			-webkit-user-select: none;
+			text-align: center;
+			vertical-align: middle;
+			color: #fff;
+			border: 1px solid #f1b60e;
+			border-radius: 50%;
+			background: #fccd60;
+			background: -webkit-gradient(linear,left top,left bottom,color-stop(0,#fccd60),color-stop(100%,#fbae12),color-stop(100%,#2989d8),color-stop(100%,#207cca));
+			background: -webkit-linear-gradient(top,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%);
+			background: linear-gradient(to bottom,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%)
+		}
+
+		.reward .reward-code {
+			position: absolute;
+			top: -220px;
+			left: 50%;
+			display: none;
+			width: 350px;
+			height: 200px;
+			margin-left: -175px;
+			padding: 15px;
+			border: 1px solid #e6e6e6;
+			background: #fff;
+			box-shadow: 0 1px 1px 1px #efefef
+		}
+
+		.reward .reward-button:hover .reward-code {
+			display: block
+		}
+
+		.reward .reward-code span {
+			display: inline-block;
+			width: 150px;
+			height: 150px
+		}
+
+		.reward .reward-code span.alipay-code {
+			float: left
+		}
+
+		.reward .reward-code span.alipay-code a {
+			padding: 0
+		}
+
+		.reward .reward-code span.wechat-code {
+			float: right
+		}
+
+		.reward .reward-code img {
+			display: inline-block;
+			float: left;
+			width: 150px;
+			height: 150px;
+			margin: 0 auto;
+			border: 0
+		}
+
+		.reward .reward-code b {
+			font-size: 14px;
+			line-height: 26px;
+			display: block;
+			margin: 0;
+			text-align: center;
+			color: #666
+		}
+
+		.reward .reward-code b.notice {
+			line-height: 2rem;
+			margin-top: -1rem;
+			color: #999
+		}
+
+		.reward .reward-code:after,.reward .reward-code:before {
+			position: absolute;
+			content: '';
+			border: 10px solid transparent
+		}
+
+		.reward .reward-code:after {
+			bottom: -19px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #fff
+		}
+
+		.reward .reward-code:before {
+			bottom: -20px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #e6e6e6
+		}
+    </style>
+
+
+    <!-- Pre or Next -->
+    
+	<div class="container">
+           <ul class="pager">
+    	     
+      	     <li class="previous">
+              <a href="/2018/12/22/LC-QuAD数据集调研报告/" rel="prev">上一篇</a>
+             </li>
+           
+           
+              <li class="next">
+              <a href="/2018/12/17/Pytorch学习笔记（三）/" rel="prev">下一篇</a>
+            </li>
+           
+          </ul>
+       </div>
+   
+
+    <!-- Valine无后端评论系统 -->   
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+		    el: '#vcomments' ,
+		    appId: 'lH3VkMCd4MHaKtr2n2SRWdoi-MdYXbMMI',
+		    appKey: '5aMXSY7b4KwnzfgpzLA0hPLv',
+		    notify:true, 
+		    verify:false, 
+		    placeholder: '填写正确的邮箱和昵称才能收到我的回复哦       ٩( ^o^ )و  ' ,
+		    avatar: 'retro'
+		});
+    </script>
+    <!-- Valine无后端评论系统 -->  
+
+  </div>
+</div>
+</div>
+
+  <!-- Footer -->
+  <!-- Footer -->
+<footer class="site-info">
+  <p>
+    <span>想飞的小菜鸡 &copy; 2021</span>
+    
+      <span class="split">|</span>
+      <span>照耀的Blog</span>
+    
+  </p>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    本站访客数<span id="busuanzi_value_site_uv"></span>人次
+    本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</footer>
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+<script src="/js/app.js"></script>
+
+
+ 
+  <!-- 使用 aotuload.js 引入看板娘 -->    
+  <!-- //<script src="/js/assets/jquery.min.js?v=3.3.1"></script> -->   
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  <!-- //<script src="/js/assets/jquery-ui.min.js?v=1.12.1"></script>   --> 
+  <script src="https://cdn.jsdelivr.net/npm/jquery-ui-dist@1.12.1/jquery-ui.min.js"></script>
+  <script src="/js/assets/autoload.js?v=1.4.2"></script>
+  <!-- //<script src="https://live2d-cdn.fghrsh.net/assets/1.4.2/autoload.js></script> -->   
+   
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var i=n.imageLazyLoadSetting.isSPA,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){i&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,e,a=0;a<r.length;a++)t=r[a],e=void 0,0<=(e=t.getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},n.src=i}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+
+</html>

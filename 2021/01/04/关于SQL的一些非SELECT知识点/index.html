@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<!-- 百度统计 -->
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?e31627579358722b9d300535c8206351";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Vodkazy">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="关于SQL的一些非SELECT知识点">
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="想飞的小菜鸡">
+  <!--Type page-->
+  
+      <meta property="og:type" content="article">
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- Title -->
+  
+  <title>关于SQL的一些非SELECT知识点 - 想飞的小菜鸡</title>
+
+
+  <link rel="shortcut icon" href="/../images/icon.ico">
+  <!--font-awesome-->
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+
+<body>
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    
+    <div class="logo">
+      <a href="/" rel="home">
+        
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://cdn2.iconfinder.com/data/icons/weather-color-2/500/weather-01-128.png" alt="想飞的小菜鸡" height="60">
+        
+      </a>
+    </div>
+    <a class="header-name" href="/">
+            <span>想飞的小菜鸡</span>
+            的小窝
+        </a>
+    <!-- navbar -->
+    <nav class="navbar">
+      <!--  nav links -->
+      <div class="collapse">
+        <ul class="navbar-nav">
+          
+          
+            <li>
+              <a href="/.">
+                
+                  <i class="fa fa-home "></i>
+                
+                首页
+              </a>
+            </li>
+          
+            <li>
+              <a href="/archives">
+                
+                  <i class="fa fa-archive "></i>
+                
+                目录
+              </a>
+            </li>
+          
+            <li>
+              <a href="/project">
+                
+                  <i class="fa fa-folder-open "></i>
+                
+                代码库
+              </a>
+            </li>
+          
+            <li>
+              <a href="/photo">
+                
+                  <i class="fa fa-photo "></i>
+                
+                相册薄
+              </a>
+            </li>
+          
+            <li>
+              <a href="/lovetree">
+                
+                  <i class="fa fa-tree "></i>
+                
+                爱情树
+              </a>
+            </li>
+          
+            <li>
+              <a href="/guestbook">
+                
+                  <i class="fa fa-edit "></i>
+                
+                留言板
+              </a>
+            </li>
+          
+            <li>
+              <a href="/about">
+                
+                  <i class="fa fa-user "></i>
+                
+                关于我
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="button-wrap">
+      <button class="menu-toggle">Primary Menu</button>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            关于SQL的一些非SELECT知识点
+            
+          </h1>
+         
+        </div>
+         <p class="a-posted-on">
+          2021-01-04
+          </p>
+        <!-- Post Main Content -->
+        <div class="entry-content">
+          <p>复习一波分布式SQL的基础语法，其中有一些之前都没怎么用到过。</p>
+<a id="more"></a>
+<h2><span id="运算符">运算符</span></h2><p><code>BETWWEN A AND B</code>，判断 A ≤ x ≤ B。</p>
+<p><code>a || b || c</code>，字符串连接符，相当于concat(a,b,c)。</p>
+<p><code>key IN (1,2,3)</code>，判断key是否在集合中，后边跟的必须是个集合，和Python的in不太一样。</p>
+<p><code>a&lt;&gt;b</code>，不等于，等价于<code>a!=b</code>。</p>
+<p><code>a&lt;=&gt;b</code>，判断a不等于b是否非空，等价于<code>ifNull(a!=b, false)</code>。</p>
+<h2><span id="select">SELECT</span></h2><p><code>SELECT</code>可以通过正则来选择符合特定规则的列名。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="string">`(ds_1|dss_1)?+.+`</span> <span class="keyword">FROM</span> A t;</span><br></pre></td></tr></table></figure>
+<p>可以通过表名后边跟一个别名来为查询表取别名。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> A <span class="keyword">VALUES</span> (<span class="number">1</span>,<span class="number">2</span>) (<span class="number">2</span>,<span class="number">3</span>) t(a,b);</span><br></pre></td></tr></table></figure>
+<p>可以通过<code>VALUES</code>语句象征性得产生一个临时表。</p>
+<p><code>DELETE FROM A [WHERE ...]</code>用于删除某些行，<code>UPDATE A SET a=&#39;a&#39; [WHERE ...]</code>用于更新某些行的值。</p>
+<h2><span id="group-by">GROUP BY</span></h2><p><code>GROUP BY</code>后跟的KEY必须是<strong>输入表</strong>的列名或基于列名的表达式，不能是<code>SELECT</code>输出列（别名也不行，除非输出列的列名是原表的列名）。在SQL解析中，<strong><code>GROUP BY</code>操作通常是先于<code>SELECT</code>操作的</strong>，因此<code>GROUP BY</code>只能接受输入表的列或表达式为KEY。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> a <span class="keyword">AS</span> b <span class="keyword">FROM</span> A <span class="keyword">GROUP</span> <span class="keyword">BY</span> a;	<span class="comment">-- 对，因为a本身是A的列名</span></span><br><span class="line"><span class="keyword">SELECT</span> a <span class="keyword">AS</span> b <span class="keyword">FROM</span> A <span class="keyword">GROUP</span> <span class="keyword">BY</span> b;	<span class="comment">-- 错，b是输出列</span></span><br></pre></td></tr></table></figure>
+<p>并且<code>GROUP BY</code>和<code>SELECT</code>之间存在制约关系，<code>SELECT</code>的所有列中，没有使用聚合函数的列，<strong>必须</strong>出现在<code>GROUP BY</code>中。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> a,b <span class="keyword">FROM</span> A <span class="keyword">GROUP</span> <span class="keyword">BY</span> a;		<span class="comment">-- 错，会报错说b也必须出现在GROUP BY里</span></span><br><span class="line"><span class="keyword">SELECT</span> a,<span class="keyword">SUM</span>(b) <span class="keyword">FROM</span> A <span class="keyword">GROUP</span> <span class="keyword">BY</span> a;	<span class="comment">-- 对，因为b进行了聚合操作</span></span><br><span class="line"><span class="keyword">SELECT</span> a <span class="keyword">FROM</span> A <span class="keyword">GROUP</span> <span class="keyword">BY</span> a;			<span class="comment">-- 对，因为只有一个变量</span></span><br></pre></td></tr></table></figure>
+<h2><span id="order-by">ORDER BY</span></h2><p><code>ORDER BY</code>必须与<code>LIMIT</code>联用（因为是全局排序），且KEY必须是<code>SELECT</code>的输出列的列名或者别名。</p>
+<p>对于<code>NULL</code>，在mysql中认为比任何值都小，在oracle中则不是这样。</p>
+<p>排序的关键字：<code>DESC</code>是降序，<code>ASC</code>是升序，默认是<code>DESC</code>。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> A <span class="keyword">GROUP</span> <span class="keyword">BY</span> a;					<span class="comment">-- 错，因为没和LIMIT连用</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> A <span class="keyword">ORDER</span> <span class="keyword">BY</span> a <span class="keyword">DESC</span>, b <span class="keyword">ASC</span>;		<span class="comment">-- 对，分别排序规则</span></span><br></pre></td></tr></table></figure>
+<h2><span id="distribute-by">DISTRIBUTE BY</span></h2><p>对数据按照某几列的值做hash分片，必须使用<code>SELECT</code>的输出列别名。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> a <span class="keyword">FROM</span> A <span class="keyword">DISTRIBUTE</span> <span class="keyword">BY</span> a;</span><br></pre></td></tr></table></figure>
+<p><code>SORT BY</code>：局部排序，似乎主要在诸如MapReduce-based的分布式数据库查询中见到。如果<code>SORT BY</code>语句前有<code>DISTRIBUTE BY</code>，<code>SORT BY</code>即对<code>DISTRIBUTE BY</code>的结果进行局部排序。<code>DISTRIBUTE BY</code>控制 map 的输出在reduer中是如何划分的。</p>
+<p>如果<code>SORT BY</code>语句前没有<code>DISTRIBUTE BY</code>，<code>SORT BY</code>即对每个reduce中的数据进行排序，同样是执行一个局部排序过程。这可以保证每个reduce的输出落盘数据都是有序的，从而能够增加存储压缩率，同时读取的时候如果有过滤，能够利用这个信息减少真正从磁盘读取的数据量，提高后面进行的全局排序的效率。</p>
+<h2><span id="cluster-by">CLUSTER BY</span></h2><p><code>CLUSTER BY</code>相当于<code>DISTRIBUTE BY</code>和<code>SORT BY</code>合用，但是<code>CLUSTER BY</code>不能指定排序为asc或 desc 的规则。</p>
+<p><code>ORDER BY</code>不和<code>DISTRIBUTE BY</code>/<code>SORT BY</code>共用，同时<code>GROUP BY</code>也不和<code>DISTRIBUTE BY</code>/<code>SORT BY</code>共用。</p>
+<p><code>ORDER BY</code>/<code>DISTRIBUTE BY</code>/<code>SORT BY</code>是后于<code>SELECT</code>操作的，因此它们只能接受<code>SELECT</code>语句的输出列为key。</p>
+<h2><span id="unionintersectexcept">UNION/INTERSECT/EXCEPT</span></h2><p>三者相当于对集合进行的<strong>交并补</strong>操作。三种语法均有<code>ALL</code>和<code>DISTINCT</code>两种方式，其中<code>ALL</code>方式下不做去重，而<code>DISTINCT</code>方式下会做去重。默认是<code>DISTINCT</code>方式，因此<code>DISTINCT</code>关键字可以省略。</p>
+<ul>
+<li><strong>UNION</strong>: 求两个数据集的并集。即将两个数据集合并成一个数据集。UNION可以把多个SELECT操作返回的结果，联合成一个数据集。但是连接的两个SELECT查询语句，两个SELECT的列个数、列名称、列类型必须严格一致。如果原名称不一致，可以通过别名设置成相同的名称。</li>
+<li><strong>INTERSECT</strong>: 求两个数据集的交集。即输出两个数据集均包含的记录。</li>
+<li><strong>EXCEPT</strong>: 求第二个数据集在第一个数据集中的补集。即输出第一个数据集包含而第二个数据集不包含的记录。</li>
+<li><strong>MINUS</strong>: 等同于EXCEPT。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> A</span><br><span class="line"><span class="keyword">UNION</span>|<span class="keyword">INTERSECT</span>|<span class="keyword">EXCEPT</span> [ALL|<span class="keyword">DISTINCT</span>]</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> B;</span><br></pre></td></tr></table></figure>
+<p>注意事项：</p>
+<ul>
+<li>集合操作的结果不保证顺序。</li>
+<li>集合操作左右两个分支要求列个数必须一致。如果类型不一致，可能会插入隐式类型转换。</li>
+<li>支持通过括号指定优先级。</li>
+<li>UNION后如果有ORDER BY | LIMIT等子句，则其将作用于前面最后一个UNION的结果。也可以通过一些语句进行设置，使之作用于前面所有UNION。</li>
+</ul>
+<h2><span id="join">JOIN</span></h2><p>{LEFT OUTER | RIGHT OUTER | FULL OUTER | INNER} JOIN，四种JOIN操作。这里忽视CROSS JOIN 笛卡尔积的方式。</p>
+<ul>
+<li><strong>INNER JOIN</strong>：如果表中有至少一个匹配，则返回行，关键字INNER可省。</li>
+<li><strong>LEFT OUTER  JOIN</strong>：即使右表中没有匹配，也从左表返回所有的行。</li>
+<li><strong>RIGHT OUTER  JOIN</strong>：即使左表中没有匹配，也从右表返回所有的行。</li>
+<li><strong>FULL OUTER  JOIN</strong>：只要其中一个表中存在匹配，则返回行。</li>
+</ul>
+<p>连接条件，<strong>只允许AND</strong>连接的等值条件。只有在诸如MapReduct-based的分布式查询中可以使用不等值连接或者使用OR连接多个条件。支持通过括号指定JOIN的优先级。</p>
+<p>NATURAL JOIN（自然连接） ，参与JOIN的两张表根据字段名字自动决定连接字段。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--表A的字段(key1, a1)，表B的字段(key1, b1)</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> A <span class="keyword">NATURAL</span> <span class="keyword">JOIN</span> B;</span><br><span class="line"><span class="comment">-- 等价于</span></span><br><span class="line"><span class="keyword">SELECT</span> A.key1 <span class="keyword">as</span> key1, A.a1, B.b1 <span class="keyword">FROM</span> A <span class="keyword">INNER</span> <span class="keyword">JOIN</span> B <span class="keyword">ON</span> A.key1 = B.key1;</span><br></pre></td></tr></table></figure>
+<p>LEFT SEMI JOIN（半连接），右表只用来过滤左表的数据而不出现在结果集中。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> A <span class="keyword">LEFT</span> SEMI <span class="keyword">JOIN</span> B <span class="keyword">ON</span> A.id=B.id;</span><br><span class="line"><span class="comment">-- 只要A中某行的id在B的所有id中出现过，此行就保留在结果集中</span></span><br></pre></td></tr></table></figure>
+<p>LEFT ANTI JOIN（反连接），当JOIN条件不成立时返回左表中的数据。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> A <span class="keyword">LEFT</span> ANTI <span class="keyword">JOIN</span> B <span class="keyword">ON</span> A.id=B.id;</span><br><span class="line"><span class="comment">-- 只要A中某行的id在B的所有id中都没有出现过，此行就保留在结果集中</span></span><br></pre></td></tr></table></figure>
+<h2><span id="having">HAVING</span></h2><p>聚合函数无法和<code>WHERE</code>合用，但是可以和<code>HAVING</code>合用来做条件过滤。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> a, <span class="keyword">SUM</span>(b) <span class="keyword">FROM</span> A</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> a</span><br><span class="line"><span class="keyword">HAVING</span> <span class="keyword">SUM</span>(b)&lt;<span class="number">2000</span>;</span><br></pre></td></tr></table></figure>
+<h2><span id="子查询subquery">子查询SUBQUERY</span></h2><p>普通的select是从几张表中读数据，但查询的对象也可以是另外一个<code>SELECT</code>操作。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> A.a, A.b <span class="keyword">FROM</span> (<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> AA) A <span class="keyword">JOIN</span> B <span class="keyword">ON</span> A.a=B.a;</span><br></pre></td></tr></table></figure>
+<p>因为<code>SELECT</code>的返回值实际上是一个集合，所以也可以联合<code>IN</code>操作来进行数据判断。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> A <span class="keyword">WHERE</span> a <span class="keyword">NOT</span> <span class="keyword">IN</span> (<span class="keyword">SELECT</span> a <span class="keyword">FROM</span> B);</span><br></pre></td></tr></table></figure>
+<p><code>NOT IN SUBQUERY</code>类似于<code>LEFT ANTI JOIN</code>，但是不同的一点是，如果B中有任何为<code>NULL</code>的列，则 <code>NOT IN</code>表达式会为<code>NULL</code>，导致<code>WHERE</code>条件不成立，无数据返回，此时与<code>LEFT ANTI JOIN</code>不同。</p>
+<p>当SUBQUERY的输出结果为单行单列的时候（例如SUBQUERY的SELECT是COUNT函数），可以当做标量来使用。以<code>SELECT COUNT()</code>为例，输出结果是一个row set，但可以判断这条语句的输出有且仅有一行一列，因此可以将其当做标量使用。例如：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELCT * FROM A WHERE (SELECT COUNT(*) FROM B WHERE A.a = B.a) &gt; 1;</span><br><span class="line"><span class="comment">-- 这里的COUNT的结果直接作为标量与1进行计算</span></span><br></pre></td></tr></table></figure>
+<p>注意，能当成标量来使用的SUBQUERY必须是<strong>在编译阶段就能够确认返回结果只有一行一列</strong>的查询，如果一条语句，即使能够确定在实际运行过程中只会产生一行数据，但是编译过程中确定不了，编译器也是会报错。也就是说并不是根据返回数据的条数判断，而是根据函数本身的返回值判断的。该使用方式只能发生在<code>WHERE</code>中。</p>
+<h2><span id="窗口函数">窗口函数</span></h2><p>可以使用窗口函数进行灵活的分析处理工作，窗口函数只能出现在select子句中，窗口函数中不能嵌套使用窗口函数和聚合函数，且不可以和同级别的聚合函数一起使用。窗口函数的作用是<strong>开某扇窗，从某个角度看数据</strong>。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">window_func() OVER (PARTITION BY a ORDER BY b [windowing_clause]) as name</span><br><span class="line"><span class="comment">-- partition by部分用来指定开窗的列。分区列的值相同的行被视为在同一个窗口内。</span></span><br><span class="line"><span class="comment">-- order by用来指定数据在一个窗口内如何排序。</span></span><br><span class="line"><span class="comment">-- windowing_clause部分可以用rows指定开窗方式</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>COUNT</code>，计数。</li>
+<li><code>AVG</code>，取均值。</li>
+<li><code>MAX</code>，取最大值。</li>
+<li><code>MIN</code>，取最小值。</li>
+<li><code>MEDIAN</code>，取中位数。</li>
+<li><code>STDDEV</code>，计算总体标准差。</li>
+<li><code>STDDEV_SAMP</code>，计算样本标准差。</li>
+<li><code>SUM</code>，求和。</li>
+<li><code>DENSE_RANK</code>，计算连续排名。</li>
+<li><code>RANK</code>，计算排名。</li>
+<li><code>LAG</code>，按偏移量取当前行之前第几行的值，如当前行号为rn，则取行号为rn-offset的值。</li>
+<li><code>LEAD</code>，按偏移量取当前行之后第几行的值，如当前行号为rn则取行号为rn+offset的值。</li>
+<li><code>PERCENT_RANK</code>，计算一组数据中某行的相对排名。</li>
+<li><code>ROW_NUMBER</code>，用于计算行号，从 1 开始。</li>
+<li><code>CLUSTER_SAMPLE</code>，分组抽样。</li>
+<li><code>NTILE</code>，将分组数据按照顺序切分成n片，并返回当前切片值，如果切片不均匀，默认增加第一个切片的分布。</li>
+<li><code>cume_dist</code>，用于取得累计分布，相当于求分组中值小于等于当前值的行数占分组总行数的比例。</li>
+</ul>
+<h2><span id="其他">其他</span></h2><h3><span id="lateral-view">LATERAL VIEW</span></h3><p>分布式SQL独有的，通常和<code>SPLIT</code>、 <code>EXPLODE</code>等UDTF（User-Defined Table-Generating Functions）一起使用。它能够<strong>将一行数据拆成多行数据</strong>，在此基础上可以对拆分后的数据进行聚合。</p>
+<ul>
+<li><p><code>LATERAL VIEW</code>首先为原始表的每行调用UDTF，UDTF会把一行拆分成一行或者多行，<code>LATERAL VIEW</code>再把结果聚合，产生一个支持别名表的虚拟表。</p>
+</li>
+<li><p>相当于该函数的作用对象是一个Table，然后用<code>explode</code>函数来作用到具体的某一个list上，输出是一个新的row set。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">id</span>, b <span class="keyword">FROM</span> A LATERAL <span class="keyword">VIEW</span> explode(A_list) T <span class="keyword">AS</span> b;</span><br><span class="line"><span class="comment">-- 假设原来的每行是(id, A_list)，(1, [1,2,3])</span></span><br><span class="line"><span class="comment">-- 打散之后的输出是(1,1),(1,2),(1,3)</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">id</span>, c <span class="keyword">FROM</span> A LATERAL <span class="keyword">VIEW</span> explode(<span class="keyword">SPLIT</span>(A_string, <span class="string">' '</span>)) T <span class="keyword">AS</span> c;</span><br><span class="line"><span class="comment">-- 假设原来的每行是(id, A_string)，(1, 'a b c')</span></span><br><span class="line"><span class="comment">-- 打散之后的输出是(1,a),(1,b),(1,c)</span></span><br><span class="line"><span class="keyword">SELECT</span> b, c <span class="keyword">FROM</span> A LATERAL <span class="keyword">VIEW</span> explode(A_list) T1 <span class="keyword">AS</span> b</span><br><span class="line">					LATERAL <span class="keyword">VIEW</span> explode(A_string) T2 <span class="keyword">AS</span> c;</span><br><span class="line"><span class="comment">-- 也可以同时多条LATERAL VIEW同时打散，产生更多组合</span></span><br><span class="line"><span class="comment">-- 假设原来的每行是(A_list, A_string)，([1,2], 'a b')</span></span><br><span class="line"><span class="comment">-- 打散之后的输出是(1,a),(1,b),(2,a),(2,b)</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3><span id="grouping-sets">GROUPING SETS</span></h3><p>如果同时要对好几列分别做聚合，传统的方法需要写很多UNION ALL语句，但是<code>GROUPING SETS</code>只需要一句。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> a,b,c,<span class="keyword">COUNT</span>(*) <span class="keyword">FROM</span> A <span class="keyword">GROUP</span> <span class="keyword">BY</span> a,b,c <span class="keyword">GROUPING</span> <span class="keyword">SETS</span> ((a,b), (c), ());</span><br><span class="line"><span class="comment">-- 相当于逐层UNION</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="keyword">COUNT</span>(*)</span><br><span class="line"><span class="keyword">FROM</span> A</span><br><span class="line"><span class="keyword">UNION</span> ALL</span><br><span class="line"><span class="keyword">SELECT</span> a, b, <span class="literal">NULL</span>, <span class="keyword">COUNT</span>(*)</span><br><span class="line"><span class="keyword">FROM</span> A <span class="keyword">GROUP</span> <span class="keyword">BY</span> a, b</span><br><span class="line"><span class="keyword">UNION</span> ALL</span><br><span class="line"><span class="keyword">SELECT</span> <span class="literal">NULL</span>, <span class="literal">NULL</span>, c, <span class="keyword">COUNT</span>(*)</span><br><span class="line"><span class="keyword">FROM</span> A <span class="keyword">GROUP</span> <span class="keyword">BY</span> c;</span><br><span class="line"><span class="comment">-- 对于不使用的变量，使用NULL充当占位符，这样可以使得结果集做UNION操作</span></span><br></pre></td></tr></table></figure>
+<p>为了区分占位符NULL和真正的NULL，<code>GROUPING(一个列名)</code>和<code>GROUPING_ID(一个或多个列名)</code>函数就出现了。<code>GROUPING(a)</code>如果列a的NULL是占位符则返回1，否则返回0。<code>GROUPING_ID</code>的作用则是将参数列的<code>GROUPING</code>结果按照BitMap的方式组成整数。</p>
+<h3><span id="cube-amp-rollup">CUBE &amp; ROLLUP</span></h3><p><code>CUBE</code>和<code>ROLLUP</code>可以认为是特殊的<code>GROUPING SETS</code>。</p>
+<p><code>CUBE</code>会枚举指定列的所有可能组合作为<code>GROUPING SETS</code>，而<code>ROLLUP</code>会以按层级聚合的方式产生<code>GROUPING SETS</code>。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">GROUP BY CUBE(a, b, c) 等价于 GROUPING SETS((a,b,c),(a,b),(a,c),(b,c),(a),(b),(c),())</span><br><span class="line">GROUP BY ROLLUP(a, b, c) 等价于 GROUPING SETS((a,b,c),(a,b),(a), ())</span><br><span class="line">GROUP BY CUBE ( (a, b), (c, d) ) 等价于 GROUPING SETS (</span><br><span class="line">    ( a, b, c, d ),</span><br><span class="line">    ( a, b       ),</span><br><span class="line">    (       c, d ),</span><br><span class="line">    (            )</span><br><span class="line">)</span><br><span class="line">GROUP BY ROLLUP ( a, (b, c), d ) 等价于GROUPING SETS (</span><br><span class="line">    ( a, b, c, d ),</span><br><span class="line">    ( a, b, c    ),</span><br><span class="line">    ( a          ),</span><br><span class="line">    (            )</span><br><span class="line">)</span><br><span class="line">GROUP BY a, CUBE (b, c), GROUPING SETS ((d), (e)) 等价于 GROUP BY GROUPING SETS (</span><br><span class="line">    (a, b, c, d), (a, b, c, e),</span><br><span class="line">    (a, b, d),    (a, b, e),</span><br><span class="line">    (a, c, d),    (a, c, e),</span><br><span class="line">    (a, d),       (a, e)</span><br><span class="line">)</span><br><span class="line">GROUP BY grouping sets((b), (c),rollup(a,b,c)) 等价于 GROUP BY GROUPING SETS ( </span><br><span class="line">    (b), (c), </span><br><span class="line">    (a,b,c), (a,b), (a), ()</span><br><span class="line"> )</span><br></pre></td></tr></table></figure>
+<h3><span id="执行计划查询explain">执行计划查询（EXPLAIN）</span></h3><p>用来显示对应于DML语句的最终执行计划结构的描述。所谓执行计划就是最终用来执行SQL语义的程序。</p>
+<h3><span id="common-table-expressioncte">Common Table Expression（CTE）</span></h3><p>提高SQL语句的可读性与执行效率。</p>
+<h3><span id="视图view">视图View</span></h3><p>略。</p>
+<blockquote>
+<p>本文来源：「想飞的小菜鸡」的个人网站  <a href="https://vodkazy.cn" target="_blank" rel="noopener">vodkazy.cn</a></p>
+<p>版权声明：本文为「想飞的小菜鸡」的原创文章，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请附上原文出处链接及本声明。</p>
+<p>原文链接：<a href="https://vodkazy.cn/2021/01/04/关于SQL的一些非SELECT知识点" target="_blank" rel="noopener">https://vodkazy.cn/2021/01/04/关于SQL的一些非SELECT知识点</a></p>
+</blockquote>
+
+        </div>
+      </article>
+    </div>
+
+	<!-- 打赏 -->
+    <div class="reward">
+	<div class="reward-button">赏 <span class="reward-code">
+		<span class="alipay-code"> <img class="alipay-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/alipay.webp"><b>支付宝打赏</b> </span> 
+		<span class="wechat-code"> <img class="wechat-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/weixin.webp"><b>微信打赏</b> </span> </span>
+	</div>
+	<p class="reward-notice">如果文章对你有帮助，欢迎点击上方按钮打赏作者，更多文章请访问<a href="https://vodkazy.cn" style="color:blue">想飞的小菜鸡</a></p>
+	    <style>
+		*,*:before,*:after {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			-ms-box-sizing: border-box;
+			box-sizing: border-box
+		}
+
+		.reward {
+			padding: 5px 0
+		}
+
+		.reward .reward-notice {
+			font-size: 14px;
+			line-height: 14px;
+			margin: 15px auto;
+			text-align: center
+		}
+
+		.reward .reward-button {
+			font-size: 28px;
+			line-height: 58px;
+			position: relative;
+			display: block;
+			width: 60px;
+			height: 60px;
+			margin: 0 auto;
+			padding: 0;
+			-webkit-user-select: none;
+			text-align: center;
+			vertical-align: middle;
+			color: #fff;
+			border: 1px solid #f1b60e;
+			border-radius: 50%;
+			background: #fccd60;
+			background: -webkit-gradient(linear,left top,left bottom,color-stop(0,#fccd60),color-stop(100%,#fbae12),color-stop(100%,#2989d8),color-stop(100%,#207cca));
+			background: -webkit-linear-gradient(top,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%);
+			background: linear-gradient(to bottom,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%)
+		}
+
+		.reward .reward-code {
+			position: absolute;
+			top: -220px;
+			left: 50%;
+			display: none;
+			width: 350px;
+			height: 200px;
+			margin-left: -175px;
+			padding: 15px;
+			border: 1px solid #e6e6e6;
+			background: #fff;
+			box-shadow: 0 1px 1px 1px #efefef
+		}
+
+		.reward .reward-button:hover .reward-code {
+			display: block
+		}
+
+		.reward .reward-code span {
+			display: inline-block;
+			width: 150px;
+			height: 150px
+		}
+
+		.reward .reward-code span.alipay-code {
+			float: left
+		}
+
+		.reward .reward-code span.alipay-code a {
+			padding: 0
+		}
+
+		.reward .reward-code span.wechat-code {
+			float: right
+		}
+
+		.reward .reward-code img {
+			display: inline-block;
+			float: left;
+			width: 150px;
+			height: 150px;
+			margin: 0 auto;
+			border: 0
+		}
+
+		.reward .reward-code b {
+			font-size: 14px;
+			line-height: 26px;
+			display: block;
+			margin: 0;
+			text-align: center;
+			color: #666
+		}
+
+		.reward .reward-code b.notice {
+			line-height: 2rem;
+			margin-top: -1rem;
+			color: #999
+		}
+
+		.reward .reward-code:after,.reward .reward-code:before {
+			position: absolute;
+			content: '';
+			border: 10px solid transparent
+		}
+
+		.reward .reward-code:after {
+			bottom: -19px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #fff
+		}
+
+		.reward .reward-code:before {
+			bottom: -20px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #e6e6e6
+		}
+    </style>
+
+
+    <!-- Pre or Next -->
+    
+	<div class="container">
+           <ul class="pager">
+    	     
+           
+              <li class="next">
+              <a href="/2020/10/29/我想去面试系列——Attention与Transformer/" rel="prev">下一篇</a>
+            </li>
+           
+          </ul>
+       </div>
+   
+
+    <!-- Valine无后端评论系统 -->   
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+		    el: '#vcomments' ,
+		    appId: 'lH3VkMCd4MHaKtr2n2SRWdoi-MdYXbMMI',
+		    appKey: '5aMXSY7b4KwnzfgpzLA0hPLv',
+		    notify:true, 
+		    verify:false, 
+		    placeholder: '填写正确的邮箱和昵称才能收到我的回复哦       ٩( ^o^ )و  ' ,
+		    avatar: 'retro'
+		});
+    </script>
+    <!-- Valine无后端评论系统 -->  
+
+  </div>
+</div>
+</div>
+
+  <!-- Footer -->
+  <!-- Footer -->
+<footer class="site-info">
+  <p>
+    <span>想飞的小菜鸡 &copy; 2021</span>
+    
+      <span class="split">|</span>
+      <span>照耀的Blog</span>
+    
+  </p>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    本站访客数<span id="busuanzi_value_site_uv"></span>人次
+    本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</footer>
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+<script src="/js/app.js"></script>
+
+
+ 
+  <!-- 使用 aotuload.js 引入看板娘 -->    
+  <!-- //<script src="/js/assets/jquery.min.js?v=3.3.1"></script> -->   
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  <!-- //<script src="/js/assets/jquery-ui.min.js?v=1.12.1"></script>   --> 
+  <script src="https://cdn.jsdelivr.net/npm/jquery-ui-dist@1.12.1/jquery-ui.min.js"></script>
+  <script src="/js/assets/autoload.js?v=1.4.2"></script>
+  <!-- //<script src="https://live2d-cdn.fghrsh.net/assets/1.4.2/autoload.js></script> -->   
+   
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var i=n.imageLazyLoadSetting.isSPA,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){i&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,e,a=0;a<r.length;a++)t=r[a],e=void 0,0<=(e=t.getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},n.src=i}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+
+</html>

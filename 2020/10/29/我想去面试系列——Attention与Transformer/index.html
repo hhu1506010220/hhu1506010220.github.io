@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<!-- 百度统计 -->
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?e31627579358722b9d300535c8206351";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Vodkazy">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="我想去面试系列——Attention与Transformer">
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="想飞的小菜鸡">
+  <!--Type page-->
+  
+      <meta property="og:type" content="article">
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- Title -->
+  
+  <title>我想去面试系列——Attention与Transformer - 想飞的小菜鸡</title>
+
+
+  <link rel="shortcut icon" href="/../images/icon.ico">
+  <!--font-awesome-->
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+
+<body>
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    
+    <div class="logo">
+      <a href="/" rel="home">
+        
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://cdn2.iconfinder.com/data/icons/weather-color-2/500/weather-01-128.png" alt="想飞的小菜鸡" height="60">
+        
+      </a>
+    </div>
+    <a class="header-name" href="/">
+            <span>想飞的小菜鸡</span>
+            的小窝
+        </a>
+    <!-- navbar -->
+    <nav class="navbar">
+      <!--  nav links -->
+      <div class="collapse">
+        <ul class="navbar-nav">
+          
+          
+            <li>
+              <a href="/.">
+                
+                  <i class="fa fa-home "></i>
+                
+                首页
+              </a>
+            </li>
+          
+            <li>
+              <a href="/archives">
+                
+                  <i class="fa fa-archive "></i>
+                
+                目录
+              </a>
+            </li>
+          
+            <li>
+              <a href="/project">
+                
+                  <i class="fa fa-folder-open "></i>
+                
+                代码库
+              </a>
+            </li>
+          
+            <li>
+              <a href="/photo">
+                
+                  <i class="fa fa-photo "></i>
+                
+                相册薄
+              </a>
+            </li>
+          
+            <li>
+              <a href="/lovetree">
+                
+                  <i class="fa fa-tree "></i>
+                
+                爱情树
+              </a>
+            </li>
+          
+            <li>
+              <a href="/guestbook">
+                
+                  <i class="fa fa-edit "></i>
+                
+                留言板
+              </a>
+            </li>
+          
+            <li>
+              <a href="/about">
+                
+                  <i class="fa fa-user "></i>
+                
+                关于我
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="button-wrap">
+      <button class="menu-toggle">Primary Menu</button>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            我想去面试系列——Attention与Transformer
+            
+          </h1>
+         
+        </div>
+         <p class="a-posted-on">
+          2020-10-29
+          </p>
+        <!-- Post Main Content -->
+        <div class="entry-content">
+          <p>假如捕获了你的注意力，我已然成为了变形金刚…<br><a id="more"></a></p>
+<!-- toc -->
+<ul>
+<li><a href="#基本原理">基本原理</a><ul>
+<li><a href="#seq2seq中的attention">Seq2Seq中的Attention</a></li>
+<li><a href="#self-attention">Self-Attention</a></li>
+<li><a href="#multi-head-attention">Multi-Head-Attention</a></li>
+<li><a href="#attention分类">Attention分类</a></li>
+<li><a href="#transformer">Transformer</a></li>
+</ul>
+</li>
+<li><a href="#代码实现">代码实现</a></li>
+<li><a href="#细节-面试题搜集">细节 &amp; 面试题搜集</a></li>
+<li><a href="#参考文献">参考文献</a></li>
+</ul>
+<!-- tocstop -->
+<h2><span id="基本原理">基本原理</span></h2><p>Attention的基本原理就是对于输入实现有权重的加权。大体思路是：输入$X$，分别乘三个权重矩阵$W^Q,W^K,W^V$得到$Q,K,V$，然后按照$Softmax(sim(Q,K))V$得到结果。</p>
+<h3><span id="seq2seq中的attention">Seq2Seq中的Attention</span></h3><p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="1.webp" alt=""></p>
+<p>Encoder部分先得到隐藏状态 $(h_1,h_2,…,h_T)$，然后在Decoder部分，比如在$t$时刻进行解码时，比如我们已经知道了前一个时间步骤decoder的隐藏状态$s_{t-1}$，我们先计算每一个encoder的位置的隐藏状态和decoder当前时间隐藏状态的关联性，$e_{tj}=a(s_{t-1},h_j),j\in[1,T]$，写成向量的形式就是$e_t$，对其进行softmax归一化就得到了对于decoder当前隐藏状态的attention分布$\alpha_{t j}=\frac{\exp \left(e_{t j}\right)}{\sum_{k=1}^{T} \exp \left(e_{t k}\right)}$。从而利用$\alpha$作为权重对encoder的隐藏状态加权求和就得到了对应的上下文向量$c_t=\sum_{j=1}^{T}\alpha_{tj}h_j$。由此就可以计算decoder的下一个隐藏状态$s_t=f(s_{t-1},y_{t-1},c_t)$以及该位置的输出 $p(y_t|y_1,…,y_{t-1},x)=g(y_{i-1},s_i,c_i)$。</p>
+<p>这里的Encoder实际上还是用了RNN那一套老路子，只是对Decoder解码的时候进行了一些改进，所以算是比较基础的东西，为了进一步改进，克服RNN编码长距离信息能力较弱的特点，进入了self-attention自注意力机制。</p>
+<h3><span id="self-attention">Self-Attention</span></h3><p>引入这玩意的优势就在于，1.编码可以拥有更加完善的全局信息了，而不再受距离的限制；2.可以并行化了，而不是像之前RNN一样必须前面的算完才能算后续时间步的。self-attention就是利用了注意力机制，在计算某个单词时，考虑该单词与其他所有单词之间的关联。下面我们来看一看Self-attention的结构究竟是啥样的。</p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="2.jpg" alt=""></p>
+<p>对于self-attention来讲，Q(Query), K(Key), V(Value)三个矩阵均来自同一输入（由同一输入X乘以三个不同的权重矩阵），首先我们要计算Q与K之间的点乘，然后为了防止其结果过大，会除以一个尺度标度$\sqrt{d_k}$（这里的这个操作属于缩放点积，事实上不只有这一种计算方式），其中$d_k = hidden_size / num_heads$。再利用Softmax操作将其结果归一化为概率分布，然后再乘以矩阵V就得到权重求和的表示。该操作可以表示为</p>
+<script type="math/tex; mode=display">Fusion\_vector (Z) = Attention(Q, K, V) = softmax(\frac{QK^\top}{\sqrt{d_k}})V</script><p><a href="https://jalammar.github.io/illustrated-transformer/" target="_blank" rel="noopener">https://jalammar.github.io/illustrated-transformer/</a>里给了一个示意图。</p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="3.png" alt=""></p>
+<p>上图的具体的含义可以解释为，假如我们要翻译一个词组Thinking Machines，分别转换成embedding之后是$x_1$、$x_2$，然后分别乘以$W^Q,W^K,W^V$得到两个词分别对应的向量以thinking为例得到$q_{thinking}、k_{thinking}、v_{thinking}$，然后需要计算Thinking这个词与句子中所有词的attention score，相当于拿$q_{thinking}$作为搜索的Query，去和句子中所有词（包含其本身）的Key做匹配，看相关性有多高。这里直接用点乘作为相似度计算函数，然后就得到了Thinking与Thinking和Machines两个单词的相似度，再做个尺度缩放和softmax归一化，最后就得到了一个注意力分布，再拿这个注意力分布就乘每个词分别对应的Value，就可以得到Thinking翻译后得到的结果变量。可以解释为，当我们在思考如何翻译Thinking的时候，主要注意力是在这个词本身上，同时还注意到了一点它周围上下文词的语境含义。</p>
+<p>如果多个输入向量合并成矩阵的形式（矩阵运算的方式，使得 Self Attention 的计算能够并行化，这也是 Self Attention 最终的实现方式），就相当于来了一个输入矩阵$X$，然后用同一个$X$计算得到$Q、K、V$，当然这里的$Q、K、V$肯定不是一样的而是分别过三个不同的矩阵（$W^Q$、$W^K$、$W^V$，这三个矩阵是可学习参数）得到的三个不同的矩阵。所以实际上self-attention就是$Q,K,V$都是由同一个输入计算来的的attention。经过self-attention之后，输出矩阵/向量$Z$，该输出就包含了每个词和其他上下文的综合信息，其中每个单词自身占大头，上下文占小头。<strong>可以将self-attention理解为一种融合上下文信息的方式。</strong></p>
+<h3><span id="multi-head-attention">Multi-Head-Attention</span></h3><p>多头注意力，就是把X往不同的方向投影形成很多组$Q_i,K_i,V_i$，切割成不同方面的attention（也就是不同的head），期待每一个attention学出来的东西不一样，可以捕获不同特征。然后最后再把不同head捕获到的结果$Z_i$拼起来，乘以最终的大权重矩阵$W^O$就得到了最终的融合了更多信息的特征向量。实际中，K、V 矩阵的序列长度是一样的，而 Q 矩阵的序列长度可以不一样。</p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="4.png" alt=""></p>
+<h3><span id="attention分类">Attention分类</span></h3><p><strong>Soft or Hard Attention</strong>：</p>
+<ul>
+<li>Soft attention是指传统的attention，是可以被嵌入到模型中去训练并且传播梯度的；</li>
+<li>Hard attention不计算所有输出，依据概率对encoder的输出采样，在反向传播时需采用蒙特卡洛进行梯度估计。</li>
+</ul>
+<p><strong>Global or Local Attention</strong>：</p>
+<ul>
+<li>Global attention是传统的attention，对所有encoder输出进行计算</li>
+<li>Local attention是预测特定位置并选取一个窗口进行attention权重加权计算，介于soft和hard之间。</li>
+</ul>
+<h3><span id="transformer">Transformer</span></h3><p>attention的东西实际还是很好理解的，那么当attention引入特征提取器之后，就形成了现在盛行的特征提取器大杀器——Transformer。</p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="5.png" alt=""></p>
+<p>对于encoder来说，就是直接利用最朴素的multi-head-attention，更准确的说因为输入只有一个所以应该是multi-head-self-attention，每一层(共N层)encoder的key, query, value均来自前一层encoder的输出，即encoder的每个位置都可以注意到之前一层encoder的所有位置。Encoder部分的计算归纳如下：</p>
+<script type="math/tex; mode=display">X = Positional\_embedding(inputs) + Token\_embedding(inputs) \tag{Encoder.1}</script><script type="math/tex; mode=display">Q_i = X W_i^Q;K_i=XW_i^K;V_i=XW_i^V \tag{Encoder.2}</script><script type="math/tex; mode=display">Attention(Q,K,V)=softmax(\frac{QK^T}{\sqrt{d_k}})V \tag{Encoder.3}</script><script type="math/tex; mode=display">head_i = Attention(Q_i, K_i, V_i) \tag{Encoder.4}</script><script type="math/tex; mode=display">MultiHead(X)=concat(head_1,...,head_h)W^O \tag{Encoder.5}</script><script type="math/tex; mode=display">Y = LayerNorm(X+MultiHead(X)) \tag{Encoder.6}</script><script type="math/tex; mode=display">Z_{encoder} = LayerNorm(Y + FFN(Y)) \tag{Encoder.7}</script><p>对于decoder来讲，我们注意到有两个与encoder不同的地方，一个是第一级的<strong>Masked Multi-head</strong>，另一个是第二级的Multi-Head Attention不仅接受来自前一级的输出，还要接收encoder的输出。Decoder的输入是Output（Target右移一位），也就是相当于一开始的输入是<code>[CLS]</code>，然后结合输入句子的第一个词的Attention，mask掉除了<code>[CLS]</code>之后词，输出了第一个翻译过来的词，依次类推。下面分别解释一下是什么原理。</p>
+<p>第一级decoder的key, query, value均来自前一层decoder的输出，但加入了Mask操作，即我们只能attend到前面已经翻译过的输出的词语，因为翻译过程我们当前还并不知道下一个输出词语，这是我们之后才会推测到的。（这里的Mask是指在预测第t个词的时候要把t+1到末尾的词遮住，只对前面t个词做self attention，并且<strong>mask只对于train的时候做，在predict阶段不用mask</strong>）。</p>
+<p>而第二级decoder也被称作encoder-decoder attention layer，即它的<strong>query来自于之前一级的decoder层的输出</strong>，但其<strong>key和value来自于encoder的输出</strong>，这使得decoder的每一个位置都可以attend到输入序列的每一个位置。总结一下，$K$和$V$的来源总是相同的，$Q$在encoder及第一级decoder中与$K$、$V$来源相同，在encoder-decoder attention layer中与$K$、$V$来源不同。</p>
+<p>Decoder部分的计算归纳如下，输出P代表着当前位置下输出词的概率分布：</p>
+<script type="math/tex; mode=display">X_{input\_layer1} = Positional\_embedding(outputs) + Token\_embedding(outputs) \tag{Decoder.1}</script><script type="math/tex; mode=display">Y_{output\_layer1} = LayerNorm(X_1+MaskedMultiHead(X_{input\_layer1})) \tag{Decoder.2}</script><script type="math/tex; mode=display">Q_{layer2,i} = Y_{output\_layer1} W_i^Q;K_{layer2,i}=Z_{encoder}W_i^K;V_{layer2,i}=Z_{encoder}W_i^V; \tag{Decoder.3}</script><script type="math/tex; mode=display">head_i = Attention(Q_{layer2,i},K_{layer2,i},V_{layer2,i}) \tag{Decoder.4}</script><script type="math/tex; mode=display">MultiHead(Z_{encoder},Y_{output\_layer1})=concat(head_1,...,head_h)W^O \tag{Decoder.5}</script><script type="math/tex; mode=display">Y_{output\_layer2} = LayerNorm(Y_{output\_layer1} + MultiHead(Z_{encoder},Y_{output\_layer1})) \tag{Decoder.6}</script><script type="math/tex; mode=display">Z_{decoder} = LayerNorm(Y_{output\_layer2} + MultiHead(Z_{encoder}, Y_{output\_layer1})) \tag{Decoder.7}</script><script type="math/tex; mode=display">P=Softmax(Linear(Z_{decoder})) \tag{Decoder.8}</script><p>还有一个要注意的是，原生transformer里的positional embedding是通过sin、cos直接计算的固定值，具体公式为$PositionalEmbedding(pos,2i)=sin(pos/10000^{2i/d_{model}});$$PositionalEmbedding(pos,2i+1)=cos(pos/10000^{2i/d_{model}})$。而该embedding的含义很明显就是加入单词在原句中的位置信息。残差Add的作用是为了解决多层神经网络训练困难的问题，通过将前一层的信息无差的传递到下一层，可以有效的仅关注差异部分，$Output(x) = F(x)+x$。正则LayerNorm的作用是通过对层的激活值的归一化，可以加速模型的训练过程，使其更快的收敛。<strong>这里要特别注意一下，编码可以并行计算，一次性全部encoding出来；但解码不能并行，因为需要像rnn一样一个一个顺序解码出来。</strong></p>
+<h2><span id="代码实现">代码实现</span></h2><p>Pytorch有封装好的多头注意力，<code>torch.nn.MultiheadAttention(embed_dim, num_heads, dropout=0.0, bias=True, add_bias_kv=False, add_zero_attn=False, kdim=None, vdim=None)</code>，调用时<code>foward</code>函数为<code>forward(query, key, value, key_padding_mask=None, need_weights=True, attn_mask=None)</code>。</p>
+<p>手写的话，代码如下，multihead的实现竟然只是用了一个权重矩阵，维度是$d_{hidden_size} \times d_{hidden_size}$，并且要求$d_{hidden_size}=d_{k} \times d_{num_heads}$，而不是多个权重矩阵获得多个$QKV$，竟然只是把一个300维的向量拆成6个50维的向量…（我上边说的那种用多个权重矩阵的应该属于另外一种实现方式，我写的那个方法的话$W_i$的维度应该是$d_{hidden_size} \times d_{k}$，然后搞$d_{num_heads}$个$W_i$）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MultiheadAttention</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="comment"># n_heads：多头注意力的数量</span></span><br><span class="line">    <span class="comment"># hid_dim：每个词输出的向量维度</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, hid_dim, n_heads, dropout)</span>:</span></span><br><span class="line">        super(MultiheadAttention, self).__init__()</span><br><span class="line">        self.hid_dim = hid_dim</span><br><span class="line">        self.n_heads = n_heads</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 强制 hid_dim 必须整除 h</span></span><br><span class="line">        <span class="keyword">assert</span> hid_dim % n_heads == <span class="number">0</span></span><br><span class="line">        <span class="comment"># 定义 W_q 矩阵</span></span><br><span class="line">        self.w_q = nn.Linear(hid_dim, hid_dim)</span><br><span class="line">        <span class="comment"># 定义 W_k 矩阵</span></span><br><span class="line">        self.w_k = nn.Linear(hid_dim, hid_dim)</span><br><span class="line">        <span class="comment"># 定义 W_v 矩阵</span></span><br><span class="line">        self.w_v = nn.Linear(hid_dim, hid_dim)</span><br><span class="line">        self.fc = nn.Linear(hid_dim, hid_dim)</span><br><span class="line">        self.do = nn.Dropout(dropout)</span><br><span class="line">        <span class="comment"># 缩放</span></span><br><span class="line">        self.scale = torch.sqrt(torch.FloatTensor([hid_dim // n_heads]))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, query, key, value, mask=None)</span>:</span></span><br><span class="line">        <span class="comment"># K: [64,10,300], batch_size 为 64，有 10 个词，每个词的 Query 向量是 300 维</span></span><br><span class="line">        <span class="comment"># V: [64,10,300], batch_size 为 64，有 10 个词，每个词的 Query 向量是 300 维</span></span><br><span class="line">        <span class="comment"># Q: [64,12,300], batch_size 为 64，有 12 个词，每个词的 Query 向量是 300 维</span></span><br><span class="line">        bsz = query.shape[<span class="number">0</span>]</span><br><span class="line">        Q = self.w_q(query)</span><br><span class="line">        K = self.w_k(key)</span><br><span class="line">        V = self.w_v(value)</span><br><span class="line">        <span class="comment"># 这里把 K Q V 矩阵拆分为多组注意力，变成了一个 4 维的矩阵</span></span><br><span class="line">        <span class="comment"># 最后一维就是是用 self.hid_dim // self.n_heads 来得到的，表示每组注意力的向量长度, 每个 head 的向量长度是：300/6=50</span></span><br><span class="line">        <span class="comment"># 64 表示 batch size，6 表示有 6组注意力，10 表示有 10 词，50 表示每组注意力的词的向量长度</span></span><br><span class="line">        <span class="comment"># K: [64,10,300] 拆分多组注意力 -&gt; [64,10,6,50] 转置得到 -&gt; [64,6,10,50]</span></span><br><span class="line">        <span class="comment"># V: [64,10,300] 拆分多组注意力 -&gt; [64,10,6,50] 转置得到 -&gt; [64,6,10,50]</span></span><br><span class="line">        <span class="comment"># Q: [64,12,300] 拆分多组注意力 -&gt; [64,12,6,50] 转置得到 -&gt; [64,6,12,50]</span></span><br><span class="line">        <span class="comment"># 转置是为了把注意力的数量 6 放到前面，把 10 和 50 放到后面，方便下面计算</span></span><br><span class="line">        Q = Q.view(bsz, <span class="number">-1</span>, self.n_heads, self.hid_dim //</span><br><span class="line">                   self.n_heads).permute(<span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>)</span><br><span class="line">        K = K.view(bsz, <span class="number">-1</span>, self.n_heads, self.hid_dim //</span><br><span class="line">                   self.n_heads).permute(<span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>)</span><br><span class="line">        V = V.view(bsz, <span class="number">-1</span>, self.n_heads, self.hid_dim //</span><br><span class="line">                   self.n_heads).permute(<span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 第 1 步：Q 乘以 K的转置，除以scale</span></span><br><span class="line">        <span class="comment"># [64,6,12,50] * [64,6,50,10] = [64,6,12,10]</span></span><br><span class="line">        <span class="comment"># attention：[64,6,12,10]</span></span><br><span class="line">        attention = torch.matmul(Q, K.permute(<span class="number">0</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">2</span>)) / self.scale</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 把 mask 不为空，那么就把 mask 为 0 的位置的 attention 分数设置为 -1e10</span></span><br><span class="line">        <span class="keyword">if</span> mask <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            attention = attention.masked_fill(mask == <span class="number">0</span>, <span class="number">-1e10</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 第 2 步：计算上一步结果的 softmax，再经过 dropout，得到 attention。</span></span><br><span class="line">        <span class="comment"># 注意，这里是对最后一维做 softmax，也就是在输入序列的维度做 softmax</span></span><br><span class="line">        <span class="comment"># attention: [64,6,12,10]</span></span><br><span class="line">        attention = self.do(torch.softmax(attention, dim=<span class="number">-1</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 第三步，attention结果与V相乘，得到多头注意力的结果</span></span><br><span class="line">        <span class="comment"># [64,6,12,10] * [64,6,10,50] = [64,6,12,50]</span></span><br><span class="line">        <span class="comment"># x: [64,6,12,50]</span></span><br><span class="line">        x = torch.matmul(attention, V)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 因为 query 有 12 个词，所以把 12 放到前面，把 5 和 60 放到后面，方便下面拼接多组的结果</span></span><br><span class="line">        <span class="comment"># x: [64,6,12,50] 转置-&gt; [64,12,6,50]</span></span><br><span class="line">        x = x.permute(<span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>).contiguous()</span><br><span class="line">        <span class="comment"># 这里的矩阵转换就是：把多组注意力的结果拼接起来</span></span><br><span class="line">        <span class="comment"># 最终结果就是 [64,12,300]</span></span><br><span class="line">        <span class="comment"># x: [64,12,6,50] -&gt; [64,12,300]</span></span><br><span class="line">        x = x.view(bsz, <span class="number">-1</span>, self.n_heads * (self.hid_dim // self.n_heads))</span><br><span class="line">        x = self.fc(x)</span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># batch_size 为 64，有 12 个词，每个词的 Query 向量是 300 维</span></span><br><span class="line">query = torch.rand(<span class="number">64</span>, <span class="number">12</span>, <span class="number">300</span>)</span><br><span class="line"><span class="comment"># batch_size 为 64，有 12 个词，每个词的 Key 向量是 300 维</span></span><br><span class="line">key = torch.rand(<span class="number">64</span>, <span class="number">10</span>, <span class="number">300</span>)</span><br><span class="line"><span class="comment"># batch_size 为 64，有 10 个词，每个词的 Value 向量是 300 维</span></span><br><span class="line">value = torch.rand(<span class="number">64</span>, <span class="number">10</span>, <span class="number">300</span>)</span><br><span class="line">attention = MultiheadAttention(hid_dim=<span class="number">300</span>, n_heads=<span class="number">6</span>, dropout=<span class="number">0.1</span>)</span><br><span class="line">output = attention(query, key, value)</span><br><span class="line"><span class="comment">## output: torch.Size([64, 12, 300])</span></span><br><span class="line">print(output.shape)</span><br></pre></td></tr></table></figure>
+<h2><span id="细节-amp-面试题搜集">细节 &amp; 面试题搜集</span></h2><p>后续更新…</p>
+<h2><span id="参考文献">参考文献</span></h2><ol>
+<li>Attention机制详解（一）——Seq2Seq中的Attention：<a href="https://zhuanlan.zhihu.com/p/47063917" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/47063917</a></li>
+<li>Attention机制详解（二）——Self-Attention与Transformer：<a href="https://zhuanlan.zhihu.com/p/47282410" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/47282410</a></li>
+<li>【NLP】Transformer模型原理详解：<a href="https://zhuanlan.zhihu.com/p/44121378" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/44121378</a></li>
+<li>NLP中的Attention原理和源码解析：<a href="https://zhuanlan.zhihu.com/p/43493999" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/43493999</a></li>
+<li>jalammar.github.io：<a href="https://jalammar.github.io/illustrated-transformer/" target="_blank" rel="noopener">https://jalammar.github.io/illustrated-transformer/</a></li>
+<li>图解Transformer（完整版）：<a href="https://mp.weixin.qq.com/s?__biz=MzU2OTA0NzE2NA==&amp;mid=2247539981&amp;idx=7&amp;sn=07b00654c6f38d743a91b39d33d68d6a&amp;chksm=fc86bc1ecbf135087d885408704ff90c95562c00108bcad7ded93fb468edd6534010e709299f&amp;scene=0&amp;xtrack=1#rd" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzU2OTA0NzE2NA==&amp;mid=2247539981&amp;idx=7&amp;sn=07b00654c6f38d743a91b39d33d68d6a&amp;chksm=fc86bc1ecbf135087d885408704ff90c95562c00108bcad7ded93fb468edd6534010e709299f&amp;scene=0&amp;xtrack=1#rd</a></li>
+<li>NLPer看过来，一些关于Transformer的问题整理：<a href="https://www.nowcoder.com/discuss/258321?type=post&amp;order=time&amp;pos=&amp;page=1&amp;channel=1009&amp;source_id=search_post" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/258321?type=post&amp;order=time&amp;pos=&amp;page=1&amp;channel=1009&amp;source_id=search_post</a></li>
+<li>一文看懂 Attention（本质原理+3大优点+5大类型）：<a href="&#109;&#x61;&#x69;&#108;&#x74;&#111;&#58;&#x68;&#116;&#116;&#112;&#115;&#x3a;&#x2f;&#x2f;&#x6d;&#x65;&#x64;&#105;&#117;&#x6d;&#46;&#99;&#x6f;&#x6d;&#x2f;&#64;&#112;&#x6b;&#113;&#x69;&#97;&#110;&#x67;&#52;&#x39;&#x2f;&#x25;&#69;&#x34;&#x25;&#66;&#56;&#37;&#x38;&#x30;&#x25;&#69;&#54;&#x25;&#57;&#54;&#x25;&#56;&#55;&#x25;&#69;&#x37;&#x25;&#57;&#x43;&#37;&#56;&#x42;&#x25;&#x45;&#54;&#x25;&#56;&#x37;&#x25;&#56;&#x32;&#x2d;&#97;&#x74;&#116;&#101;&#110;&#116;&#105;&#111;&#x6e;&#45;&#37;&#x45;&#54;&#x25;&#x39;&#67;&#x25;&#x41;&#67;&#x25;&#69;&#56;&#x25;&#x42;&#52;&#37;&#x41;&#x38;&#37;&#x45;&#53;&#x25;&#x38;&#x45;&#x25;&#x39;&#x46;&#37;&#69;&#55;&#x25;&#57;&#48;&#x25;&#56;&#54;&#x2d;&#x33;&#37;&#x45;&#53;&#x25;&#x41;&#x34;&#37;&#x41;&#55;&#37;&#69;&#52;&#x25;&#66;&#67;&#37;&#x39;&#x38;&#37;&#x45;&#x37;&#x25;&#56;&#50;&#37;&#66;&#x39;&#x2d;&#53;&#37;&#69;&#53;&#37;&#x41;&#52;&#37;&#x41;&#x37;&#x25;&#69;&#55;&#x25;&#x42;&#x31;&#37;&#66;&#x42;&#x25;&#69;&#53;&#x25;&#x39;&#69;&#37;&#56;&#66;&#x2d;&#101;&#52;&#102;&#98;&#x65;&#x34;&#x62;&#54;&#x64;&#x30;&#x33;&#x30;">&#x68;&#116;&#116;&#112;&#115;&#x3a;&#x2f;&#x2f;&#x6d;&#x65;&#x64;&#105;&#117;&#x6d;&#46;&#99;&#x6f;&#x6d;&#x2f;&#64;&#112;&#x6b;&#113;&#x69;&#97;&#110;&#x67;&#52;&#x39;&#x2f;&#x25;&#69;&#x34;&#x25;&#66;&#56;&#37;&#x38;&#x30;&#x25;&#69;&#54;&#x25;&#57;&#54;&#x25;&#56;&#55;&#x25;&#69;&#x37;&#x25;&#57;&#x43;&#37;&#56;&#x42;&#x25;&#x45;&#54;&#x25;&#56;&#x37;&#x25;&#56;&#x32;&#x2d;&#97;&#x74;&#116;&#101;&#110;&#116;&#105;&#111;&#x6e;&#45;&#37;&#x45;&#54;&#x25;&#x39;&#67;&#x25;&#x41;&#67;&#x25;&#69;&#56;&#x25;&#x42;&#52;&#37;&#x41;&#x38;&#37;&#x45;&#53;&#x25;&#x38;&#x45;&#x25;&#x39;&#x46;&#37;&#69;&#55;&#x25;&#57;&#48;&#x25;&#56;&#54;&#x2d;&#x33;&#37;&#x45;&#53;&#x25;&#x41;&#x34;&#37;&#x41;&#55;&#37;&#69;&#52;&#x25;&#66;&#67;&#37;&#x39;&#x38;&#37;&#x45;&#x37;&#x25;&#56;&#50;&#37;&#66;&#x39;&#x2d;&#53;&#37;&#69;&#53;&#37;&#x41;&#52;&#37;&#x41;&#x37;&#x25;&#69;&#55;&#x25;&#x42;&#x31;&#37;&#66;&#x42;&#x25;&#69;&#53;&#x25;&#x39;&#69;&#37;&#56;&#66;&#x2d;&#101;&#52;&#102;&#98;&#x65;&#x34;&#x62;&#54;&#x64;&#x30;&#x33;&#x30;</a></li>
+<li>碎碎念：Transformer的解码加速：<a href="https://zhuanlan.zhihu.com/p/75796168" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/75796168</a></li>
+<li>Transformer的矩阵维度分析和Mask详解：<a href="https://blog.csdn.net/qq_35169059/article/details/101678207" target="_blank" rel="noopener">https://blog.csdn.net/qq_35169059/article/details/101678207</a></li>
+<li>Transformer源码剖析：<a href="https://zhuanlan.zhihu.com/p/149766082" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/149766082</a></li>
+<li>transformer详解：transformer/ universal transformer/ transformer-XL：<a href="https://akeeper.space/blog/701.html" target="_blank" rel="noopener">https://akeeper.space/blog/701.html</a></li>
+<li>Attention：<a href="https://looperxx.github.io/Attention/" target="_blank" rel="noopener">https://looperxx.github.io/Attention/</a></li>
+</ol>
+<blockquote>
+<p>本文来源：「想飞的小菜鸡」的个人网站  <a href="https://vodkazy.cn" target="_blank" rel="noopener">vodkazy.cn</a></p>
+<p>版权声明：本文为「想飞的小菜鸡」的原创文章，采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请附上原文出处链接及本声明。</p>
+<p>原文链接：<a href="https://vodkazy.cn/2020/10/29/我想去面试系列——Attention与Transformer" target="_blank" rel="noopener">https://vodkazy.cn/2020/10/29/我想去面试系列——Attention与Transformer</a></p>
+</blockquote>
+
+        </div>
+      </article>
+    </div>
+
+	<!-- 打赏 -->
+    <div class="reward">
+	<div class="reward-button">赏 <span class="reward-code">
+		<span class="alipay-code"> <img class="alipay-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/alipay.webp"><b>支付宝打赏</b> </span> 
+		<span class="wechat-code"> <img class="wechat-img wdp-appear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/weixin.webp"><b>微信打赏</b> </span> </span>
+	</div>
+	<p class="reward-notice">如果文章对你有帮助，欢迎点击上方按钮打赏作者，更多文章请访问<a href="https://vodkazy.cn" style="color:blue">想飞的小菜鸡</a></p>
+	    <style>
+		*,*:before,*:after {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			-ms-box-sizing: border-box;
+			box-sizing: border-box
+		}
+
+		.reward {
+			padding: 5px 0
+		}
+
+		.reward .reward-notice {
+			font-size: 14px;
+			line-height: 14px;
+			margin: 15px auto;
+			text-align: center
+		}
+
+		.reward .reward-button {
+			font-size: 28px;
+			line-height: 58px;
+			position: relative;
+			display: block;
+			width: 60px;
+			height: 60px;
+			margin: 0 auto;
+			padding: 0;
+			-webkit-user-select: none;
+			text-align: center;
+			vertical-align: middle;
+			color: #fff;
+			border: 1px solid #f1b60e;
+			border-radius: 50%;
+			background: #fccd60;
+			background: -webkit-gradient(linear,left top,left bottom,color-stop(0,#fccd60),color-stop(100%,#fbae12),color-stop(100%,#2989d8),color-stop(100%,#207cca));
+			background: -webkit-linear-gradient(top,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%);
+			background: linear-gradient(to bottom,#fccd60 0,#fbae12 100%,#2989d8 100%,#207cca 100%)
+		}
+
+		.reward .reward-code {
+			position: absolute;
+			top: -220px;
+			left: 50%;
+			display: none;
+			width: 350px;
+			height: 200px;
+			margin-left: -175px;
+			padding: 15px;
+			border: 1px solid #e6e6e6;
+			background: #fff;
+			box-shadow: 0 1px 1px 1px #efefef
+		}
+
+		.reward .reward-button:hover .reward-code {
+			display: block
+		}
+
+		.reward .reward-code span {
+			display: inline-block;
+			width: 150px;
+			height: 150px
+		}
+
+		.reward .reward-code span.alipay-code {
+			float: left
+		}
+
+		.reward .reward-code span.alipay-code a {
+			padding: 0
+		}
+
+		.reward .reward-code span.wechat-code {
+			float: right
+		}
+
+		.reward .reward-code img {
+			display: inline-block;
+			float: left;
+			width: 150px;
+			height: 150px;
+			margin: 0 auto;
+			border: 0
+		}
+
+		.reward .reward-code b {
+			font-size: 14px;
+			line-height: 26px;
+			display: block;
+			margin: 0;
+			text-align: center;
+			color: #666
+		}
+
+		.reward .reward-code b.notice {
+			line-height: 2rem;
+			margin-top: -1rem;
+			color: #999
+		}
+
+		.reward .reward-code:after,.reward .reward-code:before {
+			position: absolute;
+			content: '';
+			border: 10px solid transparent
+		}
+
+		.reward .reward-code:after {
+			bottom: -19px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #fff
+		}
+
+		.reward .reward-code:before {
+			bottom: -20px;
+			left: 50%;
+			margin-left: -10px;
+			border-top-color: #e6e6e6
+		}
+    </style>
+
+
+    <!-- Pre or Next -->
+    
+	<div class="container">
+           <ul class="pager">
+    	     
+      	     <li class="previous">
+              <a href="/2021/01/04/关于SQL的一些非SELECT知识点/" rel="prev">上一篇</a>
+             </li>
+           
+           
+              <li class="next">
+              <a href="/2020/10/19/我想去面试系列——Word2vec/" rel="prev">下一篇</a>
+            </li>
+           
+          </ul>
+       </div>
+   
+
+    <!-- Valine无后端评论系统 -->   
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+		    el: '#vcomments' ,
+		    appId: 'lH3VkMCd4MHaKtr2n2SRWdoi-MdYXbMMI',
+		    appKey: '5aMXSY7b4KwnzfgpzLA0hPLv',
+		    notify:true, 
+		    verify:false, 
+		    placeholder: '填写正确的邮箱和昵称才能收到我的回复哦       ٩( ^o^ )و  ' ,
+		    avatar: 'retro'
+		});
+    </script>
+    <!-- Valine无后端评论系统 -->  
+
+  </div>
+</div>
+</div>
+
+  <!-- Footer -->
+  <!-- Footer -->
+<footer class="site-info">
+  <p>
+    <span>想飞的小菜鸡 &copy; 2021</span>
+    
+      <span class="split">|</span>
+      <span>照耀的Blog</span>
+    
+  </p>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    本站访客数<span id="busuanzi_value_site_uv"></span>人次
+    本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</footer>
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+<script src="/js/app.js"></script>
+
+
+ 
+  <!-- 使用 aotuload.js 引入看板娘 -->    
+  <!-- //<script src="/js/assets/jquery.min.js?v=3.3.1"></script> -->   
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  <!-- //<script src="/js/assets/jquery-ui.min.js?v=1.12.1"></script>   --> 
+  <script src="https://cdn.jsdelivr.net/npm/jquery-ui-dist@1.12.1/jquery-ui.min.js"></script>
+  <script src="/js/assets/autoload.js?v=1.4.2"></script>
+  <!-- //<script src="https://live2d-cdn.fghrsh.net/assets/1.4.2/autoload.js></script> -->   
+   
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var i=n.imageLazyLoadSetting.isSPA,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){i&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,e,a=0;a<r.length;a++)t=r[a],e=void 0,0<=(e=t.getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},n.src=i}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+
+</html>

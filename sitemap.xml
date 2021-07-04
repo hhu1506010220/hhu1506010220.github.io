@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://hhu1506010220.github.io/2020/10/19/%E6%88%91%E6%83%B3%E5%8E%BB%E9%9D%A2%E8%AF%95%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94Word2vec/</loc>
+    
+    <lastmod>2021-07-04T14:45:21.691Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://hhu1506010220.github.io/2020/10/10/%E6%88%91%E6%83%B3%E5%8E%BB%E9%9D%A2%E8%AF%95%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94BERT/</loc>
+    
+    <lastmod>2021-07-04T14:45:03.074Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://hhu1506010220.github.io/2020/10/29/%E6%88%91%E6%83%B3%E5%8E%BB%E9%9D%A2%E8%AF%95%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94Attention%E4%B8%8ETransformer/</loc>
+    
+    <lastmod>2021-07-04T14:44:25.262Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://hhu1506010220.github.io/2021/05/06/%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E4%B8%8E%E6%B5%8B%E8%AF%95%E5%B8%B8%E7%94%A8%E6%A8%A1%E6%9D%BF%E4%BB%A3%E7%A0%81/</loc>
     
     <lastmod>2021-05-06T15:03:30.572Z</lastmod>
@@ -33,27 +54,6 @@
     <loc>http://hhu1506010220.github.io/schedule/index.html</loc>
     
     <lastmod>2020-12-19T17:04:22.898Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hhu1506010220.github.io/2020/10/10/%E6%88%91%E6%83%B3%E5%8E%BB%E9%9D%A2%E8%AF%95%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94BERT/</loc>
-    
-    <lastmod>2020-11-04T02:37:24.332Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hhu1506010220.github.io/2020/10/29/%E6%88%91%E6%83%B3%E5%8E%BB%E9%9D%A2%E8%AF%95%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94Attention%E4%B8%8ETransformer/</loc>
-    
-    <lastmod>2020-11-04T02:18:55.415Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hhu1506010220.github.io/2020/10/19/%E6%88%91%E6%83%B3%E5%8E%BB%E9%9D%A2%E8%AF%95%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94Word2vec/</loc>
-    
-    <lastmod>2020-10-29T13:31:40.159Z</lastmod>
     
   </url>
   

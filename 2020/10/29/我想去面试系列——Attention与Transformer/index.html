@@ -185,6 +185,11 @@
 </li>
 <li><a href="#代码实现">代码实现</a></li>
 <li><a href="#细节-面试题搜集">细节 &amp; 面试题搜集</a></li>
+<li><a href="#细节-面试题搜集-1">细节 &amp; 面试题搜集</a><ul>
+<li><a href="#transformer-1">Transformer</a></li>
+<li><a href="#attention">Attention</a></li>
+</ul>
+</li>
 <li><a href="#参考文献">参考文献</a></li>
 </ul>
 <!-- tocstop -->
@@ -223,6 +228,199 @@
 <p>手写的话，代码如下，multihead的实现竟然只是用了一个权重矩阵，维度是$d_{hidden_size} \times d_{hidden_size}$，并且要求$d_{hidden_size}=d_{k} \times d_{num_heads}$，而不是多个权重矩阵获得多个$QKV$，竟然只是把一个300维的向量拆成6个50维的向量…（我上边说的那种用多个权重矩阵的应该属于另外一种实现方式，我写的那个方法的话$W_i$的维度应该是$d_{hidden_size} \times d_{k}$，然后搞$d_{num_heads}$个$W_i$）：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MultiheadAttention</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="comment"># n_heads：多头注意力的数量</span></span><br><span class="line">    <span class="comment"># hid_dim：每个词输出的向量维度</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, hid_dim, n_heads, dropout)</span>:</span></span><br><span class="line">        super(MultiheadAttention, self).__init__()</span><br><span class="line">        self.hid_dim = hid_dim</span><br><span class="line">        self.n_heads = n_heads</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 强制 hid_dim 必须整除 h</span></span><br><span class="line">        <span class="keyword">assert</span> hid_dim % n_heads == <span class="number">0</span></span><br><span class="line">        <span class="comment"># 定义 W_q 矩阵</span></span><br><span class="line">        self.w_q = nn.Linear(hid_dim, hid_dim)</span><br><span class="line">        <span class="comment"># 定义 W_k 矩阵</span></span><br><span class="line">        self.w_k = nn.Linear(hid_dim, hid_dim)</span><br><span class="line">        <span class="comment"># 定义 W_v 矩阵</span></span><br><span class="line">        self.w_v = nn.Linear(hid_dim, hid_dim)</span><br><span class="line">        self.fc = nn.Linear(hid_dim, hid_dim)</span><br><span class="line">        self.do = nn.Dropout(dropout)</span><br><span class="line">        <span class="comment"># 缩放</span></span><br><span class="line">        self.scale = torch.sqrt(torch.FloatTensor([hid_dim // n_heads]))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, query, key, value, mask=None)</span>:</span></span><br><span class="line">        <span class="comment"># K: [64,10,300], batch_size 为 64，有 10 个词，每个词的 Query 向量是 300 维</span></span><br><span class="line">        <span class="comment"># V: [64,10,300], batch_size 为 64，有 10 个词，每个词的 Query 向量是 300 维</span></span><br><span class="line">        <span class="comment"># Q: [64,12,300], batch_size 为 64，有 12 个词，每个词的 Query 向量是 300 维</span></span><br><span class="line">        bsz = query.shape[<span class="number">0</span>]</span><br><span class="line">        Q = self.w_q(query)</span><br><span class="line">        K = self.w_k(key)</span><br><span class="line">        V = self.w_v(value)</span><br><span class="line">        <span class="comment"># 这里把 K Q V 矩阵拆分为多组注意力，变成了一个 4 维的矩阵</span></span><br><span class="line">        <span class="comment"># 最后一维就是是用 self.hid_dim // self.n_heads 来得到的，表示每组注意力的向量长度, 每个 head 的向量长度是：300/6=50</span></span><br><span class="line">        <span class="comment"># 64 表示 batch size，6 表示有 6组注意力，10 表示有 10 词，50 表示每组注意力的词的向量长度</span></span><br><span class="line">        <span class="comment"># K: [64,10,300] 拆分多组注意力 -&gt; [64,10,6,50] 转置得到 -&gt; [64,6,10,50]</span></span><br><span class="line">        <span class="comment"># V: [64,10,300] 拆分多组注意力 -&gt; [64,10,6,50] 转置得到 -&gt; [64,6,10,50]</span></span><br><span class="line">        <span class="comment"># Q: [64,12,300] 拆分多组注意力 -&gt; [64,12,6,50] 转置得到 -&gt; [64,6,12,50]</span></span><br><span class="line">        <span class="comment"># 转置是为了把注意力的数量 6 放到前面，把 10 和 50 放到后面，方便下面计算</span></span><br><span class="line">        Q = Q.view(bsz, <span class="number">-1</span>, self.n_heads, self.hid_dim //</span><br><span class="line">                   self.n_heads).permute(<span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>)</span><br><span class="line">        K = K.view(bsz, <span class="number">-1</span>, self.n_heads, self.hid_dim //</span><br><span class="line">                   self.n_heads).permute(<span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>)</span><br><span class="line">        V = V.view(bsz, <span class="number">-1</span>, self.n_heads, self.hid_dim //</span><br><span class="line">                   self.n_heads).permute(<span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 第 1 步：Q 乘以 K的转置，除以scale</span></span><br><span class="line">        <span class="comment"># [64,6,12,50] * [64,6,50,10] = [64,6,12,10]</span></span><br><span class="line">        <span class="comment"># attention：[64,6,12,10]</span></span><br><span class="line">        attention = torch.matmul(Q, K.permute(<span class="number">0</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">2</span>)) / self.scale</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 把 mask 不为空，那么就把 mask 为 0 的位置的 attention 分数设置为 -1e10</span></span><br><span class="line">        <span class="keyword">if</span> mask <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            attention = attention.masked_fill(mask == <span class="number">0</span>, <span class="number">-1e10</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 第 2 步：计算上一步结果的 softmax，再经过 dropout，得到 attention。</span></span><br><span class="line">        <span class="comment"># 注意，这里是对最后一维做 softmax，也就是在输入序列的维度做 softmax</span></span><br><span class="line">        <span class="comment"># attention: [64,6,12,10]</span></span><br><span class="line">        attention = self.do(torch.softmax(attention, dim=<span class="number">-1</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 第三步，attention结果与V相乘，得到多头注意力的结果</span></span><br><span class="line">        <span class="comment"># [64,6,12,10] * [64,6,10,50] = [64,6,12,50]</span></span><br><span class="line">        <span class="comment"># x: [64,6,12,50]</span></span><br><span class="line">        x = torch.matmul(attention, V)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 因为 query 有 12 个词，所以把 12 放到前面，把 5 和 60 放到后面，方便下面拼接多组的结果</span></span><br><span class="line">        <span class="comment"># x: [64,6,12,50] 转置-&gt; [64,12,6,50]</span></span><br><span class="line">        x = x.permute(<span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>).contiguous()</span><br><span class="line">        <span class="comment"># 这里的矩阵转换就是：把多组注意力的结果拼接起来</span></span><br><span class="line">        <span class="comment"># 最终结果就是 [64,12,300]</span></span><br><span class="line">        <span class="comment"># x: [64,12,6,50] -&gt; [64,12,300]</span></span><br><span class="line">        x = x.view(bsz, <span class="number">-1</span>, self.n_heads * (self.hid_dim // self.n_heads))</span><br><span class="line">        x = self.fc(x)</span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># batch_size 为 64，有 12 个词，每个词的 Query 向量是 300 维</span></span><br><span class="line">query = torch.rand(<span class="number">64</span>, <span class="number">12</span>, <span class="number">300</span>)</span><br><span class="line"><span class="comment"># batch_size 为 64，有 12 个词，每个词的 Key 向量是 300 维</span></span><br><span class="line">key = torch.rand(<span class="number">64</span>, <span class="number">10</span>, <span class="number">300</span>)</span><br><span class="line"><span class="comment"># batch_size 为 64，有 10 个词，每个词的 Value 向量是 300 维</span></span><br><span class="line">value = torch.rand(<span class="number">64</span>, <span class="number">10</span>, <span class="number">300</span>)</span><br><span class="line">attention = MultiheadAttention(hid_dim=<span class="number">300</span>, n_heads=<span class="number">6</span>, dropout=<span class="number">0.1</span>)</span><br><span class="line">output = attention(query, key, value)</span><br><span class="line"><span class="comment">## output: torch.Size([64, 12, 300])</span></span><br><span class="line">print(output.shape)</span><br></pre></td></tr></table></figure>
 <h2><span id="细节-amp-面试题搜集">细节 &amp; 面试题搜集</span></h2><p>后续更新…</p>
+<h2><span id="细节-amp-面试题搜集">细节 &amp; 面试题搜集</span></h2><h3><span id="transformer">Transformer</span></h3><ul>
+<li><p>Transformer的应用场合？</p>
+<p>答：有大量数据，用transformer；允许pretrain，用transformer；小数据from scratch，分类用CNN，标注和生成用RNN。</p>
+</li>
+<li><p>Transformer的原理？（Transformer的Encoder、Decoder都有什么子层？）</p>
+<p>答：见第一部分。【挺重要的，必考】</p>
+</li>
+<li><p>Transformer为什么要用多头注意力，有什么好处？</p>
+<p>答：原论文中说到进行Multi-head Attention的原因是将模型分为多个头，形成多个子空间，可以让模型去关注不同方面的信息，最后再将各个方面的信息综合起来。其实直观上也可以想到，如果自己设计这样的一个模型，必然也不会只做一次attention，多次attention综合的结果至少能够起到增强模型的作用，也可以类比CNN中同时使用<strong>多个卷积核</strong>的作用，直观上讲，多头的注意力<strong>有助于网络捕捉到更丰富的特征/信息。</strong></p>
+</li>
+<li><p>BERT、Transformer、RNN 、CNN、单纯的FNN，之间的改进有哪些提升？（Transformer的优点总结一下，在哪些地方做了改进？）</p>
+<p>答：Transformer的优势就在于特征抽取能力强、并行化好、可以更好的处理长距离依赖。</p>
+<ul>
+<li>BERT就是Transformer的Encoder部分，只是将positional embedding换成可学习矩阵。</li>
+<li>Transformer主要用了Self-attention可以更好地捕捉全局的信息，语义更丰富；同时并行化更好来；还有Decoder中用到了Encoder的输出向量和Decoder的输入部分，被考虑的语义信息更多了。另外，由于 self-attention 没有循环结构，Transformer 需要一种方式来表示序列中元素的相对或绝对位置关系。Position Embedding (PE) 就是该文提出的方案。</li>
+<li>RNN每个时间$t$的状态$h_t$取决于$x_t$和$h_{t-1}$，这就要求必须算完前面的才能算后面的。</li>
+<li>CNN就是需要卷积核和卷全局信息，计算复杂度太高。</li>
+<li>FNN就是简单的全连接，忽略时序关系，每个时间的状态都是等价的。</li>
+</ul>
+</li>
+<li><p>Transformer有啥缺点？</p>
+<p>答：优点见向上数第二个问题；缺点如下：</p>
+<ul>
+<li>缺少Recurrent Inductive Bias：<br>学习算法中<a href="https://en.wikipedia.org/wiki/Inductive_bias" target="_blank" rel="noopener">Inductive Bias</a>可以用来预测从未遇到的输入的输出（参考[10])。对于很多序列建模任务（如需要对输入的层次结构进行建模时，或者在训练和推理期间输入长度的分布不同时），Recurrent Inductive Bias至关重要。EMNLP 2018 上的一个工作[9]对这一点进行了实证。</li>
+<li>Transformer是非图灵完备的：<br>非图灵完备通俗的理解，就是无法解决所有的问题（可以参考[12])<br>在Transformer中，单层中sequential operation (context two symbols需要的操作数)是O(1)O(1) time，独立于输入序列的长度。那么总的sequenctial operation仅由层数TT决定。这意味着transformer不能在计算上通用，即无法处理某些输入。如：输入是一个需要对每个输入元素进行顺序处理的函数，在这种情况下，对于任意给定的深度TT的transformer，都可以构造一个长度为N &gt; TN&gt;T的输入序列，该序列不能被transformer正确处理</li>
+<li>transformer缺少conditional computation：<br>transformer在encoder的过程中，所有输入元素都有相同的计算量，比如对于“I arrived at the bank after crossing the river”, 和”river”相比，需要更多的背景知识来推断单词”bank”的含义，然而transformer在编码这个句子的时候，无条件对于每个单词应用相同的计算量，这样的过程显然是低效的。</li>
+<li>不能很好的处理超长输入：<br>理论上来说，attention可以关联两个任意远距离的词，但实际中，由于计算资源有限，仍然会限制输入序列的长度，超过这个长度的序列会被截断。</li>
+</ul>
+</li>
+<li><p>Transformer是如何训练的？</p>
+<p>答：Transformer训练过程与seq2seq类似，首先Encoder端得到输入的encoding表示（Transformer Encoder端得到的是整个输入序列的encoding表示，而这里的重点是相比于之前模型的encoder，它因为用了self-attention、positional embedding之类的信息，蕴含的语义更丰富了），并将其输入到Decoder端做交互式attention；Decoder端接收其相应的输入，经过多头self-attention模块之后，结合Encoder端的输出做一个Multi head attention，再经过FFN，得到Decoder端的输出之后，最后经过一个线性全连接层，就可以通过softmax来预测下一个单词(token)，然后根据softmax多分类的损失函数，将loss反向传播即可，所以从整体上来说，Transformer训练过程就相当于一个有监督的多分类问题。需要注意的是，<strong>Encoder端可以并行计算，一次性将输入序列全部encoding出来，但Decoder端不是一次性把所有单词(token)预测出来的，而是像seq2seq一样一个接着一个预测出来的。</strong></p>
+</li>
+<li><p>为什么说Transformer可以替代seq2seq？</p>
+<p>答：seq2seq最大的问题在于<strong>将Encoder端的所有信息压缩到一个固定长度的向量中</strong>，并将其作为Decoder端首个隐藏状态的输入，来预测Decoder端第一个单词(token)的隐藏状态。在输入序列比较长的时候，这样做显然会损失Encoder端的很多信息，而且这样一股脑的把该固定向量送入Decoder端，Decoder端不能够关注到其想要关注的信息。transformer不但对seq2seq模型这两点缺点有了实质性的改进(多头交互式attention模块)，而且还引入了self-attention模块，让源序列和目标序列首先“自关联”起来，这样的话，源序列和目标序列自身的embedding表示所蕴含的信息更加丰富，而且后续的FFN层也增强了模型的表达能力。并且Transformer并行计算的能力是远远超过seq2seq系列的模型，因此我认为这是transformer优于seq2seq模型的地方。</p>
+</li>
+<li><p>Transformer如何并行化？</p>
+<p>答：Transformer的并行化我认为主要体现在self-attention模块，在Encoder端Transformer可以并行处理整个序列，并得到整个输入序列经过Encoder端的输出，在self-attention模块，对于某个序列$x_{1}, x_{2}, \dots, x_{n}$，self-attention模块可以直接计算$x_{i}, x_{j}$的点乘结果，而RNN系列的模型就必须按照顺序从$x_{1}$计算到$x_{n}$。</p>
+</li>
+<li><p>Transformer和BERT的位置编码的区别？（BERT的输入和transformer有什么不同？）</p>
+<p>答：Transformer固定sin\cos，BERT可学习矩阵。</p>
+</li>
+<li><p>Transformer 中为什么 decoder 比 LSTM 慢？</p>
+<p>答：因为预测的时候Transformer和LSTM是一样的，都得一个一个蹦出来，但是由于Transformer的网络结构复杂，所以预测起来会比LSTM慢很多。</p>
+</li>
+<li><p>Transformer的mask是怎么做的？（Transformer的decorder部分的mask和encorder部分的mask有什么不同？）</p>
+<p>答：在transformer中mask操作其实有两大类。一种是pad-mask(填充遮挡)<em>，</em>用于记录input sequence里哪些位置是padding的，保证模型不会学习padding的东西；另一种是look-ahead mask(前瞻遮挡)，用于遮挡一个序列中的后续标记，换句话说，该mask决定了哪些序列可以被使用。look-ahead mask是在decoder的时候使用的，编码的时候，如果要预测第三个词，只能使用第一个词和第二个词，不能穿越，以此类推。具体三个用到mask的地方列举如下：</p>
+<ul>
+<li>对key中padding进行的mask操作。对key进行mask的操作实际上是在attention的softmax之前的，mask矩阵实际上是对$QK^T$进行的掩码操作，就是把mask矩阵为0的对应的位置替换为负的很大的值，那么对应的attention权重就会趋向于0。</li>
+<li>对query中的padding进行的mask操作。对Q进行的mask操作其实是最简单的了，因为Q也存在padding的位置(1 1 1 1 0 0 0)，在进行一个Multi-Head Attention计算后，就使得原来是0的位置不是0，所以attention输出的这些位置也应该为空，所以只需要在attention计算之后把相应的位置替换为0即可。</li>
+<li>Masked Multi-Head中的mask操作。也是作用于矩阵$QK^T$上，使得每一个单词只能看到在它之前的单词，具体而言就是把矩阵$Q K^{T}=\left[\begin{array}{llll}s_{1} s_{1}^{T} &amp; s_{1} s_{2}^{T} &amp; s_{1} s_{3}^{T} &amp; s_{1} s_{4}^{T} \ s_{2} s_{1}^{T} &amp; s_{2} s_{2}^{T} &amp; s_{2} s_{3}^{T} &amp; s_{2} s_{4}^{T} \ s_{3} s_{1}^{T} &amp; s_{3} s_{2}^{T} &amp; s_{3} s_{3}^{T} &amp; s_{3} s_{4}^{T} \ s_{4} s_{1}^{T} &amp; s_{4} s_{2}^{T} &amp; s_{4} s_{3}^{T} &amp; s_{4} s_{4}^{T}\end{array}\right]$乘以mask矩阵，然后使得右上角的部分变为负的很大的数，然后softmax之后右上角就会变成0，从而形成如下矩阵$\left[\begin{array}{cccc}a_{11} &amp; 0 &amp; 0 &amp; 0 \ a_{21} &amp; a_{22} &amp; 0 &amp; 0 \ a_{31} &amp; a_{32} &amp; a_{33} &amp; 0 \ a_{41} &amp; a_{42} &amp; a_{43} &amp; a_{44}\end{array}\right]$。</li>
+</ul>
+</li>
+<li><p>Transformer在训练过程中有哪些可以调整的超参？</p>
+<p>答：学习率、最大长度、注意力头的个数、隐藏层大小等。</p>
+</li>
+<li><p>Transfomer的Decoder的输入中shifted right是什么意思？输入具体是什么？</p>
+<p>答：将target sequence向右移动一个单位，名曰shift right，目的是因为每次使用真实的word来预测下一个step的word，然后第一个单位添0，似乎第一个补的就是<code>[CLS]</code>。</p>
+</li>
+<li><p>Transformer的中的attention机制，其中self-attention和encoder-decoder attention之间的关系？attention的具体实现。</p>
+<p>答：Encoder部分的attention就是个self-attention，QKV都是由同一输入计算得到；encoder-decoder attention部分的attention，Q是Decoder第一子部分的输出，KV是Encoder最后一层的输出。</p>
+</li>
+<li><p>Transformer中的前馈神经网络的构建的两种方式有什么区别（一个传统的FFNN，一个是基于卷积的）</p>
+<p>答：这个没听说过…暂时存疑</p>
+</li>
+<li><p>介绍一下Universal transformer相比于Transformer做了哪些改进，有什么不足？</p>
+<p>答：第一点，在transformer中，block的层数是固定的（base是6层），universal transformer则通过递归函数使得层数不再固定，可以是任意。这种做法综合了transformer的优点，同时又具备RNN的Recurrent Inductive Bias，并且在理论上做到了图灵完备。第二点是加入了dynamic halting: 基于自适应时间算法(Adaptive Computation Time, ACT) 。有了dynamic halting，在编码“I arrived at the bank after crossing the river”, 对于”river”编码的递归次数会变少；对于“bank”的编码递归次数会相应更多。示意图如下。</p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="../../../%E9%9D%A2%E8%AF%95%E9%A2%98/6.gif" alt=""></p>
+</li>
+<li><p>Transformer-XL的特点是什么，优势是什么？</p>
+<p>答：在Transformer中，理论上，基于attention机制可以让transformer捕获任意长度的依赖，然而由于资源有限， Transformer 通常会将语料分割为几百个字符的固定长度的片段，每个片段（segment）之间相互独立，独立处理，这样会导致两个问题：①能建模的依赖关系不会超过segment的长度；②会导致context fragmentation（上下文碎片化）：因为分片并不是根据语义边界，而是根据长度划分，很有可能会将一个完整的句子分割，那么在预测一个segment的前几个token的时候，很可能缺乏必要的语义信息。</p>
+<p>在transformer-XL中，上一个时刻的segment的representation会被保存下来，并作为下一个segment的扩展上下文，整个过程类似于RNN。由此，可以捕获的最大依赖项长度增加了N倍（N是网络深度）；同时Recurrence使得编码当前segment时，仍然可以利用之前segment的信息，从而解决了context fragmentation问题。</p>
+<p>但是如果只有Segment-level Recurrence，那么位置编码将会出现问题，于是引入了相对位置编码Relative Positional Encodeing。<a href="https://akeeper.space/blog/701.html" target="_blank" rel="noopener">https://akeeper.space/blog/701.html</a>，这篇文章里有详细介绍。</p>
+</li>
+<li><p>Dropout 有什么作用？在 Transformer 模型中 dropout 主要用在哪里？</p>
+<p>答：类似于 Bagging 。dropout 在每个子层之间，设置为 0.1。</p>
+</li>
+<li><p>Transformer 用的 Layer Normalize 还是 Batch Normalize？为什么要用LayerNorm？有什么区别？</p>
+<p>答：LayerNorm，归一化的目的都是为了让模型减少过拟合。知乎有个帖子进行了讨论，<a href="https://www.zhihu.com/question/395811291" target="_blank" rel="noopener">https://www.zhihu.com/question/395811291</a>。</p>
+</li>
+<li><p>Transformer中warm-up和LayerNorm的重要性？</p>
+<p>答：见知乎讨论，<a href="https://zhuanlan.zhihu.com/p/84614490" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/84614490</a>。</p>
+</li>
+<li><p>手写一个Transformer！</p>
+<p>答：先从主要框架写起，写了 encoder 中的 self attention，写了 layer normalization， 写了残差结构，写了 fc 层。然后写了 decoder 中的 self attention，和 encoder 的输出做 self attention，最后再过一个 softmax。源码实现可以看<a href="https://zhuanlan.zhihu.com/p/149766082" target="_blank" rel="noopener">这里</a>。</p>
+</li>
+</ul>
+<h3><span id="attention">Attention</span></h3><ul>
+<li><p>普通attention的原理是什么？</p>
+<p>答：QKV，一句话，从关注全局到关注重点。注意力机制可以分为三步：一是信息输入；二是计算注意力分布α；三是根据注意力分布α 来计算输入信息的加权平均。</p>
+</li>
+<li><p>Seq2seq attention是如何实现的？</p>
+<p>答：见第一部分。</p>
+</li>
+<li><p>self-attention 到底比seq2seq的attention优越在哪里？</p>
+<p>答：首先从普通seq2seq到seq2seq的attention的改进是，普通seq2seqEncoder将输入句压缩成固定长度的context vector会损失很多语义。</p>
+<p>但是seq2seq的attention的缺点是，①context vector计算的是输入句、目标句间的关联，却忽略了输入句中文字间的关联，和目标句中文字间的关联性；②不管是Seq2seq或是Attention model，其中使用的都是RNN，RNN的缺点就是无法并行化处理，导致模型训练的时间很长。</p>
+<p>于是self-attention舍弃了RNN、CNN的架构，用multi-head attention来解决<strong>并行化</strong>和计算复杂度过高的问题，<strong>长距离依赖</strong>关系也能透过self-attention中词语与词语比较时，长度只有1的方式来克服。</p>
+</li>
+<li><p>Attention有什么优缺点？</p>
+<p>答：优点：</p>
+<ul>
+<li>一步到位获取全局与局部的联系，不会像RNN网络那样对长期依赖的捕捉会收到序列长度的限制。</li>
+<li>每步的结果不依赖于上一步，可以做成并行的模式。</li>
+<li>相比CNN与RNN，参数少，模型复杂度低。(根据attention实现方式不同，复杂度不一）</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>没法捕捉位置信息，即没法学习序列中的顺序关系。这点可以通过加入位置信息，如通过位置向量来改善，具体可以参考最近大火的BERT模型。</li>
+</ul>
+</li>
+<li><p>self-attention的原理是什么？（self-attention的作用和功能？加不加self-attention在计算效率上有什么不同？）</p>
+<p>答：self-attention，也叫 intra-attention，是一种通过自身和自身相关联的attention机制，从而得到一个更好的 representation 来表达自身，self-attention可以看成一般attention的一种特殊情况。attention的求解可以看做一个软寻址的过程，在self-attention中，Q=K=V，序列中的每个单词(token)和该序列中其余单词(token)进行attention计算。self-attention的特点在于<strong>无视词(token)之间的距离直接计算依赖关系，从而能够学习到序列的内部结构</strong>。除此外，Self Attention对于增加计算的并行性也有直接帮助作用。这是为何Self Attention逐渐被广泛使用的主要原因。</p>
+</li>
+<li><p>Multi-head attention的原理？为什么用多头？</p>
+<p>答：Multi-head在实现的时候实际上是把$d_{model} \times d_{model}$维的矩阵，拆成$d_{model} \times num_{heads} \times d_k$的矩阵。</p>
+<ul>
+<li>MultiHead就是把n组$softmax(\frac{QK^T}{\sqrt{d_k}})V$的输出向量做拼接，每组随机初始化，能学到n种不同的attention组合。</li>
+<li>多头的原因是单个attention获取到的信息有限，而我们需要提取多重意义的含义（比如在不同场景下表达不同意思）。其实就是相当于一个集成作用，和CNN使用多个通道卷积效果类似。论文中说到这样的好处是可以允许模型在不同的表示子空间里学习到相关的信息，后面还会根据attention可视化来验证。</li>
+</ul>
+</li>
+<li><p>self-attention为什么要使用Q、K、V，仅仅使用Q、V/K、V或者V为什么不行？</p>
+<p>答：首先肯定参数越多模型的表达能力越好；其次self-attention的范围是包括自身的，因此至少是要采用QV或者KV的形式的，而“询问式”的attention方式，直观上感觉QKV更合理。</p>
+</li>
+<li><p>soft attention / hard attention的定义和区别？</p>
+<p>答：简单说就是Soft Attention打分之后分配的权重取值在0到1之间，而Hard Attention取值为0或者1。</p>
+<ul>
+<li>传统的Attention Mechanism就是Soft Attention,即通过确定性的得分计算来得到attended之后的编码隐状态。Soft Attention是参数化的（Parameterization），因此可导，可以被嵌入到模型中去，直接训练。梯度可以经过Attention Mechanism模块，反向传播到模型其他部分。软性注意力机制有两种：普通模式（Key=Value=X）和键值对模式（Key！=Value）。</li>
+<li>相反，Hard Attention是一个随机的过程。Hard Attention不会选择整个encoder的隐层输出做为其输入，Hard Attention会依概率Si来采样输入端的隐状态一部分来进行计算，而不是整个encoder的隐状态。为了实现梯度的反向传播，需要采用蒙特卡洛采样的方法来估计模块的梯度。换句话说，Hard Attention只关注到某一个位置上的信息，有两种实现方式：（1）一种是选取最高概率的输入信息；（2）另一种硬性注意力可以通过在注意力分布式上随机采样的方式实现。</li>
+</ul>
+</li>
+<li><p>Gobal attention / local attention的定义和区别？</p>
+<p>答：来自于论文《Effective Approaches to Attention-based Neural Machine Translation》。可以看这篇文章，<a href="https://zhuanlan.zhihu.com/p/80692530" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/80692530</a>。</p>
+<ul>
+<li>所有的<code>hidden state</code>都被用于计算<code>Context vector</code> 的权重，即变长的对齐向量at，其长度等于encoder端输入句子的长度。在t时刻，首先基于decoder的隐状态htht和源端的隐状态hs，计算一个变长的隐对齐权值向量at，之后通过加权平均的方式，得到上下文向量ct。Global Attention有一个明显的缺点就是，每一次，encoder端的所有hidden state都要参与计算，这样做计算开销会比较大，特别是当encoder的句子偏长，比如，一段话或者一篇文章，效率偏低。因此，为了提高效率，Local Attention应运而生。</li>
+<li>Local Attention是一种介于Soft Attention和Hard Attention之间的一种Attention方式，即把两种方式结合起来。因为它的计算复杂度要低于 global attention、soft attention，而且与 hard attention 不同的是，local attention 几乎处处可微，易与训练。local attention选择了部分的encoder时刻用来做注意力模型，时刻的选择方法有两种，一种是假设翻译过程两种语言词的顺序是基本一致的，那么就在encoder上选择与decoder正在预测单词的相同位置为中心的一段数据建立注意力模型，另一种方法是通过decoder当前输出的隐变量预测一个encoder位置（即当前翻译的词对应在被翻译语句中词的位置），然后以该位置去一段数据。可以总结为，根据一个预测函数，先预测当前解码时要对齐的源语言端的位置Pt，然后通过上下文窗口，仅考虑窗口内的词。</li>
+<li>总之，Global Attention和Local Attention各有优劣，在实际应用中，Global Attention应用更普遍，因为local Attention需要预测一个位置向量p，这就带来两个问题：1、当encoder句子不是很长时，相对Global Attention，计算量并没有明显减小。2、位置向量pt的预测并不非常准确，这就直接计算的到的local Attention的准确率。</li>
+</ul>
+</li>
+<li><p>谈谈 Soft Attention，Attention 中需要先线性变换么？</p>
+<p>答：需要。通过初始化不同的线性映射矩阵，使得不同的 Attention 能够聚焦在不同的位置，保证最后输出的多个表征具有多方面的自注意力信息。</p>
+</li>
+<li><p>Transformer用的是哪种attention机制？</p>
+<p>答：Self-attetion、encoder-decoder attetion。Transformer部分的问题里有。</p>
+</li>
+<li><p>self-attention公式中的归一化有什么作用？（缩放点积的意义？）</p>
+<p>答：首先说明做归一化的原因，随着$d_k$的增大，$q \cdot k$点积后的结果也随之增大，这样会将softmax函数推入梯度非常小的区域，使得收敛困难(可能出现梯度消失的情况)。为了说明点积变大的原因，假设$q$和$k$的分量是具有均值0和方差1的独立随机变量，那么它们的点积$q \cdot k=\sum_{i=1}^{d_k} q_{i} k_{i}$均值为0，方差为$d_k$，因此为了抵消这种影响，我们将点积缩放$\frac{1}{\sqrt{d_{k}}}$。论文中解释是：向量的点积结果会很大，将softmax函数push到梯度很小的区域，scaled会缓解这种现象，加快收敛速度。</p>
+</li>
+<li><p>$d_k$为什么要开根号？</p>
+<p>答：因为原文假设数据符合标准正态分布，为了使点乘结果的方差为1，所以使用了根号。</p>
+</li>
+<li><p>ELMo为什么不用attention？</p>
+<p>答：ELMo用的是LSTM，对上下文信息 (contextual information)的利用相对有限，而且 ELMo 只能是一层双向，并不能使用多层。</p>
+</li>
+<li><p>常用的Attention计算相似度方式有哪些，写一下公式？</p>
+<p>答：很多种，比如：</p>
+<ul>
+<li><p>多层感知机。该方法主要是将Q,K拼接，然后一起通过一个激活函数为<code>tanh</code>的全连接层，再跟权重矩阵做乘积，在数据量够大的情况下，该方法一般来说效果都不错。<script type="math/tex">Attention(Q,K)=w_2^Ttanh(W_1[Q;K])</script></p>
+</li>
+<li><p>点乘Dot Product / scaled-dot Product。该方法适用于query与key维度相同情景，通过q转置后与k点积。在权重值过大的情况下，可以将数据标准化，即scaled-dot Product。</p>
+<script type="math/tex; mode=display">Attention(Q,K)=Q^TK</script></li>
+<li><p>Bilinear。通过一个权重矩阵直接建立query与key的关系，权重矩阵可以随机初始化也可以使用预设的。</p>
+<script type="math/tex; mode=display">Attention(Q,K)=Q^TWK</script></li>
+<li><p>cosine余弦相似度。</p>
+<script type="math/tex; mode=display">Attention(Q,K_1)= \frac{Q \cdot K_i}{||Q||||K_i||}</script></li>
+</ul>
+</li>
+<li><p>了不了解GAT，它和Attention有什么关系？</p>
+<p>答：GAT是图注意力网络，是早期的Attention技术中的Local Attention的一种特殊形式。</p>
+</li>
+<li><p>用了attention和没用attention时候的对应的隐状态在哪些地方有区别？</p>
+<p>答：用了attention的话，每个隐状态包含全局的信息；没用的话，只包含前面单向传过来的信息。</p>
+</li>
+<li><p>Self-attention为了防止过拟合采用了什么措施？里面FFN层的含义是什么？</p>
+<p>答：</p>
+<ol>
+<li>Residual Connection. 残差连接主要是为了加强深层网络的表达效果。一般而言，在一定范围内，神经网络层数越深，其拟合效果越好。然而，当神经网络达到一个最佳层数时， 随着层数的增加，其拟合效果会逐渐下降。于是residual connection应运而生，假设最佳层数为i层，此时的输出为 $x_i$，为了得到最佳的拟合效果，应该保证$x_i$在经过后续网络层后的输出不变，假设其后一层为$layer_{i+1}$，其输出 $x_{i+1} = layer_{i+1}(x_i)$，如果$x_{i+1}=0$的话，$x_{i+1}+x_i=x_i$，这样即可满足要求。residual connection的基本思想即是将每层的输入与输出相加，$y=f(x)+x$，这样当x已经达到最佳时，如果模型后续能够学习到输出近似为0的层，则可保证模型达到最佳状态</li>
+<li>Layer Normalization. 层正则化能起到与批正则化（BN）相同的效果，加速收敛、防止过拟合等，然而BN存在以下缺陷：a. 需要调节batch_size大小；b. 内部需要维护每个时间步的均值、方差等统计信息，以便对未知数据进行正则化；c. 计算量较大。而LN在每个sample中横向进行标准化，可以解决BN存在的上述问题</li>
+<li>Label Smooth. 在输出的概率分布中加入噪声，是一种防止过拟合的措施。</li>
+</ol>
+</li>
+<li><p>目前主流的attention方法都有哪些？attention最近几年的变形？有哪几种attention机制？（例如Hierarchical Attention，讲讲）</p>
+<p>答：参考<a href="https://www.zhihu.com/question/68482809" target="_blank" rel="noopener">https://www.zhihu.com/question/68482809</a>，目前已经有多亮的attention的论文<a href="https://github.com/yuquanle/Attention-Mechanisms-paper/blob/master/Attention-mechanisms-paper.md" target="_blank" rel="noopener">https://github.com/yuquanle/Attention-Mechanisms-paper/blob/master/Attention-mechanisms-paper.md</a>。</p>
+<ul>
+<li>通常的注意力可以理解为是soft attention，其选择的信息是所有输入信息在注意力 分布下的期望。</li>
+<li>Hard attention，只关注到某一个位置上的信息。</li>
+<li>Key-Value pair attention，在NLP里面一般Key==Value，如果Key!=Value就叫键值对。</li>
+<li>Multi-Head attention，利用多个查询Q = [q1, · · · , qM]，来平行地计算从输入信息中选取多个信息。每个注意力关注输入信息的不同部分，然后再进行拼接。</li>
+</ul>
+</li>
+<li><p>手写一个Self-Attention | Multi-Head-Attention！</p>
+<p>答：先写QKV，然后写缩放点积（为了避免数值过大，落在 softmax 的饱和区域），再取 softmax，作为权重和 V 相乘。</p>
+</li>
+</ul>
 <h2><span id="参考文献">参考文献</span></h2><ol>
 <li>Attention机制详解（一）——Seq2Seq中的Attention：<a href="https://zhuanlan.zhihu.com/p/47063917" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/47063917</a></li>
 <li>Attention机制详解（二）——Self-Attention与Transformer：<a href="https://zhuanlan.zhihu.com/p/47282410" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/47282410</a></li>
@@ -231,7 +429,7 @@
 <li>jalammar.github.io：<a href="https://jalammar.github.io/illustrated-transformer/" target="_blank" rel="noopener">https://jalammar.github.io/illustrated-transformer/</a></li>
 <li>图解Transformer（完整版）：<a href="https://mp.weixin.qq.com/s?__biz=MzU2OTA0NzE2NA==&amp;mid=2247539981&amp;idx=7&amp;sn=07b00654c6f38d743a91b39d33d68d6a&amp;chksm=fc86bc1ecbf135087d885408704ff90c95562c00108bcad7ded93fb468edd6534010e709299f&amp;scene=0&amp;xtrack=1#rd" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzU2OTA0NzE2NA==&amp;mid=2247539981&amp;idx=7&amp;sn=07b00654c6f38d743a91b39d33d68d6a&amp;chksm=fc86bc1ecbf135087d885408704ff90c95562c00108bcad7ded93fb468edd6534010e709299f&amp;scene=0&amp;xtrack=1#rd</a></li>
 <li>NLPer看过来，一些关于Transformer的问题整理：<a href="https://www.nowcoder.com/discuss/258321?type=post&amp;order=time&amp;pos=&amp;page=1&amp;channel=1009&amp;source_id=search_post" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/258321?type=post&amp;order=time&amp;pos=&amp;page=1&amp;channel=1009&amp;source_id=search_post</a></li>
-<li>一文看懂 Attention（本质原理+3大优点+5大类型）：<a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#x6f;&#x3a;&#x68;&#116;&#116;&#112;&#x73;&#x3a;&#47;&#47;&#109;&#101;&#100;&#105;&#117;&#109;&#46;&#x63;&#x6f;&#x6d;&#47;&#x40;&#112;&#x6b;&#x71;&#x69;&#97;&#110;&#x67;&#52;&#57;&#x2f;&#37;&#x45;&#52;&#37;&#66;&#x38;&#37;&#x38;&#48;&#x25;&#69;&#54;&#37;&#57;&#54;&#37;&#56;&#x37;&#37;&#69;&#x37;&#37;&#57;&#67;&#37;&#56;&#66;&#37;&#x45;&#x36;&#x25;&#x38;&#x37;&#x25;&#x38;&#50;&#45;&#x61;&#116;&#116;&#101;&#110;&#116;&#x69;&#111;&#110;&#x2d;&#x25;&#69;&#54;&#37;&#57;&#67;&#37;&#x41;&#67;&#37;&#69;&#x38;&#37;&#x42;&#x34;&#37;&#65;&#x38;&#x25;&#69;&#x35;&#x25;&#56;&#69;&#x25;&#x39;&#70;&#37;&#x45;&#55;&#x25;&#x39;&#48;&#37;&#56;&#54;&#45;&#51;&#37;&#x45;&#x35;&#37;&#65;&#x34;&#x25;&#x41;&#x37;&#37;&#x45;&#52;&#x25;&#x42;&#x43;&#37;&#57;&#56;&#x25;&#x45;&#x37;&#37;&#x38;&#x32;&#37;&#66;&#x39;&#45;&#x35;&#37;&#69;&#53;&#x25;&#x41;&#52;&#37;&#65;&#55;&#37;&#69;&#x37;&#x25;&#66;&#49;&#37;&#66;&#x42;&#x25;&#69;&#53;&#37;&#x39;&#69;&#37;&#x38;&#x42;&#x2d;&#101;&#52;&#102;&#98;&#101;&#x34;&#98;&#x36;&#100;&#x30;&#x33;&#x30;">&#x68;&#116;&#116;&#112;&#x73;&#x3a;&#47;&#47;&#109;&#101;&#100;&#105;&#117;&#109;&#46;&#x63;&#x6f;&#x6d;&#47;&#x40;&#112;&#x6b;&#x71;&#x69;&#97;&#110;&#x67;&#52;&#57;&#x2f;&#37;&#x45;&#52;&#37;&#66;&#x38;&#37;&#x38;&#48;&#x25;&#69;&#54;&#37;&#57;&#54;&#37;&#56;&#x37;&#37;&#69;&#x37;&#37;&#57;&#67;&#37;&#56;&#66;&#37;&#x45;&#x36;&#x25;&#x38;&#x37;&#x25;&#x38;&#50;&#45;&#x61;&#116;&#116;&#101;&#110;&#116;&#x69;&#111;&#110;&#x2d;&#x25;&#69;&#54;&#37;&#57;&#67;&#37;&#x41;&#67;&#37;&#69;&#x38;&#37;&#x42;&#x34;&#37;&#65;&#x38;&#x25;&#69;&#x35;&#x25;&#56;&#69;&#x25;&#x39;&#70;&#37;&#x45;&#55;&#x25;&#x39;&#48;&#37;&#56;&#54;&#45;&#51;&#37;&#x45;&#x35;&#37;&#65;&#x34;&#x25;&#x41;&#x37;&#37;&#x45;&#52;&#x25;&#x42;&#x43;&#37;&#57;&#56;&#x25;&#x45;&#x37;&#37;&#x38;&#x32;&#37;&#66;&#x39;&#45;&#x35;&#37;&#69;&#53;&#x25;&#x41;&#52;&#37;&#65;&#55;&#37;&#69;&#x37;&#x25;&#66;&#49;&#37;&#66;&#x42;&#x25;&#69;&#53;&#37;&#x39;&#69;&#37;&#x38;&#x42;&#x2d;&#101;&#52;&#102;&#98;&#101;&#x34;&#98;&#x36;&#100;&#x30;&#x33;&#x30;</a></li>
+<li>一文看懂 Attention（本质原理+3大优点+5大类型）：<a href="&#x6d;&#x61;&#105;&#108;&#x74;&#x6f;&#58;&#104;&#116;&#x74;&#x70;&#x73;&#x3a;&#47;&#x2f;&#x6d;&#101;&#100;&#105;&#x75;&#x6d;&#46;&#x63;&#x6f;&#x6d;&#x2f;&#64;&#112;&#x6b;&#113;&#105;&#x61;&#x6e;&#103;&#x34;&#57;&#x2f;&#37;&#x45;&#x34;&#37;&#x42;&#x38;&#x25;&#x38;&#48;&#x25;&#69;&#54;&#37;&#57;&#x36;&#x25;&#x38;&#55;&#x25;&#69;&#x37;&#37;&#57;&#x43;&#37;&#x38;&#x42;&#x25;&#x45;&#x36;&#37;&#56;&#55;&#37;&#x38;&#x32;&#45;&#x61;&#x74;&#x74;&#101;&#110;&#x74;&#x69;&#x6f;&#110;&#x2d;&#37;&#69;&#x36;&#x25;&#57;&#67;&#37;&#65;&#67;&#x25;&#69;&#x38;&#x25;&#66;&#52;&#37;&#65;&#56;&#x25;&#x45;&#53;&#37;&#x38;&#69;&#x25;&#57;&#x46;&#x25;&#69;&#55;&#37;&#x39;&#x30;&#x25;&#56;&#54;&#45;&#x33;&#37;&#x45;&#x35;&#37;&#65;&#x34;&#x25;&#x41;&#x37;&#37;&#x45;&#52;&#37;&#x42;&#67;&#x25;&#57;&#56;&#x25;&#69;&#x37;&#37;&#56;&#50;&#x25;&#66;&#57;&#x2d;&#x35;&#x25;&#69;&#x35;&#x25;&#x41;&#x34;&#37;&#x41;&#55;&#x25;&#69;&#x37;&#x25;&#66;&#49;&#37;&#66;&#x42;&#37;&#69;&#x35;&#37;&#57;&#69;&#37;&#x38;&#66;&#x2d;&#101;&#x34;&#x66;&#98;&#x65;&#52;&#x62;&#54;&#100;&#48;&#x33;&#48;">&#104;&#116;&#x74;&#x70;&#x73;&#x3a;&#47;&#x2f;&#x6d;&#101;&#100;&#105;&#x75;&#x6d;&#46;&#x63;&#x6f;&#x6d;&#x2f;&#64;&#112;&#x6b;&#113;&#105;&#x61;&#x6e;&#103;&#x34;&#57;&#x2f;&#37;&#x45;&#x34;&#37;&#x42;&#x38;&#x25;&#x38;&#48;&#x25;&#69;&#54;&#37;&#57;&#x36;&#x25;&#x38;&#55;&#x25;&#69;&#x37;&#37;&#57;&#x43;&#37;&#x38;&#x42;&#x25;&#x45;&#x36;&#37;&#56;&#55;&#37;&#x38;&#x32;&#45;&#x61;&#x74;&#x74;&#101;&#110;&#x74;&#x69;&#x6f;&#110;&#x2d;&#37;&#69;&#x36;&#x25;&#57;&#67;&#37;&#65;&#67;&#x25;&#69;&#x38;&#x25;&#66;&#52;&#37;&#65;&#56;&#x25;&#x45;&#53;&#37;&#x38;&#69;&#x25;&#57;&#x46;&#x25;&#69;&#55;&#37;&#x39;&#x30;&#x25;&#56;&#54;&#45;&#x33;&#37;&#x45;&#x35;&#37;&#65;&#x34;&#x25;&#x41;&#x37;&#37;&#x45;&#52;&#37;&#x42;&#67;&#x25;&#57;&#56;&#x25;&#69;&#x37;&#37;&#56;&#50;&#x25;&#66;&#57;&#x2d;&#x35;&#x25;&#69;&#x35;&#x25;&#x41;&#x34;&#37;&#x41;&#55;&#x25;&#69;&#x37;&#x25;&#66;&#49;&#37;&#66;&#x42;&#37;&#69;&#x35;&#37;&#57;&#69;&#37;&#x38;&#66;&#x2d;&#101;&#x34;&#x66;&#98;&#x65;&#52;&#x62;&#54;&#100;&#48;&#x33;&#48;</a></li>
 <li>碎碎念：Transformer的解码加速：<a href="https://zhuanlan.zhihu.com/p/75796168" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/75796168</a></li>
 <li>Transformer的矩阵维度分析和Mask详解：<a href="https://blog.csdn.net/qq_35169059/article/details/101678207" target="_blank" rel="noopener">https://blog.csdn.net/qq_35169059/article/details/101678207</a></li>
 <li>Transformer源码剖析：<a href="https://zhuanlan.zhihu.com/p/149766082" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/149766082</a></li>
